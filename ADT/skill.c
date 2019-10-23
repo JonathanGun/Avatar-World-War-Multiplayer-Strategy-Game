@@ -1,9 +1,8 @@
-/* File: skill.h */
+/* File: skill.c */
 /* Definisi ADT Skill */
 
 #include <stdio.h>
 #include "skill.h"
-#include "queue.c"
 
 void startSkill(Queue *Skill)
 /* Kondisi Awal yaitu mempunyai Queue dengan skill Instant Upgrade */
