@@ -9,9 +9,14 @@
 #include "queue.h"
 #include <stdio.h>
 
+/* *** Add/Delete Skill *** */
 void startSkill(Queue *Skill);
 /* Kondisi Awal yaitu mempunyai Queue dengan skill Instant Upgrade */
 
+void useSkill(Queue Skill);
+/* Menggunakan Skill sesuai Head dari queue*/
+
+/****************** PROSES SKILL ******************/
 void printSkill(Queue Skill);
 /* Mengeprint Skill di bagian Head Queue*/
 
