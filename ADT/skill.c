@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "skill.h"
 
+/* *** Add/Delete Skill *** */
 void startSkill(Queue *Skill)
 /* Kondisi Awal yaitu mempunyai Queue dengan skill Instant Upgrade */
 {
@@ -11,6 +12,35 @@ void startSkill(Queue *Skill)
     Add(Skill,1); //1 sebagai IU(instant Upgrade)
 }
 
+void useSkill(Queue Skill)
+/* Menggunakan Skill sesuai Head dari queue*/
+{
+    int x;
+    Del(&Skill, &x);
+    if(x == 1){         //Using IU
+        useIU;
+    }
+    else if (x ==2){    //Using Shield
+        useShield;
+    }
+    else if (x == 3){   //Using Extra Turn
+        useExtraTurn;
+    }
+    else if (x == 4){   //Using Attack Up
+        useAttackUp;
+    }
+    else if (x == 5){   //Using Critical Hit
+        useCriticalHit;
+    }
+    else if (x == 6){   //Using Instant Reinforcement
+        useInstantReinforcement;
+    }
+    else if (x == 7){   //Using Barrage
+        useBarrage;
+    }
+}
+
+/****************** PROSES SKILL ******************/
 void printSkill(Queue Skill)
 /* Mengeprint Skill di bagian Head Queue*/
 {
@@ -44,34 +74,6 @@ void printSkill(Queue Skill)
             printf("Barrage");
         }
         Add(&Skill,x);
-    }
-}
-
-void useSkill(Queue Skill)
-/* Menggunakan Skill sesuai Head dari queue*/
-{
-    int x;
-    Del(&Skill, &x);
-    if(x == 1){         //Using IU
-        useIU;
-    }
-    else if (x ==2){    //Using Shield
-        useShield;
-    }
-    else if (x == 3){   //Using Extra Turn
-        useExtraTurn;
-    }
-    else if (x == 4){   //Using Attack Up
-        useAttackUp;
-    }
-    else if (x == 5){   //Using Critical Hit
-        useCriticalHit;
-    }
-    else if (x == 6){   //Using Instant Reinforcement
-        useInstantReinforcement;
-    }
-    else if (x == 7){   //Using Barrage
-        useBarrage;
     }
 }
 

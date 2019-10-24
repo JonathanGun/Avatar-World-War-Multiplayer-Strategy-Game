@@ -17,5 +17,11 @@ typedef struct {
 #define Skill(P)    (P).Skill
 #define Bangunan(P)    (P).Bangunan
 
+void startTurn(Player P);
+/* Digunakan ketika startTurn seorang Player untuk menambahkan pasukan setiap bangunan yang dimiliki player s*/
+
+void printDaftarbangunan(Player P);
+/* Menampilkan Daftar bangunan yang dimiliki Player */
+
 #endif
 
