@@ -7,11 +7,12 @@
 #include "boolean.h"
 #include "skill.h"
 #include "bangunan.h"
+#include "listbangunan.h"
 #include <stdio.h>
 
 typedef struct {
 	Queue Skill; /* Skill yang dimiliki player */
-	Bangunan X;
+	ListBangunan X;
 } Player;
 
 #define Skill(P)    (P).Skill
