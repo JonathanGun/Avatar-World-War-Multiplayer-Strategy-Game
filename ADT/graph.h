@@ -6,13 +6,11 @@
 #define GRAPH_H
 
 #include "boolean.h"
-#include "point.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 typedef struct {
 	int ID; /* ID dari suatu graph */
-	POINT Koor; /* koordinat */
     int *Relasi; /*List relasi ke ID lainnya*/
     int NbRelasi; /* Banyaknya relasi */
 } GRAPH;
@@ -23,25 +21,29 @@ typedef struct {
 } MGRAPH;
 
 /* Primitive selektor */
-#define KoorX(G)    (G).Koor.X
-#define KoorY(G)    (G).Koor.Y
 #define Relasi(G,i) (G).Relasi[i]
 #define ID(G)       (G).ID
 #define NbRelasi(G) (G).NbRelasi
 #define Graph(MG,i) (MG).TG[i]
 #define NbGraph(MG) (MG).NbGRAPH
 /* Definisi tipe data GRAPH: memiliki ID ( dalam matriks baris ) dan relasinya ( dalam matriks kolom ) ke ID lainnya.
- indeks dari suatu GRAPH adalah titiknya dalam map.
  Bila terdapat 2 graph dan GRAPH A memiliki relasi ke GRAPH B maka pasti GRAPH B memiliki relasi ke GRAPH A */
 
 /* ----- KONSTRUKTOR ----- */
-GRAPH MakeGRAPH(int ID, int NbRelasi, int x, int y);
+GRAPH MakeGRAPH(int ID, int NbRelasi);
 /*Membuat Graph dengan banyak relasi sejumlah banyaknya elemen*/
 /*Relasi GRAPH kosong*/
 /*Koordinat GRAPH adalah A */
-
 MGRAPH MakeMGRAPH(int NbGraph);
 /* Membuat matrix of GRAPH kosong */
+void Dealokasi(MGRAPH *MG);
+/* Mengembalikan array eksplisit Relasi dan TabGraph ke sistem */
+void CreateMGRAPH(MGRAPH *MG);
+/* I.S. Matrix of Graph terdefinisi */
+/*Membuat matrix of GRAPH dan mengisinya */
+void CorrectMGRAPH(MGRAPH  *MG);
+/* Membetulkan Matrix of Graph , yaitu misalnya ada relasi G1 ke G2 tapi tidak ada sebaliknya, */
+/* maka relasi G2 ke G1 akan dikoreksi menjadi 1 */
 
 /* ----- INTERAKSI IN/ OUT DEVICE ----- */
 void BacaRelasi (GRAPH *G);
@@ -61,15 +63,18 @@ void TulisGRAPH (GRAPH G);
    GRAPH tidak mungkin memiliki relasi ke dirinya sendiri*/
 void TulisMGRAPH(MGRAPH MG);
 /* Menulis matriks graph secara keseluruhan */
-void Dealokasi(MGRAPH *MG);
-/* Mengembalikan array eksplisit Relasi dan TabGraph ke sistem */
+void TulisRelasi(MGRAPH MG);
+/* Menuliskan relasi antar mgraph secara simple */
+/* contoh : Relasi bangunan 1 : 13, 14 */
+/*          Relasi bangunan 2 : 15, 1, 6, 7 */
+/*          dst */
 
 /* ----- OPERATOR BOOLEAN ----- */
-boolean IsRelasiValid (GRAPH G, int X);
-/* Menghasilkan true jika masukan 1 <= X <= NRelasi(G) */
+boolean IsRelasiValid (int X);
+/* Menghasilkan true jika masukan X = 0 atau X = 1 */
 boolean IsRelated (GRAPH G1,GRAPH G2);
 /* Menghasilkan true GRAPH saling terhubung */
-boolean SearchRelasi (GRAPH G, int X);
+boolean AdaRelasi (GRAPH G, int X);
 /* Menghasilkan true jika relasi graph G ke ID adalah 1*/
 
 #endif
