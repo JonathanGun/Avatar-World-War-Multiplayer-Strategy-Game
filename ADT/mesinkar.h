@@ -26,4 +26,8 @@ void ADV();
           CC mungkin = MARK
           Jika  CC = MARK maka EOP akan menyala (true) */
 
+
+void IgnoreLine();
+/* Mengabaikan satu line */
+
 #endif

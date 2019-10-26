@@ -1,0 +1,5 @@
+123 4
+512 2
+123.
+gcc drivermbil.c ../ADT/mesinbilangan.c ../ADT/mesinkar.c -o drivermbil.o
+gcc drivergraph.c ../ADT/graph.c ../ADT/mesinbilangan.c ../ADT/mesinkar.c -o drivergraph.o

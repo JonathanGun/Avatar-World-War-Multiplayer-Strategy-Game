@@ -8,6 +8,7 @@
 #include "boolean.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "mesinkata.h"
 
 typedef struct {
 	int ID; /* ID dari suatu graph */
@@ -21,11 +22,11 @@ typedef struct {
 } MGRAPH;
 
 /* Primitive selektor */
-#define Relasi(G,i) (G).Relasi[i]
-#define ID(G)       (G).ID
-#define NbRelasi(G) (G).NbRelasi
-#define Graph(MG,i) (MG).TG[i]
-#define NbGraph(MG) (MG).NbGRAPH
+#define Relasi(G,i)         (G).Relasi[i]
+#define ID(G)               (G).ID
+#define NbRelasi(G)         (G).NbRelasi
+#define Graph(MG,i)         (MG).TG[i]
+#define NbGraph(MG)         (MG).NbGRAPH
 /* Definisi tipe data GRAPH: memiliki ID ( dalam matriks baris ) dan relasinya ( dalam matriks kolom ) ke ID lainnya.
  Bila terdapat 2 graph dan GRAPH A memiliki relasi ke GRAPH B maka pasti GRAPH B memiliki relasi ke GRAPH A */
 
@@ -68,6 +69,10 @@ void TulisRelasi(MGRAPH MG);
 /* contoh : Relasi bangunan 1 : 13, 14 */
 /*          Relasi bangunan 2 : 15, 1, 6, 7 */
 /*          dst */
+
+/* ----- MEMBACA DARI FILE ----- */
+MGRAPH BacaFileGRAPH();
+/* Membaca MGRAPH dari suatu file yang kita input nama filenya */
 
 /* ----- OPERATOR BOOLEAN ----- */
 boolean IsRelasiValid (int X);

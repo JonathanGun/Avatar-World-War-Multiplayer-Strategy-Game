@@ -18,7 +18,9 @@ void START() {
           Jika CC = MARK maka EOP akan menyala (true) */
 
     /* Algoritma */
-    pita = fopen("pitakar.txt","r");
+    char str[30];
+    scanf("%s",str);
+    pita = fopen(str,"r");
     ADV();
 }
 
@@ -36,4 +38,12 @@ void ADV() {
     if (EOP) {
        fclose(pita);
     }
+}
+
+
+void IgnoreLine()
+/* Mengabaikan satu line */
+{
+    char ignore[1024];
+    fgets(ignore,sizeof(ignore),pita);
 }

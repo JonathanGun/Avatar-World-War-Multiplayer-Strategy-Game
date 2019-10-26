@@ -3,7 +3,9 @@
 /* *** Definisi ABSTRACT DATA TYPE GRAPH *** */
 
 #include "graph.h"
-
+#include "mesinbilangan.h"
+int CBilangan;
+char CC;
 /* Definisi tipe data GRAPH: memiliki ID ( dalam matriks baris ) dan relasinya ( dalam matriks kolom ) ke ID lainnya.
  indeks dari suatu GRAPH adalah titiknya dalam map.
  Bila terdapat 2 graph dan GRAPH A memiliki relasi ke GRAPH B maka pasti GRAPH B memiliki relasi ke GRAPH A */
@@ -61,10 +63,14 @@ void CorrectMGRAPH(MGRAPH  *MG)
 {
     for(int i = 1 ; i<= NbGraph(*MG) ; i++){
         for(int j = 1 ; j<= NbRelasi(Graph(*MG,i)) ; j++){
-            if(IsRelated(Graph(*MG,i),Graph(*MG,j)) && !IsRelated(Graph(*MG,j),Graph(*MG,i))){
+            if(AdaRelasi(Graph(*MG,i),j)){
                 Relasi(Graph(*MG,j),i) = 1;
             }
+            if(!IsRelasiValid(Relasi(Graph(*MG,i),j))){
+                Relasi(Graph(*MG,i),j) = (Relasi(Graph(*MG,i),j) <= 0) ? 0 : 1; //kalo relasi < 0 berarti 0 , kalo > 1 maka 1
+            }
         }
+        Relasi(Graph(*MG,i),i) = 0;
     }
 }
 
@@ -75,9 +81,6 @@ void BacaRelasi (GRAPH *G)
 {
     for(int i = 1; i<= NbRelasi(*G) ; i++){
         scanf("%d",&Relasi(*G,i));
-        if(!IsRelasiValid(Relasi(*G,i))){
-            Relasi(*G,i) = (Relasi(*G,i) < 0) ? 0 : 1; //kalo relasi < 0 berarti 0 , kalo > 1 maka 1
-        }
     }
 }
 void BacaMGRAPH (MGRAPH *MG)
@@ -87,8 +90,9 @@ void BacaMGRAPH (MGRAPH *MG)
         printf("Tuliskan relasi bangunan ke-%d : ",i);
         Graph(*MG,i) = MakeGRAPH(i,NbGraph(*MG));
         BacaRelasi(&Graph(*MG,i));
-        Relasi(Graph(*MG,i),i) = 0;
     }
+    
+    CorrectMGRAPH(MG);
 }
 void InsertGRAPH(GRAPH G, MGRAPH *MG, int idx)
 /* Menyisipkan GRAPH G ke dalam MGRAPH MG dengan indeks idx */
@@ -144,6 +148,37 @@ void TulisRelasi(MGRAPH MG)
     }
 }
 
+/* ----- MEMBACA DARI FILE ----- */
+MGRAPH BacaFileGRAPH()
+/* Membaca MGRAPH dari suatu file yang kita input nama filenya */
+{
+    int bykrelasi;
+    MGRAPH MG; 
+    STARTBILANGAN(); //menerima masukan user mengenai nama file
+    IgnoreLine();    //mengabaikan line pertama
+    ADVBILANGAN();   //sekarang cbilangan ada di bilangan pertama baris kedua yaitu banyaknya bangunan( banyaknya relasi )
+
+    printf("bykrelasi = %d\n",CBilangan);
+    bykrelasi = CBilangan;
+
+    MG  = MakeMGRAPH(bykrelasi);
+    for(int i = 1; i<=bykrelasi ; i++){
+        IgnoreLine();
+    }//menskip pembacaan kastil, dll dan langsung membaca graph
+    ADVBILANGAN();
+    printf("NBGraph = %d\n",NbGraph(MG));
+    for(int i = 1; i<=NbGraph(MG); i++ ){
+        for(int j = 1; j<= NbGraph(MG) ; j++){
+            Relasi(Graph(MG,i),j) = CBilangan;
+            printf("%d ",CBilangan);
+            ADVBILANGAN();
+        }
+        printf("\n");
+    }
+    Relasi(Graph(MG,1),1) -= 190; // entah kenapa elemen pertama selalu kelebihan sebanyak 190
+    CorrectMGRAPH(&MG);
+    return MG;
+}
 
 /* ----- OPERATOR BOOLEAN ----- */
 boolean IsRelasiValid (int X)
