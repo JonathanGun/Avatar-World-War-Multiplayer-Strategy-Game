@@ -1,7 +1,3 @@
-// Nama/NIM 		: Jonathan Yudi Gunawan/13518084
-// Hari, Tanggal 	: Sabtu, 14 September 2019
-// Topik/Deskripsi 	: Matriks/Matriknya Tuan Yon
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "matriks.h"

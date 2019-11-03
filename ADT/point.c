@@ -1,7 +1,7 @@
 /* File: point.c */
 // NAMA / NIM : Jonathan Yudi GUnawan / 13518084
 /* Tanggal: 28 Agustus 2019 */
-/* *** Definisi ABSTRACT DATA TYPE POINT *** */
+/* *** Definisi ABSTRACT DATA TYPE Point *** */
 #include <stdio.h>
 #include <math.h>
 #include "point.h"
@@ -10,33 +10,33 @@
 #define RAD(deg)	(deg*PI/180)
 
 /* *** DEFINISI PROTOTIPE PRIMITIF *** */
-/* *** Konstruktor membentuk POINT *** */
-POINT MakePOINT (float X, float Y)
-/* Membentuk sebuah POINT dari komponen-komponennya */
+/* *** Konstruktor membentuk Point *** */
+Point MakePoint (int X, int Y)
+/* Membentuk sebuah Point dari komponen-komponennya */
 {
-	POINT P;
+	Point P;
 	Absis(P) = X;
 	Ordinat(P) = Y;
 	return P;
 }
 
 /* *** KELOMPOK Interaksi dengan I/O device, BACA/TULIS  *** */
-void BacaPOINT (POINT * P)
+void BacaPoint (Point * P)
 /* Membaca nilai absis dan ordinat dari keyboard dan membentuk
-   POINT P berdasarkan dari nilai absis dan ordinat tersebut */
+   Point P berdasarkan dari nilai absis dan ordinat tersebut */
 /* Komponen X dan Y dibaca dalam 1 baris, dipisahkan 1 buah spasi */
 /* Contoh: 1 2
-   akan membentuk POINT <1,2> */
+   akan membentuk Point <1,2> */
 /* I.S. Sembarang */
 /* F.S. P terdefinisi */
 {
-	float x, y;
+	int x, y;
     scanf("%f %f", &x, &y);
     Absis(*P) = x;
     Ordinat(*P) = y;
 }
 
-void TulisPOINT (POINT P)
+void TulisPoint (Point P)
 /* Nilai P ditulis ke layar dengan format "(X,Y)"
    tanpa spasi, enter, atau karakter lain di depan, belakang,
    atau di antaranya
@@ -48,14 +48,14 @@ void TulisPOINT (POINT P)
 	printf("(%.2f,%.2f)", Absis(P), Ordinat(P));
 }
 
-/* *** Kelompok operasi relasional terhadap POINT *** */
-boolean EQ (POINT P1, POINT P2)
+/* *** Kelompok operasi relasional terhadap Point *** */
+boolean EQ (Point P1, Point P2)
 /* Mengirimkan true jika P1 = P2 : absis dan ordinatnya sama */
 {
 	return ((Absis(P1) == Absis(P2)) && (Ordinat(P1) == Ordinat(P2)));
 }
 
-boolean NEQ (POINT P1, POINT P2)
+boolean NEQ (Point P1, Point P2)
 /* Mengirimkan true jika P1 tidak sama dengan P2 */
 {
 	return !EQ(P1, P2);
@@ -63,25 +63,25 @@ boolean NEQ (POINT P1, POINT P2)
 
 
 /* *** Kelompok menentukan di mana P berada *** */
-boolean IsOnSbX (POINT P)
+boolean IsOnSbX (Point P)
 /* Menghasilkan true jika P terletak Pada sumbu X */
 {
 	return !Ordinat(P);
 }
 
-boolean IsOnSbY (POINT P)
+boolean IsOnSbY (Point P)
 /* Menghasilkan true jika P terletak pada sumbu Y */
 {
 	return !Absis(P);
 }
 
-boolean IsOrigin (POINT P)
+boolean IsOrigin (Point P)
 /* Menghasilkan true jika P adalah titik origin */
 {
 	return (IsOnSbX(P) && IsOnSbY(P));
 }
 
-int Kuadran (POINT P)
+int Kuadran (Point P)
 /* Menghasilkan kuadran dari P: 1, 2, 3, atau 4 */
 /* Prekondisi : P bukan titik origin, */
 /*              dan P tidak terletak di salah satu sumbu */
@@ -103,21 +103,21 @@ int Kuadran (POINT P)
 
 
 /* *** KELOMPOK OPERASI LAIN TERHADAP TYPE *** */
-POINT NextX (POINT P)
+Point NextX (Point P)
 /* Mengirim salinan P dengan absis ditambah satu */
 {
 	++Absis(P);
 	return P;
 }
 
-POINT NextY (POINT P)
+Point NextY (Point P)
 /* Mengirim salinan P dengan ordinat ditambah satu */
 {
 	++Ordinat(P);
 	return P;
 }
 
-POINT PlusDelta (POINT P, float deltaX, float deltaY)
+Point PlusDelta (Point P, int deltaX, int deltaY)
 /* Mengirim salinan P yang absisnya adalah Absis(P) + deltaX dan ordinatnya adalah Ordinat(P) + deltaY */
 {
 	Absis(P) += deltaX;
@@ -125,7 +125,7 @@ POINT PlusDelta (POINT P, float deltaX, float deltaY)
 	return P;
 }
 
-POINT MirrorOf (POINT P, boolean SbX)
+Point MirrorOf (Point P, boolean SbX)
 /* Menghasilkan salinan P yang dicerminkan terhadap salah satu sumbu */
 /* Jika SbX bernilai true, maka dicerminkan terhadap sumbu X */
 /* Jika SbX bernilai false, maka dicerminkan terhadap sumbu Y */
@@ -140,66 +140,4 @@ POINT MirrorOf (POINT P, boolean SbX)
 		}	
 	}
 	return P;
-}
-
-float Panjang (POINT P1, POINT P2)
-/* Menghitung panjang garis yang dibentuk P1 dan P2 */
-/* Perhatikanlah bahwa di sini spec fungsi kurang baik sebab menyangkut ADT Garis. */
-/* Tuliskan spec fungsi yang lebih tepat. */
-// Jarak Titik P1 ke titik P2//
-{
-	return sqrt((Absis(P1) - Absis(P2)) * (Absis(P1) - Absis(P2)) +
-				(Ordinat(P1) - Ordinat(P2)) * (Ordinat(P1) - Ordinat(P2)));
-}
-
-float Jarak0 (POINT P)
-/* Menghitung jarak P ke (0,0) */
-{
-	POINT Origin;
-	Origin = MakePOINT(0,0);
-	return Panjang(P, Origin);
-}
-
-void Geser (POINT *P, float deltaX, float deltaY)
-/* I.S. P terdefinisi */
-/* F.S. P digeser, absisnya sebesar deltaX dan ordinatnya sebesar deltaY */
-{
-	*P = PlusDelta(*P, deltaX, deltaY);
-}
-
-void GeserKeSbX (POINT *P)
-/* I.S. P terdefinisi */
-/* F.S. P berada pada sumbu X dengan absis sama dengan absis semula. */
-/* Proses : P digeser ke sumbu X. */
-/* Contoh : Jika koordinat semula (9,9), maka menjadi (9,0) */
-{
-	Ordinat(*P) = 0;
-}
-
-void GeserKeSbY (POINT *P)
-/* I.S. P terdefinisi*/
-/* F.S. P berada pada sumbu Y dengan ordinat yang sama dengan semula. */
-/* Proses : P digeser ke sumbu Y. */
-/* Contoh : Jika koordinat semula (9,9), maka menjadi (0,9) */
-{
-	Absis(*P) = 0;
-}
-
-void Mirror (POINT *P, boolean SbX)
-/* I.S. P terdefinisi */
-/* F.S. P dicerminkan tergantung nilai SbX atau SbY */
-/* Jika SbX true maka dicerminkan terhadap sumbu X */
-/* Jika SbX false maka dicerminkan terhadap sumbu Y */
-{
-	*P = MirrorOf(*P, SbX);
-}
-
-void Putar (POINT *P, float Sudut)
-/* I.S. P terdefinisi */
-/* F.S. P digeser sebesar Sudut derajat dengan sumbu titik (0,0) searah jarum jam*/
-{
-	float x, y;
-	x = Absis(*P); y = Ordinat(*P);
-	Absis(*P) = x*cos(RAD(-Sudut)) - y*sin(RAD(-Sudut));
-	Ordinat(*P) = x*sin(RAD(-Sudut)) + y*cos(RAD(-Sudut));
 }
