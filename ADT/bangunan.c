@@ -40,6 +40,32 @@ void levelup(Bangunan *B){
 
 void attack(Bangunan *BAtt, Bangunan *BDef, int jumlah_penyerang){
     extern boolean AttackBerhasil = false;
+    if(Pasukan(*BAtt) < jumlah_penyerang){
+        printf("Attack tidak dapat dilakukan karena pasukan tidak mencukupi.\n");
+    }
+    else{
+        /* Perubahan Jumlah Pasukan saat melancarkan Penyerangan */
+        Pasukan(*BAtt) -= jumlah_penyerang;
+        if(!Pertahanan(*BDef)){
+            Pasukan(*BDef) -= jumlah_penyerang;
+        }
+        else{
+            Pasukan(*BDef) -= (3/4 * jumlah_penyerang);
+        }
+        /* STATE SETELAH PENYERANGAN */
+        // Berhasil Diambil
+        if(Pasukan(*BDef) < 0){
+            printf("Bangunan berhasil diambil, pasukan yang tersisa sebanyak %d pasukan di dalam Bangunan.\n", -Pasukan(*BDef));
+            Pasukan(*BDef) = -1 * Pasukan(*BDef);
+        }
+        else if(Pasukan(*BDef) == 0){
+            prinf("Bangunan berhasil diambil, tidak ada pasukan yang tersisa untuk menjaga bangunan.\n");
+        }
+        // Tidak Berhasil Diambil
+        else{/* Pasukan(*BDef) > 0 setelah penyerangan, masih tersisa pasukan pertahanan */
+            printf("Bangunan tidak berhasil diambil.\n")
+        }
+    }
 
 }
 /* Menghitung perubahan jumlah pasukan saat terjadi penyerangan oleh BAtt kepada BDef */
@@ -94,3 +120,4 @@ void add_pasukan(Bangunan *B){
 Bangunan GetBangunanByID(int id){
     
 }
+/* Mendapat Bangunan Dari IDnya */
