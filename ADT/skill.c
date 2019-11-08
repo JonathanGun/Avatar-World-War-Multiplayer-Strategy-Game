@@ -3,22 +3,24 @@
 
 #include <stdio.h>
 #include "skill.h"
+#include "player.h"
+#include "listbangunan.h"
 
 /* *** Add/Delete Skill *** */
 void startSkill(Queue *Skill)
 /* Kondisi Awal yaitu mempunyai Queue dengan skill Instant Upgrade */
 {
-    CreateEmpty(Skill, 100);
+    CreateEmpty(Skill, 10);// Maksimal 10 skill
     Add(Skill,1); //1 sebagai IU(instant Upgrade)
 }
 
-void useSkill(Queue Skill)
+void useSkill(Player *P)
 /* Menggunakan Skill sesuai Head dari queue*/
 {
     int x;
-    Del(&Skill, &x);
+    Del(&Skill(*P), &x);
     if(x == 1){         //Using IU
-        useIU;
+        useIU(P);
     }
     else if (x ==2){    //Using Shield
         useShield;
@@ -77,12 +79,18 @@ void printSkill(Queue Skill)
     }
 }
 
-void useIU();
+void useIU(Player *P)
 /* Menggunakan Skill IU, Seluruh bangunan yang dimiliki pemain akan naik 1 level.*/
+{
+    while(First(ListBangunan(*P))!=Nil){
+        levelup(Info(First(ListBangunan(*P))));
+        First(ListBangunan(*P)) = Next(First(ListBangunan(*P)));
+    }
+}
 
 void useShield();
 /* Menggunakan Skill Shield, Seluruh bangunan yang dimiliki oleh pemain akan memiliki pertahanan selama 2
-   turn.*/
+   turn lawan.*/
 
 void useExtraTurn();
 /* Menggunakan Skill ExtraTurn, Setelah giliran pengaktifan skill ini berakhir, pemain selanjutnya tetap pemain
@@ -90,12 +98,13 @@ void useExtraTurn();
 
 void useAttackUp();
 /* Menggunakan Skill Attack Up, Pada giliran ini, setelah skill ini diaktifkan, 
-   pertahanan bangunan musuh tidak akan mempengaruhi penyerangan.*/
+   pertahanan bangunan musuh(termasuk Shield) tidak akan mempengaruhi penyerangan.*/
 
 void useCriticalHit();
 /* Menggunakan Skill Critical Hit, Pada giliran ini, setelah skill diaktifkan, jumlah 
-   pasukan pada bangunan yang melakukan serangan tepat selanjutnya 
-   hanya berkurang ½ dari jumlah seharusnya.*/
+   pasukan pada bangunan yang melakukan serangan tepat selanjutnya a (hanya berlaku 1 serangan) 
+   hanya efektif sebanyak 2 kali lipat pasukan. Skill ini akan menonaktifkan Shield 
+   maupun pertahanan bangunan, seperti Attack Up.*/
 
 void useInstantReinforcement();
 /* Menggunakan Skill Instant Reinforcement, Seluruh bangunan mendapatkan tambahan 5 pasukan.*/

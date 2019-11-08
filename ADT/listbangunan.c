@@ -9,13 +9,13 @@
 
 /* PROTOTYPE */
 /****************** TEST ListBangunan KOSONG ******************/
-boolean IsEmpty (ListBangunan L){
+boolean IsEmptyBangunan (ListBangunan L){
     return(First(L)== Nil);
 }
 /* Mengirim true jika ListBangunan kosong */
 
 /****************** PEMBUATAN ListBangunan KOSONG ******************/
-void CreateEmpty (ListBangunan *L){
+void CreateEmptyBangunan (ListBangunan *L){
     First(*L) = Nil;
 }
 /* I.S. sembarang             */

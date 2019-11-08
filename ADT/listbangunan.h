@@ -32,11 +32,11 @@ typedef struct {
 
 /* PROTOTYPE */
 /****************** TEST ListBangunan KOSONG ******************/
-boolean IsEmpty (ListBangunan L);
+boolean IsEmptyBangunan (ListBangunan L);
 /* Mengirim true jika ListBangunan kosong */
 
 /****************** PEMBUATAN ListBangunan KOSONG ******************/
-void CreateEmpty (ListBangunan *L);
+void CreateEmptyBangunan (ListBangunan *L);
 /* I.S. sembarang             */
 /* F.S. Terbentuk ListBangunan kosong */
 
