@@ -1,7 +1,7 @@
 #ifndef __MESIN_KATA_H_
 #define __MESIN_KATA_H_
 
-#include "../boolean.h"
+#include "boolean.h"
 #include <stdio.h>
 
 #define NMax 10000
@@ -75,28 +75,28 @@ void ADVKATA(){
 }
 
 int Char2Int(){    
-    int n = CKata.Length+1;
-    char *array = CKata.TabKata;
-    int number = 0;
-    int mult = 1;
+  int n = CKata.Length+1;
+  char *array = CKata.TabKata;
+  int number = 0;
+  int mult = 1;
 
-    while (n--) {
-        if ((array[n] < '0' || array[n] > '9') && array[n] != '-') {
-            if (number) break;
-            else continue;
-        }
-
-        if (array[n] == '-') {
-            if (number) {
-                number = -number;
-                break;
-            }
-        } else {
-            number += (array[n] - '0') * mult;
-            mult *= 10;
-        }
+  while (n--) {
+    if ((array[n] < '0' || array[n] > '9') && array[n] != '-') {
+      if (number) break;
+      else continue;
     }
-    return number;
+
+    if (array[n] == '-') {
+      if (number) {
+        number = -number;
+        break;
+      }
+    } else {
+      number += (array[n] - '0') * mult;
+      mult *= 10;
+    }
+  }
+  return number;
 }
 
 void BacaInt(int *X){

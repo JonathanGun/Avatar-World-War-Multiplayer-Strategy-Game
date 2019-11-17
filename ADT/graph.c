@@ -1,198 +1,151 @@
-/* File: graph.c */
-/* Tanggal: 22 Oktober 2019 */
-/* *** Definisi ABSTRACT DATA TYPE GRAPH *** */
-
 #include "graph.h"
-#include "mesinbilangan.h"
-int CBilangan;
-char CC;
-/* Definisi tipe data GRAPH: memiliki ID ( dalam matriks baris ) dan relasinya ( dalam matriks kolom ) ke ID lainnya.
- indeks dari suatu GRAPH adalah titiknya dalam map.
- Bila terdapat 2 graph dan GRAPH A memiliki relasi ke GRAPH B maka pasti GRAPH B memiliki relasi ke GRAPH A */
+#include "point.h"
+#include <stdlib.h>
+#include <stdio.h>
 
 /* ----- KONSTRUKTOR ----- */
-GRAPH MakeGRAPH(int ID, int NbRelasi)
-/*Membuat Graph dengan banyak relasi sejumlah banyaknya elemen*/
-/*Relasi GRAPH kosong*/
-/*Koordinat GRAPH adalah A */
+void CreateGraph(infotypeGraph X, Graph* G)
 {
-    GRAPH G;
-    ID(G) = ID;
-    G.Relasi = (int *) malloc (sizeof(int) * (NbRelasi+1)); //indeks dari 0
-    NbRelasi(G) = NbRelasi;
-    return G;
+    NodeFirst(*G) = NilGraph;
+    adrNode dummy;
+    InsertNode(G, X, &dummy);
 }
 
-MGRAPH MakeMGRAPH(int NbGraph)
-/* Membuat matrix of GRAPH kosong */
+/* ----- MANAJEMEN MEMORI ----- */
+adrNode AlokNodeGraph(infotypeGraph X)
 {
-    MGRAPH MG;
-    MG.TG = (GRAPH *) malloc (sizeof(GRAPH) * (NbGraph+1));
-    for(int i  = 1 ; i<= NbGraph ; i++){
-        MG.TG[i] = MakeGRAPH(i,NbGraph);
+    adrNode P = (adrNode) malloc (sizeof(NodeGraph));
+    if (P != NilGraph) {
+        NodeId(P) = X;
+        NPred(P) = 0;
+        Trail(P) = NilGraph;
+        NodeNext(P) = NilGraph;
     }
-    NbGraph(MG) = NbGraph;
-    return MG;
+    return P;
 }
 
-void Dealokasi(MGRAPH *MG)
-/* Mengembalikan array eksplisit Relasi dan TabGraph ke sistem */
+void DeAlokNodeGraph(adrNode P)
 {
-    free((*MG).TG);
-    for(int i = 1; i<= NbGraph(*MG); i++){
-        free(Graph(*MG,i).Relasi);
+    free(P);
+}
+
+adrSuccNode AlokSuccNode(adrNode Pn)
+{
+    adrSuccNode P = (adrSuccNode) malloc (sizeof(SuccNode));
+    if (P != NilGraph) {
+        Succ(P) = Pn;
+        NodeNext(P) = NilGraph;
+    }
+    return P;
+}
+
+void DealokSuccNode(adrSuccNode P)
+{
+    free(P);
+}
+
+boolean isNodeEqual(adrNode P, infotypeGraph X){
+    return (NodeId(P).room == X.room && Absis(NodeId(P).p) == Absis(X.p) && Ordinat(NodeId(P).p) == Ordinat(X.p));
+}
+
+/* ----- OPERASI GRAF ----- */
+adrNode SearchNode(Graph G, infotypeGraph X)
+{
+    adrNode P = NodeFirst(G);
+    while(P != NilGraph){
+        if (isNodeEqual(P, X))
+            return P;
+        else
+            P = NodeNext(P);
+    }
+    return P;
+}
+
+adrSuccNode SearchEdge(Graph G, infotypeGraph prec, infotypeGraph succ)
+{
+    adrNode Pn = SearchNode(G, prec);
+    if (Pn == NilGraph)
+        return NilGraph;
+    adrSuccNode P = Trail(Pn);
+    while(P != NilGraph){
+        if (isNodeEqual(Succ(P), succ))
+            return P;
+        else
+            P = NodeNext(P);
+    }
+    return P;
+}
+
+void InsertNode(Graph* G, infotypeGraph X, adrNode* Pn)
+{
+    *Pn = AlokNodeGraph(X);
+    adrNode P = NodeFirst(*G);
+    if (P == NilGraph)
+        NodeFirst(*G) = *Pn;
+    else {
+        while (NodeNext(P) != NilGraph)
+            P = NodeNext(P);
+        NodeNext(P) = *Pn;
     }
 }
 
-void CreateMGRAPH(MGRAPH *MG)
-/* I.S. Matrix of Graph terdefinisi */
-/*Membuat matrix of GRAPH dan mengisinya */
+void InsertEdge(Graph* G, infotypeGraph prec, infotypeGraph succ)
 {
-    int N;
-    printf("Tuliskan banyaknya bangunan: ");
-    scanf("%d",&N);
-    *MG = MakeMGRAPH(N);
-    printf("Tuliskan relasi antar bangunan: \n");
-    BacaMGRAPH(MG);
-    CorrectMGRAPH(MG);
-}
-
-void CorrectMGRAPH(MGRAPH  *MG)
-/* Membetulkan Matrix of Graph , yaitu misalnya ada relasi G1 ke G2 tapi tidak ada sebaliknya, */
-/* maka relasi G2 ke G1 akan dikoreksi menjadi 1 */
-{
-    for(int i = 1 ; i<= NbGraph(*MG) ; i++){
-        for(int j = 1 ; j<= NbRelasi(Graph(*MG,i)) ; j++){
-            if(AdaRelasi(Graph(*MG,i),j)){
-                Relasi(Graph(*MG,j),i) = 1;
-            }
-            if(!IsRelasiValid(Relasi(Graph(*MG,i),j))){
-                Relasi(Graph(*MG,i),j) = (Relasi(Graph(*MG,i),j) <= 0) ? 0 : 1; //kalo relasi < 0 berarti 0 , kalo > 1 maka 1
-            }
+    if (SearchEdge(*G, prec, succ) == NilGraph){
+        adrNode Pn = SearchNode(*G, prec);
+        if (Pn == NilGraph)
+            InsertNode(G, prec, &Pn);
+        adrNode Ps = SearchNode(*G, succ);
+        if (Ps == NilGraph)
+            InsertNode(G, succ, &Ps);
+        
+        adrSuccNode P = Trail(Pn);
+        if (P == NilGraph)
+            Trail(Pn) = AlokSuccNode(Ps);
+        else {
+            while (NodeNext(P) != NilGraph)
+                P = NodeNext(P);
+            NodeNext(P) = AlokSuccNode(Ps);
         }
-        Relasi(Graph(*MG,i),i) = 0;
-    }
-}
-
-/* ----- INTERAKSI IN/ OUT DEVICE ----- */
-void BacaRelasi (GRAPH *G)
-/* Membaca masing masing relasi di graph */
-/* Misalnya ada relasi dari GRAPH G ke ID sekian, tulis 1, selain itu 0 */
-{
-    for(int i = 1; i<= NbRelasi(*G) ; i++){
-        scanf("%d",&Relasi(*G,i));
-    }
-}
-void BacaMGRAPH (MGRAPH *MG)
-/* Membaca relasi berulang ulang sampai semua GRAPH dalam MGRAPH relasinya terdefinisi */
-{
-    for(int i = 1; i<= NbGraph(*MG) ; i++){
-        printf("Tuliskan relasi bangunan ke-%d : ",i);
-        Graph(*MG,i) = MakeGRAPH(i,NbGraph(*MG));
-        BacaRelasi(&Graph(*MG,i));
     }
     
-    CorrectMGRAPH(MG);
 }
-void InsertGRAPH(GRAPH G, MGRAPH *MG, int idx)
-/* Menyisipkan GRAPH G ke dalam MGRAPH MG dengan indeks idx */
+
+infotypeGraph GetFirstSuccInfo(Graph G, infotypeGraph prec)
 {
-     Graph(*MG,idx) = G;
+    infotypeGraph fal;
+    fal.room = -1;
+    Absis(fal.p) = -1;
+    Ordinat(fal.p) = -1;
+    
+    adrNode Pn = SearchNode(G, prec);
+    if (Pn == NilGraph)
+        return fal;
+    
+    adrSuccNode Ps = Trail(Pn);
+    if (Ps == NilGraph)
+        return fal;
+    
+    return NodeId(Succ(Ps));
 }
-void TulisGRAPH (GRAPH G)
-/* Menuliskan relasi ke layar*/
-/* Relasi dituliskan dalam bentuk true atau false */
-/* Bila suatu GRAPH memiliki relasi dengan GRAPH lain, akan bernilai 1, kalau tidak akan bernilai 0 */
-/* F.S. Relasi tertulis di layar dengan format "R1 R2 R3 ... RN" */
-/* Contoh penulisan relasi : 0 1 1 0 1 0 
-   Dibaca: GRAPH memiliki relasi ke GRAPH ber ID 2, 3 , dan 5
-   GRAPH tidak mungkin memiliki relasi ke dirinya sendiri*/
+
+// INI PERLU DIGANTI YAA
+void InitGraph(Graph * g, char * source)
 {
-    for(int i = 1 ; i<= NbRelasi(G)-1 ; i++){
-        printf("%d ",Relasi(G,i));
+    FILE * gf = fopen(source,"r");
+    int x[6];
+    NodeFirst(*g) = NilGraph;
+    while (fscanf(gf, "%d", &x[0]) == 1){
+        for (int i = 1; i < 6; i++)
+            fscanf(gf, "%d", &x[i]);
+        infotypeGraph inSucc, inPrec;
+        inPrec.room = x[0];
+        Absis(inPrec.p) = x[1];
+        Ordinat(inPrec.p) = x[2];
+        inSucc.room = x[3];
+        Absis(inSucc.p) = x[4];
+        Ordinat(inSucc.p) = x[5];
+        InsertEdge(g, inPrec, inSucc);
     }
-    printf("%d\n",Relasi(G,NbRelasi(G)));
-}
-
-void TulisMGRAPH(MGRAPH MG)
-/* Menulis matriks graph secara keseluruhan */
-{
-    for(int j = 1; j<= NbGraph(MG) ; j++){
-        TulisGRAPH(Graph(MG,j));
-    }
-}
-void TulisRelasi(MGRAPH MG)
-/* Menuliskan relasi antar mgraph secara simple */
-/* contoh : Relasi bangunan 1 : 13, 14 */
-/*          Relasi bangunan 2 : 15, 1, 6, 7 */
-/*          dst */
-{
-    int jmlrelasi = 0;
-    for(int i = 1; i<=NbGraph(MG) ; i++){
-        for(int j = 1; j<=NbRelasi(Graph(MG,i)) ; j++){
-            if(AdaRelasi(Graph(MG,i),j)){
-                if(jmlrelasi == 0){
-                    printf("Relasi bangunan ke-%d : %d",i,j);
-                }
-                else{
-                    printf(", %d",j);
-                }
-                jmlrelasi++;
-            }
-        }
-        if(jmlrelasi == 0){
-            printf("Relasi bangunan ke-%d tidak ada",i);
-        }
-        printf("\n");
-        jmlrelasi = 0;
-    }
-}
-
-/* ----- MEMBACA DARI FILE ----- */
-MGRAPH BacaFileGRAPH()
-/* Membaca MGRAPH dari suatu file yang kita input nama filenya */
-{
-    int bykrelasi;
-    MGRAPH MG; 
-    STARTBILANGAN(); //menerima masukan user mengenai nama file
-    IgnoreLine();    //mengabaikan line pertama
-    ADVBILANGAN();   //sekarang cbilangan ada di bilangan pertama baris kedua yaitu banyaknya bangunan( banyaknya relasi )
-
-    printf("bykrelasi = %d\n",CBilangan);
-    bykrelasi = CBilangan;
-
-    MG  = MakeMGRAPH(bykrelasi);
-    for(int i = 1; i<=bykrelasi ; i++){
-        IgnoreLine();
-    }//menskip pembacaan kastil, dll dan langsung membaca graph
-    ADVBILANGAN();
-    printf("NBGraph = %d\n",NbGraph(MG));
-    for(int i = 1; i<=NbGraph(MG); i++ ){
-        for(int j = 1; j<= NbGraph(MG) ; j++){
-            Relasi(Graph(MG,i),j) = CBilangan;
-            printf("%d ",CBilangan);
-            ADVBILANGAN();
-        }
-        printf("\n");
-    }
-    Relasi(Graph(MG,1),1) -= 190; // entah kenapa elemen pertama selalu kelebihan sebanyak 190
-    CorrectMGRAPH(&MG);
-    return MG;
-}
-
-/* ----- OPERATOR BOOLEAN ----- */
-boolean IsRelasiValid (int X)
-/* Menghasilkan true jika masukan X = 0 atau X = 1 */
-{
-    return(X==1 || X==0);
-}
-boolean IsRelated (GRAPH G1,GRAPH G2)
-/* Menghasilkan true GRAPH saling terhubung */
-{
-    return(Relasi(G1,ID(G2)) == 1); //kalo relasi di indeks ID G2 adalah 1 maka true, bila 0 maka false
-}
-boolean AdaRelasi (GRAPH G, int X)
-/* Menghasilkan true jika relasi graph G ke X adalah 1*/
-{
-    return(Relasi(G,X));
+    fclose(gf);
 }

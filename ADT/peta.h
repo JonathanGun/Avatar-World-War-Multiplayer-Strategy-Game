@@ -1,93 +1,86 @@
-/* Definisi Peta */
-
 #ifndef peta_H
 #define peta_H
 
-#include "arraydinpos.h"
+#include "util/pcolor.h"
+#include "util/macro.h"
 #include "bangunan.h"
-#include "pcolor.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-/* Ukuran minimum dan maksimum baris dan kolom */
-#define BrsMin 1
-#define BrsMax 20
-#define KolMin 1
-#define KolMax 30
+/* Ukuran minimum dan maksimum baris dan PetaKolom */
+#define PetaBrsMin 1
+#define PetaBrsMax 20
+#define PetaKolMin 1
+#define PetaKolMax 30
 
 #define IdxMin 1
 #define IdxUndef -999
 
 typedef struct {
-	char kar;
-	int color;
-} ReprElmt;
-typedef ReprElmt ReprType;
-typedef struct {
-    ReprType *Mem;
-    int NBrsEff; /* banyaknya/ukuran baris yg terdefinisi */
-    int NKolEff; /* banyaknya/ukuran kolom yg terdefinisi */
-} Matriks;
-typedef struct {
-	TabInt info; // info bangunan
-	Matriks repr; //representasi
+    int *Mem; // arr of ID Bangunan
+    int NPetaBrsEff; /* banyaknya/ukuran baris yg terdefinisi */
+    int NPetaKolEff; /* banyaknya/ukuran PetaKolom yg terdefinisi */
 } Peta;
 
 /* Selektor */
 #define Mem(T) (T).Mem
-#define MatElmt(T, i, j) (T).Mem[(i)*(NBrsEff(T)+1)+(j)]
-#define Repr(P) (P).repr
-#define Info(P) (P).info
-#define NBrsEff(M) (M).NBrsEff
-#define NKolEff(M) (M).NKolEff
+#define PetaElmt(T, i, j) (T).Mem[(i)*(NPetaBrsEff(T)+1)+(j)]
+#define NPetaBrsEff(M) (M).NPetaBrsEff
+#define NPetaKolEff(M) (M).NPetaKolEff
+#define forpeta(P, r, c) fori(r, NPetaBrsEff(P)) fori(c, NPetaKolEff(P))
 
 /* ********** DEFINISI PROTOTIPE PRIMITIF ********** */
-void MakePeta(Peta *P, int NB, int NK, int NBangunan);
+void MakePeta(Peta *P, int NB, int NK)
 /* Membentuk sebuah Peta "kosong" yang siap diisi berukuran NB x NK di "ujung kiri" memori */
 /* I.S. NB dan NK adalah valid untuk memori matriks yang dibuat */
 /* F.S. Peta P sesuai dengan definisi di atas terbentuk */
-/* Proses : Membuat M.TabInt dan M.repr kosong dengan ukuran NBxNK
+/* Proses : Membuat M.TabInt dan M. kosong dengan ukuran NBxNK
 */
+{
+	NPetaBrsEff(*P) = NB;
+	NPetaKolEff(*P) = NK;
+	Mem(*P) = (int *) malloc (sizeof(int) * NB * NK);
+	forpeta(*P, r, c) PetaElmt(*P, r, c) = -1;
+}
 
-/* *** Konstruktor membentuk Matriks *** */
-void MakeMatriks (Matriks * M, int NB, int NK);
-/* Membentuk sebuah Matriks "kosong" yang siap diisi berukuran NB x NK di "ujung kiri" memori */
-/* I.S. NB dan NK adalah valid untuk memori matriks yang dibuat */
-/* F.S. Matriks M sesuai dengan definisi di atas terbentuk */
-
-/* Konstruktor : create tabel kosong  */
-void MakeEmpty(TabInt *T, int NB, int NK);
-/* I.S. T sembarang, maxel > 0 */
-/* F.S. Terbentuk tabel T kosong dengan kapasitas maxel + 1 */
-/* Proses: Inisialisasi semua elemen tabel T dengan ValUndef */
 
 /* SELEKTOR */
-boolean IsIdxEff (Matriks M, int i, int j);
+boolean IsIdxEff (Peta M, int i, int j)
 /* Mengirimkan true jika i, j adalah int yang valid untuk matriks apa pun */
+{
+	return (((PetaBrsMin <= i) && (i <= NPetaBrsEff(M))) && ((PetaKolMin <= j) && (j <= NPetaKolEff(M))));
+}
 
 /* ********** KELOMPOK BACA/TULIS ********** */
-void TulisPeta(Peta P);
+void TulisPeta(Peta P)
 /* I.S. P terdefinisi */
-/* F.S. Nilai P.repr(i,j) ditulis ke layar per baris per kolom, masing-masing elemen per baris
+/* F.S. Nilai P.(i,j) ditulis ke layar per baris per PetaKolom, masing-masing elemen per baris
    dipisahkan sebuah spasi, dikelilingi box bintang (*) */
-/* Proses: Mengupdate P.repr sesuai dengan P.info, lalu menulis nilai setiap elemen P.repr ke layar dengan traversal per baris dan per kolom */
-/* Contoh: menulis matriks representasi peta 3x3 (ingat di akhir tiap baris, tidak ada spasi)
+/* Proses: Mengupdate P. sesuai dengan P.info, lalu menulis nilai setiap elemen P. ke layar dengan traversal per baris dan per PetaKolom */
+/* Contoh: menulis matriks esentasi peta 3x3 (ingat di akhir tiap baris, tidak ada spasi)
 *****
 * C *
 *T F*
 *  C*
 *****
 */
-
-void ConvertToRepr(Peta P);
-/* I.S. P terdefinisi */
-/* F.S. Info(P) diubah menjadi Repr(R) yang bersesuaian.
-/* Proses: untuk semua elemen Info(P), dicek kepemilikannya, lalu diassign warna dan karakter bersesuaian */
-/* Contoh: Castle Player 1 : C Biru, Fort Player 2: F Merah
-*****
-* C *
-*T F*
-*  C*
-*****
-*/
-
+{
+	fori(i, NPetaKolEff(P)+2) printf("*"); ENDL;
+	fori(i, NPetaBrsEff(P)){
+		printf("*");
+		fori(j, NPetaKolEff((P))){
+			Bangunan* cur = GetBangunanByID(PetaElmt(P, i, j));
+			if (BangunanOwner(*cur) == 1)
+				print_red(Type(*cur));
+			else if (BangunanOwner(*cur) == 2)
+				print_blue(Type(*cur));
+			else
+				printf("%c", Type(*cur));
+		}
+		printf("*");
+		ENDL;
+	}
+	fori(i, NPetaKolEff(P)+2) printf("*"); ENDL;
+}
 
 #endif

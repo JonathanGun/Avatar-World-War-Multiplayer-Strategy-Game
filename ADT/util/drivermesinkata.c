@@ -1,4 +1,4 @@
-#include "../util.h"
+#include "macro.h"
 #include "mesinkata.h"
 #include <stdio.h>
 

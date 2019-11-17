@@ -1,5 +1,3 @@
-
-
 #ifndef GAME_H
 #define GAME_H
 
@@ -16,7 +14,7 @@ typedef struct {
 typedef struct {
     Peta map; // Menyimpan peta
     Bangunan* ListBangunan; // Array of bangunan, menyimpan data bangunan
-    stackt GameCondition; // Stackt of GameCondition, menyimpan kondisi dari setiap aksi dilakukan (dikosongkan setelah endturn)
+    Stack GameCondition; // Stackt of GameCondition, menyimpan kondisi dari setiap aksi dilakukan (dikosongkan setelah endturn)
 } Game;
 // GameCondition yang digunakan adalah yang berada di Top
 // setiap melakukan aksi lakukan Push pada stackt
