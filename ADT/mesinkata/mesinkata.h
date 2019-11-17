@@ -6,6 +6,7 @@
 
 #define NMax 10000
 #define BLANK ' '
+#define NL '\n'
 #define MARK '$'
 
 typedef struct {
@@ -33,21 +34,17 @@ void ADV(){
 
 boolean START(char* filename) {
     EOP = false;
-    if (filename == 0) {
-        pita = stdin;
-    } else {
-        pita = fopen(filename, "r");
-    }
-    ADV();
+    if (filename == 0) pita = stdin;
+    else pita = fopen(filename, "r");
     return (pita != 0);
 }
 
 boolean IsBlank() {
-  return (CC == BLANK || CC == 10);
+  return CC == BLANK || CC == NL;
 }
 
 void IgnoreBlank(){
-  while(!CC==BLANK) ADV();
+  while(IsBlank()) ADV();
 }
 
 // MESIN KATA //
@@ -57,8 +54,6 @@ boolean STARTKATA(char* filename) {
     EndKata = true;
     return valid;
   }
-
-  if (filename != 0) IgnoreBlank();
 
   EndKata = (CC == MARK);
   return valid;
@@ -72,12 +67,11 @@ void SalinKata(){
     ADV();
   }
   CKata.Length = i;
-  EndKata = (CC == MARK);
 }
 
 void ADVKATA(){
-  SalinKata();
   IgnoreBlank();
+  SalinKata();
 }
 
 int Char2Int(){    
@@ -105,22 +99,28 @@ int Char2Int(){
     return number;
 }
 
-void InputInt(int* X) {
-  if(pita == stdin && EndKata) STARTKATA(0);
+void BacaInt(int *X){
   ADVKATA();
   *X = Char2Int();
-  if (pita == stdin) EndKata = true;
 }
 
-void InputKata(Kata* K) {
-  if(pita == stdin && EndKata) STARTKATA(0);
+void InputInt(int* X) {
+  STARTKATA(0);
+  BacaInt(X);
+}
+
+void BacaKata(Kata *K){
   ADVKATA();
   for (int i = 1; i <= CKata.Length; i++) {
     (*K).TabKata[i] = CKata.TabKata[i];
   }
   (*K).TabKata[CKata.Length+1] = 0;
   (*K).Length = CKata.Length;
-  if(pita == stdin) EndKata = true;
+}
+
+void InputKata(Kata* K) {
+  STARTKATA(0);
+  BacaKata(K);
 }
 
 void PrintKata(Kata K){
