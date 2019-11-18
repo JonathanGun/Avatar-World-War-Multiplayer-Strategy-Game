@@ -1,151 +1,38 @@
 #include "graph.h"
-#include "point.h"
+#include "util/boolean.h"
 #include <stdlib.h>
 #include <stdio.h>
 
 /* ----- KONSTRUKTOR ----- */
-void CreateGraph(infotypeGraph X, Graph* G)
-{
-    NodeFirst(*G) = NilGraph;
-    adrNode dummy;
-    InsertNode(G, X, &dummy);
+void CreateGraph(Graph* G){
+    *G = AlokasiGraph(false);
 }
 
 /* ----- MANAJEMEN MEMORI ----- */
-adrNode AlokNodeGraph(infotypeGraph X)
-{
-    adrNode P = (adrNode) malloc (sizeof(NodeGraph));
+Graph AlokasiGraph(boolean X){
+    Graph P = (Graph) malloc (sizeof(Graph));
     if (P != NilGraph) {
-        NodeId(P) = X;
-        NPred(P) = 0;
+        Connect(P) = X;
         Trail(P) = NilGraph;
         NodeNext(P) = NilGraph;
     }
     return P;
 }
 
-void DeAlokNodeGraph(adrNode P)
-{
+void DealokasiGraph(Graph P){
     free(P);
-}
-
-adrSuccNode AlokSuccNode(adrNode Pn)
-{
-    adrSuccNode P = (adrSuccNode) malloc (sizeof(SuccNode));
-    if (P != NilGraph) {
-        Succ(P) = Pn;
-        NodeNext(P) = NilGraph;
-    }
-    return P;
-}
-
-void DealokSuccNode(adrSuccNode P)
-{
-    free(P);
-}
-
-boolean isNodeEqual(adrNode P, infotypeGraph X){
-    return (NodeId(P).room == X.room && Absis(NodeId(P).p) == Absis(X.p) && Ordinat(NodeId(P).p) == Ordinat(X.p));
 }
 
 /* ----- OPERASI GRAF ----- */
-adrNode SearchNode(Graph G, infotypeGraph X)
-{
-    adrNode P = NodeFirst(G);
-    while(P != NilGraph){
-        if (isNodeEqual(P, X))
-            return P;
-        else
-            P = NodeNext(P);
-    }
-    return P;
+Graph GetBangunanTerhubung(Graph G, int r, int* AdjList){
+    // input indeks bangunan, return semua bangunan yg terhubung dgn dia di *AdjList
+    // proses: traverse ke bwh sejumlah r, traverse ke kanan hingga ujung, tambah ke AdjList jika Connect(G) == true
 }
 
-adrSuccNode SearchEdge(Graph G, infotypeGraph prec, infotypeGraph succ)
-{
-    adrNode Pn = SearchNode(G, prec);
-    if (Pn == NilGraph)
-        return NilGraph;
-    adrSuccNode P = Trail(Pn);
-    while(P != NilGraph){
-        if (isNodeEqual(Succ(P), succ))
-            return P;
-        else
-            P = NodeNext(P);
-    }
-    return P;
+void NextN(Graph G, int n){
+    // G ter-traverse ke kanan sejumlah n kali 
 }
 
-void InsertNode(Graph* G, infotypeGraph X, adrNode* Pn)
-{
-    *Pn = AlokNodeGraph(X);
-    adrNode P = NodeFirst(*G);
-    if (P == NilGraph)
-        NodeFirst(*G) = *Pn;
-    else {
-        while (NodeNext(P) != NilGraph)
-            P = NodeNext(P);
-        NodeNext(P) = *Pn;
-    }
-}
-
-void InsertEdge(Graph* G, infotypeGraph prec, infotypeGraph succ)
-{
-    if (SearchEdge(*G, prec, succ) == NilGraph){
-        adrNode Pn = SearchNode(*G, prec);
-        if (Pn == NilGraph)
-            InsertNode(G, prec, &Pn);
-        adrNode Ps = SearchNode(*G, succ);
-        if (Ps == NilGraph)
-            InsertNode(G, succ, &Ps);
-        
-        adrSuccNode P = Trail(Pn);
-        if (P == NilGraph)
-            Trail(Pn) = AlokSuccNode(Ps);
-        else {
-            while (NodeNext(P) != NilGraph)
-                P = NodeNext(P);
-            NodeNext(P) = AlokSuccNode(Ps);
-        }
-    }
-    
-}
-
-infotypeGraph GetFirstSuccInfo(Graph G, infotypeGraph prec)
-{
-    infotypeGraph fal;
-    fal.room = -1;
-    Absis(fal.p) = -1;
-    Ordinat(fal.p) = -1;
-    
-    adrNode Pn = SearchNode(G, prec);
-    if (Pn == NilGraph)
-        return fal;
-    
-    adrSuccNode Ps = Trail(Pn);
-    if (Ps == NilGraph)
-        return fal;
-    
-    return NodeId(Succ(Ps));
-}
-
-// INI PERLU DIGANTI YAA
-void InitGraph(Graph * g, char * source)
-{
-    FILE * gf = fopen(source,"r");
-    int x[6];
-    NodeFirst(*g) = NilGraph;
-    while (fscanf(gf, "%d", &x[0]) == 1){
-        for (int i = 1; i < 6; i++)
-            fscanf(gf, "%d", &x[i]);
-        infotypeGraph inSucc, inPrec;
-        inPrec.room = x[0];
-        Absis(inPrec.p) = x[1];
-        Ordinat(inPrec.p) = x[2];
-        inSucc.room = x[3];
-        Absis(inSucc.p) = x[4];
-        Ordinat(inSucc.p) = x[5];
-        InsertEdge(g, inPrec, inSucc);
-    }
-    fclose(gf);
+void TrailN(Graph G, int n){
+    // G ter-traverse ke bawah sejumlah n kali
 }
