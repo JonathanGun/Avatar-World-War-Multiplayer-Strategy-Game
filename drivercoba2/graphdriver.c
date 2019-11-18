@@ -1,5 +1,5 @@
 
-#include "graph.h"
+#include "../ADT/graph.h"
 #include <stdio.h>
 
 int main(){

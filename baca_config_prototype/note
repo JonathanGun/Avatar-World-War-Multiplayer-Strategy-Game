@@ -1,0 +1,2 @@
+* init_game
+    - membaca config dan menyimpan kedalam suatu variabel sebagai array
