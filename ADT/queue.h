@@ -1,25 +1,19 @@
-/* File : queue.h */
-/* Definisi ADT Queue dengan representasi array secara eksplisit dan alokasi dinamik */
-/* Model Implementasi Versi III dengan circular buffer */
-
 #ifndef queue_H
 #define queue_H
 
-#include "boolean.h"
+#include "util/boolean.h"
 
 #define QueueNil 0
-/* Konstanta untuk mendefinisikan address tak terdefinisi */
 
-/* Definisi elemen dan address */
-typedef int infotype;
-typedef int address;   /* indeks tabel */
 /* Contoh deklarasi variabel bertype Queue : */
 /* Versi I : tabel dinamik, Head dan Tail eksplisit, ukuran disimpan */
-typedef struct { infotype * T;   /* tabel penyimpan elemen */
-                 address HEAD;  /* alamat penghapusan */
-                 address TAIL;  /* alamat penambahan */
-                 int MaxEl;     /* Max elemen queue */
-               } Queue;
+typedef struct {
+	int * T;   /* tabel penyimpan elemen */
+	int HEAD;  /* alamat penghapusan */
+	int TAIL;  /* alamat penambahan */
+	int MaxEl;     /* Max elemen queue */
+	int owner;
+} Queue;
 /* Definisi Queue kosong: HEAD=Nil; TAIL=Nil. */
 /* Catatan implementasi: T[0] tidak pernah dipakai */
 
@@ -29,7 +23,8 @@ typedef struct { infotype * T;   /* tabel penyimpan elemen */
 #define Tail(Q) (Q).TAIL
 #define InfoHead(Q) (Q).T[(Q).HEAD]
 #define InfoTail(Q) (Q).T[(Q).TAIL]
-#define QueueMaxEl(Q) (Q).MaxEl
+#define SkillMaxEl(Q) (Q).MaxEl
+#define SkillOwner(Q) (Q).owner
 
 /* ********* Prototype ********* */
 boolean IsEmpty (Queue Q);
@@ -55,11 +50,11 @@ void DeAlokasi(Queue * Q);
 /* F.S. Q menjadi tidak terdefinisi lagi, MaxEl(Q) diset 0 */
 
 /* *** Primitif Add/Delete *** */
-void Add (Queue * Q, infotype X);
+void Add (Queue * Q, int X);
 /* Proses: Menambahkan X pada Q dengan aturan FIFO */
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X menjadi TAIL yang baru, TAIL "maju" dengan mekanisme circular buffer */
-void Del (Queue * Q, infotype * X);
+void Del (Queue * Q, int * X);
 /* Proses: Menghapus X pada Q dengan aturan FIFO */
 /* I.S. Q tidak mungkin kosong */
 /* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer; 

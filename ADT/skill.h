@@ -1,31 +1,16 @@
-/* File: skill.h */
-/* Definisi ADT Skill */
-
-
 #ifndef SKILL_H
 #define SKILL_H
 
-#include "boolean.h"
-#include "queue.h"
-#include "player.h"
 #include <stdio.h>
+#include "util/boolean.h"
+#include "queue.h"
+#include "listbangunan.h"
 
-/* *** Add/Delete Skill *** */
-void startSkill(Queue *Skill);
-/* Kondisi Awal yaitu mempunyai Queue dengan skill Instant Upgrade */
-
-void useSkill(Player *P);
-/* Menggunakan Skill sesuai Head dari queue*/
-
-/****************** PROSES SKILL ******************/
-void printSkill(Queue Skill);
-/* Mengeprint Skill di bagian Head Queue*/
-
-void useSkill(Queue Skill);
-/* Menggunakan Skill sesuai Head dari queue*/
-
-void useIU(Player *P);
+void useIU(int player)
 /* Menggunakan Skill IU, Seluruh bangunan yang dimiliki pemain akan naik 1 level.*/
+{
+    // traverse semua bangunan, if milik == player, level up
+}
 
 void useShield();
 /* Menggunakan Skill Shield, Seluruh bangunan yang dimiliki oleh pemain akan memiliki pertahanan selama 2
@@ -52,5 +37,78 @@ void useBarrage();
 /* Menggunakan Skill Barrage, Jumlah pasukan pada seluruh bangunan musuh akan berkurang sebanyak 10
    pasukan.*/
 
-#endif
 
+/* *** Add/Delete Skill *** */
+void startSkill(Queue* Skill)
+/* Kondisi Awal yaitu mempunyai Queue dengan skill Instant Upgrade */
+{
+    CreateEmpty(Skill, 10);// Maksimal 10 skill
+    Add(Skill,1); //1 sebagai IU(instant Upgrade)
+}
+
+void useSkill(Queue* Skill)
+/* Menggunakan Skill sesuai Head dari queue*/
+{
+    int x;
+    Del(Skill, &x);
+    if(x == 1){         //Using IU
+        useIU(SkillOwner(*Skill));
+    }
+    else if (x ==2){    //Using Shield
+        useShield();
+    }
+    else if (x == 3){   //Using Extra Turn
+        useExtraTurn();
+    }
+    else if (x == 4){   //Using Attack Up
+        useAttackUp();
+    }
+    else if (x == 5){   //Using Critical Hit
+        useCriticalHit();
+    }
+    else if (x == 6){   //Using Instant Reinforcement
+        useInstantReinforcement();
+    }
+    else if (x == 7){   //Using Barrage
+        useBarrage();
+    }
+}
+
+/****************** PROSES SKILL ******************/
+void printSkill(Queue Skill)
+/* Mengeprint Skill di bagian Head Queue*/
+{
+    int x;
+    if (IsEmpty(Skill))
+    {
+        printf("-");
+    }
+    else /*  not IsEmpty */
+    {
+        Del(&Skill, &x);
+        if(x == 1){
+            printf("IU");
+        }
+        else if (x ==2){
+            printf("Shield");
+        }
+        else if (x == 3){
+            printf("Extra Turn");
+        }
+        else if (x == 4){
+            printf("Attack Up");
+        }
+        else if (x == 5){
+            printf("Critical Hit");
+        }
+        else if (x == 6){
+            printf("Instant Reinforcement");
+        }
+        else if (x == 7){
+            printf("Barrage");
+        }
+        Add(&Skill,x);
+    }
+}
+
+#endif

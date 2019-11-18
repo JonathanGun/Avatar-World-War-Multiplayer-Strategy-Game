@@ -1,10 +1,7 @@
-/* File: player.h */
-/* Definisi ADT player */
-
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "boolean.h"
+#include "util/boolean.h"
 #include "skill.h"
 #include "bangunan.h"
 #include "listbangunan.h"
@@ -12,11 +9,9 @@
 
 typedef struct {
 	Queue Skill; /* Skill yang dimiliki player */
-	ListBangunan X;
 } Player;
 
 #define Skill(P)    (P).Skill
-#define ListBangunan(P)    (P).ListBangunan
 
 void startTurn(Player P);
 /* Digunakan ketika startTurn seorang Player untuk menambahkan pasukan setiap bangunan yang dimiliki player s*/

@@ -1,7 +1,3 @@
-/* File : queue.h */
-/* Definisi ADT Queue dengan representasi array secara eksplisit dan alokasi dinamik */
-/* Model Implementasi Versi III dengan circular buffer */
-
 #include <stdlib.h>
 #include "queue.h"
 
@@ -35,7 +31,7 @@ void CreateEmpty (Queue * Q, int Max)
 /* atau : jika alokasi gagal, Q kosong dg QueueMaxEl=0 */
 /* Proses : Melakukan alokasi, membuat sebuah Q kosong */
 {
-	(*Q).T = (infotype *) malloc ((Max+1) * sizeof(infotype));
+	(*Q).T = (int *) malloc ((Max+1) * sizeof(int));
 	QueueMaxEl(*Q) = Max;
 	Head(*Q) = QueueNil;
 	Tail(*Q) = QueueNil;
@@ -52,7 +48,7 @@ void DeAlokasi(Queue * Q)
 }
 
 /* *** Primitif Add/Delete *** */
-void Add (Queue * Q, infotype X)
+void Add (Queue * Q, int X)
 /* Proses: Menambahkan X pada Q dengan aturan FIFO */
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X menjadi TAIL yang baru, TAIL "maju" dengan mekanisme circular buffer */
@@ -63,7 +59,7 @@ void Add (Queue * Q, infotype X)
 	InfoTail(*Q)=X;
 }
 
-void Del (Queue * Q, infotype * X)
+void Del (Queue * Q, int * X)
 /* Proses: Menghapus X pada Q dengan aturan FIFO */
 /* I.S. Q tidak mungkin kosong */
 /* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer; 

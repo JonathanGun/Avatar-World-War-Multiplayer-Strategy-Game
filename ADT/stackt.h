@@ -1,11 +1,7 @@
-/* File : stackt.h */
-/* deklarasi stack yang diimplementasi dengan tabel kontigu dan ukuran sama */
-/* TOP adalah alamat elemen puncak */
-/* Implementasi dalam bahasa C dengan alokasi statik */
 #ifndef stackt_H
 #define stackt_H
 
-#include "boolean.h"
+#include "util/boolean.h"
 
 #define StackNil 0
 #define StackMaxEl 100

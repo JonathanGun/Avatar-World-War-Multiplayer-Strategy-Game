@@ -1,85 +1,61 @@
-/* File: graph.h */
-/* Tanggal: 22 Oktober 2019 */
-/* *** Definisi ABSTRACT DATA TYPE GRAPH *** */
+#include "point.h"
+#include "util/boolean.h"
+
 
 #ifndef GRAPH_H
 #define GRAPH_H
 
-#include "boolean.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include "mesinkata.h"
+#define NilGraph NULL
 
 typedef struct {
-	int ID; /* ID dari suatu graph */
-    int *Relasi; /*List relasi ke ID lainnya*/
-    int NbRelasi; /* Banyaknya relasi */
-} GRAPH;
+	int room;
+	Point p;
+} infotypeGraph;
 
-typedef struct {
-	GRAPH *TG; /* List of graph, ditampilkan dalam matrix */
-    int NbGRAPH; /* Jumlah graph */
-} MGRAPH;
+typedef struct tNodeGraph* adrNode;
+typedef struct tSuccNode* adrSuccNode;
+typedef struct tNodeGraph
+{
+	infotypeGraph Id;
+	int NPred;
+    adrSuccNode Trail;
+    adrNode Next;
+} NodeGraph;
+typedef struct tSuccNode
+{
+    adrNode Succ;
+    adrSuccNode Next;
+} SuccNode;
 
-/* Primitive selektor */
-#define Relasi(G,i)         (G).Relasi[i]
-#define ID(G)               (G).ID
-#define NbRelasi(G)         (G).NbRelasi
-#define Graph(MG,i)         (MG).TG[i]
-#define NbGraph(MG)         (MG).NbGRAPH
-/* Definisi tipe data GRAPH: memiliki ID ( dalam matriks baris ) dan relasinya ( dalam matriks kolom ) ke ID lainnya.
- Bila terdapat 2 graph dan GRAPH A memiliki relasi ke GRAPH B maka pasti GRAPH B memiliki relasi ke GRAPH A */
+typedef struct
+{
+    adrNode First;
+} Graph;
+
+/* ----- SELEKTOR ----- */
+#define NodeFirst(G) (G).First
+#define NodeId(Pn) (Pn)->Id
+#define Trail(Pn) (Pn)->Trail
+#define Succ(Pn) (Pn)->Succ
+#define NPred(Pn) (Pn)->NPred
+#define NodeNext(Pn) (Pn)->Next
 
 /* ----- KONSTRUKTOR ----- */
-GRAPH MakeGRAPH(int ID, int NbRelasi);
-/*Membuat Graph dengan banyak relasi sejumlah banyaknya elemen*/
-/*Relasi GRAPH kosong*/
-/*Koordinat GRAPH adalah A */
-MGRAPH MakeMGRAPH(int NbGraph);
-/* Membuat matrix of GRAPH kosong */
-void Dealokasi(MGRAPH *MG);
-/* Mengembalikan array eksplisit Relasi dan TabGraph ke sistem */
-void CreateMGRAPH(MGRAPH *MG);
-/* I.S. Matrix of Graph terdefinisi */
-/*Membuat matrix of GRAPH dan mengisinya */
-void CorrectMGRAPH(MGRAPH  *MG);
-/* Membetulkan Matrix of Graph , yaitu misalnya ada relasi G1 ke G2 tapi tidak ada sebaliknya, */
-/* maka relasi G2 ke G1 akan dikoreksi menjadi 1 */
+void CreateGraph(infotypeGraph X, Graph* G); // membuat graph baru
+void InitGraph(Graph* G, char* source); // load graph dari ext
 
-/* ----- INTERAKSI IN/ OUT DEVICE ----- */
-void BacaRelasi (GRAPH *G);
-/* Membaca masing masing relasi di graph */
-/* Misalnya ada relasi ke ID sekian, tulis 1, selain itu 0 */
-void BacaMGRAPH (MGRAPH *MG);
-/* Membaca relasi berulang ulang sampai semua GRAPH dalam MGRAPH relasinya terdefinisi */
-void InsertGRAPH(GRAPH G, MGRAPH *MG, int idx);
-/* Menyisipkan GRAPH G ke dalam MGRAPH MG dengan indeks idx */
-void TulisGRAPH (GRAPH G);
-/* Menuliskan relasi ke layar*/
-/* Relasi dituliskan dalam bentuk true atau false */
-/* Bila suatu GRAPH memiliki relasi dengan GRAPH lain, akan bernilai 1, kalau tidak akan bernilai 0 */
-/* F.S. Relasi tertulis di layar dengan format "R1 R2 R3 ... RN" */
-/* Contoh penulisan relasi : 0 1 1 0 1 0 
-   Dibaca: GRAPH memiliki relasi ke GRAPH ber ID 2, 3 , dan 5
-   GRAPH tidak mungkin memiliki relasi ke dirinya sendiri*/
-void TulisMGRAPH(MGRAPH MG);
-/* Menulis matriks graph secara keseluruhan */
-void TulisRelasi(MGRAPH MG);
-/* Menuliskan relasi antar mgraph secara simple */
-/* contoh : Relasi bangunan 1 : 13, 14 */
-/*          Relasi bangunan 2 : 15, 1, 6, 7 */
-/*          dst */
+/* ----- MANAJEMEN MEMORI ----- */
+adrNode AlokNodeGraph(infotypeGraph X); // mengembalikan hasil alokasi simpul
+void DeAlokNodeGraph(adrNode P); // mengembalikan simpul ke sistem
+adrSuccNode AlokSuccNode(adrNode Pn); // mengembalikan hasil alokasi succ simpul
+void DealokSuccNode(adrSuccNode P); // mengembalikan succ simpul ke sistem
 
-/* ----- MEMBACA DARI FILE ----- */
-MGRAPH BacaFileGRAPH();
-/* Membaca MGRAPH dari suatu file yang kita input nama filenya */
-
-/* ----- OPERATOR BOOLEAN ----- */
-boolean IsRelasiValid (int X);
-/* Menghasilkan true jika masukan X = 0 atau X = 1 */
-boolean IsRelated (GRAPH G1,GRAPH G2);
-/* Menghasilkan true GRAPH saling terhubung */
-boolean AdaRelasi (GRAPH G, int X);
-/* Menghasilkan true jika relasi graph G ke ID adalah 1*/
+/* ----- OPERASI GRAF ----- */
+boolean isNodeEqual(adrNode P, infotypeGraph X); // mengembalikan apakah P memiliki Id X
+adrNode SearchNode(Graph G, infotypeGraph X); // mencari X pada G, return nil jika tiada
+adrSuccNode SearchEdge(Graph G, infotypeGraph prec, infotypeGraph succ); // mencari succ dari prec pada G, return nil jika tiada
+void InsertNode(Graph* G, infotypeGraph X, adrNode* Pn); // memasang X ke akhir G
+void InsertEdge(Graph* G, infotypeGraph prec, infotypeGraph succ); // memasang succ ke akhir prec
+infotypeGraph GetFirstSuccInfo(Graph G, infotypeGraph prec); // mencari info succ simpul pertama dari node
 
 #endif
