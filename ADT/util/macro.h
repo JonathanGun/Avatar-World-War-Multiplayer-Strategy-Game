@@ -22,7 +22,7 @@
 #define printcln(a)   printf("%c\n", a)
 #define ENDL          printf("\n")
 
-#define fori(i, n)    for(int i = 1; i <= n; ++i)
-#define forii(i,s,e)  for(int i = s; i < e;  i++)
+#define fori(i, n)    for(int i = 0; i < n; ++i)
+#define forii(i,s,e)  for(int i = s; i < e; i++)
 
 #endif
