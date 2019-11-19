@@ -16,16 +16,12 @@ void MakePeta(Peta *P, int NB, int NK)
 	forpeta(*P, r, c) PetaElmt(*P, r, c) = -1;
 }
 
-
-/* SELEKTOR */
-boolean IsIdxEff (Peta M, int i, int j)
-/* Mengirimkan true jika i, j adalah int yang valid untuk matriks apa pun */
-{
-	return (((PetaBrsMin <= i) && (i <= NPetaBrsEff(M))) && ((PetaKolMin <= j) && (j <= NPetaKolEff(M))));
+void CopyPeta(Peta P1, Peta *P2){
+	forpeta(P1, r, c) PetaElmt(*P2, r, c) = PetaElmt(P1, r, c);
 }
 
 /* ********** KELOMPOK BACA/TULIS ********** */
-void TulisPeta(Peta P)
+void TulisPeta(TabBangunan B, Peta P)
 /* I.S. P terdefinisi */
 /* F.S. Nilai P.(i,j) ditulis ke layar per baris per PetaKolom, masing-masing elemen per baris
    dipisahkan sebuah spasi, dikelilingi box bintang (*) */
@@ -42,13 +38,14 @@ void TulisPeta(Peta P)
 	fori(i, NPetaBrsEff(P)){
 		printf("*");
 		fori(j, NPetaKolEff((P))){
-			Bangunan* cur = GetBangunanByID(PetaElmt(P, i, j));
-			if (BangunanOwner(*cur) == 1)
-				print_red(Type(*cur));
-			else if (BangunanOwner(*cur) == 2)
-				print_blue(Type(*cur));
+			Bangunan cur;
+			GetBangunanByID(B, PetaElmt(P, i, j), &cur);
+			if (BangunanOwner(cur) == 1)
+				print_red(Type(cur));
+			else if (BangunanOwner(cur) == 2)
+				print_blue(Type(cur));
 			else
-				printf("%c", Type(*cur));
+				printf("%c", Type(cur));
 		}
 		printf("*");
 		ENDL;

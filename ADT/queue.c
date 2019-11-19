@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include "queue.h"
 
@@ -31,7 +32,7 @@ void CreateEmpty (Queue * Q, int Max)
 /* atau : jika alokasi gagal, Q kosong dg QueueMaxEl=0 */
 /* Proses : Melakukan alokasi, membuat sebuah Q kosong */
 {
-	(*Q).T = (int *) malloc ((Max+1) * sizeof(int));
+	(*Q).T = (int*) malloc ((Max+1) * sizeof(int));
 	QueueMaxEl(*Q) = Max;
 	Head(*Q) = QueueNil;
 	Tail(*Q) = QueueNil;

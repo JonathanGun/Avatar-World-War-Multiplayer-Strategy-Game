@@ -1,5 +1,5 @@
 #include "../util/boolean.h"
-#include "../arraydin.h"
+#include "../listbangunan.h"
 
 #ifndef GRAPH_H
 #define GRAPH_H
@@ -24,7 +24,7 @@ Graph CreateList(int c);
 Graph AlokasiGraph(boolean X);
 void DealokasiGraph(Graph P);
 void SetBangunanTerhubung(Graph G, int r, int c);
-void GetBangunanTerhubung(Graph G, int r, int c, TabInt* AdjList);
+void GetBangunanTerhubung(Graph G, int r, int c, ListBangunan* AdjList);
 Graph NextGraphN(Graph G, int n);
 Graph TrailN(Graph G, int n);
 void PrintGraph(Graph G);

@@ -8,7 +8,8 @@
 
 typedef struct {
     Peta map; // Menyimpan peta
-    Bangunan* ListBangunan; // Array of bangunan, menyimpan data bangunan
+    TabBangunan ListBangunan; // Array of bangunan, menyimpan data bangunan
+    Graph Relasi;
     GameStack GameConditions; // Stackt of GameCondition, menyimpan kondisi dari setiap aksi dilakukan (dikosongkan setelah endturn)
 } Game;
 // GameCondition yang digunakan adalah yang berada di Top
@@ -24,16 +25,18 @@ void InitGame(Game* G);
 // eksternal (dijelaskan pada bab selanjutnya).
 // b. Queue ​ skill setiap pemain berisi 1 buah skill, yaitu Instant Upgrade
 
-void InitPlayer(Game *G, Config conf);
+void InitPlayer(Game* G, Config conf);
 
-void InitMap(Game *G, Config conf);
+void InitMap(Game* G, Config conf);
 
 void LoadGame(Game* G, GameCondition Gc);
 // Load permainan yang telah disimpan
 // I.S : Sembarang
 // F.s : G.GameCondition = Gc
 
-void Start(Game* G);
+void LoadFromFile(Game* G, Kata filename);
+
+void StartGame(Game* G);
 // Memulai permainan
 
 // Command

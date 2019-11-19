@@ -4,6 +4,7 @@
 #include "util/pcolor.h"
 #include "util/macro.h"
 #include "bangunan.h"
+#include "arraydin_bangunan.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -37,8 +38,10 @@ void MakePeta(Peta *P, int NB, int NK);
 /* Proses : Membuat M.TabInt dan M. kosong dengan ukuran NBxNK
 */
 
+void CopyPeta(Peta P1, Peta *P2);
+
 /* ********** KELOMPOK BACA/TULIS ********** */
-void TulisPeta(Peta P);
+void TulisPeta(TabBangunan B, Peta P);
 /* I.S. P terdefinisi */
 /* F.S. Nilai P.(i,j) ditulis ke layar per baris per PetaKolom, masing-masing elemen per baris
    dipisahkan sebuah spasi, dikelilingi box bintang (*) */

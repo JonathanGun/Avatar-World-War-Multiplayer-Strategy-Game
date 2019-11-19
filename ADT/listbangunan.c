@@ -23,7 +23,7 @@ address Alokasi (int X)
 /* Jika alokasi gagal, mengirimkan NULL */
 {
     address P;
-    P = (ElmtList*) malloc((sizeof(ElmtList)));
+    P = (ElmtList*) malloc((sizeof(ElmtList)+1));
     if(P!=NULL){
         Info(P) = X;
         Next(P) = NULL;

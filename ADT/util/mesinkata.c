@@ -14,7 +14,7 @@ static int retval;
 // MESIN KARAKTER //
 void ADV(){
     retval = fscanf(pita,"%c",&CC);
-    EOP = (CC == EOF && feof(pita));
+    EOP = (CC == MARK);
     if (EOP) fclose(pita);
 }
 

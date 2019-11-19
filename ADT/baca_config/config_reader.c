@@ -2,19 +2,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void extract_config(Config conf) {
-    extract_dimensi_peta(&conf.conf_peta);
-    extract_banyak_bangunan(&conf.conf_banyak_bangunan);
-    extract_listBangunan(conf.conf_banyak_bangunan ,conf.conf_list_bangunan);
-    extract_relasi(conf.conf_banyak_bangunan, conf.conf_relasi);
+void extract_config(Config* conf) {
+    extract_dimensi_peta(&(*conf).conf_peta);
+    extract_banyak_bangunan(&(*conf).conf_banyak_bangunan);
+    CreateEmpty(&(*conf).conf_list_bangunan);
+    extract_listBangunan((*conf).conf_banyak_bangunan,&(*conf).conf_list_bangunan);
+    extract_relasi((*conf).conf_banyak_bangunan, &(*conf).conf_relasi);
 }
 
-void extract_dimensi_peta(Peta *peta) {
-
+void extract_dimensi_peta(Peta *peta){
     START_config(1);
-    (*peta).NPetaBrsEff = Token.Bil;
+    int r = Token.Bil;
     ADV_config();
-    (*peta).NPetaKolEff = Token.Bil;
+    int c = Token.Bil;
+    MakePeta(peta, r, c);
 }
 
 void extract_banyak_bangunan(int *banyak_bangunan) {
@@ -22,11 +23,8 @@ void extract_banyak_bangunan(int *banyak_bangunan) {
     *banyak_bangunan = Token.Bil;
 }
 
-void extract_listBangunan(int banyak_bangunan, ListBangunan list_bangunan) {
-
-    int i;
-    address P = list_bangunan.First;
-    for ( i = 1; i < banyak_bangunan+1; i++ ) {
+void extract_listBangunan(int banyak_bangunan, ListBangunan* list_bangunan) {
+    for(int i = 1; i < banyak_bangunan+1; i++ ) {
         START_config(2 + i);
 
         Bangunan B; 
@@ -59,27 +57,18 @@ void extract_listBangunan(int banyak_bangunan, ListBangunan list_bangunan) {
             B.jumlah_pasukan = 20;
         }
 
-        if (i == 1) P = Alokasi(1);
-        else {
-            P->next = Alokasi(1);
-            P = P->next;
-        }
+        InsVLast(list_bangunan, i);
     }
 }
 
-void extract_relasi(int banyak_bangunan, Graph relasi) {
-
+void extract_relasi(int banyak_bangunan, Graph* relasi) {
     int i, j;
-    relasi = CreateGraph(banyak_bangunan, banyak_bangunan);
+    *relasi = CreateGraph(banyak_bangunan, banyak_bangunan);
     for ( i = 1; i <= banyak_bangunan; i++ ) {
         START_config(2 + banyak_bangunan + i);
         for ( j = 1; j <= banyak_bangunan; j++ ) {
-            if ( Token.Bil == 1) SetBangunanTerhubung(relasi, i, j);
+            if ( Token.Bil == 1) SetBangunanTerhubung(*relasi, i, j);
             ADV_config();
         }
     }
 }
-
-
-
-

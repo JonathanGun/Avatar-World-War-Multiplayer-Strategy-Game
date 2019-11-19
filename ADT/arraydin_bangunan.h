@@ -13,7 +13,6 @@
 /* Indeks tak terdefinisi*/
 
 /* Definisi elemen dan koleksi objek */
-typedef int IdxType; /* type indeks */
 typedef struct
 {
   Bangunan *TB; /* memori tempat penyimpan elemen (container) */
@@ -74,5 +73,10 @@ Point GetPosFrom(TabBangunan TAll, int idx);
 
 int GetIdxFromPosBangunan(TabBangunan TAll, int Baris, int Kolom );
 /* Pencarian indeks bangunan */
+
+void GetBangunanByID(TabBangunan TAll, int id, Bangunan* B);
+/* pencarian bangunan berdasarkan id nya */
+
+void TulisIsiTab(TabBangunan TAll);
 
 #endif

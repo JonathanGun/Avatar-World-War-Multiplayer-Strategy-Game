@@ -1,4 +1,4 @@
-#include "ADT/compiler.h"
+#include "compiler.h"
 
 int main (){
     char Load[5] = "LOAD";
@@ -31,10 +31,16 @@ int main (){
         printf("ENTER COMMAND: ");
         InputKata(&command); 
     }
+    Game main_game;
     if(CompareKata(command,load)){
-        printf("Load berhasil masukkan file loadmu...\n");
+        Kata loadfile;
+        printf("Ketikkan nama file: "); InputKata(&loadfile);
+        LoadFromFile(&main_game, loadfile);
+        printf("Load berhasil!\n");
+        StartGame(&main_game);
     }else if (CompareKata(command,start)){
-        printf("New game berhasil...\n");
+        InitGame(&main_game);
+        StartGame(&main_game);
     }else{ 
         printf("Exiting the program...\n"); 
         exit(0); 

@@ -104,3 +104,18 @@ int GetIdxFromPosBangunan(TabBangunan TAll, int Baris, int Kolom )
         return -1; //Kalau tidak ada bangunan di baris atau kolom tsb, dikembalikan nilai -1
     }
 }
+
+void GetBangunanByID(TabBangunan TAll, int id, Bangunan* B)
+/* pencarian bangunan berdasarkan id nya */
+{
+    // loop ke semua bangunan, cari yg Elmt(TAll, i).id = id, return Elmt(TAll, i).
+    *B = ElmtTB(TAll, 1);
+}
+
+void TulisIsiTab(TabBangunan TAll){
+  printf("[");
+  for(int i = 1; i <= NbBangunan(TAll); ++i)
+    if (i != NbBangunan(TAll)) printf("%d,",ElmtTB(TAll, i));
+    else (printf("%d",ElmtTB(TAll, i)));
+  printf("]");
+}

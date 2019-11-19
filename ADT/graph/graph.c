@@ -42,14 +42,14 @@ void SetBangunanTerhubung(Graph G, int r, int c){
 }
 
 /* ----- OPERASI GRAF ----- */
-void GetBangunanTerhubung(Graph G, int r, int c, TabInt* AdjList){
+void GetBangunanTerhubung(Graph G, int r, int c, ListBangunan* AdjList){
     // input indeks bangunan, return semua bangunan yg terhubung dgn dia di *AdjList
     // proses: traverse ke bwh sejumlah r, traverse ke kanan hingga ujung (sejumlah c), tambah ke AdjList jika Connect(G) == true
-    MakeEmpty(AdjList, c);
+    CreateEmpty(AdjList);
     G = TrailN(G, r-1);
     int i = 1;
     while(G != NilGraph){
-        if(Connect(G)) AddAsLastEl(AdjList, i);
+        if(Connect(G)) InsVLast(AdjList, i);
         G = NextGraph(G);
         i++;
     }

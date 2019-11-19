@@ -42,7 +42,4 @@ void move(Bangunan *BAwal, Bangunan *BAkhir, int jumlah_pasukan_pindah);
 void add_pasukan(Bangunan *B);
 /* Menghitung perubahan jumlah pasukan saat awal turn */
 
-Bangunan* GetBangunanByID(int id);
-/* Mendapat Bangunan Dari IDnya */
-
 #endif

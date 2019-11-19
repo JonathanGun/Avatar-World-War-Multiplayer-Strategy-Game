@@ -1,12 +1,12 @@
 #include "game.h"
 
 void InitPlayer(Game *G, Config conf) {
-
     // Masing-masing pemain memiliki skill UI saat memulai permainan
-    Add(&(P1(*G)).Skill, 1);
-    Add(&(P2(*G)).Skill, 1);
-
+    startSkill(&P1(*G).Skill);
+    startSkill(&P1(*G).Skill);
     // Masing-masing pamain memiliki satu bangunan saat memulai permainan
+    CreateEmpty(&P1(*G).list_bangunan);
+    CreateEmpty(&P2(*G).list_bangunan);
     First(P1(*G).list_bangunan) = First(conf.conf_list_bangunan);
     First(P2(*G).list_bangunan) = Next(First(conf.conf_list_bangunan));
 }
@@ -14,6 +14,9 @@ void InitPlayer(Game *G, Config conf) {
 void InitMap(Game *G, Config conf) {
     int N = conf.conf_banyak_bangunan;
     MakePeta(&(*G).map, N, N);
+    CopyPeta(conf.conf_peta, &(*G).map);
+    // TulisPeta(P1(*G).list_bangunan, conf.conf_peta);
+    (*G).Relasi = conf.conf_relasi;
 }
 
 void InitGame(Game* G)
@@ -26,14 +29,16 @@ void InitGame(Game* G)
     Config conf;
 
     // read config
-    extract_config(conf);
+    extract_config(&conf);
+    printf("Berhasil load file config\n");
 
     // init player
     InitPlayer(G, conf);
+    printf("Berhasil inisialisasi player\n");
 
     // init map
     InitMap(G, conf);
-
+    printf("Berhasil inisialisasi map\n");
 }
 
 void LoadGame(Game* G, GameCondition Gc);
@@ -41,8 +46,24 @@ void LoadGame(Game* G, GameCondition Gc);
 // I.S : Sembarang
 // F.s : G.GameCondition = Gc
 
-void StartGame(Game* G);
+void LoadFromFile(Game* G, Kata filename)
+{
+	printf("loaded from "); PrintKata(filename); ENDL;
+}
+
+void StartGame(Game* G)
 // Memulai permainan
+{
+	printf("Berikut isi file config: "); ENDL;
+	printf("Daftar Bangunan:"); ENDL;
+	TulisIsiTab((*G).ListBangunan); ENDL;
+	printf("Keterhubungan: "); ENDL;
+	PrintGraph((*G).Relasi); ENDL;
+	printf("Peta:"); ENDL;
+	// TulisPeta((*G).ListBangunan, (*G).map);
+
+	printf("Game started!"); ENDL;
+}
 
 void command_Attack() {
     // print daftar bangunan
