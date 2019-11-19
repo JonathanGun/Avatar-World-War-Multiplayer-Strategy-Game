@@ -39,6 +39,13 @@ void CreateEmptyBangunan (ListBangunan *L){
 /* I.S. sembarang             */
 /* F.S. Terbentuk ListBangunan kosong */
 
+void InsertBangunan(ListBangunan *L, Bangunan *B){
+    address X = Alokasi(*B);
+    First(*L) = X;
+}
+/* I.S. List Bangunan terdefinisi dan kosong
+   F.S. Bangunan diinsert sebagai elemen first dari List */
+
 /****************** Manajemen Memori ******************/
 address Alokasi (Bangunan X){
     address New = (address) malloc (sizeof(ElmtList));
@@ -86,5 +93,10 @@ int NbElmt (ListBangunan L){
     return count;
 }
 /* Mengirimkan banyaknya elemen ListBangunan; mengirimkan 0 jika ListBangunan kosong */
+
+boolean BangunanEQ(Bangunan B1, Bangunan B2){
+
+}
+/* Mencocokkan Dua bangunan, mengembalikan True apabila B1 dan B2 adalah bangunan yang sama, mengembalikan false apabila beda */
 
 #endif
