@@ -2,6 +2,7 @@
 #define __MESIN_KATA_H_
 
 #include "boolean.h"
+#include "macro.h"
 #include <stdio.h>
 
 #define NMax 10000
@@ -21,6 +22,7 @@ extern Kata CKata;
 /* State Mesin */
 char CC;
 boolean EOP;
+boolean FirstTimeLoad = true;
 
 static FILE * pita;
 static int retval;
@@ -32,19 +34,23 @@ void ADV(){
     if (EOP) fclose(pita);
 }
 
-boolean START(char* filename) {
-    EOP = false;
-    if (filename == 0) pita = stdin;
-    else pita = fopen(filename, "r");
-    return (pita != 0);
-}
-
 boolean IsBlank() {
   return CC == BLANK || CC == NL;
 }
 
 void IgnoreBlank(){
   while(IsBlank()) ADV();
+}
+
+boolean START(char* filename) {
+    EOP = false;
+    if (filename == 0) pita = stdin;
+    else pita = fopen(filename, "r");
+    if(FirstTimeLoad){
+      FirstTimeLoad = false;
+      ADV();
+    } 
+    return (pita != 0);
 }
 
 // MESIN KATA //
@@ -115,7 +121,7 @@ void BacaKata(Kata *K){
     (*K).TabKata[i] = CKata.TabKata[i];
   }
   (*K).TabKata[CKata.Length+1] = 0;
-  (*K).Length = CKata.Length;
+  (*K).Length = CKata.Length+1;
 }
 
 void InputKata(Kata* K) {
@@ -127,6 +133,21 @@ void PrintKata(Kata K){
   for(int i = 1; i <= K.Length; i++){
     printf("%c", K.TabKata[i]);
   }
+}
+
+void MakeKata(Kata* K, char C[], int length){
+  (*K).Length = length+1;
+  for (int i = 1; i < length+1; i++){
+    (*K).TabKata[i] = C[i-1];
+  }
+}
+
+boolean CompareKata(Kata K1, Kata K2){
+  if(K1.Length != K2.Length) return false;
+  for(int i = 1; i <= K1.Length; i++){
+    if(K1.TabKata[i] != K2.TabKata[i]) return false;
+  }
+  return true;
 }
 
 #endif

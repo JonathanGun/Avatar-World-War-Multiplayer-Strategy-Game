@@ -42,9 +42,10 @@
 
 // Algorithm
 int main(){
+    boolean 
 	Game game;
 	Init(game);
 	Start(game);
-
+    while()
 	return 0;
 }
