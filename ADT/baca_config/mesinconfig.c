@@ -1,4 +1,3 @@
-#include "mesinkar.h"
 #include "mesinconfig.h"
 #include <stdio.h>
 
