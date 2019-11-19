@@ -17,7 +17,7 @@ typedef adrNode Graph;
 /* ----- SELEKTOR ----- */
 #define Connect(G) (G)->Connect
 #define Trail(G) (G)->Trail
-#define Next(G) (G)->Next
+#define NextGraph(G) (G)->Next
 
 Graph CreateGraph(int r, int c);
 Graph CreateList(int c);

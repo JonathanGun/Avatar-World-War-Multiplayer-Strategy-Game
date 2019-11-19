@@ -16,7 +16,7 @@ Graph CreateGraph(int r, int c){
 Graph CreateList(int c){
     if(c == 1) return AlokasiGraph(false);
     Graph G = AlokasiGraph(false);
-    Next(G) = CreateList(c-1);
+    NextGraph(G) = CreateList(c-1);
     return G;
 }
 
@@ -26,7 +26,7 @@ Graph AlokasiGraph(boolean X){
     if(P == NilGraph) return NilGraph;
     Connect(P) = X;
     Trail(P) = NilGraph;
-    Next(P) = NilGraph;
+    NextGraph(P) = NilGraph;
     return P;
 }
 
@@ -37,7 +37,7 @@ void DealokasiGraph(Graph P){
 /** SELEKTOR **/
 void SetBangunanTerhubung(Graph G, int r, int c){
     G = TrailN(G, r-1);
-    G = NextN(G, c-1);
+    G = NextGraphN(G, c-1);
     Connect(G) = true;
 }
 
@@ -50,15 +50,15 @@ void GetBangunanTerhubung(Graph G, int r, int c, TabInt* AdjList){
     int i = 1;
     while(G != NilGraph){
         if(Connect(G)) AddAsLastEl(AdjList, i);
-        G = Next(G);
+        G = NextGraph(G);
         i++;
     }
 }
 
-Graph NextN(Graph G, int n){
+Graph NextGraphN(Graph G, int n){
     // G ter-traverse ke kanan sejumlah n kali
     Graph F = G;
-    fori(i, n) F = Next(F);
+    fori(i, n) F = NextGraph(F);
     return F;
 }
 
@@ -74,7 +74,7 @@ void PrintGraph(Graph G){
         Graph tmp = G;
         while(tmp != NilGraph){
             prints(Connect(tmp));
-            tmp = Next(tmp);
+            tmp = NextGraph(tmp);
         } ENDL;
         G = Trail(G);
     }
