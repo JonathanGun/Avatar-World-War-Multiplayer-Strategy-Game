@@ -137,9 +137,8 @@ void PrintKata(Kata K){
 
 void MakeKata(Kata* K, char C[], int length){
   (*K).Length = length+1;
-  (*K).TabKata[1] = ' ';
   for (int i = 1; i < length+1; i++){
-    (*K).TabKata[i] = C[i-2];
+    (*K).TabKata[i] = C[i-1];
   }
 }
 

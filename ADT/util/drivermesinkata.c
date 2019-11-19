@@ -34,10 +34,17 @@ int main(){
 	Kata L;
 	BacaKata(&L);
 	PrintKata(L);ENDL;
+	
 	Kata K;
 	InputKata(&K);
 	PrintKata(K); ENDL;
-	print(CompareKata(K, L));
+	print(CompareKata(K, L)); ENDL;
+
+	Kata M;
+	char c[4] = "ABC";
+	MakeKata(&M, c, 3);
+	PrintKata(M); ENDL;
+	print(CompareKata(M, K));
 	// int r, c;
 	// BacaInt(&r); BacaInt(&c);
 	// prints(r); println(c);
