@@ -35,7 +35,6 @@ Matriks AttCastle,AttTower,AttFort,AttVillage;
 #define BangunanOwner(B) (B).owner
 
 
-
 void levelup(Bangunan *B){
 /* Menaikkan level dari Bangunan Pemain */
     if(Level(*B) < 4){
@@ -86,11 +85,11 @@ void attack(Bangunan *BAtt, Bangunan *BDef, int jumlah_penyerang){
         if(Pasukan(*BDef) < 0){
             printf("Bangunan berhasil diambil, pasukan yang tersisa sebanyak %d pasukan di dalam Bangunan.\n", -Pasukan(*BDef));
             Pasukan(*BDef) = -1 * Pasukan(*BDef);
-            Milik(*Bdef) = Milik(*BAtt);
+            BangunanOwner(*BDef) = BangunanOwner(*BAtt);
         }
         else if(Pasukan(*BDef) == 0){
             printf("Bangunan berhasil diambil, tidak ada pasukan yang tersisa untuk menjaga bangunan.\n");
-            Milik(*Bdef) = Milik(*BAtt);
+            BangunanOwner(*BDef) = BangunanOwner(*BAtt);
         }
         // Tidak Berhasil Diambil
         else{/* Pasukan(*BDef) > 0 setelah penyerangan, masih tersisa pasukan pertahanan */

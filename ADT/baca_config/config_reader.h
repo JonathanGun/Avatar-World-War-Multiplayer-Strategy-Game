@@ -1,7 +1,7 @@
 #include "mesinconfig.h"
-#include "listbangunan.h"
-#include "peta.h"
-#include "graph.h"
+#include "../listbangunan.h"
+#include "../peta.h"
+#include "../graph/graph.h"
 
 #ifndef CONFIG_READER_H
 #define CONFIG_READER_H

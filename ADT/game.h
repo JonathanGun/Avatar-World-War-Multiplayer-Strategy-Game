@@ -4,7 +4,7 @@
 #include "peta.h"
 #include "listbangunan.h"
 #include "game_stackt.h"
-#include "config_reader.h"
+#include "baca_config/config_reader.h"
 
 typedef struct {
     Peta map; // Menyimpan peta

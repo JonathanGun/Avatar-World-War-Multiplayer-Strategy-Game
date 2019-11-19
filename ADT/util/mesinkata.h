@@ -5,13 +5,13 @@
 #include "macro.h"
 #include <stdio.h>
 
-#define NMax 10000
+#define NMaxKata 10000
 #define BLANK ' '
 #define NL '\n'
 #define MARK '$'
 
 typedef struct {
-	char TabKata[NMax+1];
+	char TabKata[NMaxKata+1];
 	int Length;
 } Kata;
 

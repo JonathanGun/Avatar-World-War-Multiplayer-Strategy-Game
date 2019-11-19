@@ -4,12 +4,11 @@
 #ifndef __MESINKATA_H__
 #define __MESINKATA_H__
 
-#include "boolean.h"
-#include "util/mesinkar.h"
+#include "../util/boolean.h"
+#include "../util/mesinkar.h"
 
 #define NMax 50
 #define BLANK ' '
-#define ENDL '\n'
 
 typedef struct {
     char Val;
