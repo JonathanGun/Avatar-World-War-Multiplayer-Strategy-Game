@@ -6,6 +6,7 @@
 #include "bangunan.h"
 #include "matriks.h"
 #include "point.h"
+#include "matriks.h"
 
 typedef struct {
 	int id;
@@ -32,6 +33,8 @@ Matriks AttCastle,AttTower,AttFort,AttVillage;
 #define SudahSerang(B) ((B).sudahserang)
 #define Type(B) ((B). type)
 #define BangunanOwner(B) (B).owner
+
+
 
 void levelup(Bangunan *B){
 /* Menaikkan level dari Bangunan Pemain */
