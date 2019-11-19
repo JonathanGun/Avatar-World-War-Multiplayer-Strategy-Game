@@ -32,7 +32,7 @@ void ADV() {
     /* Algoritma */
     // printf("CC : %c\n",CC);
     retval = fscanf(pita,"%c",&CC);
-    EOP = (CC == MARK);
+    EOP = (retval == EOF && feof(pita));
     if (EOP) {
        fclose(pita);
     }

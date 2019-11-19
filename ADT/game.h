@@ -1,27 +1,28 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "player.h"
 #include "peta.h"
-#include "Bangunan.h"
-#include "stackt.h"
-
-typedef struct {
-    Player* Players; // Array of player, menyimpan data player1 dan player2
-    unsigned int turn;  // Bernilai 1 atau 2, yaitu id player yang sedang memiliki turn
-} GameCondition;
+#include "listbangunan.h"
+#include "game_stackt.h"
+#include "config_reader.h"
 
 typedef struct {
     Peta map; // Menyimpan peta
     Bangunan* ListBangunan; // Array of bangunan, menyimpan data bangunan
-    Stack GameCondition; // Stackt of GameCondition, menyimpan kondisi dari setiap aksi dilakukan (dikosongkan setelah endturn)
+    GameStack GameConditions; // Stackt of GameCondition, menyimpan kondisi dari setiap aksi dilakukan (dikosongkan setelah endturn)
 } Game;
 // GameCondition yang digunakan adalah yang berada di Top
 // setiap melakukan aksi lakukan Push pada stackt
 // saat melakukan UNDO lakukan Pop pada stackt 
 
-void Init(Game* G);
+#define P1(G) InfoTop((G).GameConditions).Players[0]
+#define P2(G) InfoTop((G).GameConditions).Players[1]
+
+void InitGame(Game* G);
 // Membaca file config dan menginisialisasi attribut pada Game G
+// a. Pada saat permainan dimulai, game akan membaca konfigurasi permainan dari file
+// eksternal (dijelaskan pada bab selanjutnya).
+// b. Queue ​ skill setiap pemain berisi 1 buah skill, yaitu Instant Upgrade
 
 void LoadGame(Game* G, GameCondition Gc);
 // Load permainan yang telah disimpan

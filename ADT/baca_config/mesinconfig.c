@@ -1,4 +1,3 @@
-#include "mesinkar.h"
 #include "mesinconfig.h"
 #include <stdio.h>
 
@@ -65,7 +64,6 @@ void ADV_config()
    Proses : Akuisisi kata menggunakan procedure SalinKata */
 {
     /* Algoritma */
-    IgnoreNotValidChar();
     if ( CC == MARK ) EndKata = true;
     else Salin_config();
 }
@@ -80,9 +78,8 @@ void Salin_config()
 {
     /* Algoritma*/
     Token.Bil = 0;
-    for(;;) {
-
-        if ( !ValidCharacter() ) break;
+    for(;;) {   
+        if ( !ValidCharacter() || EOP ) break;
         else {
             if ( CC == 'C' || CC == 'V' || CC == 'T' || CC == 'F' ) {
                 Token.Val = CC;
@@ -91,7 +88,6 @@ void Salin_config()
                 Token.Val = 'N';
                 Token.Bil = Token.Bil*10 + (CC-'0');
             }
-
             ADV();
         }
     }
