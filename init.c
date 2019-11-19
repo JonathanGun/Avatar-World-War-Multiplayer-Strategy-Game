@@ -1,6 +1,7 @@
 #include "ADT/util/pcolor.c"
 #include "ADT/util/mesinkata.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 boolean EndKata;
 Kata CKata;
@@ -8,10 +9,13 @@ Kata CKata;
 int main (){
     char Load[4] = "LOAD";
     char Start[5] = "START";
+    char Exit[4] = "EXIT";
     Kata load;
     Kata start;
+    Kata EXIT;
     MakeKata(&load,Load,4);
     MakeKata(&start,Start,5);
+    MakeKata(&EXIT,Exit,4);
     char avatar[6] = "AVATAR";
     char game[5] = " GAME";
     int i;
@@ -23,14 +27,22 @@ int main (){
     for (i=0; i<5; i++){
         print_blue(game[i]);
     }
-    printf("\n\n    Ketik \"START\" untuk memulai game\nJika sudah pernah save file ketik \"LOAD\"\n\n");
+    printf("\n\n    Ketik \"START\" untuk memulai game\n");
+    printf("Ketik \"LOAD\" jika sudah pernah save game\n");
+    printf("Ketik \"EXIT\" untuk keluar dari permainan\n\n");
     printf("ENTER COMMAND: ");
     InputKata(&command); 
-    while((CompareKata(command,load) == false) && (CompareKata(command,start) == false)) {
+    while((CompareKata(command,load) == 0) && (CompareKata(command,start) == 0) &&(CompareKata(command,EXIT) == 0)) {
         printf("Masukan salah, tolong input kembali !\n\n");
         printf("ENTER COMMAND: ");
         InputKata(&command); 
     }
-    if(CompareKata(command,load)) printf("Load berhasil masukkan file loadmu");
-    else printf("new game berhasil");
+    if(CompareKata(command,load)){
+        printf("Load berhasil masukkan file loadmu...\n");
+    }else if (CompareKata(command,start)){
+        printf("New game berhasil...\n");
+    }else{ 
+        printf("Exiting the program...\n"); 
+        exit(0); 
+    }
 }
