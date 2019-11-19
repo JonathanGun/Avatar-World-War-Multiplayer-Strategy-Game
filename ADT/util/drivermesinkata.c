@@ -13,14 +13,22 @@ boolean EndKata;
 // 	BacaKata(Kata*) - baca kata dari file yg sudah distart 
 // contoh implementasi:
 int main(){
-	int n;
-	InputInt(&n);
-	println(n);
-	while(n--){
-		Kata tmp;
-		InputKata(&tmp);
-		PrintKata(tmp); ENDL;
-	}
+	Kata K;
+	char c[7] = "AVATAR";
+	MakeKata(&K, c, 7);
+	PrintKata(K);
+	Kata N;
+	InputKata(&N);
+	print(CompareKata(K, N));
+	// int n;
+	// InputInt(&n);
+	// println(n);
+	// while(n--){
+	// 	Kata tmp;
+	// 	InputKata(&tmp);
+	// 	PrintKata(tmp); ENDL;
+	// }
+
 	// STARTKATA("config.txt");
 	// int r, c;
 	// BacaInt(&r); BacaInt(&c);
