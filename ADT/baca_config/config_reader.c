@@ -59,7 +59,7 @@ void extract_listBangunan(int banyak_bangunan, ListBangunan list_bangunan) {
             B.jumlah_pasukan = 20;
         }
 
-        if ( i == 1) P = Alokasi(B);
+        if ( i == 1) P = Alokasi(   );
         else {
             P->next = Alokasi(B);
             P = P->next;
