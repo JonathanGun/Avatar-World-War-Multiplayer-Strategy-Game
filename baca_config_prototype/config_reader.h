@@ -1,27 +1,19 @@
 #include "mesinconfig.h"
+#include "listbangunan.h"
+#include "peta.h"
+#include "graph.h"
+
+#ifndef CONFIG_READER_H
+#define CONFIG_READER_H
 
 typedef struct {
-    int x, y;
-} Point;
+    int conf_banyak_bangunan;
+    Peta conf_peta;
+    ListBangunan conf_list_bangunan;
+    Graph conf_relasi;
+} Config;
 
-typedef struct {
-    Point dimensi;
-} Peta;
-
-typedef struct {
-    Point posisi;
-    char C;
-} Bangunan;
-
-typedef struct {
-    Bangunan bangunan[100];
-} ListBangunan;
-
-typedef struct {
-    int Mat[100][100];
-} Graph;
-
-void extract_config(Peta *peta, int *banyak_bangunan, ListBangunan *list_bangunan, Graph *relasi);
+void extract_config(Config conf);
 // Mengekstrak informasi dalam "Config"
 
 void extract_dimensi_peta(Peta *peta);
@@ -30,10 +22,10 @@ void extract_dimensi_peta(Peta *peta);
 void extract_banyak_bangunan(int *banyak_bangunan);
 // Mengekstrak banyak bangunan
 
-void extract_listBangunan(int banyak_bangunan, ListBangunan *list_bangunan);
+void extract_listBangunan(int banyak_bangunan, ListBangunan list_bangunan);
 // Mengekstrak list bangunan
 
-void extract_relasi(int banyak_bangunan, Graph *relasi);
+void extract_relasi(int banyak_bangunan, Graph relasi);
 // Mengekstrak relasi
 
-
+#endif
