@@ -18,6 +18,7 @@
 #include "util/boolean.h"
 #include "util/data_bangunan.h"
 #include "util/macro.h"
-#include "util/mesinkar.h"
 #include "util/mesinkata.h"
 #include "util/pcolor.h"
+#include <stdio.h>
+#include <stdlib.h>

@@ -1,7 +1,6 @@
 #include "mesinconfig.h"
 #include <stdio.h>
 
-boolean EndKata;
 TOKEN_config Token;
 
 boolean ValidCharacter() {
@@ -40,7 +39,7 @@ void START_config( int Line )
 {
     int i;
     /* Algoritma */
-    START();
+    START("config.txt");
 
 
     for ( i = 1; i < Line; i++ ) {

@@ -92,12 +92,12 @@ int GetIdxFromPosBangunan(TabBangunan TAll, int Baris, int Kolom )
 {
     boolean found = false;
     int i = 1;
-    while(!found && i<= Neff(TAll)){
+    while(!found && i<= NeffTB(TAll)){
         if(Row(ElmtTB(TAll,i).posisi) == Baris && Col(ElmtTB(TAll,i).posisi) == Kolom){
             found = true;
         }
     }
-    if(i <= Neff(TAll)){
+    if(i <= NeffTB(TAll)){
         return i;
     }
     else{

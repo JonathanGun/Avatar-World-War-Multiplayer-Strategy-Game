@@ -3,8 +3,8 @@
 void InitPlayer(Game *G, Config conf) {
 
     // Masing-masing pemain memiliki skill UI saat memulai permainan
-    Add((P1(*G)).Skill, 1);
-    Add((P2(*G)).Skill, 1);
+    Add(&(P1(*G)).Skill, 1);
+    Add(&(P2(*G)).Skill, 1);
 
     // Masing-masing pamain memiliki satu bangunan saat memulai permainan
     First(P1(*G).list_bangunan) = First(conf.conf_list_bangunan);
@@ -13,7 +13,7 @@ void InitPlayer(Game *G, Config conf) {
 
 void InitMap(Game *G, Config conf) {
     int N = conf.conf_banyak_bangunan;
-    MakePeta((*G).map, N, N);
+    MakePeta(&(*G).map, N, N);
 }
 
 void InitGame(Game* G)
@@ -26,7 +26,7 @@ void InitGame(Game* G)
     Config conf;
 
     // read config
-    export_config(conf);
+    extract_config(conf);
 
     // init player
     InitPlayer(G, conf);

@@ -25,7 +25,7 @@ Graph AlokasiGraph(boolean X);
 void DealokasiGraph(Graph P);
 void SetBangunanTerhubung(Graph G, int r, int c);
 void GetBangunanTerhubung(Graph G, int r, int c, TabInt* AdjList);
-Graph NextN(Graph G, int n);
+Graph NextGraphN(Graph G, int n);
 Graph TrailN(Graph G, int n);
 void PrintGraph(Graph G);
 

@@ -26,7 +26,7 @@ void InitGame(Game* G);
 
 void InitPlayer(Game *G, Config conf);
 
-void InitMap(Game *G, Config conf)
+void InitMap(Game *G, Config conf);
 
 void LoadGame(Game* G, GameCondition Gc);
 // Load permainan yang telah disimpan

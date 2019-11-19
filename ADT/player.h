@@ -9,6 +9,7 @@
 
 typedef struct {
 	Queue Skill; /* Skill yang dimiliki player */
+	ListBangunan list_bangunan;
 } Player;
 
 #define Skill(P)    (P).Skill

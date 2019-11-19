@@ -2,7 +2,7 @@
 
 /* ************ Prototype ************ */
 /* *** Konstruktor/Kreator *** */
-void CreateEmpty (Stack *S)
+void CreateEmpty (GameStack *S)
 /* I.S. sembarang; */
 /* F.S. Membuat sebuah stack S yang kosong berkapasitas StackMaxEl */
 /* jadi indeksnya antara 1.. StackMaxEl+1 karena 0 tidak dipakai */

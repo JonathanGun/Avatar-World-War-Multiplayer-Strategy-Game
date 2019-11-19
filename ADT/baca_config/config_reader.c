@@ -32,9 +32,9 @@ void extract_listBangunan(int banyak_bangunan, ListBangunan list_bangunan) {
         Bangunan B; 
         B.type = Token.Val;
         ADV_config();
-        B.posisi.x = Token.Bil;
+        B.posisi.r = Token.Bil;
         ADV_config();
-        B.posisi.y = Token.Bil;
+        B.posisi.c = Token.Bil;
 
         B.level = 1;
         if ( B.type == 'C' ) {
@@ -59,9 +59,9 @@ void extract_listBangunan(int banyak_bangunan, ListBangunan list_bangunan) {
             B.jumlah_pasukan = 20;
         }
 
-        if ( i == 1) P = Alokasi(   );
+        if (i == 1) P = Alokasi(1);
         else {
-            P->next = Alokasi(B);
+            P->next = Alokasi(1);
             P = P->next;
         }
     }

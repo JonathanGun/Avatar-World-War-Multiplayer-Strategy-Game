@@ -1,23 +1,17 @@
-#include "ADT/util/pcolor.c"
-#include "ADT/util/mesinkata.h"
-#include <stdio.h>
-#include <stdlib.h>
-
-boolean EndKata;
-Kata CKata;
+#include "ADT/compiler.h"
 
 int main (){
-    char Load[4] = "LOAD";
-    char Start[5] = "START";
-    char Exit[4] = "EXIT";
+    char Load[5] = "LOAD";
+    char Start[6] = "START";
+    char Exit[5] = "EXIT";
     Kata load;
     Kata start;
     Kata EXIT;
     MakeKata(&load,Load,4);
     MakeKata(&start,Start,5);
     MakeKata(&EXIT,Exit,4);
-    char avatar[6] = "AVATAR";
-    char game[5] = " GAME";
+    char avatar[7] = "AVATAR";
+    char game[6] = " GAME";
     int i;
     Kata command;
     printf("               ");
