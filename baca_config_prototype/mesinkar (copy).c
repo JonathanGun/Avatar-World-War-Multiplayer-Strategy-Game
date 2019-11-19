@@ -1,7 +1,7 @@
 /* File: mesinkar.c */
 /* Implementasi Mesin Karakter */
 
-#include "mesinkarconfig.h"
+#include "mesinkar.h"
 #include <stdio.h>
 
 char CC;
@@ -19,7 +19,6 @@ void START() {
 
     /* Algoritma */
     pita = fopen("config.txt","r");
-    ADV();
 }
 
 void ADV() {
@@ -31,37 +30,10 @@ void ADV() {
           Jika  CC = MARK maka EOP akan menyala (true) */
 
     /* Algoritma */
+    // printf("CC : %c\n",CC);
     retval = fscanf(pita,"%c",&CC);
     EOP = (CC == MARK);
     if (EOP) {
        fclose(pita);
     }
-}
-
-
-void IgnoreLine()
-/* Mengabaikan satu line */
-{
-    char ignore[1024];
-    fgets(ignore,sizeof(ignore),pita);
-}
-
-boolean IsValidCharacter(char C) {
-    if (
-        CC == '1' || 
-        CC == '2' || 
-        CC == '3' || 
-        CC == '4' || 
-        CC == '5' ||
-        CC == '6' ||
-        CC == '7' ||
-        CC == '8' ||
-        CC == '9' ||
-        CC == '0' ||
-        CC == 'C' ||
-        CC == 'T' ||
-        CC == 'V' ||
-        CC == 'F'
-    ) return true;
-    else return false; 
 }

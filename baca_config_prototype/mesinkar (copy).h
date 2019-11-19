@@ -1,8 +1,8 @@
 /* File: mesinkar.h */
 /* Definisi Mesin Karakter */
 
-#ifndef __MESINKARCONFIG_H_
-#define __MESINKARCONFIG_H_
+#ifndef __MESIN_KAR_H_
+#define __MESIN_KAR_H_
 
 #include "boolean.h"
 
@@ -25,11 +25,5 @@ void ADV();
    F.S. : CC adalah karakter berikutnya dari CC yang lama,
           CC mungkin = MARK
           Jika  CC = MARK maka EOP akan menyala (true) */
-
-
-void IgnoreLine();
-/* Mengabaikan satu line */
-
-boolean IsValidCharacter(char C);
 
 #endif

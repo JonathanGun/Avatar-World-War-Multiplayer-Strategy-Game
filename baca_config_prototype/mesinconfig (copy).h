@@ -1,45 +1,44 @@
 /* File: mesinkata.h */
 /* Definisi Mesin Kata: Model Akuisisi Versi I */
 
-#ifndef __MESINCONFIG_H__
-#define __MESINCONFIG_H__
+#ifndef __MESINKATA_H__
+#define __MESINKATA_H__
 
 #include "boolean.h"
-#include "mesinkarconfig.h"
+#include "mesinkar.h"
 
 #define NMax 50
 #define BLANK ' '
-#define ValUndef 'N'
-#define BilUndef -1
+#define ENDL '\n'
 
 typedef struct {
     char Val;
     int Bil;
-} Token;
+} TOKEN_config;
 
 /* State Mesin Kata */
-extern boolean EndToken;
-extern Token CConfig;
+extern boolean EndKata;
+extern TOKEN_config Token;
 
-void IgnoreNotValidCharacter();
+void IgnoreBlank();
 /* Mengabaikan satu atau beberapa BLANK
    I.S. : CC sembarang
    F.S. : CC ≠ BLANK atau CC = MARK */
 
-void STARTCONFIG( int LineNumber );
+void START_config( int Line );
 /* I.S. : CC sembarang
    F.S. : EndKata = true, dan CC = MARK;
           atau EndKata = false, CKata adalah kata yang sudah diakuisisi,
           CC karakter pertama sesudah karakter terakhir kata */
 
-void ADVKATACONFIG();
+void ADV_config();
 /* I.S. : CC adalah karakter pertama kata yang akan diakuisisi
    F.S. : CKata adalah kata terakhir yang sudah diakuisisi,
           CC adalah karakter pertama dari kata berikutnya, mungkin MARK
           Jika CC = MARK, EndKata = true.
    Proses : Akuisisi kata menggunakan procedure SalinKata */
 
-void SalinKataConfig();
+void Salin_config();
 /* Mengakuisisi kata, menyimpan dalam CKata
    I.S. : CC adalah karakter pertama dari kata
    F.S. : CKata berisi kata yang sudah diakuisisi;
