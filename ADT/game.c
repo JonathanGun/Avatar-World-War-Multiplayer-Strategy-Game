@@ -1,7 +1,7 @@
 #include "game.h"
 
 void InitPlayer(Game *G, Config conf) {
-    // Masing-masing pemain memiliki skill UI saat memulai permainan
+    // Masing-masing pemain memiliki skill IU saat memulai permainan
     startSkill(&P1(*G).Skill);
     startSkill(&P1(*G).Skill);
 
