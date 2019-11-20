@@ -94,31 +94,31 @@ void printSkill(Queue Skill)
     int x;
     if (IsEmptyQueue(Skill))
     {
-        printf("-");
+        printf("-\n");
     }
     else /*  not IsEmpty */
     {
         Del(&Skill, &x);
         if(x == 1){
-            printf("IU");
+            printf("IU\n");
         }
         else if (x ==2){
-            printf("Shield");
+            printf("Shield\n");
         }
         else if (x == 3){
-            printf("Extra Turn");
+            printf("Extra Turn\n");
         }
         else if (x == 4){
-            printf("Attack Up");
+            printf("Attack Up\n");
         }
         else if (x == 5){
-            printf("Critical Hit");
+            printf("Critical Hit\n");
         }
         else if (x == 6){
-            printf("Instant Reinforcement");
+            printf("Instant Reinforcement\n");
         }
         else if (x == 7){
-            printf("Barrage");
+            printf("Barrage\n");
         }
         Add(&Skill,x);
     }

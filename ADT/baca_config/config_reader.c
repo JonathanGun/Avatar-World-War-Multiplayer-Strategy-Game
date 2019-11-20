@@ -7,6 +7,7 @@ void extract_config(Config* conf) {
     extract_banyak_bangunan(&(*conf).conf_banyak_bangunan);
     extract_listBangunan((*conf).conf_banyak_bangunan,&(*conf).conf_list_bangunan);
     extract_relasi((*conf).conf_banyak_bangunan, &(*conf).conf_relasi);
+    CC = ' ';
 }
 
 void extract_peta(Peta *peta){
