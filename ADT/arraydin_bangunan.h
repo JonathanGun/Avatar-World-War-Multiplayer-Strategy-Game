@@ -77,6 +77,8 @@ int GetIdxFromPosBangunan(TabBangunan TAll, int Baris, int Kolom );
 void GetBangunanByID(TabBangunan TAll, int id, Bangunan* B);
 /* pencarian bangunan berdasarkan id nya */
 
-// void TulisIsiTab(TabBangunan TAll);
+void CopyTabBangunan(TabBangunan Tin, TabBangunan *Tout);
+
+void TulisIsiTabBangunan(TabBangunan TAll);
 
 #endif

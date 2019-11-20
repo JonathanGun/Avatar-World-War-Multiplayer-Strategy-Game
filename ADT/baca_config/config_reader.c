@@ -28,35 +28,15 @@ void extract_listBangunan(int banyak_bangunan, TabBangunan* list_bangunan) {
         START_config(2 + i);
 
         Bangunan B; 
+        B.id = i;
         B.type = Token.Val;
         ADV_config();
         B.posisi.r = Token.Bil;
         ADV_config();
         B.posisi.c = Token.Bil;
 
-        B.level = 1;
-        if ( B.type == 'C' ) {
-            B.nilai_tambah_pasukan = 10;
-            B.maksimum_tambah_pasukan = 40;
-            B.pertahanan = false;
-            B.jumlah_pasukan = 40;
-        } else if ( B.type == 'T' ) {
-            B.nilai_tambah_pasukan = 5;
-            B.maksimum_tambah_pasukan = 20;
-            B.pertahanan = true;
-            B.jumlah_pasukan = 30;
-        } else if ( B.type == 'F') {
-            B.nilai_tambah_pasukan = 10;
-            B.maksimum_tambah_pasukan = 20;
-            B.pertahanan = false;
-            B.jumlah_pasukan = 80;
-        } else if ( B.type == 'V' ) {
-            B.nilai_tambah_pasukan = 5;
-            B.maksimum_tambah_pasukan = 20;
-            B.pertahanan = false;
-            B.jumlah_pasukan = 20;
-        }
-
+        B.level = 0;
+        levelup(&B);
         AddBangunan(B, list_bangunan);
     }
 }

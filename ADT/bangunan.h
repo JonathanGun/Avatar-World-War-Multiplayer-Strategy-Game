@@ -3,6 +3,7 @@
 
 #include "util/boolean.h"
 #include "util/data_bangunan.h"
+#include "util/macro.h"
 #include "matriks.h"
 #include "point.h"
 
@@ -31,6 +32,9 @@ extern boolean AttackBerhasil;
 #define Type(B) ((B). type)
 #define BangunanOwner(B) (B).owner
 
+void CreateBangunanEmpty(Bangunan *B);
+
+boolean IsBangunanEmpty(Bangunan B);
 
 void levelup(Bangunan *B);
 /* Menaikkan level dari Bangunan Pemain */
@@ -41,5 +45,7 @@ void move(Bangunan *BAwal, Bangunan *BAkhir, int jumlah_pasukan_pindah);
 
 void add_pasukan(Bangunan *B);
 /* Menghitung perubahan jumlah pasukan saat awal turn */
+
+void TulisBangunan(Bangunan B);
 
 #endif

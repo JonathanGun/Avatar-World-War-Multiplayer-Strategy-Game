@@ -2,30 +2,51 @@
 
 boolean AttackBerhasil;
 
+void CreateBangunanEmpty(Bangunan *B){
+    (*B).id = -1;
+    (*B).jumlah_pasukan = 0;
+    (*B).level = 0;
+    (*B).nilai_tambah_pasukan = 0;
+    (*B).owner = -1;
+    (*B).pertahanan = false;
+    (*B).sudahserang = false;
+    (*B).posisi.r = 0;
+    (*B).posisi.c = 0;
+    (*B).type = ' ';
+}
+
+boolean IsBangunanEmpty(Bangunan B){
+    return B.id == -1;
+}
+
 void levelup(Bangunan *B){
 /* Menaikkan level dari Bangunan Pemain */
     if(Level(*B) < 4){
         Level(*B) += 1;
         // "M" : 1, "A" : 2, "P" : 3
         if(Type(*B) == 'C'){
-            MaxPasukan(*B) = MatElmt(AttCastle, 1, Level(*B)+1);
-            RateTambah(*B) = MatElmt(AttCastle, 2, Level(*B)+1);
-            Pertahanan(*B) = MatElmt(AttCastle, 3, Level(*B)+1);
+            RateTambah(*B) = MatElmt(AttCastle, Level(*B), 1);
+            MaxPasukan(*B) = MatElmt(AttCastle, Level(*B), 2);
+            Pertahanan(*B) = MatElmt(AttCastle, Level(*B), 3);
+            if(Level(*B) == 1) Pasukan(*B) = MatElmt(AttCastle, Level(*B), 4);
         }
         else if(Type(*B) == 'T'){
-            MaxPasukan(*B) = MatElmt(AttTower, 1, Level(*B)+1);
-            RateTambah(*B) = MatElmt(AttTower, 2, Level(*B)+1);
-            Pertahanan(*B) = MatElmt(AttTower, 3, Level(*B)+1);
+            RateTambah(*B) = MatElmt(AttTower, Level(*B), 1);
+            MaxPasukan(*B) = MatElmt(AttTower, Level(*B), 2);
+            Pertahanan(*B) = MatElmt(AttTower, Level(*B), 3);
+            if(Level(*B) == 1) Pasukan(*B) = MatElmt(AttTower, Level(*B), 4);
         }
         else if(Type(*B) == 'F'){
-            MaxPasukan(*B) = MatElmt(AttFort, 1, Level(*B)+1);
-            RateTambah(*B) = MatElmt(AttFort, 2, Level(*B)+1);
-            Pertahanan(*B) = MatElmt(AttFort, 3, Level(*B)+1);
+            RateTambah(*B) = MatElmt(AttFort, Level(*B), 1);
+            MaxPasukan(*B) = MatElmt(AttFort, Level(*B), 2);
+            Pertahanan(*B) = MatElmt(AttFort, Level(*B), 3);
+            if(Level(*B) == 1) Pasukan(*B) = MatElmt(AttFort, Level(*B), 4);
         }
         else if(Type(*B) == 'V'){
-            MaxPasukan(*B) = MatElmt(AttVillage, 1, Level(*B)+1);
-            RateTambah(*B) = MatElmt(AttVillage, 2, Level(*B)+1);
-            Pertahanan(*B) = MatElmt(AttVillage, 3, Level(*B)+1);
+            RateTambah(*B) = MatElmt(AttVillage, Level(*B), 1);
+            MaxPasukan(*B) = MatElmt(AttVillage, Level(*B), 2);
+            Pertahanan(*B) = MatElmt(AttVillage, Level(*B), 3);
+            if(Level(*B) == 1) Pasukan(*B) = MatElmt(AttVillage, Level(*B), 4);
         }
     }
     else{
@@ -113,3 +134,18 @@ void add_pasukan(Bangunan *B){
     }
 }
 /* Menghitung perubahan jumlah pasukan saat awal turn */
+
+void TulisBangunan(Bangunan B){
+    printf("<%d> %c at (%d,%d)\n", B.id, B.type, B.posisi.r, B.posisi.c);
+    printf("Milik player "); println(B.owner);
+    printf("Level: "); println(B.level);
+    printf("Jumlah Pasukan: "); println(B.jumlah_pasukan);
+    printf("Shield active? ");
+    if(B.pertahanan) printf("yes");
+    else printf("no");
+    ENDL;
+    printf("Sudah serang? ");
+    if(B.sudahserang) printf("yes");
+    else printf("no");
+    ENDL;
+}

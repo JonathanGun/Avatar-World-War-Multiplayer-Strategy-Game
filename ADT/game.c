@@ -14,12 +14,13 @@ void InitPlayer(Game *G, Config conf) {
 }
 
 void InitMap(Game *G, Config conf) {
-    // int N = conf.conf_banyak_bangunan;
-    // int r = conf.conf_peta.NPetaBrsEff;
-    // int c = conf.conf_peta.NPetaKolEff;
-    // MakePeta(&(*G).map, r, c);
-    CopyPeta(conf.conf_peta, &(*G).map);
-    // TulisPeta(conf.conf_list_bangunan, conf.conf_peta);
+    int N = conf.conf_banyak_bangunan;
+    int r = conf.conf_peta.NPetaBrsEff;
+    int c = conf.conf_peta.NPetaKolEff;
+    MakePeta(&(*G).map, r, c);
+    CopyTabBangunan(conf.conf_list_bangunan, &(*G).ListBangunan);
+    TulisPeta((*G).ListBangunan, (*G).map);
+    UpdatePeta((*G).ListBangunan, &(*G).map);
     (*G).Relasi = conf.conf_relasi;
 }
 
@@ -29,6 +30,7 @@ void InitGame(Game* G)
 // eksternal (dijelaskan pada bab selanjutnya).
 // b. Queue ​ skill setiap pemain berisi 1 buah skill, yaitu Instant Upgrade
 {
+    MakeData();
     // temporary variable
     Config conf;
 
@@ -60,7 +62,7 @@ void StartGame(Game* G)
 {
 	printf("Berikut isi file config: "); ENDL;
 	printf("Daftar Bangunan:"); ENDL;
-	// TulisIsiTab((*G).ListBangunan); ENDL;
+	TulisIsiTabBangunan((*G).ListBangunan); ENDL;
 	printf("Keterhubungan: "); ENDL;
 	PrintGraph((*G).Relasi); ENDL;
 	printf("Peta:"); ENDL;
