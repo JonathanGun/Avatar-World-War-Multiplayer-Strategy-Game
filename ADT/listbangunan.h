@@ -2,6 +2,7 @@
 #define listbangunan_H
 /* FILE BUAT MENAMPUNG ID BANGUNAN YANG DI DIMILIKI */
 #include "util/boolean.h"
+#include "bangunan.h"
 #include <stdlib.h>
 #include <stdio.h>
 typedef struct tElmtlist *address;

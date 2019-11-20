@@ -17,8 +17,8 @@ typedef struct {
 // setiap melakukan aksi lakukan Push pada stackt
 // saat melakukan UNDO lakukan Pop pada stackt 
 
-#define P1(G) InfoTopStackt((G).GameConditions).Players[0]
-#define P2(G) InfoTopStackt((G).GameConditions).Players[1]
+#define Player(G, n) InfoTopStackt((G).GameConditions).Players[n-1]
+#define CurTurn(G) InfoTopStackt((G).GameConditions).turn
 
 void InitGame(Game* G);
 // Membaca file config dan menginisialisasi attribut pada Game G
@@ -41,12 +41,16 @@ void StartGame(Game* G);
 // Memulai permainan
 
 // Command
-void command_Attack();
-void command_Level_up();
-void command_Skill();
-void command_Undo();
-void command_End_turn();
-void command_Save();
-void command_Move();
+void command_in_game(Game* G);
+void command_Attack(Game* G);
+void command_Level_up(Game* G);
+void command_Skill(Game* G);
+void command_Undo(Game* G);
+void command_End_turn(Game* G);
+void command_Save(Game* G);
+void command_Move(Game* G);
+
+boolean IsGameEnded(Game G);
+boolean IsPlayerLose(Game G, int player);
 
 #endif

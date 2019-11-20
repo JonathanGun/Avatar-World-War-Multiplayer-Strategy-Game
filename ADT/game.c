@@ -1,17 +1,18 @@
 #include "game.h"
 #include "../testcommand.c"
 
+boolean FirstTurn;
+
 void InitPlayer(Game *G, Config conf) {
     // Masing-masing pemain memiliki skill IU saat memulai permainan
-    startSkill(&P1(*G).Skill);
-    startSkill(&P1(*G).Skill);
+    startSkill(&Player(*G, 1).Skill);
+    startSkill(&Player(*G, 2).Skill);
 
     // Masing-masing pamain memiliki satu bangunan saat memulai permainan
-    CreateEmptyList(&P1(*G).list_bangunan);
-    CreateEmptyList(&P2(*G).list_bangunan);
-    InsVLast(&P1(*G).list_bangunan, 1);
-    InsVLast(&P2(*G).list_bangunan, 2);
-    
+    CreateEmptyList(&Player(*G, 1).list_bangunan);
+    CreateEmptyList(&Player(*G, 2).list_bangunan);
+    InsVLast(&Player(*G, 1).list_bangunan, 1);
+    InsVLast(&Player(*G, 2).list_bangunan, 2);   
 }
 
 void InitMap(Game *G, Config conf) {
@@ -57,24 +58,37 @@ void LoadFromFile(Game* G, Kata filename)
 	printf("loaded from "); PrintKata(filename); ENDL;
 }
 
+boolean IsGameEnded(Game G){
+    return (IsPlayerLose(G, 1) || IsPlayerLose(G, 2));
+}
+
+boolean IsPlayerLose(Game G, int player){
+    return IsEmptyList(Player(G, player).list_bangunan);
+}
+
 void StartGame(Game* G)
 // Memulai permainan
 {
-	printf("Berikut isi file config: "); ENDL;
-	printf("Daftar Bangunan:"); ENDL;
-	TulisIsiTabBangunan((*G).ListBangunan); ENDL;
-	printf("Keterhubungan: "); ENDL;
-	PrintGraph((*G).Relasi); ENDL;
-	printf("Peta:"); ENDL;
-	TulisPeta((*G).ListBangunan, (*G).map);
-    
-    printf("Skill Available: "); printSkill(P1(*G).Skill);
-    command_in_game();
+	CurTurn(*G) = 1;
+    FirstTurn = true;
 
-	printf("Game started!"); ENDL;
+    // printf("Berikut isi file config: "); ENDL;
+	// printf("Daftar Bangunan:"); ENDL;
+	// TulisIsiTabBangunan((*G).ListBangunan); ENDL;
+	// printf("Keterhubungan: "); ENDL;
+	// PrintGraph((*G).Relasi); ENDL;
+	// printf("Peta:"); ENDL;
+    while(!IsGameEnded(*G)){
+    	TulisPeta((*G).ListBangunan, (*G).map);
+        printf("Player "); print(CurTurn(*G)); ENDL;
+        TulisBangunanMilikPlayer((*G).ListBangunan, Player(*G, CurTurn(*G)).list_bangunan); ENDL;
+        printf("Skill Available: "); printSkill(Player(*G, CurTurn(*G)).Skill);
+
+        command_in_game(G);
+    }
 }
 
-void command_Attack() {
+void command_Attack(Game* G) {
     // print daftar bangunan
 
     // input bangunan yang ingin digunakan menyerang
@@ -89,32 +103,40 @@ void command_Attack() {
     printf("Jumlah pasukan : ");
 }
 
-void command_Level_up() {
+void command_Level_up(Game* G) {
     // print daftar bangunan
 
     // input bangunan yang ingin digunakan menyerang
     printf("Bangunan yang akan di level up : ");
 }
 
-void command_Skill() {
+void command_Skill(Game* G) {
     // use skill
 }
 
-void command_Undo() {
+void command_Undo(Game* G) {
     // undo
 }
 
-void command_End_turn() {
+void command_End_turn(Game* G) {
     // end turn
+    // 1 -> 2, 2 -> 1
+    CurTurn(*G)%=2;
+    CurTurn(*G)++;
+
+    if(FirstTurn && CurTurn(*G) == 1){
+        FirstTurn = false;
+    }
+    if(!FirstTurn) startTurn(Player(*G, CurTurn(*G)));
 }
 
-void command_Save() {
+void command_Save(Game* G) {
     
     // input lokasi save
     printf("Lokasi save file : ");
 }
 
-void command_Move() {
+void command_Move(Game* G) {
 
     // print daftar bangunan
 

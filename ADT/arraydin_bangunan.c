@@ -121,3 +121,19 @@ void TulisIsiTabBangunan(TabBangunan TAll){
     }
     printf("]");
 }
+
+void TulisBangunanMilikPlayer(TabBangunan B, ListBangunan L){
+    if(First(L) == NULL){
+        printf("[]");
+    }
+    else{
+        address A;
+        A = First(L);
+        printf("[");
+        while(A != NULL){
+            TulisBangunan(ElmtTB(B, Info(A)));
+            A = Next(A);
+        }
+        printf("]");
+    }
+}

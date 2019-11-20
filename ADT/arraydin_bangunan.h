@@ -81,4 +81,6 @@ void CopyTabBangunan(TabBangunan Tin, TabBangunan *Tout);
 
 void TulisIsiTabBangunan(TabBangunan TAll);
 
+void TulisBangunanMilikPlayer(TabBangunan B, ListBangunan L);
+
 #endif

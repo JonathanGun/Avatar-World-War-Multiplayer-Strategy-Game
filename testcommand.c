@@ -1,6 +1,6 @@
 #include "compiler.h"
 
-void command_in_game(){
+void command_in_game(Game* G){
     char Attack[7] = "ATTACK";
     char Level[9] = "LEVEL_UP";
     char Skill[6] = "SKILL";
@@ -36,23 +36,23 @@ void command_in_game(){
         InputKata(&command);
     }
     if(CompareKata(command,attack)){
-        command_Attack();
+        command_Attack(G);
     }else if (CompareKata(command,level)){
-        command_Level_up();
+        command_Level_up(G);
     }else if (CompareKata(command,skill)){
-        command_Skill();
+        command_Skill(G);
         printf("Skill Berhasil");
     }else if (CompareKata(command,undo)){
-        command_Undo();
+        command_Undo(G);
         printf("Undo berhasil");
     }else if (CompareKata(command,end)){
-        command_End_turn();
+        command_End_turn(G);
         printf("End Turn berhasil");
     }else if (CompareKata(command,save)){
-        command_Save();
+        command_Save(G);
         printf("Save berhasil");
     }else if (CompareKata(command,move)){
-        command_Move();
+        command_Move(G);
         printf("Move Berhasil");
     }else{ //Ketika menulis EXIT
         printf("Exiting the program...\n"); 
