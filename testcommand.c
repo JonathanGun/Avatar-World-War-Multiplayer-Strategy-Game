@@ -43,19 +43,19 @@ void command_in_game(Game* G){
         command_Level_up(G);
     }else if (CompareKata(command,skill)){
         command_Skill(G);
-        printf("Skill Berhasil");
+        printf("Skill Berhasil\n");
     }else if (CompareKata(command,undo)){
         command_Undo(G);
-        printf("Undo berhasil");
+        printf("Undo berhasil\n");
     }else if (CompareKata(command,end)){
         command_End_turn(G);
-        printf("End Turn berhasil");
+        printf("End Turn berhasil\n");
     }else if (CompareKata(command,save)){
         command_Save(G);
-        printf("Save berhasil");
+        printf("Save berhasil\n");
     }else if (CompareKata(command,move)){
         command_Move(G);
-        printf("Move Berhasil");
+        printf("Move Berhasil\n");
     }else{ //Ketika menulis EXIT
         printf("Exiting the program...\n"); 
         exit(0); 

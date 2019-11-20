@@ -112,6 +112,7 @@ void command_Level_up(Game* G) {
 
 void command_Skill(Game* G) {
     // use skill
+    useSkill(&Player(*G, CurTurn(*G)).Skill);
 }
 
 void command_Undo(Game* G) {
