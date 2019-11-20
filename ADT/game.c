@@ -19,8 +19,7 @@ void InitMap(Game *G, Config conf) {
     int c = conf.conf_peta.NPetaKolEff;
     MakePeta(&(*G).map, r, c);
     CopyTabBangunan(conf.conf_list_bangunan, &(*G).ListBangunan);
-    TulisPeta((*G).ListBangunan, (*G).map);
-    UpdatePeta((*G).ListBangunan, &(*G).map);
+    IsiPeta((*G).ListBangunan, &(*G).map);
     (*G).Relasi = conf.conf_relasi;
 }
 

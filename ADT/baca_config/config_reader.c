@@ -29,6 +29,9 @@ void extract_listBangunan(int banyak_bangunan, TabBangunan* list_bangunan) {
 
         Bangunan B; 
         B.id = i;
+        if(i <= 2) B.owner = i;
+        else B.owner = 0;
+
         B.type = Token.Val;
         ADV_config();
         B.posisi.r = Token.Bil;

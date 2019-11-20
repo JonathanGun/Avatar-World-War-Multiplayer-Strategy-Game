@@ -14,18 +14,19 @@
 #define PetaKolMin 1
 #define PetaKolMax 30
 
-#define IdxMin 1
-#define IdxUndef -999
-
 typedef struct {
-    int *Mem; // arr of ID Bangunan
+	char c;
+	int owner;
+} PetaElType;
+typedef struct {
+    PetaElType Mem[PetaBrsMax+1][PetaKolMax+1];
     int NPetaBrsEff; /* banyaknya/ukuran baris yg terdefinisi */
     int NPetaKolEff; /* banyaknya/ukuran PetaKolom yg terdefinisi */
 } Peta;
 
 /* Selektor */
 #define Mem(T) (T).Mem
-#define PetaElmt(T, i, j) (T).Mem[(i)*(NPetaBrsEff(T)+1)+(j)]
+#define PetaElmt(M, i, j) (M).Mem[(i)][(j)]
 #define NPetaBrsEff(M) (M).NPetaBrsEff
 #define NPetaKolEff(M) (M).NPetaKolEff
 #define forpeta(P, r, c) fori(r, NPetaBrsEff(P)) fori(c, NPetaKolEff(P))
@@ -40,7 +41,7 @@ void MakePeta(Peta *P, int NB, int NK);
 
 void CopyPeta(Peta P1, Peta *P2);
 
-void UpdatePeta(TabBangunan B, Peta *P);
+void IsiPeta(TabBangunan B, Peta *P);
 
 /* ********** KELOMPOK BACA/TULIS ********** */
 void TulisPeta(TabBangunan B, Peta P);
