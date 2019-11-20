@@ -31,7 +31,9 @@ void command_in_game(Game* G){
     while((CompareKata(command,attack) == 0) && (CompareKata(command,level) == 0) &&(CompareKata(command,skill) == 0)
     && (CompareKata(command,undo) == 0) && (CompareKata(command,end) == 0) && (CompareKata(command,save) == 0)
     && (CompareKata(command,move) == 0) && (CompareKata(command,EXIT) == 0)) {
-        printf("Masukan salah, tolong input kembali !\n\n");
+        printf("Masukan salah, tolong input kembali !\n");
+        printf("Berikut daftar Command yang dapat digunakan:\n");
+        printf("ATTACK\nLEVEL_UP\nSKILL\nUNDO\nEND_TURN\nSAVE\nMOVE\nEXIT\n\n");
         printf("ENTER COMMAND: ");
         InputKata(&command);
     }
