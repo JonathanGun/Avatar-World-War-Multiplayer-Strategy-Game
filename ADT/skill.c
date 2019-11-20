@@ -55,7 +55,7 @@ void useBarrage()
 void startSkill(Queue* Skill)
 /* Kondisi Awal yaitu mempunyai Queue dengan skill Instant Upgrade */
 {
-    CreateEmpty(Skill, 10);// Maksimal 10 skill
+    CreateEmptyQueue(Skill, 10);// Maksimal 10 skill
     Add(Skill,1); //1 sebagai IU(instant Upgrade)
 }
 
@@ -92,7 +92,7 @@ void printSkill(Queue Skill)
 /* Mengeprint Skill di bagian Head Queue*/
 {
     int x;
-    if (IsEmpty(Skill))
+    if (IsEmptyQueue(Skill))
     {
         printf("-");
     }

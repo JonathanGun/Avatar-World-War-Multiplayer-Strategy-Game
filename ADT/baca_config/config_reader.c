@@ -5,7 +5,6 @@
 void extract_config(Config* conf) {
     extract_dimensi_peta(&(*conf).conf_peta);
     extract_banyak_bangunan(&(*conf).conf_banyak_bangunan);
-    CreateEmpty(&(*conf).conf_list_bangunan);
     extract_listBangunan((*conf).conf_banyak_bangunan,&(*conf).conf_list_bangunan);
     extract_relasi((*conf).conf_banyak_bangunan, &(*conf).conf_relasi);
 }
@@ -23,7 +22,8 @@ void extract_banyak_bangunan(int *banyak_bangunan) {
     *banyak_bangunan = Token.Bil;
 }
 
-void extract_listBangunan(int banyak_bangunan, ListBangunan* list_bangunan) {
+void extract_listBangunan(int banyak_bangunan, TabBangunan* list_bangunan) {
+    CreateEmptyTabBangunan(list_bangunan, banyak_bangunan);
     for(int i = 1; i < banyak_bangunan+1; i++ ) {
         START_config(2 + i);
 
@@ -57,7 +57,7 @@ void extract_listBangunan(int banyak_bangunan, ListBangunan* list_bangunan) {
             B.jumlah_pasukan = 20;
         }
 
-        InsVLast(list_bangunan, i);
+        AddBangunan(B, list_bangunan);
     }
 }
 

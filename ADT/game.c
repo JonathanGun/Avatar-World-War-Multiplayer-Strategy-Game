@@ -4,11 +4,13 @@ void InitPlayer(Game *G, Config conf) {
     // Masing-masing pemain memiliki skill UI saat memulai permainan
     startSkill(&P1(*G).Skill);
     startSkill(&P1(*G).Skill);
+
     // Masing-masing pamain memiliki satu bangunan saat memulai permainan
-    CreateEmpty(&P1(*G).list_bangunan);
-    CreateEmpty(&P2(*G).list_bangunan);
-    First(P1(*G).list_bangunan) = First(conf.conf_list_bangunan);
-    First(P2(*G).list_bangunan) = Next(First(conf.conf_list_bangunan));
+    CreateEmptyList(&P1(*G).list_bangunan);
+    CreateEmptyList(&P2(*G).list_bangunan);
+    InsVLast(&P1(*G).list_bangunan, 1);
+    InsVLast(&P2(*G).list_bangunan, 2);
+    
 }
 
 void InitMap(Game *G, Config conf) {
@@ -56,7 +58,7 @@ void StartGame(Game* G)
 {
 	printf("Berikut isi file config: "); ENDL;
 	printf("Daftar Bangunan:"); ENDL;
-	TulisIsiTab((*G).ListBangunan); ENDL;
+	// TulisIsiTab((*G).ListBangunan); ENDL;
 	printf("Keterhubungan: "); ENDL;
 	PrintGraph((*G).Relasi); ENDL;
 	printf("Peta:"); ENDL;

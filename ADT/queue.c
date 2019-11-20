@@ -3,29 +3,29 @@
 #include "queue.h"
 
 /* ********* Prototype ********* */
-boolean IsEmpty (Queue Q)
+boolean IsEmptyQueue (Queue Q)
 /* Mengirim true jika Q kosong: lihat definisi di atas */
 {
 	return (Head(Q) == QueueNil) && (Tail(Q) == QueueNil);
 }
 
-boolean IsFull (Queue Q)
+boolean IsFullQueue (Queue Q)
 /* Mengirim true jika tabel penampung elemen Q sudah penuh */
 /* yaitu mengandung elemen sebanyak QueueMaxEl */
 {
 	return !(Head(Q) - (Tail(Q)%QueueMaxEl(Q)) - 1);
 }
 
-int NBElmt (Queue Q)
+int NBElmtQueue (Queue Q)
 /* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong. */
 {
-	if(IsEmpty(Q)) return 0;
-	if(IsFull(Q)) return QueueMaxEl(Q);
+	if(IsEmptyQueue(Q)) return 0;
+	if(IsFullQueue(Q)) return QueueMaxEl(Q);
 	return ((Tail(Q) - Head(Q) + 1) % QueueMaxEl(Q));
 }
 
 /* *** Kreator *** */
-void CreateEmpty (Queue * Q, int Max)
+void CreateEmptyQueue (Queue * Q, int Max)
 /* I.S. sembarang */
 /* F.S. Sebuah Q kosong terbentuk dan salah satu kondisi sbb: */
 /* Jika alokasi berhasil, Tabel memori dialokasi berukuran Max+1 */
@@ -54,7 +54,7 @@ void Add (Queue * Q, int X)
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X menjadi TAIL yang baru, TAIL "maju" dengan mekanisme circular buffer */
 {
-	if (IsEmpty(*Q)) Head(*Q)=1;
+	if (IsEmptyQueue(*Q)) Head(*Q)=1;
 	if(Tail(*Q) == QueueMaxEl(*Q)) Tail(*Q) = 1;
 	else Tail(*Q)++;
 	InfoTail(*Q)=X;

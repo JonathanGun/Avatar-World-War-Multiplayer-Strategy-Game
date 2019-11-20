@@ -11,7 +11,7 @@
 #define forii1(T, i)  for(IdxType i = GetLastIdx(T);    i >= GetFirstIdx(T)+1; --i)
 
 TabInt InverseTab (TabInt T){
-  TabInt T2; MakeEmpty(&T2, MaxElement(T)); CopyTab(T, &T2);
+  TabInt T2; MakeEmptyArray(&T2, MaxElement(T)); CopyTab(T, &T2);
   fori(T2, i) Elmt(T2, GetFirstIdx(T2)+NbElmt(T2)-i) = Elmt(T,i);
   return T2;
 }
@@ -24,7 +24,7 @@ void DelEli (TabInt * T, IdxType i, ElType * X){
 ElType Head(TabInt T)   {return Elmt(T, GetFirstIdx(T));}
 TabInt Tail(TabInt T){
   int tmp = 0;
-  TabInt newT; MakeEmpty(&newT, NbElmt(T));
+  TabInt newT; MakeEmptyArray(&newT, NbElmt(T));
   CopyTab(T, &newT);
   DelEli(&newT, 1, &tmp);
   return newT;
@@ -36,10 +36,10 @@ IdxType GetFirstIdx(TabInt T)             {return IdxMin;}
 IdxType GetLastIdx(TabInt T)              {return NbElmt(T);}
 boolean IsIdxValid(TabInt T, IdxType i)   {return ((GetFirstIdx(T) <= i) && (i <= MaxElement(T)));}
 boolean IsIdxEff(TabInt T, IdxType i)     {return ((GetFirstIdx(T) <= i) && (i <= GetLastIdx(T)));}
-boolean IsEmpty(TabInt T)                 {return (!NbElmt(T));}
+boolean IsEmptyArray(TabInt T)                 {return (!NbElmt(T));}
 boolean IsFull(TabInt T)                  {return (NbElmt(T) == MaxElement(T));}
 
-void MakeEmpty(TabInt *T, int maxel){
+void MakeEmptyArray(TabInt *T, int maxel){
   MaxEl(*T) = maxel; Neff(*T) = 0;
   TI(*T) = (ElType *) malloc (sizeof(int) * (maxel+1));
 }
@@ -56,10 +56,10 @@ void TulisIsiTab(TabInt T){
   printf("]");
 }
 
-boolean SearchB(TabInt T, ElType X) {return IsEmpty(T)?0: ((Head(T) == X) || SearchB(Tail(T), X));}
+boolean SearchB(TabInt T, ElType X) {return IsEmptyArray(T)?0: ((Head(T) == X) || SearchB(Tail(T), X));}
 
 void CopyTab(TabInt Tin, TabInt *Tout){
-  MakeEmpty(Tout, NbElmt(Tin));
+  MakeEmptyArray(Tout, NbElmt(Tin));
   Neff(*Tout) = NbElmt(Tin);
   fori(Tin,i) Elmt(*Tout,i) = Elmt(Tin,i);
 }

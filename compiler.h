@@ -11,7 +11,6 @@
 #include "ADT/point.h"
 #include "ADT/queue.h"
 #include "ADT/skill.h"
-#include "ADT/stackt.h"
 #include "ADT/baca_config/config_reader.h"
 #include "ADT/baca_config/mesinconfig.h"
 #include "ADT/graph/graph.h"

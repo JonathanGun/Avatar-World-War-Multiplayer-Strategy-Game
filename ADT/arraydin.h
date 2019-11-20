@@ -44,7 +44,7 @@ typedef struct
 
 /* ********** KONSTRUKTOR ********** */
 /* Konstruktor : create tabel kosong  */
-void MakeEmpty(TabInt *T, int maxel);
+void MakeEmptyArray(TabInt *T, int maxel);
 /* I.S. T sembarang, maxel > 0 */
 /* F.S. Terbentuk tabel T kosong dengan kapasitas maxel + 1 */
 
@@ -78,7 +78,7 @@ boolean IsIdxEff(TabInt T, IdxType i);
 
 /* ********** TEST KOSONG/PENUH ********** */
 /* *** Test tabel kosong *** */
-boolean IsEmpty(TabInt T);
+boolean IsEmptyArray(TabInt T);
 /* Mengirimkan true jika tabel T kosong, mengirimkan false jika tidak */
 /* *** Test tabel penuh *** */
 boolean IsFull(TabInt T);

@@ -3,6 +3,7 @@
 
 #include "peta.h"
 #include "listbangunan.h"
+#include "arraydin_bangunan.h"
 #include "game_stackt.h"
 #include "baca_config/config_reader.h"
 
@@ -16,8 +17,8 @@ typedef struct {
 // setiap melakukan aksi lakukan Push pada stackt
 // saat melakukan UNDO lakukan Pop pada stackt 
 
-#define P1(G) InfoTop((G).GameConditions).Players[0]
-#define P2(G) InfoTop((G).GameConditions).Players[1]
+#define P1(G) InfoTopStackt((G).GameConditions).Players[0]
+#define P2(G) InfoTopStackt((G).GameConditions).Players[1]
 
 void InitGame(Game* G);
 // Membaca file config dan menginisialisasi attribut pada Game G

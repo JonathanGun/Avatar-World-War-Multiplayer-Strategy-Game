@@ -112,10 +112,10 @@ void GetBangunanByID(TabBangunan TAll, int id, Bangunan* B)
     *B = ElmtTB(TAll, 1);
 }
 
-void TulisIsiTab(TabBangunan TAll){
-  printf("[");
-  for(int i = 1; i <= NbBangunan(TAll); ++i)
-    if (i != NbBangunan(TAll)) printf("%d,",ElmtTB(TAll, i));
-    else (printf("%d",ElmtTB(TAll, i)));
-  printf("]");
-}
+// void TulisIsiTab(TabBangunan TAll){
+//   printf("[");
+//   for(int i = 1; i <= NbBangunan(TAll); ++i)
+//     if (i != NbBangunan(TAll)) printf("%d,",ElmtTB(TAll, i));
+//     else (printf("%d",ElmtTB(TAll, i)));
+//   printf("]");
+// }

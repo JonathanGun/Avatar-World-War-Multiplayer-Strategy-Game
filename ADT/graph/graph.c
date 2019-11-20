@@ -45,7 +45,7 @@ void SetBangunanTerhubung(Graph G, int r, int c){
 void GetBangunanTerhubung(Graph G, int r, int c, ListBangunan* AdjList){
     // input indeks bangunan, return semua bangunan yg terhubung dgn dia di *AdjList
     // proses: traverse ke bwh sejumlah r, traverse ke kanan hingga ujung (sejumlah c), tambah ke AdjList jika Connect(G) == true
-    CreateEmpty(AdjList);
+    CreateEmptyList(AdjList);
     G = TrailN(G, r-1);
     int i = 1;
     while(G != NilGraph){

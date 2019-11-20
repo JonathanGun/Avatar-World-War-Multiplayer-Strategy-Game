@@ -4,7 +4,7 @@
 #include "util/boolean.h"
 #include "skill.h"
 #include "bangunan.h"
-#include "listbangunan.h"
+#include "arraydin_bangunan.h"
 #include <stdio.h>
 
 typedef struct {
