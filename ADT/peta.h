@@ -40,6 +40,8 @@ void MakePeta(Peta *P, int NB, int NK);
 
 void CopyPeta(Peta P1, Peta *P2);
 
+void UpdatePeta(TabBangunan B, Peta *P);
+
 /* ********** KELOMPOK BACA/TULIS ********** */
 void TulisPeta(TabBangunan B, Peta P);
 /* I.S. P terdefinisi */
