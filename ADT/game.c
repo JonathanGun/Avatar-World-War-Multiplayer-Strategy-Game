@@ -1,4 +1,5 @@
 #include "game.h"
+#include "../testcommand.c"
 
 void InitPlayer(Game *G, Config conf) {
     // Masing-masing pemain memiliki skill IU saat memulai permainan
@@ -67,6 +68,9 @@ void StartGame(Game* G)
 	PrintGraph((*G).Relasi); ENDL;
 	printf("Peta:"); ENDL;
 	TulisPeta((*G).ListBangunan, (*G).map);
+    
+    printf("Skill Available: "); printSkill(P1(*G).Skill);
+    command_in_game();
 
 	printf("Game started!"); ENDL;
 }

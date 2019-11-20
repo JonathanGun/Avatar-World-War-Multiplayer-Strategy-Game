@@ -28,14 +28,12 @@ void command_in_game(){
     Kata command;
     printf("ENTER COMMAND: ");
     InputKata(&command);
-    PrintKata(command); 
     while((CompareKata(command,attack) == 0) && (CompareKata(command,level) == 0) &&(CompareKata(command,skill) == 0)
     && (CompareKata(command,undo) == 0) && (CompareKata(command,end) == 0) && (CompareKata(command,save) == 0)
     && (CompareKata(command,move) == 0) && (CompareKata(command,EXIT) == 0)) {
         printf("Masukan salah, tolong input kembali !\n\n");
         printf("ENTER COMMAND: ");
         InputKata(&command);
-        PrintKata(command); 
     }
     if(CompareKata(command,attack)){
         command_Attack();
@@ -61,8 +59,3 @@ void command_in_game(){
         exit(0); 
     }
 }
-
-// int main (){
-//     command_in_game();
-//     return 0;
-// }
