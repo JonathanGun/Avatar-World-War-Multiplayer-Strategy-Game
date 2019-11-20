@@ -16,7 +16,7 @@ typedef struct {
 void extract_config(Config* conf);
 // Mengekstrak informasi dalam "Config"
 
-void extract_dimensi_peta(Peta *peta);
+void extract_peta(Peta *peta);
 // Mengekstrak dimensi peta
 
 void extract_banyak_bangunan(int *banyak_bangunan);

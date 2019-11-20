@@ -26,7 +26,7 @@ void IgnoreBlank(){
   while(IsBlank()) ADV();
 }
 
-boolean START(char* filename) {
+boolean START(char const *filename) {
     EOP = false;
     if (filename == 0) pita = stdin;
     else pita = fopen(filename, "r");
@@ -38,7 +38,7 @@ boolean START(char* filename) {
 }
 
 // MESIN KATA //
-boolean STARTKATA(char* filename) {
+boolean STARTKATA(char const *filename) {
   boolean valid = (START(filename) != 0);
   if (!valid) {
     EndKata = true;

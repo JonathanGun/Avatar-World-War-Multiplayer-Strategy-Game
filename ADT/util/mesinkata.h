@@ -27,10 +27,10 @@ boolean IsBlank();
 
 void IgnoreBlank();
 
-boolean START(char* filename);
+boolean START(char const *filename);
 
 // MESIN KATA //
-boolean STARTKATA(char* filename);
+boolean STARTKATA(char const *filename);
 
 void SalinKata();
 

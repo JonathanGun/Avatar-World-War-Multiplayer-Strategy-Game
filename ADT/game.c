@@ -14,10 +14,12 @@ void InitPlayer(Game *G, Config conf) {
 }
 
 void InitMap(Game *G, Config conf) {
-    int N = conf.conf_banyak_bangunan;
-    MakePeta(&(*G).map, N, N);
+    // int N = conf.conf_banyak_bangunan;
+    // int r = conf.conf_peta.NPetaBrsEff;
+    // int c = conf.conf_peta.NPetaKolEff;
+    // MakePeta(&(*G).map, r, c);
     CopyPeta(conf.conf_peta, &(*G).map);
-    // TulisPeta(P1(*G).list_bangunan, conf.conf_peta);
+    // TulisPeta(conf.conf_list_bangunan, conf.conf_peta);
     (*G).Relasi = conf.conf_relasi;
 }
 
@@ -62,7 +64,7 @@ void StartGame(Game* G)
 	printf("Keterhubungan: "); ENDL;
 	PrintGraph((*G).Relasi); ENDL;
 	printf("Peta:"); ENDL;
-	// TulisPeta((*G).ListBangunan, (*G).map);
+	TulisPeta((*G).ListBangunan, (*G).map);
 
 	printf("Game started!"); ENDL;
 }

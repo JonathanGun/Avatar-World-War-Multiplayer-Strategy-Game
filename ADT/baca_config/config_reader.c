@@ -3,13 +3,13 @@
 #include <stdlib.h>
 
 void extract_config(Config* conf) {
-    extract_dimensi_peta(&(*conf).conf_peta);
+    extract_peta(&(*conf).conf_peta);
     extract_banyak_bangunan(&(*conf).conf_banyak_bangunan);
     extract_listBangunan((*conf).conf_banyak_bangunan,&(*conf).conf_list_bangunan);
     extract_relasi((*conf).conf_banyak_bangunan, &(*conf).conf_relasi);
 }
 
-void extract_dimensi_peta(Peta *peta){
+void extract_peta(Peta *peta){
     START_config(1);
     int r = Token.Bil;
     ADV_config();
