@@ -7,6 +7,7 @@ void CreateBangunanEmpty(Bangunan *B){
     (*B).jumlah_pasukan = 0;
     (*B).level = 0;
     (*B).nilai_tambah_pasukan = 0;
+    (*B).maksimum_tambah_pasukan = 0;
     (*B).owner = -1;
     (*B).pertahanan = false;
     (*B).sudahserang = false;
@@ -20,6 +21,7 @@ void CopyBangunan(Bangunan Bin, Bangunan *B){
     (*B).jumlah_pasukan = Bin.jumlah_pasukan;
     (*B).level = Bin.level;
     (*B).nilai_tambah_pasukan = Bin.nilai_tambah_pasukan;
+    (*B).maksimum_tambah_pasukan = Bin.maksimum_tambah_pasukan;
     (*B).owner = Bin.owner;
     (*B).pertahanan = Bin.pertahanan;
     (*B).sudahserang = Bin.sudahserang;
@@ -55,7 +57,6 @@ void levelup(Bangunan *B){
     if(Level(*B) < 4){
         Pasukan(*B) -= (MatElmt(AttCastle,Level(*B),2)/2);
         Level(*B) += 1;
-        printf("Bangunan naik level menjadi level "); print(Level(*B)); printf("!"); ENDL;
         // "M" : 1, "A" : 2, "P" : 3
         if(Type(*B) == 'C'){
             RateTambah(*B) = MatElmt(AttCastle, Level(*B), 1);
