@@ -1,5 +1,4 @@
 #include "skill.h"
-#include <stdio.h>
 
 void useIU(int player)
 /* Menggunakan Skill IU, Seluruh bangunan yang dimiliki pemain akan naik 1 level.*/

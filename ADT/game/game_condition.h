@@ -1,7 +1,8 @@
 #ifndef GAME_CONDITION_H
 #define GAME_CONDITION_H
 
-#include "player.h"
+#include "../util/util.h"
+#include "../player/player.h"
 
 typedef struct {
     Player Players[2]; // Array of player, menyimpan data player1 dan player2

@@ -1,11 +1,10 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "util/boolean.h"
-#include "skill.h"
-#include "bangunan.h"
-#include "arraydin_bangunan.h"
-#include <stdio.h>
+#include "../util/util.h"
+#include "../skill/skill.h"
+#include "../bangunan/bangunan.h"
+#include "../bangunan/arraydin_bangunan.h"
 
 typedef struct {
 	Queue Skill; /* Skill yang dimiliki player */

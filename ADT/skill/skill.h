@@ -1,10 +1,9 @@
 #ifndef SKILL_H
 #define SKILL_H
 
-#include <stdio.h>
-#include "util/boolean.h"
+#include "../util/util.h"
 #include "queue.h"
-#include "listbangunan.h"
+#include "../bangunan/listbangunan.h"
 
 void useIU(int player);
 /* Menggunakan Skill IU, Seluruh bangunan yang dimiliki pemain akan naik 1 level.*/

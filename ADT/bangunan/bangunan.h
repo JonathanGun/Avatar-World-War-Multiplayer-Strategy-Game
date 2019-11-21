@@ -1,10 +1,8 @@
 #ifndef bangunan_H
 #define bangunan_H
 
-#include "util/boolean.h"
-#include "util/data_bangunan.h"
-#include "util/macro.h"
-#include "matriks.h"
+#include "../util/util.h"
+#include "../util/data_bangunan.h"
 #include "point.h"
 
 typedef struct {

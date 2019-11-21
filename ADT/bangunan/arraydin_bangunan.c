@@ -1,5 +1,5 @@
 #include "arraydin_bangunan.h"
-#include <stdio.h>
+
 /*********** KONSTRUKTOR ************/
 void CreateEmptyTabBangunan(TabBangunan *T, int MaxElTB)
 /* I.S. T sembarang, MaxElTB > 0 */
