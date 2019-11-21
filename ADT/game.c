@@ -88,6 +88,9 @@ void SaveGame(Game* G) {
     // simpan skill
     CreateEmptyQueue(&Skill, 10);
     CopyQueue(Player(*G, 1).Skill, &Skill);
+    if ( IsEmptyQueue(Skill) ) {
+        fprintf(fp, "%d ", 0);
+    }
     while( !IsEmptyQueue(Skill) ) {
         Del(&Skill, &X);
         fprintf(fp, "%d ", X);
@@ -99,14 +102,14 @@ void SaveGame(Game* G) {
 
     // simpan bangunan
     // format : 
-    // id pasukan  
-    // id pasukan
+    // id level sudahserang pertahanan pasukan  
+    // id level sudahserang pertahanan pasukan
     // ..........   
     P = First(Player(*G, 1).list_bangunan);
     while ( P != NULL ) {
         CreateBangunanEmpty(&B);
         GetBangunanByID((*G).ListBangunan, Info(P), &B);
-        fprintf(fp, "%d %d\n", Id(B), Pasukan(B));
+        fprintf(fp, "%d %d %d %d %d\n", Id(B), Level(B), SudahSerang(B), Pertahanan(B), Pasukan(B));
         P = Next(P);
     }
 
@@ -114,6 +117,9 @@ void SaveGame(Game* G) {
     // simpan skill
     CreateEmptyQueue(&Skill, 10);
     CopyQueue(Player(*G, 2).Skill, &Skill);
+    if ( IsEmptyQueue(Skill) ) {
+        fprintf(fp, "%d ", 0);
+    }
     while( !IsEmptyQueue(Skill) ) {
         Del(&Skill, &X);
         fprintf(fp, "%d ", X);
@@ -125,14 +131,14 @@ void SaveGame(Game* G) {
     
     // simpan bangunan
     // format : 
-    // id pasukan  
-    // id pasukan
+    // id level sudahserang pertahanan pasukan
+    // id level sudahserang pertahanan pasukan
     // ..........   
     P = First(Player(*G, 2).list_bangunan);
     while ( P != NULL ) {
         CreateBangunanEmpty(&B);
         GetBangunanByID((*G).ListBangunan, Info(P), &B);
-        fprintf(fp, "%d %d\n", Id(B), Pasukan(B));
+        fprintf(fp, "%d %d %d %d %d\n", Id(B), Level(B), SudahSerang(B), Pertahanan(B), Pasukan(B));
         P = Next(P);
     }
 

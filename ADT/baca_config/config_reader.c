@@ -25,10 +25,11 @@ void extract_banyak_bangunan(int *banyak_bangunan) {
 
 void extract_listBangunan(int banyak_bangunan, TabBangunan* list_bangunan) {
     CreateEmptyTabBangunan(list_bangunan, banyak_bangunan);
+    Bangunan B; 
     for(int i = 1; i < banyak_bangunan+1; i++ ) {
         START_file(2 + i);
 
-        Bangunan B; 
+        CreateBangunanEmpty(&B);
         B.id = i;
         if(i <= 2) B.owner = i;
         else B.owner = 0;

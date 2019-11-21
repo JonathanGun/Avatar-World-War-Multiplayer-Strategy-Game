@@ -1,4 +1,5 @@
 #include "mesinconfig.h"
+#include "../bangunan.h"
 #include "../arraydin_bangunan.h"
 #include "../peta.h"
 #include "../graph/graph.h"
