@@ -155,7 +155,6 @@ boolean IsPlayerLose(Game G, int player){
 void StartGame(Game* G)
 // Memulai permainan
 {
-    // TulisPeta((*G).ListBangunan, (*G).map);
     command_in_game(G);
 }
 
@@ -361,6 +360,18 @@ void command_End_turn(Game* G) {
     // Reset stackt
     ResetStackt(&(*G).GameConditions);
 
+    // AddPasukan awal Turn
+    Bangunan B;
+    int i;
+    int idB;
+    int CountBangunan = CountList(CurPlayer(*G).list_bangunan);
+    for (i = 1; i <= CountBangunan ; i++){
+        idB = ListElmt(CurPlayer(*G).list_bangunan, i);
+        GetBangunanByID((*G).ListBangunan, idB, &B);
+        add_pasukan(&B);
+        UpdateBangunan(&(*G).ListBangunan, idB, B);
+        UpdateList(&CurPlayer(*G).list_bangunan, B, CurTurn(*G));
+    }
     // Memulai turn baru
     StartGame(G);
 }
