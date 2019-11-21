@@ -32,6 +32,24 @@ boolean IsBangunanEmpty(Bangunan B){
     return B.id == -1;
 }
 
+
+boolean IsLvlUpValid(Bangunan B)
+/* Mengecek apakah bangunan valid untuk di level up, syarat level up adalah jumlah pasukan >= M/2 */
+{
+    if(Type(B) == 'C' ){
+        return(Pasukan(B) >= (MatElmt(AttCastle,Level(B),2)/2));
+    }
+    else if(Type(B) == 'T'){
+        return(Pasukan(B) >= (MatElmt(AttTower,Level(B),2)/2));
+    }
+    else if(Type(B) == 'F'){
+        return(Pasukan(B) >= (MatElmt(AttFort,Level(B),2)/2));
+    }
+    else if(Type(B) == 'V'){
+        return(Pasukan(B) >= (MatElmt(AttVillage,Level(B),2)/2));
+    }
+}
+
 void levelup(Bangunan *B){
 /* Menaikkan level dari Bangunan Pemain */
     if(Level(*B) < 4){

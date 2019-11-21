@@ -220,7 +220,15 @@ void command_Level_up(Game* G) {
 
     // input bangunan yang ingin digunakan menyerang
     printf("Bangunan yang akan di level up : ");
+    printf("Daftar bangunan:\n");
+    TulisDaftarBangunan((*G).ListBangunan, CurPlayer(*G).list_bangunan);
+    int idBLvlUp; InputInt(&idBLvlUp);
 
+    Bangunan B;
+    idBLvlUp = ListElmt(CurPlayer(*G).list_bangunan, idBLvlUp);
+    GetBangunanByID((*G).ListBangunan, idBLvlUp, &B);
+    IsLvlUpValid(B) ? levelup(&B) : printf("Jumlah pasukan ");
+    printf(" %c", B.type);
     command_in_game(G);
 }
 
