@@ -28,6 +28,8 @@ void command_in_game(Game* G){
     
     TulisPeta((*G).ListBangunan, (*G).map);
     printf("Player "); print(CurTurn(*G)); ENDL;
+    printf("Daftar bangunan:\n");
+    TulisDaftarBangunan((*G).ListBangunan, CurPlayer(*G).list_bangunan);
     TulisSkill(CurPlayer(*G).Skill);
     printf("ENTER COMMAND: ");
     Kata command;
