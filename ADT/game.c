@@ -118,14 +118,30 @@ void command_Level_up(Game* G) {
 }
 
 void command_Skill(Game* G) {
-    // use skill
-    useSkill(&Player(*G, CurTurn(*G)).Skill);
 
-    command_in_game(G);
+    // use skill
+    if ( IsEmptyQueue(Player(*G, CurTurn(*G)).Skill) ) {
+        printf("Anda tidak memiliki skill!\n");
+    } else {
+        // Menyimpan kondisi sekarang ke dalam stackt
+        PushStackt(&(*G).GameConditions, InfoTopStackt((*G).GameConditions));
+        useSkill(&Player(*G, CurTurn(*G)).Skill);
+    }
+
+    // Cek apakah game berakhir
+    if (IsGameEnded(*G)) {
+        printf("game ended\n");
+    } else {
+        command_in_game(G);
+    }
 }
 
 void command_Undo(Game* G) {
     // undo
+    GameCondition Gc;
+
+    // Mengembalikan kondisi sebelumnya
+    PopStackt(&(*G).GameConditions, &Gc);
 
     command_in_game(G);
 }
@@ -133,14 +149,11 @@ void command_Undo(Game* G) {
 void command_End_turn(Game* G) {
     // end turn
     // 1 -> 2, 2 -> 1
+    // Ganti turn
     CurTurn(*G)%=2;
     CurTurn(*G)++;
 
-    // if(FirstTurn && CurTurn(*G) == 1){
-    //     FirstTurn = false;
-    // }
-    // if(!FirstTurn) startTurn(Player(*G, CurTurn(*G)));
-
+    // Memulai turn baru
     StartGame(G);
 }
 
