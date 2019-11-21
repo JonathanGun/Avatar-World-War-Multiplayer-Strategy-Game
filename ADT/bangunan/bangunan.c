@@ -53,6 +53,7 @@ boolean IsLvlUpValid(Bangunan B)
 void levelup(Bangunan *B){
 /* Menaikkan level dari Bangunan Pemain */
     if(Level(*B) < 4){
+        Pasukan(*B) -= (MaxPasukan(*B)/2);
         Level(*B) += 1;
         // "M" : 1, "A" : 2, "P" : 3
         if(Type(*B) == 'C'){
