@@ -55,7 +55,7 @@ void levelup(Bangunan *B){
     if(Level(*B) < 4){
         Pasukan(*B) -= (MatElmt(AttCastle,Level(*B),2)/2);
         Level(*B) += 1;
-        // "M" : 1, "A" : 2, "P" : 3
+        // "A" : 1, "M" : 2, "P" : 3
         if(Type(*B) == 'C'){
             RateTambah(*B) = MatElmt(AttCastle, Level(*B), 1);
             MaxPasukan(*B) = MatElmt(AttCastle, Level(*B), 2);
