@@ -1,6 +1,4 @@
 #include "config_reader.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 void extract_config(Config* conf) {
     extract_peta(&(*conf).conf_peta);

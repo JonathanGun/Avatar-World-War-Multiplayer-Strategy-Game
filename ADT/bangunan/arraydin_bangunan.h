@@ -1,10 +1,9 @@
+#ifndef ARRAYDIN_BANGUNAN_H
+#define ARRAYDIN_BANGUNAN_H
+
+#include "../util/util.h"
 #include "bangunan.h"
 #include "listbangunan.h"
-#include <stdlib.h>
-
-#ifndef arraydinbangunan_H
-#define arraydinbangunan_H
-
 
 /*  Kamus Umum */
 #define IdxMin 1

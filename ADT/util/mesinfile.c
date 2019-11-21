@@ -1,5 +1,4 @@
 #include "mesinfile.h"
-#include <stdio.h>
 
 TOKEN_config Token;
 
