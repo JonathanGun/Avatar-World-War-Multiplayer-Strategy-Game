@@ -59,5 +59,6 @@ void command_Undo(Game* G);
 void command_End_turn(Game* G);
 void command_Save(Game* G);
 void command_Move(Game* G);
+void command_Exit();
 
 #endif
