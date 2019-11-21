@@ -27,7 +27,7 @@ void IsiPeta(){
 }
 
 /* ********** KELOMPOK BACA/TULIS ********** */
-void TulisPeta(TabBangunan B, Peta P)
+void TulisPeta()
 /* I.S. P terdefinisi */
 /* F.S. Nilai P.(i,j) ditulis ke layar per baris per PetaKolom, masing-masing elemen per baris
    dipisahkan sebuah spasi, dikelilingi box bintang (*) */
@@ -40,15 +40,34 @@ void TulisPeta(TabBangunan B, Peta P)
 *****
 */
 {
-	fori(i, NPetaKolEff(P)+2) printf("*"); ENDL;
-	fori(i, NPetaBrsEff(P)){
-		printf("*");
-		fori(j, NPetaKolEff((P))){
-			if(PetaElmt(P, i, j) == 0)
+	printf("    ");
+	fori(i, NPetaKolEff(G.map)) {
+		printf(" ");
+		print(i+1);
+		printf(" ");
+		if((i+1)/10 == 0) printf(" ");
+	}
+	ENDL;
+	//top
+	printf("   ╔");
+	fori(i, 4*NPetaKolEff(G.map)-1) (i%4 == 3)?printf("╤"):printf("═");
+	printf("╗"); ENDL;
+
+	// mid
+	fori(i, NPetaBrsEff(G.map)){
+		// num left
+		printf(" "); print(i+1);
+		if((i+1)/10 == 0) printf(" ");
+		printf("║");
+
+		// cell (1 row)
+		fori(j, NPetaKolEff((G.map))){
+			printf(" ");
+			if(PetaElmt(G.map, i, j) == 0)
 				printf(" ");
 			else{
 				Bangunan cur;
-				GetBangunanByID(B, PetaElmt(P, i, j), &cur);
+				GetBangunanByID(G.ListBangunan, PetaElmt(G.map, i, j), &cur);
 				if(cur.owner == 1)
 					print_red(cur.type);
 				else if(cur.owner == 2)
@@ -56,9 +75,19 @@ void TulisPeta(TabBangunan B, Peta P)
 				else
 					printf("%c", cur.type);
 			}
+			(j == NPetaKolEff(G.map)-1)?printf(" ║"):printf(" │");
+		} ENDL;
+
+		// border between cells
+		printf("   ");
+		(i == NPetaBrsEff(G.map)-1)? printf("╚"): printf("╟");
+		if(i == NPetaBrsEff(G.map)-1){
+			fori(j, 4*NPetaKolEff(G.map)-1) (j%4==3)? printf("╧"):printf("═");
+		} else {
+			fori(j, 4*NPetaKolEff(G.map)-1) (j%4==3)? printf("┼"):printf("─");
 		}
-		printf("*");
+		(i == NPetaBrsEff(G.map)-1)? printf("╝"): printf("╢");
+		printf("   ");
 		ENDL;
 	}
-	fori(i, NPetaKolEff(P)+2) printf("*"); ENDL;
 }

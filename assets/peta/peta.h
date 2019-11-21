@@ -26,7 +26,7 @@ void CopyPeta(Peta P1, Peta *P2);
 void IsiPeta();
 
 /* ********** KELOMPOK BACA/TULIS ********** */
-void TulisPeta(TabBangunan B, Peta P);
+void TulisPeta();
 /* I.S. P terdefinisi */
 /* F.S. Nilai P.(i,j) ditulis ke layar per baris per PetaKolom, masing-masing elemen per baris
    dipisahkan sebuah spasi, dikelilingi box bintang (*) */

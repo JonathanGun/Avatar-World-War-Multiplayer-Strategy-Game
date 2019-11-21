@@ -84,7 +84,7 @@ void show_valid_command(){
 void command_in_game(){
     MakeAksi();
 
-    TulisPeta(G.ListBangunan, G.map);
+    TulisPeta();
     printf("Player "); print(CurTurn()); ENDL;
     printf("Daftar bangunan:\n");
     TulisDaftarBangunan(G.ListBangunan, CurPlayer().list_bangunan);
