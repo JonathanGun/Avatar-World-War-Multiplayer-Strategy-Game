@@ -227,8 +227,7 @@ void command_Level_up(Game* G) {
     Bangunan B;
     idBLvlUp = ListElmt(CurPlayer(*G).list_bangunan, idBLvlUp);
     GetBangunanByID((*G).ListBangunan, idBLvlUp, &B);
-    IsLvlUpValid(B) ? levelup(&B) : printf("Jumlah pasukan ");
-    printf(" %c", B.type);
+    IsLvlUpValid(B) ? levelup(&B) : printf("Jumlah pasukan di bangunan %c tidak mencukupi untuk level up\n",Type(B));
     command_in_game(G);
 }
 
