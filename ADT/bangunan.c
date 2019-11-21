@@ -15,6 +15,19 @@ void CreateBangunanEmpty(Bangunan *B){
     (*B).type = ' ';
 }
 
+void CopyBangunan(Bangunan Bin, Bangunan *B){
+    (*B).id = Bin.id;
+    (*B).jumlah_pasukan = Bin.jumlah_pasukan;
+    (*B).level = Bin.level;
+    (*B).nilai_tambah_pasukan = Bin.nilai_tambah_pasukan;
+    (*B).owner = Bin.owner;
+    (*B).pertahanan = Bin.pertahanan;
+    (*B).sudahserang = Bin.sudahserang;
+    (*B).posisi.r = Bin.posisi.r;
+    (*B).posisi.c = Bin.posisi.c;
+    (*B).type = Bin.type;
+}
+
 boolean IsBangunanEmpty(Bangunan B){
     return B.id == -1;
 }
@@ -54,19 +67,25 @@ void levelup(Bangunan *B){
     }
 }
 
-void attack(Bangunan *BAtt, Bangunan *BDef, int jumlah_penyerang){
+boolean attack(Bangunan *BAtt, Bangunan *BDef, int jumlah_penyerang){
+    // return apakah berhasil attack/tidak (walaupun gagal merebut bangunan ttp dikatakan berhasil menyerang)
     AttackBerhasil = false;
+    if((*BAtt).sudahserang){
+        printf("Bangunan sudah digunakan untuk menyerang pada turn ini! Silakan gunakan bangunan lain!");
+        return false;
+    }
     if(Pasukan(*BAtt) < jumlah_penyerang){
         printf("Attack tidak dapat dilakukan karena pasukan tidak mencukupi.\n");
     }
     else{
         /* Perubahan Jumlah Pasukan saat melancarkan Penyerangan */
+        (*BAtt).sudahserang = true;
         Pasukan(*BAtt) -= jumlah_penyerang;
         if(!Pertahanan(*BDef)){
             Pasukan(*BDef) -= jumlah_penyerang;
         }
         else{
-            Pasukan(*BDef) -= (3/4 * jumlah_penyerang);
+            Pasukan(*BDef) -= (3 * jumlah_penyerang / 4);
         }
         /* STATE SETELAH PENYERANGAN */
         // Berhasil Diambil
@@ -74,14 +93,17 @@ void attack(Bangunan *BAtt, Bangunan *BDef, int jumlah_penyerang){
             printf("Bangunan berhasil diambil, pasukan yang tersisa sebanyak %d pasukan di dalam Bangunan.\n", -Pasukan(*BDef));
             Pasukan(*BDef) = -1 * Pasukan(*BDef);
             BangunanOwner(*BDef) = BangunanOwner(*BAtt);
+            return true;
         }
         else if(Pasukan(*BDef) == 0){
             printf("Bangunan berhasil diambil, tidak ada pasukan yang tersisa untuk menjaga bangunan.\n");
             BangunanOwner(*BDef) = BangunanOwner(*BAtt);
+            return true;
         }
         // Tidak Berhasil Diambil
         else{/* Pasukan(*BDef) > 0 setelah penyerangan, masih tersisa pasukan pertahanan */
             printf("Bangunan tidak berhasil diambil.\n");
+            return true;
         }
     }
 

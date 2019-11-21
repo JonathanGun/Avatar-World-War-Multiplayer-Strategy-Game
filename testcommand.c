@@ -25,15 +25,27 @@ void command_in_game(Game* G){
     MakeKata(&save,Save,4);
     MakeKata(&move,Move,4);
     MakeKata(&EXIT,Exit,4);
-    Kata command;
+    
+    TulisPeta((*G).ListBangunan, (*G).map);
+    printf("Player "); print(CurTurn(*G)); ENDL;
+    printf("Daftar bangunan:\n");
+    TulisDaftarBangunan((*G).ListBangunan, CurPlayer(*G).list_bangunan);
+    TulisSkill(CurPlayer(*G).Skill);
     printf("ENTER COMMAND: ");
+    Kata command;
     InputKata(&command);
+    
     while((CompareKata(command,attack) == 0) && (CompareKata(command,level) == 0) &&(CompareKata(command,skill) == 0)
     && (CompareKata(command,undo) == 0) && (CompareKata(command,end) == 0) && (CompareKata(command,save) == 0)
     && (CompareKata(command,move) == 0) && (CompareKata(command,EXIT) == 0)) {
         printf("Masukan salah, tolong input kembali !\n");
         printf("Berikut daftar Command yang dapat digunakan:\n");
-        printf("ATTACK\nLEVEL_UP\nSKILL\nUNDO\nEND_TURN\nSAVE\nMOVE\nEXIT\n\n");
+        printf("//=====================================\\\\\n");
+        printf("||           ATTACK    SKILL           ||\n");
+        printf("||  LEVEL_UP       UNDO      END_TURN  ||\n");
+        printf("||            SAVE      MOVE           ||\n");
+        printf("||                 EXIT                ||\n");
+        printf("\\\\=====================================//\n\n");
         printf("ENTER COMMAND: ");
         InputKata(&command);
     }

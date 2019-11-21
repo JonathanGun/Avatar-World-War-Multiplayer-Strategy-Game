@@ -19,6 +19,9 @@ typedef struct {
 
 #define Player(G, n) InfoTopStackt((G).GameConditions).Players[n-1]
 #define CurTurn(G) InfoTopStackt((G).GameConditions).turn
+#define OtherTurn(G) ((InfoTopStackt((G).GameConditions).turn)%2)+1
+#define CurPlayer(G) Player((G), CurTurn((G)))
+#define OtherPlayer(G) Player((G), OtherTurn((G)))
 
 void InitGame(Game* G);
 // Membaca file config dan menginisialisasi attribut pada Game G

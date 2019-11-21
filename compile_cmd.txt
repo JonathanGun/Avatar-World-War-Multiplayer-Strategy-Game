@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 g++ init.c ADT/arraydin.c ADT/arraydin_bangunan.c ADT/bangunan.c ADT/game.c ADT/game_condition.c ADT/game_stackt.c ADT/listbangunan.c ADT/matriks.c ADT/peta.c ADT/player.c ADT/point.c ADT/queue.c ADT/skill.c ADT/baca_config/config_reader.c ADT/util/mesinfile.c ADT/graph/graph.c ADT/util/data_bangunan.c ADT/util/mesinkata.c ADT/util/pcolor.c -o a
+=======
+gcc init.c ADT/arraydin_bangunan.c ADT/bangunan.c ADT/game.c ADT/game_condition.c ADT/game_stackt.c ADT/listbangunan.c ADT/matriks.c ADT/peta.c ADT/player.c ADT/point.c ADT/queue.c ADT/skill.c ADT/baca_config/config_reader.c ADT/graph/graph.c ADT/util/data_bangunan.c ADT/util/mesinkata.c ADT/util/mesinfile.c ADT/util/pcolor.c -o a
+>>>>>>> fec292fe02143a6922df21bd5a45677262d34650

@@ -1,4 +1,3 @@
-#include "ADT/arraydin.h"
 #include "ADT/arraydin_bangunan.h"
 #include "ADT/bangunan.h"
 #include "ADT/game.h"
@@ -12,11 +11,15 @@
 #include "ADT/queue.h"
 #include "ADT/skill.h"
 #include "ADT/baca_config/config_reader.h"
+<<<<<<< HEAD
 #include "ADT/util/mesinfile.h"
+=======
+>>>>>>> fec292fe02143a6922df21bd5a45677262d34650
 #include "ADT/graph/graph.h"
 #include "ADT/util/boolean.h"
 #include "ADT/util/data_bangunan.h"
 #include "ADT/util/macro.h"
+#include "ADT/util/mesinfile.h"
 #include "ADT/util/mesinkata.h"
 #include "ADT/util/pcolor.h"
 #include <stdio.h>

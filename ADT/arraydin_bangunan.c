@@ -64,10 +64,10 @@ void SplitBangunan(TabBangunan TAll, ListBangunan *L1, ListBangunan *L2)
     int i = 1;
     while(i <= TAll.NeffTB){
         if(BangunanOwner(ElmtTB(TAll,i)) == 1){
-            InsVLast(L1,i);
+            InsertList(L1,i);
         }
         else if(BangunanOwner(ElmtTB(TAll,i)) == 2){
-            InsVLast(L2,i);
+            InsertList(L2,i);
         }
     }
 }
@@ -142,7 +142,6 @@ void TulisBangunanMilikPlayer(TabBangunan B, ListBangunan L){
 void TulisDaftarBangunan(TabBangunan B, ListBangunan L) {
     int i;
 
-    printf("Daftar bangunan:\n");
     address P = First(L);
 
     i = 1;
@@ -165,4 +164,8 @@ void TulisDaftarBangunan(TabBangunan B, ListBangunan L) {
 
 void GetBangunanByID(TabBangunan TAll, int id, Bangunan* B) {
     *B = ElmtTB(TAll, id);
+}
+
+void UpdateBangunan(TabBangunan* TAll, int id, Bangunan B){
+    CopyBangunan(B, &ElmtTB(*TAll, id));
 }

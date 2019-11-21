@@ -19,7 +19,7 @@ int main (){
         print_yellow(avatar[i]);
     }
     for (i=0; i<5; i++){
-        print_blue(game[i]);
+        print_green(game[i]);
     }
     printf("\n\n    Ketik \"START\" untuk memulai game\n");
     printf("Ketik \"LOAD\" jika sudah pernah save game\n");

@@ -68,7 +68,7 @@ void InsVFirst (ListBangunan *L, int X)
         InsertFirst(L,A);
     }
 }
-void InsVLast (ListBangunan *L, int X)
+void InsertList (ListBangunan *L, int X)
 /* I.S. L mungkin kosong */
 /* F.S. Melakukan AlokasiList sebuah elemen dan */
 /* menambahkan elemen list di akhir: elemen terakhir yang baru */
@@ -146,7 +146,7 @@ void DelFirst (ListBangunan *L, address *P)
     First(*L)= Next(First(*L));
 }
 
-void DelP (ListBangunan *L, int X)
+void DelList (ListBangunan *L, int X)
 /* I.S. Sembarang */
 /* F.S. Jika ada elemen list beraddress P, dengan Info(P)=X  */
 /* Maka P dihapus dari list dan di-deAlokasiList */
@@ -230,51 +230,6 @@ void PrintInfo (ListBangunan L)
         printf("]");
     }
 }
-int NbElmtList (ListBangunan L)
-/* Mengirimkan banyaknya elemen list; mengirimkan 0 jika list kosong */
-{
-    int count = 0;
-    address A = First(L);
-    while(A!=NULL){
-        count++;
-        A = Next(A);
-    }
-    return count;
-}
-/*** Prekondisi untuk Max/Min/rata-rata : ListBangunan tidak kosong ***/
-int Max (ListBangunan L)
-/* Mengirimkan nilai Info(P) yang maksimum */
-{
-    int maks = Info(First(L));
-    address A = Next(First(L));
-    while(A!= NULL){ //kalo A udah nil berarti 1 elmt
-        if(Info(A) > maks){
-            maks = Info(A);
-        }
-        A = Next(A);
-    }
-    return maks;
-}
-/****************** PROSES TERHADAP LIST ******************/
-void Konkat1 (ListBangunan *L1, ListBangunan *L2, ListBangunan *L3)
-/* I.S. L1 dan L2 sembarang */
-/* F.S. L1 dan L2 kosong, L3 adalah hasil konkatenasi L1 & L2 */
-/* Konkatenasi dua buah list : L1 dan L2    */
-/* menghasilkan L3 yang baru (dengan elemen list L1 dan L2) */
-/* dan L1 serta L2 menjadi list kosong.*/
-/* Tidak ada AlokasiList/deAlokasiList pada prosedur ini */
-{
-    int N;
-    CreateEmptyList(L3);
-    while(!IsEmptyList(*L1)){
-        DelVFirst(L1,&N);
-        InsVLast(L3,N);
-    }
-    while(!IsEmptyList(*L2)){
-        DelVFirst(L2,&N);
-        InsVLast(L3,N);
-    }
-}
 
 int CountList(ListBangunan L) {
     address P = First(L);
@@ -284,4 +239,23 @@ int CountList(ListBangunan L) {
         count++;
     }
     return count;
+}
+
+int ListElmt(ListBangunan L, int n){
+    n--;
+    address P = First(L);
+    while(n--){
+        P = Next(P);
+    }
+    return Info(P);
+}
+
+void UpdateList(ListBangunan* L, Bangunan B, int milik){
+    // kalau bukan pny dia tapi ada di list, hapus bangunannya
+    if(B.owner != milik && Search(*L, B.id) != NULL){
+        DelList(L, B.id);
+    } // kalau punya dia tapi tidak ada di list, tambah bangunannya
+    else if(B.owner == milik && Search(*L, B.id) == NULL){
+        InsertList(L, B.id);
+    }
 }

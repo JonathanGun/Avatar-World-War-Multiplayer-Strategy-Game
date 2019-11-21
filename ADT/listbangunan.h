@@ -25,7 +25,9 @@ typedef struct {
 /* File : listlinier.c */
 /* contoh ADT list berkait dengan representasi fisik pointer  */
 /* Representasi address dengan pointer */
-/* int adalah integer */
+
+int ListElmt(ListBangunan L, int n);
+void UpdateList(ListBangunan* L, Bangunan B, int milik);
 
 /* PROTOTYPE */
 /****************** TEST LIST KOSONG ******************/
@@ -62,7 +64,7 @@ void InsVFirst (ListBangunan *L, int X);
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen pertama dengan nilai X jika alokasi berhasil */
 
-void InsVLast (ListBangunan *L, int X);
+void InsertList (ListBangunan *L, int X);
 /* I.S. L mungkin kosong */
 /* F.S. Melakukan alokasi sebuah elemen dan */
 /* menambahkan elemen list di akhir: elemen terakhir yang baru */
@@ -101,7 +103,7 @@ void DelFirst (ListBangunan *L, address *P);
 /*      Elemen list berkurang satu (mungkin menjadi kosong) */
 /* First element yg baru adalah suksesor elemen pertama yang lama */
 
-void DelP (ListBangunan *L, int X);
+void DelList (ListBangunan *L, int X);
 /* I.S. Sembarang */
 /* F.S. Jika ada elemen list beraddress P, dengan Info(P)=X  */
 /* Maka P dihapus dari list dan di-dealokasi */
@@ -130,22 +132,7 @@ void PrintInfo (ListBangunan L);
 /* Jika list kosong : menulis [] */
 /* Tidak ada tambahan karakter apa pun di awal, akhir, atau di tengah */
 
-int NbElmtList (ListBangunan L);
-/* Mengirimkan banyaknya elemen list; mengirimkan 0 jika list kosong */
-
-/*** Prekondisi untuk Max/Min/rata-rata : ListBangunan tidak kosong ***/
-int Max (ListBangunan L);
-/* Mengirimkan nilai Info(P) yang maksimum */
-
-/****************** PROSES TERHADAP LIST ******************/
-void Konkat1 (ListBangunan *L1, ListBangunan *L2, ListBangunan *L3);
-/* I.S. L1 dan L2 sembarang */
-/* F.S. L1 dan L2 kosong, L3 adalah hasil konkatenasi L1 & L2 */
-/* Konkatenasi dua buah list : L1 dan L2    */
-/* menghasilkan L3 yang baru (dengan elemen list L1 dan L2) */
-/* dan L1 serta L2 menjadi list kosong.*/
-/* Tidak ada alokasi/dealokasi pada prosedur ini */
-
 int CountList(ListBangunan L);
+/* Mengirimkan banyaknya elemen list; mengirimkan 0 jika list kosong */
 
 #endif

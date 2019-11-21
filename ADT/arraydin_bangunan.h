@@ -85,4 +85,6 @@ void TulisBangunanMilikPlayer(TabBangunan B, ListBangunan L);
 
 void TulisDaftarBangunan(TabBangunan B, ListBangunan L);
 
+void UpdateBangunan(TabBangunan* TAll, int id, Bangunan B);
+
 #endif

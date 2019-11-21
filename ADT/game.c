@@ -11,8 +11,8 @@ void InitPlayer(Game *G) {
     // Masing-masing pamain memiliki satu bangunan saat memulai permainan
     CreateEmptyList(&Player(*G, 1).list_bangunan);
     CreateEmptyList(&Player(*G, 2).list_bangunan);
-    InsVLast(&Player(*G, 1).list_bangunan, 1);
-    InsVLast(&Player(*G, 2).list_bangunan, 2);   
+    InsertList(&Player(*G, 1).list_bangunan, 1);
+    InsertList(&Player(*G, 2).list_bangunan, 2);   
 }
 
 void InitMap(Game *G, Config conf) {
@@ -172,18 +172,43 @@ void command_Start(Game *G) {
 
 void command_Attack(Game* G) {
     // print daftar bangunan
-    TulisDaftarBangunan((*G).ListBangunan, Player(*G, CurTurn(*G)).list_bangunan);
+    printf("Daftar bangunan:\n");
+    TulisDaftarBangunan((*G).ListBangunan, CurPlayer(*G).list_bangunan);
 
     // input bangunan yang ingin digunakan menyerang
-    printf("Bangunan yang digunakan untuk menyerang :\n");
+    printf("Bangunan yang digunakan untuk menyerang : ");
+    int idBAtt; InputInt(&idBAtt);
+
+    Bangunan BAtt;
+    idBAtt = ListElmt(CurPlayer(*G).list_bangunan, idBAtt);
+    GetBangunanByID((*G).ListBangunan, idBAtt, &BAtt);
 
     // print daftar bangunan yang dapat diserang
+    ListBangunan BTerhubung;
+    GetBangunanTerhubung((*G).Relasi, idBAtt, &BTerhubung);
+
+    printf("Daftar bangunan yang dapat diserang:\n");
+    TulisDaftarBangunan((*G).ListBangunan, BTerhubung);
 
     // input bangunan yang ingin diserang
-    printf("Bangunan yang diserang :\n");
+    printf("Bangunan yang diserang: ");
+    int idBDef; InputInt(&idBDef);
+
+    Bangunan BDef;
+    idBDef = ListElmt(BTerhubung, idBDef);
+    GetBangunanByID((*G).ListBangunan, idBDef, &BDef);
 
     // input jumlah pasukan yang digunakan menyerang
-    printf("Jumlah pasukan :\n");
+    printf("Jumlah pasukan: ");
+    int jml_pas; InputInt(&jml_pas);
+
+    attack(&BAtt, &BDef, jml_pas);
+    UpdateBangunan(&(*G).ListBangunan, idBAtt, BAtt);
+    UpdateBangunan(&(*G).ListBangunan, idBDef, BDef);
+    UpdateList(&CurPlayer(*G).list_bangunan, BAtt, CurTurn(*G));
+    UpdateList(&CurPlayer(*G).list_bangunan, BDef, CurTurn(*G));
+    UpdateList(&OtherPlayer(*G).list_bangunan, BAtt, OtherTurn(*G));
+    UpdateList(&OtherPlayer(*G).list_bangunan, BDef, OtherTurn(*G));
 
     // cek jika permainan berakhir
     if (IsGameEnded(*G)) {
