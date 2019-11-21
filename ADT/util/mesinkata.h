@@ -51,6 +51,7 @@ void MakeKata(Kata* K, char C[], int length);
 
 boolean CompareKata(Kata K1, Kata K2);
 
+void PrintAll();
 // MESIN SAVE 
 void SalinKata_Save();
 

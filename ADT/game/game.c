@@ -108,32 +108,31 @@ void command_in_game(Game* G){
         InputKata(&command);
     }
 
-    Kata tmp;
     if(CompareKata(command,attack)){
         command_Attack(G);
-        printf("Press ENTER to continue"); InputKata(&tmp);
+        printf("Press ENTER to continue"); getchar();
     }else if (CompareKata(command,level)){
         command_Level_up(G);
-        printf("Press ENTER to continue"); InputKata(&tmp);
+        printf("Press ENTER to continue"); getchar();
     }else if (CompareKata(command,skill)){
         command_Skill(G);
         printf("Skill Berhasil\n");
-        printf("Press ENTER to continue"); InputKata(&tmp);
+        printf("Press ENTER to continue"); getchar();
     }else if (CompareKata(command,undo)){
         command_Undo(G);
         printf("Undo berhasil\n");
-        printf("Press ENTER to continue"); InputKata(&tmp);
+        printf("Press ENTER to continue"); getchar();
     }else if (CompareKata(command,end)){
         command_End_turn(G);
         // printf("End Turn berhasil\n");
     }else if (CompareKata(command,save)){
         command_Save(G);
         printf("Save berhasil\n");
-        printf("Press ENTER to continue"); InputKata(&tmp);
+        printf("Press ENTER to continue"); getchar();
     }else if (CompareKata(command,move)){
         command_Move(G);
         printf("Move Berhasil\n");
-        printf("Press ENTER to continue"); InputKata(&tmp);
+        printf("Press ENTER to continue"); getchar();
     }else{ //Ketika menulis EXIT
         command_Exit();
     }
