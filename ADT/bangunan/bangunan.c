@@ -53,7 +53,7 @@ boolean IsLvlUpValid(Bangunan B)
 void levelup(Bangunan *B){
 /* Menaikkan level dari Bangunan Pemain */
     if(Level(*B) < 4){
-        Pasukan(*B) -= (MaxPasukan(*B)/2);
+        Pasukan(*B) -= (MatElmt(AttCastle,Level(*B),2)/2);
         Level(*B) += 1;
         // "M" : 1, "A" : 2, "P" : 3
         if(Type(*B) == 'C'){
@@ -167,10 +167,7 @@ void move(Bangunan *BAwal, Bangunan *BAkhir, int jumlah_pasukan_pindah){
 /* Menghitung perubahan jumlah pasukan saat terjadi perpindahan pasukan (Command : MOVE) */
 
 void add_pasukan(Bangunan *B){
-    if((RateTambah(*B) + Pasukan(*B)) > MaxPasukan(*B)){
-        Pasukan(*B) += (MaxPasukan(*B) - Pasukan(*B));
-    }
-    else{
+    if(Pasukan(*B) < MaxPasukan(*B)){
         Pasukan(*B) += RateTambah(*B);
     }
 }
