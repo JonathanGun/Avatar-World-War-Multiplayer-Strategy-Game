@@ -1,11 +1,3 @@
-/* 
-
-    Nama : Muh.Muslim Al Mujahid
-    NIM : 13518054
-    Tgl : 2 Oktober 2019
-    Topik : Pattern Matching
-
-*/
 #include "ADT/mesinkar.h"
 #include "ADT/mesinconfig.h"
 #include <stdio.h>

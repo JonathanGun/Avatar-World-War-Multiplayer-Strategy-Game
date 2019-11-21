@@ -53,4 +53,6 @@ void PopStackt (GameStack * S, GameCondition* X);
 /* I.S. S  tidak mungkin kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
 
+void ResetStackt(GameStack *S);
+
 #endif

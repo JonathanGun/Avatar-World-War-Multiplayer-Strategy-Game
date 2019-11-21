@@ -40,3 +40,9 @@ void PopStackt (GameStack * S, GameCondition* X)
 	*X = InfoTopStackt(*S);
 	TopStackt(*S)--;
 }
+
+void ResetStackt(GameStack *S) {
+	GameCondition Gc = InfoTopStackt(*S);
+	CreateEmptyStackt(&(*S));
+	PushStackt(S, Gc);
+}

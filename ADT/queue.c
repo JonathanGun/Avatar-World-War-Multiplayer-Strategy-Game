@@ -75,3 +75,7 @@ void Del (Queue * Q, int * X)
 		else Head(*Q)++;
 	}
 }
+
+void CopyQueue(Queue Q, Queue * Qo) {
+	*Qo = Q;
+}

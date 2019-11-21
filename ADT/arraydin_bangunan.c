@@ -162,3 +162,7 @@ void TulisDaftarBangunan(TabBangunan B, ListBangunan L) {
     }
 
 }
+
+void GetBangunanByID(TabBangunan TAll, int id, Bangunan* B) {
+    *B = ElmtTB(TAll, id);
+}

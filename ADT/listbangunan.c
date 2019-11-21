@@ -275,3 +275,13 @@ void Konkat1 (ListBangunan *L1, ListBangunan *L2, ListBangunan *L3)
         InsVLast(L3,N);
     }
 }
+
+int CountList(ListBangunan L) {
+    address P = First(L);
+    int count = 0;
+    while ( P != NULL ) {
+        P = Next(P);
+        count++;
+    }
+    return count;
+}

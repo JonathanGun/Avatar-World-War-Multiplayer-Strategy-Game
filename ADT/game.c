@@ -64,6 +64,80 @@ void LoadGame(Game* G, GameCondition Gc);
 // I.S : Sembarang
 // F.s : G.GameCondition = Gc
 
+void SaveGame(Game* G) {
+
+    // Kamus Lokal
+    Queue Skill;
+    int X;
+    Bangunan B;
+    address P;
+
+    // Ambil kondisi game sekarang
+    GameCondition Gc = InfoTopStackt((*G).GameConditions);
+
+    FILE * fp;
+    int i;
+    /* open the file for writing*/
+    fp = fopen ("save/save.txt","w");
+
+    // simpan turn
+    fprintf (fp, "%d\n", CurTurn(*G));
+
+    //---------------------- simpan data player 1 -----------------------
+    // simpan skill
+    CreateEmptyQueue(&Skill, 10);
+    CopyQueue(Player(*G, 1).Skill, &Skill);
+    while( !IsEmptyQueue(Skill) ) {
+        Del(&Skill, &X);
+        fprintf(fp, "%d ", X);
+    }
+    fprintf(fp, "\n");
+
+    // simpan banyak bangunan
+    fprintf(fp, "%d\n", CountList(Player(*G, 1).list_bangunan));
+
+    // simpan bangunan
+    // format : 
+    // id pasukan  
+    // id pasukan
+    // ..........   
+    P = First(Player(*G, 1).list_bangunan);
+    while ( P != NULL ) {
+        CreateBangunanEmpty(&B);
+        GetBangunanByID((*G).ListBangunan, Info(P), &B);
+        fprintf(fp, "%d %d\n", Id(B), Pasukan(B));
+        P = Next(P);
+    }
+
+    //---------------------- simpan data player 2 -----------------------
+    // simpan skill
+    CreateEmptyQueue(&Skill, 10);
+    CopyQueue(Player(*G, 2).Skill, &Skill);
+    while( !IsEmptyQueue(Skill) ) {
+        Del(&Skill, &X);
+        fprintf(fp, "%d ", X);
+    }
+    fprintf(fp, "\n");
+    // simpan banyak bangunan
+    fprintf(fp, "%d\n", CountList(Player(*G, 2).list_bangunan));
+    // simpan bangunan
+    // format : 
+    // id pasukan  
+    // id pasukan
+    // ..........   
+    P = First(Player(*G, 2).list_bangunan);
+    while ( P != NULL ) {
+        CreateBangunanEmpty(&B);
+        GetBangunanByID((*G).ListBangunan, Info(P), &B);
+        fprintf(fp, "%d %d\n", Id(B), Pasukan(B));
+        P = Next(P);
+    }
+
+    /* close the file*/  
+    fclose (fp);
+
+}
+
 void LoadFromFile(Game* G, Kata filename)
 {
 	printf("loaded from "); PrintKata(filename); ENDL;
@@ -153,14 +227,17 @@ void command_End_turn(Game* G) {
     CurTurn(*G)%=2;
     CurTurn(*G)++;
 
+    // Reset stackt
+    ResetStackt(&(*G).GameConditions);
+
     // Memulai turn baru
     StartGame(G);
 }
 
 void command_Save(Game* G) {
     
-    // input lokasi save
-    printf("Lokasi save file : ");
+    SaveGame(G);
+
 }
 
 void command_Move(Game* G) {

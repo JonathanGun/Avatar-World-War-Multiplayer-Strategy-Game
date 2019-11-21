@@ -60,4 +60,6 @@ void Del (Queue * Q, int * X);
 /* F.S. X = nilai elemen HEAD pd I.S., HEAD "maju" dengan mekanisme circular buffer; 
         Q mungkin kosong */
 
+void CopyQueue(Queue Q, Queue * Qo);
+
 #endif

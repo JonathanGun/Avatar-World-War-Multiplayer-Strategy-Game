@@ -146,4 +146,6 @@ void Konkat1 (ListBangunan *L1, ListBangunan *L2, ListBangunan *L3);
 /* dan L1 serta L2 menjadi list kosong.*/
 /* Tidak ada alokasi/dealokasi pada prosedur ini */
 
+int CountList(ListBangunan L);
+
 #endif
