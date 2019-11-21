@@ -53,6 +53,7 @@ boolean IsLvlUpValid(Bangunan B)
 void levelup(Bangunan *B){
 /* Menaikkan level dari Bangunan Pemain */
     if(Level(*B) < 4){
+        Pasukan(*B) -= (MaxPasukan(*B)/2);
         Level(*B) += 1;
         // "M" : 1, "A" : 2, "P" : 3
         if(Type(*B) == 'C'){
@@ -194,4 +195,13 @@ void TulisBangunan(Bangunan B){
     if(B.sudahserang) printf("yes");
     else printf("no");
     ENDL;
+}
+
+
+/* Mengeprint Type sebuah bangunan */
+void printTypeBangunan(Bangunan B){
+    if (Type(B) == 'C') printf("Castle");
+    else if (Type(B) == 'T') printf("Tower");
+    else if (Type(B) == 'F') printf("Fort");
+    else if (Type(B) == 'V') printf("Village");
 }

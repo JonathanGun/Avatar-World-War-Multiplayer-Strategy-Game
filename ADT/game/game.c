@@ -1,6 +1,7 @@
 #include "game.h"
 
-void InitPlayer(Game *G, Config conf) {
+
+void InitPlayer(Game *G) {
     // Masing-masing pemain memiliki skill IU saat memulai permainan
     startSkill(&Player(*G, 1).Skill);
     startSkill(&Player(*G, 2).Skill);
@@ -26,6 +27,11 @@ void InitTurn(Game* G) {
     CurTurn(*G) = 1;
 }
 
+// void InitSave(Game* G) {
+//     STARTKATA("save/")
+//     Salin_Save();
+// } 
+
 void InitGame(Game* G)
 // Membaca file config dan menginisialisasi attribut pada Game G
 // a. Pada saat permainan dimulai, game akan membaca konfigurasi permainan dari file
@@ -37,23 +43,15 @@ void InitGame(Game* G)
     Config conf;
 
     // read config
-    extract_config(&conf);
+    extract_config("config.txt", &conf);
     // printf("Berhasil load file config\n");
-
-    // init player
-    InitPlayer(G, conf);
-    // printf("Berhasil inisialisasi player\n");
 
     // init map
     InitMap(G, conf);
     // printf("Berhasil inisialisasi map\n");
 
-    // init turn
-    InitTurn(G);
-    // printf("Turn pertama adalah %d\n", CurTurn(*G));
-
-    // start game
-    StartGame(G);
+    // init save
+    // InitSave(G);
 }
 
 void LoadGame(Game* G, GameCondition Gc);
@@ -63,19 +61,16 @@ void LoadGame(Game* G, GameCondition Gc);
 
 void SaveGame(Game* G) {
 
-    // Kamus Lokal
+    // temporary variable
     Queue Skill;
     int X;
     Bangunan B;
     address P;
 
-    // Ambil kondisi game sekarang
-    GameCondition Gc = InfoTopStackt((*G).GameConditions);
-
     FILE * fp;
     int i;
     /* open the file for writing*/
-    fp = fopen ("save/save.txt","w");
+    fp = fopen ("ADT/save/save.txt","w");
 
     // simpan turn
     fprintf (fp, "%d\n", CurTurn(*G));
@@ -122,7 +117,9 @@ void SaveGame(Game* G) {
     }
     fprintf(fp, "\n");
 
-    // simpan banyak bangunan
+    // simpan banyak bangun
+    // Ambil kondisi game sekarang
+    GameCondition Gc = InfoTopStackt((*G).GameConditions);
     fprintf(fp, "%d\n", CountList(Player(*G, 2).list_bangunan));
     
     // simpan bangunan
@@ -159,7 +156,6 @@ boolean IsPlayerLose(Game G, int player){
 void StartGame(Game* G)
 // Memulai permainan
 {
-    startTurn(Player(*G, CurTurn(*G)));
     command_in_game(G);
 }
 
@@ -181,7 +177,7 @@ void command_in_game(Game* G){
     MakeKata(&save,Save,4);
     MakeKata(&move,Move,4);
     MakeKata(&EXIT,Exit,4);
-    
+    ENDL;
     TulisPeta((*G).ListBangunan, (*G).map);
     printf("Player "); print(CurTurn(*G)); ENDL;
     printf("Daftar bangunan:\n");
@@ -256,6 +252,17 @@ int InputValidIntBetween(int s, int e){
     return tmp;
 }
 
+void command_Start(Game* G) {
+    // init player
+    InitPlayer(G);
+
+    // init turn
+    InitTurn(G);
+
+    // start game
+    StartGame(G);
+}
+
 void command_Attack(Game* G) {
     // print daftar bangunan
     printf("Daftar bangunan:\n");
@@ -304,17 +311,30 @@ void command_Attack(Game* G) {
 
 void command_Level_up(Game* G) {
     // print daftar bangunan
-
-    // input bangunan yang ingin digunakan menyerang
-    printf("Bangunan yang akan di level up : ");
     printf("Daftar bangunan:\n");
     TulisDaftarBangunan((*G).ListBangunan, CurPlayer(*G).list_bangunan);
+    
+    // input bangunan yang ingin digunakan menyerang
+    printf("Bangunan yang akan di level up: ");
     int idBLvlUp = InputValidIntBetween(1, CountList(CurPlayer(*G).list_bangunan));
 
-    Bangunan B;
+    Bangunan BLvl;
     idBLvlUp = ListElmt(CurPlayer(*G).list_bangunan, idBLvlUp);
-    GetBangunanByID((*G).ListBangunan, idBLvlUp, &B);
-    IsLvlUpValid(B) ? levelup(&B) : printf("Jumlah pasukan di bangunan %c tidak mencukupi untuk level up\n",Type(B));
+    GetBangunanByID((*G).ListBangunan, idBLvlUp, &BLvl);
+
+    if(Level(BLvl) < 4){
+        if (IsLvlUpValid(BLvl)){
+            levelup(&BLvl);
+            UpdateBangunan(&(*G).ListBangunan, idBLvlUp, BLvl);
+            printf("Level ");printTypeBangunan(BLvl); 
+            printf("-mu meningkat menjadi %d !\n", Level(BLvl));
+        }else{
+            printf("Jumlah pasukan "); printTypeBangunan(BLvl);
+            printf(" kurang untuk level up"); ENDL;
+        }
+    }else{
+        printf("Level Bangunan sudah Maksimum, tidak dapat melakukan level up lagi\n");
+    }
     command_in_game(G);
 }
 
@@ -345,6 +365,18 @@ void command_End_turn(Game* G) {
     // Reset stackt
     ResetStackt(&(*G).GameConditions);
 
+    // AddPasukan awal Turn
+    Bangunan B;
+    int i;
+    int idB;
+    int CountBangunan = CountList(CurPlayer(*G).list_bangunan);
+    for (i = 1; i <= CountBangunan ; i++){
+        idB = ListElmt(CurPlayer(*G).list_bangunan, i);
+        GetBangunanByID((*G).ListBangunan, idB, &B);
+        add_pasukan(&B);
+        UpdateBangunan(&(*G).ListBangunan, idB, B);
+        UpdateList(&CurPlayer(*G).list_bangunan, B, CurTurn(*G));
+    }
     // Memulai turn baru
     StartGame(G);
 }

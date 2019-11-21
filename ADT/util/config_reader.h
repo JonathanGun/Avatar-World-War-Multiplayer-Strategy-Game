@@ -15,19 +15,19 @@ typedef struct {
     Graph conf_relasi;
 } Config;
 
-void extract_config(Config* conf);
+void extract_config(const char* fileconfig, Config* conf);
 // Mengekstrak informasi dalam "Config"
 
-void extract_peta(Peta *peta);
+void extract_peta(const char* fileconfig, Peta *peta);
 // Mengekstrak dimensi peta
 
-void extract_banyak_bangunan(int *banyak_bangunan);
+void extract_banyak_bangunan(const char* fileconfig, int *banyak_bangunan);
 // Mengekstrak banyak bangunan
 
-void extract_listBangunan(int banyak_bangunan, TabBangunan* list_bangunan);
+void extract_listBangunan(const char* fileconfig, int banyak_bangunan, TabBangunan* list_bangunan);
 // Mengekstrak list bangunan
 
-void extract_relasi(int banyak_bangunan, Graph* relasi);
+void extract_relasi(const char* fileconfig, int banyak_bangunan, Graph* relasi);
 // Mengekstrak relasi
 
 #endif
