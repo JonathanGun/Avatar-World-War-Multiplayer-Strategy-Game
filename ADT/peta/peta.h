@@ -1,12 +1,9 @@
-#ifndef peta_H
-#define peta_H
+#ifndef PETA_H
+#define PETA_H
 
-#include "util/pcolor.h"
-#include "util/macro.h"
-#include "bangunan.h"
-#include "arraydin_bangunan.h"
-#include <stdio.h>
-#include <stdlib.h>
+#include "../util/util.h"
+#include "../bangunan/bangunan.h"
+#include "../bangunan/arraydin_bangunan.h"
 
 /* Ukuran minimum dan maksimum baris dan PetaKolom */
 #define PetaBrsMin 1

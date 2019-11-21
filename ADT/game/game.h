@@ -1,11 +1,12 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "peta.h"
-#include "listbangunan.h"
-#include "arraydin_bangunan.h"
-#include "game_stackt.h"
-#include "baca_config/config_reader.h"
+#include "../util/util.h"
+#include "../peta/peta.h"
+#include "../bangunan/listbangunan.h"
+#include "../bangunan/arraydin_bangunan.h"
+#include "../game/game_stackt.h"
+#include "../util/config_reader.h"
 
 typedef struct {
     Peta map; // Menyimpan peta
@@ -43,7 +44,12 @@ void LoadFromFile(Game* G, Kata filename);
 void StartGame(Game* G);
 // Memulai permainan
 
-// Command
+void SaveGame(Game* G);
+void LoadGame(Game* G, GameCondition Gc);
+
+boolean IsGameEnded(Game G);
+boolean IsPlayerLose(Game G, int player);
+
 void command_in_game(Game* G);
 void command_Attack(Game* G);
 void command_Level_up(Game* G);
@@ -52,8 +58,5 @@ void command_Undo(Game* G);
 void command_End_turn(Game* G);
 void command_Save(Game* G);
 void command_Move(Game* G);
-
-boolean IsGameEnded(Game G);
-boolean IsPlayerLose(Game G, int player);
 
 #endif

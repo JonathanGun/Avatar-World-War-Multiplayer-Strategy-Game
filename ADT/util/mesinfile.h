@@ -1,11 +1,8 @@
-/* File: mesinkata.h */
-/* Definisi Mesin Kata: Model Akuisisi Versi I */
-
 #ifndef MESINFILE_H
 #define MESINFILE_H
 
-#include "../util/boolean.h"
-#include "../util/mesinkata.h"
+#include "../util/util.h"
+#include "mesinkata.h"
 
 #define NMax 50
 #define BLANK ' '

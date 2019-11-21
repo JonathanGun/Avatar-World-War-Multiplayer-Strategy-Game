@@ -1,8 +1,4 @@
 #include "graph.h"
-#include "../util/boolean.h"
-#include "../util/macro.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 /* ----- KONSTRUKTOR ----- */
 Graph CreateGraph(int r, int c){

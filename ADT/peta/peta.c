@@ -1,6 +1,4 @@
 #include "peta.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 /* ********** DEFINISI PROTOTIPE PRIMITIF ********** */
 void MakePeta(Peta *P, int NB, int NK)

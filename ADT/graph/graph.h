@@ -1,8 +1,8 @@
-#include "../util/boolean.h"
-#include "../listbangunan.h"
-
 #ifndef GRAPH_H
 #define GRAPH_H
+
+#include "../util/util.h"
+#include "../bangunan/listbangunan.h"
 
 #define NilGraph NULL
 

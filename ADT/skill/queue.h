@@ -1,7 +1,7 @@
 #ifndef queue_H
 #define queue_H
 
-#include "util/boolean.h"
+#include "../util/util.h"
 
 #define QueueNil 0
 
