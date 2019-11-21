@@ -1,8 +1,6 @@
 #include "game.h"
 #include "../testcommand.c"
 
-char savefile[10000];
-
 void InitPlayer(Game *G) {
     // Masing-masing pemain memiliki skill IU saat memulai permainan
     startSkill(&Player(*G, 1).Skill);
@@ -30,7 +28,8 @@ void InitTurn(Game* G) {
 }
 
 void InitSave(Game* G) {
-
+    START("save/save.txt");
+    Salin_Save();
 } 
 
 void InitGame(Game* G)
@@ -50,6 +49,9 @@ void InitGame(Game* G)
     // init map
     InitMap(G, conf);
     // printf("Berhasil inisialisasi map\n");
+
+    // init save
+    InitSave(G);
 }
 
 void LoadGame(Game* G, GameCondition Gc);

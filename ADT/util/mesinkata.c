@@ -136,11 +136,15 @@ boolean CompareKata(Kata K1, Kata K2){
 }
 
 // --------------- SAVE --------------------
-void SalinKata_Save(){
+
+void Salin_Save(){
+
+  START("../save/save.txt");
+
   int i = 0;
-  while(!IsBlank()){
-    i++;
+  while( CC != MARK ){
     Save.TabKata[i] = CC;
+    i++;
     ADV();
   }
   CKata.Length = i;
@@ -148,5 +152,5 @@ void SalinKata_Save(){
 
 void ADVKATA_Save(){
   IgnoreBlank();
-  SalinKata_Save();
+  Salin_Save();
 }
