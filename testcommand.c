@@ -40,7 +40,12 @@ void command_in_game(Game* G){
     && (CompareKata(command,move) == 0) && (CompareKata(command,EXIT) == 0)) {
         printf("Masukan salah, tolong input kembali !\n");
         printf("Berikut daftar Command yang dapat digunakan:\n");
-        printf("ATTACK\nLEVEL_UP\nSKILL\nUNDO\nEND_TURN\nSAVE\nMOVE\nEXIT\n\n");
+        printf("//=====================================\\\\\n");
+        printf("||           ATTACK    SKILL           ||\n");
+        printf("||  LEVEL_UP       UNDO      END_TURN  ||\n");
+        printf("||            SAVE      MOVE           ||\n");
+        printf("||                 EXIT                ||\n");
+        printf("\\\\=====================================//\n\n");
         printf("ENTER COMMAND: ");
         InputKata(&command);
     }
