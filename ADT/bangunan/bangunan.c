@@ -55,6 +55,7 @@ void levelup(Bangunan *B){
     if(Level(*B) < 4){
         Pasukan(*B) -= (MaxPasukan(*B)/2);
         Level(*B) += 1;
+        printf("Bangunan naik level menjadi level "); print(Level(*B)); printf("!"); ENDL;
         // "M" : 1, "A" : 2, "P" : 3
         if(Type(*B) == 'C'){
             RateTambah(*B) = MatElmt(AttCastle, Level(*B), 1);
