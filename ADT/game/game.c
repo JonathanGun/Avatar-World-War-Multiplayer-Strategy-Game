@@ -396,12 +396,7 @@ void command_Move(Game* G) {
     UpdateList(&CurPlayer(*G).list_bangunan, BSucc, CurTurn(*G));
     UpdateList(&OtherPlayer(*G).list_bangunan, BMov, OtherTurn(*G));
     UpdateList(&OtherPlayer(*G).list_bangunan, BSucc, OtherTurn(*G));
+    
+    command_in_game(G);
 
-
-    // cek jika permainan berakhir
-    if (IsGameEnded(*G)) {
-        printf("game ended\n");
-    } else {
-        command_in_game(G);
-    }
 }
