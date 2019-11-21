@@ -1,8 +1,6 @@
 #include "game.h"
 
-boolean FirstTurn;
-
-void InitPlayer(Game *G, Config conf) {
+void InitPlayer(Game *G) {
     // Masing-masing pemain memiliki skill IU saat memulai permainan
     startSkill(&Player(*G, 1).Skill);
     startSkill(&Player(*G, 2).Skill);
@@ -26,8 +24,12 @@ void InitMap(Game *G, Config conf) {
 
 void InitTurn(Game* G) {
     CurTurn(*G) = 1;
-    FirstTurn = true;
 }
+
+// void InitSave(Game* G) {
+//     STARTKATA("save/")
+//     Salin_Save();
+// } 
 
 void InitGame(Game* G)
 // Membaca file config dan menginisialisasi attribut pada Game G
@@ -40,23 +42,15 @@ void InitGame(Game* G)
     Config conf;
 
     // read config
-    extract_config(&conf);
+    extract_config("config.txt", &conf);
     // printf("Berhasil load file config\n");
-
-    // init player
-    InitPlayer(G, conf);
-    // printf("Berhasil inisialisasi player\n");
 
     // init map
     InitMap(G, conf);
     // printf("Berhasil inisialisasi map\n");
 
-    // init turn
-    InitTurn(G);
-    // printf("Turn pertama adalah %d\n", CurTurn(*G));
-
-    // start game
-    StartGame(G);
+    // init save
+    // InitSave(G);
 }
 
 void LoadGame(Game* G, GameCondition Gc);
@@ -66,19 +60,16 @@ void LoadGame(Game* G, GameCondition Gc);
 
 void SaveGame(Game* G) {
 
-    // Kamus Lokal
+    // temporary variable
     Queue Skill;
     int X;
     Bangunan B;
     address P;
 
-    // Ambil kondisi game sekarang
-    GameCondition Gc = InfoTopStackt((*G).GameConditions);
-
     FILE * fp;
     int i;
     /* open the file for writing*/
-    fp = fopen ("save/save.txt","w");
+    fp = fopen ("ADT/save/save.txt","w");
 
     // simpan turn
     fprintf (fp, "%d\n", CurTurn(*G));
@@ -125,7 +116,9 @@ void SaveGame(Game* G) {
     }
     fprintf(fp, "\n");
 
-    // simpan banyak bangunan
+    // simpan banyak bangun
+    // Ambil kondisi game sekarang
+    GameCondition Gc = InfoTopStackt((*G).GameConditions);
     fprintf(fp, "%d\n", CountList(Player(*G, 2).list_bangunan));
     
     // simpan bangunan
@@ -162,11 +155,9 @@ boolean IsPlayerLose(Game G, int player){
 void StartGame(Game* G)
 // Memulai permainan
 {
-    if ( !FirstTurn ) startTurn(Player(*G, CurTurn(*G)));
+    // TulisPeta((*G).ListBangunan, (*G).map);
     command_in_game(G);
 }
-
-
 
 void command_in_game(Game* G){
     char Attack[7] = "ATTACK";
@@ -240,6 +231,18 @@ void command_in_game(Game* G){
         printf("Exiting the program...\n"); 
         exit(0); 
     }
+}
+
+void command_Start(Game* G) {
+
+    // init player
+    InitPlayer(G);
+
+    // init turn
+    InitTurn(G);
+
+    // start game
+    StartGame(G);
 }
 
 void command_Attack(Game* G) {
@@ -363,9 +366,7 @@ void command_End_turn(Game* G) {
 }
 
 void command_Save(Game* G) {
-    
     SaveGame(G);
-
 }
 
 void command_Move(Game* G) {

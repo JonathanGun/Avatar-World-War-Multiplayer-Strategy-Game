@@ -2,6 +2,7 @@
 
 boolean EndKata;
 Kata CKata;
+Kata Savefile;
 
 /* State Mesin */
 char CC;
@@ -132,4 +133,32 @@ boolean CompareKata(Kata K1, Kata K2){
     if(K1.TabKata[i] != K2.TabKata[i]) return false;
   }
   return true;
+}
+
+// --------------- SAVE --------------------
+boolean STARTKATA_Save(char const *filename) {
+  boolean valid = (START(filename) != 0);
+  if (!valid) {
+    EndKata = true;
+    return valid;
+  }
+
+  EndKata = (CC == MARK);
+  return valid;
+}
+
+void SalinKata_Save(){
+
+  int i = 0;
+  while( CC != MARK ){
+    Savefile.TabKata[i] = CC;
+    i++;
+    ADV();
+  }
+  CKata.Length = i;
+}
+
+void ADVKATA_Save(){
+  IgnoreBlank();
+  SalinKata_Save();
 }
