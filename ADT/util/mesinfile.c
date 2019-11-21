@@ -31,7 +31,7 @@ void IgnoreNotValidChar()
     while ( !ValidCharacter() ) ADV();
 }
 
-void START_file( int Line )
+void START_file( const char* fileconfig, int Line )
 /* I.S. : CC sembarang
    F.S. : EndKata = true, dan CC = MARK;
           atau EndKata = false, CKata adalah kata yang sudah diakuisisi,
@@ -39,7 +39,7 @@ void START_file( int Line )
 {
     int i;
     /* Algoritma */
-    START("config.txt");
+    START(fileconfig);
 
 
     for ( i = 1; i < Line; i++ ) {
