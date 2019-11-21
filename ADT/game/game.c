@@ -26,11 +26,6 @@ void InitTurn(Game* G) {
     CurTurn(*G) = 1;
 }
 
-// void InitSave(Game* G) {
-//     STARTKATA("save/")
-//     Salin_Save();
-// } 
-
 void InitGame(Game* G)
 // Membaca file config dan menginisialisasi attribut pada Game G
 // a. Pada saat permainan dimulai, game akan membaca konfigurasi permainan dari file
@@ -48,96 +43,12 @@ void InitGame(Game* G)
     // init map
     InitMap(G, conf);
     // printf("Berhasil inisialisasi map\n");
-
-    // init save
-    // InitSave(G);
 }
 
 void LoadGame(Game* G, GameCondition Gc);
 // Load permainan yang telah disimpan
 // I.S : Sembarang
 // F.s : G.GameCondition = Gc
-
-void SaveGame(Game* G) {
-
-    // temporary variable
-    Queue Skill;
-    int X;
-    Bangunan B;
-    address P;
-
-    FILE * fp;
-    int i;
-    /* open the file for writing*/
-    fp = fopen ("ADT/save/save.txt","w");
-
-    // simpan turn
-    fprintf (fp, "%d\n", CurTurn(*G));
-
-    //---------------------- simpan data player 1 -----------------------
-    // simpan skill
-    CreateEmptyQueue(&Skill, 10);
-    CopyQueue(Player(*G, 1).Skill, &Skill);
-    if ( IsEmptyQueue(Skill) ) {
-        fprintf(fp, "%d ", 0);
-    }
-    while( !IsEmptyQueue(Skill) ) {
-        Del(&Skill, &X);
-        fprintf(fp, "%d ", X);
-    }
-    fprintf(fp, "\n");
-
-    // simpan banyak bangunan
-    fprintf(fp, "%d\n", CountList(Player(*G, 1).list_bangunan));
-
-    // simpan bangunan
-    // format : 
-    // id level sudahserang pertahanan pasukan  
-    // id level sudahserang pertahanan pasukan
-    // ..........   
-    P = First(Player(*G, 1).list_bangunan);
-    while ( P != NULL ) {
-        CreateBangunanEmpty(&B);
-        GetBangunanByID((*G).ListBangunan, Info(P), &B);
-        fprintf(fp, "%d %d %d %d %d\n", Id(B), Level(B), SudahSerang(B), Pertahanan(B), Pasukan(B));
-        P = Next(P);
-    }
-
-    //---------------------- simpan data player 2 -----------------------
-    // simpan skill
-    CreateEmptyQueue(&Skill, 10);
-    CopyQueue(Player(*G, 2).Skill, &Skill);
-    if ( IsEmptyQueue(Skill) ) {
-        fprintf(fp, "%d ", 0);
-    }
-    while( !IsEmptyQueue(Skill) ) {
-        Del(&Skill, &X);
-        fprintf(fp, "%d ", X);
-    }
-    fprintf(fp, "\n");
-
-    // simpan banyak bangun
-    // Ambil kondisi game sekarang
-    GameCondition Gc = InfoTopStackt((*G).GameConditions);
-    fprintf(fp, "%d\n", CountList(Player(*G, 2).list_bangunan));
-    
-    // simpan bangunan
-    // format : 
-    // id level sudahserang pertahanan pasukan
-    // id level sudahserang pertahanan pasukan
-    // ..........   
-    P = First(Player(*G, 2).list_bangunan);
-    while ( P != NULL ) {
-        CreateBangunanEmpty(&B);
-        GetBangunanByID((*G).ListBangunan, Info(P), &B);
-        fprintf(fp, "%d %d %d %d %d\n", Id(B), Level(B), SudahSerang(B), Pertahanan(B), Pasukan(B));
-        P = Next(P);
-    }
-
-    /* close the file*/  
-    fclose (fp);
-
-}
 
 void LoadFromFile(Game* G, Kata filename)
 {
@@ -354,7 +265,7 @@ void command_End_turn(Game* G) {
 }
 
 void command_Save(Game* G) {
-    SaveGame(G);
+    SaveGame(InfoTopStackt((*G).GameConditions), (*G).ListBangunan, InfoTopStackt((*G).GameConditions).turn);
 }
 
 void command_Move(Game* G) {

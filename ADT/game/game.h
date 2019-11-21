@@ -7,6 +7,7 @@
 #include "../bangunan/arraydin_bangunan.h"
 #include "../game/game_stackt.h"
 #include "../util/config_reader.h"
+#include "../save/save.h"
 
 typedef struct {
     Peta map; // Menyimpan peta
@@ -44,7 +45,6 @@ void LoadFromFile(Game* G, Kata filename);
 void StartGame(Game* G);
 // Memulai permainan
 
-void SaveGame(Game* G);
 void LoadGame(Game* G, GameCondition Gc);
 
 boolean IsGameEnded(Game G);
