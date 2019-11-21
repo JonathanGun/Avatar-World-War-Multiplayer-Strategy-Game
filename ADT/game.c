@@ -278,17 +278,50 @@ void command_Save(Game* G) {
 void command_Move(Game* G) {
 
     // print daftar bangunan
+    printf("Daftar bangunan:\n");
+    TulisDaftarBangunan((*G).ListBangunan, CurPlayer(*G).list_bangunan);
 
     // input bangunan yang dipilih
     printf("Pilih bangunan : ");
+    int idBMov; InputInt(&idBMov);
+
+    Bangunan BMov;
+    idBMov = ListElmt(CurPlayer(*G).list_bangunan, idBMov);
+    GetBangunanByID((*G).ListBangunan, idBMov, &BMov);
 
     // print daftar bangunan terdekat
+    ListBangunan BTerhubung;
+    GetBangunanTerhubung((*G).Relasi, idBMov, &BTerhubung);
+
+    printf("Daftar bangunan terdekat:\n");
+    TulisDaftarBangunan((*G).ListBangunan, BTerhubung);
 
     // input bangunan yang dipilih
     printf("Bangunan yang akan menerima : ");
+    int idBSucc; InputInt(&idBSucc);
+
+    Bangunan BSucc;
+    idBSucc = ListElmt(BTerhubung, idBSucc);
+    GetBangunanByID((*G).ListBangunan, idBSucc, &BSucc);
 
     // input jumlah pasukan yang dipindahkan
     printf("Jumlah pasukan : ");
+    int jml_pas; InputInt(&jml_pas);
 
-    command_in_game(G);
+    move(&BSucc, &BMov, jml_pas);
+
+    UpdateBangunan(&(*G).ListBangunan, idBMov, BMov);
+    UpdateBangunan(&(*G).ListBangunan, idBSucc, BSucc);
+    UpdateList(&CurPlayer(*G).list_bangunan, BMov, CurTurn(*G));
+    UpdateList(&CurPlayer(*G).list_bangunan, BSucc, CurTurn(*G));
+    UpdateList(&OtherPlayer(*G).list_bangunan, BMov, OtherTurn(*G));
+    UpdateList(&OtherPlayer(*G).list_bangunan, BSucc, OtherTurn(*G));
+
+
+    // cek jika permainan berakhir
+    if (IsGameEnded(*G)) {
+        printf("game ended\n");
+    } else {
+        command_in_game(G);
+    }
 }
