@@ -11,22 +11,22 @@ void extract_config(Config* conf) {
 }
 
 void extract_peta(Peta *peta){
-    START_config(1);
+    START_file(1);
     int r = Token.Bil;
-    ADV_config();
+    ADV_file();
     int c = Token.Bil;
     MakePeta(peta, r, c);
 }
 
 void extract_banyak_bangunan(int *banyak_bangunan) {
-    START_config(2);
+    START_file(2);
     *banyak_bangunan = Token.Bil;
 }
 
 void extract_listBangunan(int banyak_bangunan, TabBangunan* list_bangunan) {
     CreateEmptyTabBangunan(list_bangunan, banyak_bangunan);
     for(int i = 1; i < banyak_bangunan+1; i++ ) {
-        START_config(2 + i);
+        START_file(2 + i);
 
         Bangunan B; 
         B.id = i;
@@ -34,9 +34,9 @@ void extract_listBangunan(int banyak_bangunan, TabBangunan* list_bangunan) {
         else B.owner = 0;
 
         B.type = Token.Val;
-        ADV_config();
+        ADV_file();
         B.posisi.r = Token.Bil;
-        ADV_config();
+        ADV_file();
         B.posisi.c = Token.Bil;
 
         B.level = 0;
@@ -49,10 +49,10 @@ void extract_relasi(int banyak_bangunan, Graph* relasi) {
     int i, j;
     *relasi = CreateGraph(banyak_bangunan, banyak_bangunan);
     for ( i = 1; i <= banyak_bangunan; i++ ) {
-        START_config(2 + banyak_bangunan + i);
+        START_file(2 + banyak_bangunan + i);
         for ( j = 1; j <= banyak_bangunan; j++ ) {
             if ( Token.Bil == 1) SetBangunanTerhubung(*relasi, i, j);
-            ADV_config();
+            ADV_file();
         }
     }
 }

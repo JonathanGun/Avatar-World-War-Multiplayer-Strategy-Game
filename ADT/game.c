@@ -27,6 +27,7 @@ void InitMap(Game *G, Config conf) {
 
 void InitTurn(Game* G) {
     CurTurn(*G) = 1;
+    FirstTurn = true;
 }
 
 void InitGame(Game* G)
@@ -118,8 +119,10 @@ void SaveGame(Game* G) {
         fprintf(fp, "%d ", X);
     }
     fprintf(fp, "\n");
+
     // simpan banyak bangunan
     fprintf(fp, "%d\n", CountList(Player(*G, 2).list_bangunan));
+    
     // simpan bangunan
     // format : 
     // id pasukan  
@@ -154,7 +157,7 @@ boolean IsPlayerLose(Game G, int player){
 void StartGame(Game* G)
 // Memulai permainan
 {
-    startTurn(Player(*G, CurTurn(*G)));
+    if ( !FirstTurn ) startTurn(Player(*G, CurTurn(*G)));
     TulisPeta((*G).ListBangunan, (*G).map);
     command_in_game(G);
 }

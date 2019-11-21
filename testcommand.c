@@ -49,7 +49,7 @@ void command_in_game(Game* G){
         printf("Undo berhasil\n");
     }else if (CompareKata(command,end)){
         command_End_turn(G);
-        printf("End Turn berhasil\n");
+        // printf("End Turn berhasil\n");
     }else if (CompareKata(command,save)){
         command_Save(G);
         printf("Save berhasil\n");

@@ -32,7 +32,7 @@ void IgnoreNotValidChar()
     while ( !ValidCharacter() ) ADV();
 }
 
-void START_config( int Line )
+void START_file( int Line )
 /* I.S. : CC sembarang
    F.S. : EndKata = true, dan CC = MARK;
           atau EndKata = false, CKata adalah kata yang sudah diakuisisi,
@@ -52,11 +52,11 @@ void START_config( int Line )
     if ( CC == MARK ) EndKata = true;
     else {
         EndKata = false;
-        Salin_config();
+        Salin_file();
     }
 }
 
-void ADV_config()
+void ADV_file()
 /* I.S. : CC adalah karakter pertama kata yang akan diakuisisi
    F.S. : CKata adalah kata terakhir yang sudah diakuisisi,
           CC adalah karakter pertama dari kata berikutnya, mungkin MARK
@@ -65,10 +65,10 @@ void ADV_config()
 {
     /* Algoritma */
     if ( CC == MARK ) EndKata = true;
-    else Salin_config();
+    else Salin_file();
 }
 
-void Salin_config()
+void Salin_file()
 /* Mengakuisisi kata, menyimpan dalam CKata
    I.S. : CC adalah karakter pertama dari kata
    F.S. : CKata berisi kata yang sudah diakuisisi;
