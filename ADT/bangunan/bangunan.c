@@ -189,3 +189,12 @@ void TulisBangunan(Bangunan B){
     else printf("no");
     ENDL;
 }
+
+
+/* Mengeprint Type sebuah bangunan */
+void printTypeBangunan(Bangunan B){
+    if (Type(B) == 'C') printf("Castle");
+    else if (Type(B) == 'T') printf("Tower");
+    else if (Type(B) == 'F') printf("Fort");
+    else if (Type(B) == 'V') printf("Village");
+}

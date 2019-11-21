@@ -50,4 +50,7 @@ void add_pasukan(Bangunan *B);
 
 void TulisBangunan(Bangunan B);
 
+void printTypeBangunan(Bangunan B);
+/* Mengeprint Type sebuah bangunan */
+
 #endif

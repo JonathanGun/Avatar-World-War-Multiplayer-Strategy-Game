@@ -193,7 +193,7 @@ void command_in_game(Game* G){
     MakeKata(&save,Save,4);
     MakeKata(&move,Move,4);
     MakeKata(&EXIT,Exit,4);
-    
+    ENDL;
     TulisPeta((*G).ListBangunan, (*G).map);
     printf("Player "); print(CurTurn(*G)); ENDL;
     printf("Daftar bangunan:\n");
@@ -292,17 +292,30 @@ void command_Attack(Game* G) {
 
 void command_Level_up(Game* G) {
     // print daftar bangunan
-
-    // input bangunan yang ingin digunakan menyerang
-    printf("Bangunan yang akan di level up : ");
     printf("Daftar bangunan:\n");
     TulisDaftarBangunan((*G).ListBangunan, CurPlayer(*G).list_bangunan);
+
+    // input bangunan yang ingin digunakan menyerang
+    printf("Bangunan yang akan di level up: ");
     int idBLvlUp; InputInt(&idBLvlUp);
 
-    Bangunan B;
+    Bangunan BLvl;
     idBLvlUp = ListElmt(CurPlayer(*G).list_bangunan, idBLvlUp);
-    GetBangunanByID((*G).ListBangunan, idBLvlUp, &B);
-    IsLvlUpValid(B) ? levelup(&B) : printf("Jumlah pasukan di bangunan %c tidak mencukupi untuk level up\n",Type(B));
+    GetBangunanByID((*G).ListBangunan, idBLvlUp, &BLvl);
+
+    if(Level(BLvl) < 4){
+        if (IsLvlUpValid(BLvl)){
+            levelup(&BLvl);
+            UpdateBangunan(&(*G).ListBangunan, idBLvlUp, BLvl);
+            printf("Level ");printTypeBangunan(BLvl); 
+            printf("-mu meningkat menjadi %d !\n", Level(BLvl));
+        }else{
+            printf("Jumlah pasukan "); printTypeBangunan(BLvl);
+            printf(" kurang untuk level up"); ENDL;
+        }
+    }else{
+        printf("Level Bangunan sudah Maksimum, tidak dapat melakukan level up lagi\n");
+    }
     command_in_game(G);
 }
 
