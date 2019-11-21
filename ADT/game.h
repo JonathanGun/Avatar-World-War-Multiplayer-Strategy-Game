@@ -26,7 +26,7 @@ void InitGame(Game* G);
 // eksternal (dijelaskan pada bab selanjutnya).
 // b. Queue ​ skill setiap pemain berisi 1 buah skill, yaitu Instant Upgrade
 
-void InitPlayer(Game* G, Config conf);
+void InitPlayer(Game* G);
 
 void InitMap(Game* G, Config conf);
 
@@ -41,6 +41,7 @@ void StartGame(Game* G);
 // Memulai permainan
 
 // Command
+void command_Start(Game *G);
 void command_in_game(Game* G);
 void command_Attack(Game* G);
 void command_Level_up(Game* G);

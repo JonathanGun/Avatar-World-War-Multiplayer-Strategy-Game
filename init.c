@@ -40,6 +40,7 @@ int main (){
         StartGame(&main_game);
     }else if (CompareKata(command,start)){
         InitGame(&main_game);
+        command_Start(&main_game);
     }else{ 
         printf("Exiting the program...\n"); 
         exit(0); 

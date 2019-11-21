@@ -2,6 +2,7 @@
 
 boolean EndKata;
 Kata CKata;
+Kata Save;
 
 /* State Mesin */
 char CC;
@@ -132,4 +133,20 @@ boolean CompareKata(Kata K1, Kata K2){
     if(K1.TabKata[i] != K2.TabKata[i]) return false;
   }
   return true;
+}
+
+// --------------- SAVE --------------------
+void SalinKata_Save(){
+  int i = 0;
+  while(!IsBlank()){
+    i++;
+    Save.TabKata[i] = CC;
+    ADV();
+  }
+  CKata.Length = i;
+}
+
+void ADVKATA_Save(){
+  IgnoreBlank();
+  SalinKata_Save();
 }

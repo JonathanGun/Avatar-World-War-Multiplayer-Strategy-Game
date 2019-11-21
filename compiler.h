@@ -12,7 +12,7 @@
 #include "ADT/queue.h"
 #include "ADT/skill.h"
 #include "ADT/baca_config/config_reader.h"
-#include "ADT/baca_config/mesinconfig.h"
+#include "ADT/util/mesinfile.h"
 #include "ADT/graph/graph.h"
 #include "ADT/util/boolean.h"
 #include "ADT/util/data_bangunan.h"
