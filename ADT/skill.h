@@ -46,4 +46,6 @@ void useSkill(Queue* Skill);
 void printSkill(Queue Skill);
 /* Mengeprint Skill di bagian Head Queue*/
 
+void TulisSkill(Queue Skill);
+
 #endif

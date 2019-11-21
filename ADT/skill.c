@@ -123,3 +123,7 @@ void printSkill(Queue Skill)
         Add(&Skill,x);
     }
 }
+
+void TulisSkill(Queue Skill){
+    printf("Skill Available: "); printSkill(Skill);
+}

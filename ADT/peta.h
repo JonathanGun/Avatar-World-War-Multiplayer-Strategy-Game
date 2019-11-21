@@ -15,11 +15,7 @@
 #define PetaKolMax 30
 
 typedef struct {
-	char c;
-	int owner;
-} PetaElType;
-typedef struct {
-    PetaElType Mem[PetaBrsMax+1][PetaKolMax+1];
+    int Mem[PetaBrsMax+1][PetaKolMax+1];
     int NPetaBrsEff; /* banyaknya/ukuran baris yg terdefinisi */
     int NPetaKolEff; /* banyaknya/ukuran PetaKolom yg terdefinisi */
 } Peta;

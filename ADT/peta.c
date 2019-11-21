@@ -13,8 +13,7 @@ void MakePeta(Peta *P, int NB, int NK)
 	NPetaBrsEff(*P) = NB;
 	NPetaKolEff(*P) = NK;
 	forpeta(*P, r, c) {
-		PetaElmt(*P, r, c).c = ' ';
-		PetaElmt(*P, r, c).owner = 0;
+		PetaElmt(*P, r, c) = 0;
 	}
 }
 
@@ -25,8 +24,7 @@ void CopyPeta(Peta P1, Peta *P2){
 void IsiPeta(TabBangunan B, Peta *P){
 	for(int i = 1; i <= NbBangunan(B); ++i){
 		Bangunan cur = ElmtTB(B, i);
-		PetaElmt(*P, cur.posisi.r-1, cur.posisi.c-1).c = cur.type;
-		PetaElmt(*P, cur.posisi.r-1, cur.posisi.c-1).owner = cur.owner;
+		PetaElmt(*P, cur.posisi.r-1, cur.posisi.c-1) = cur.id;
 	}
 }
 
@@ -48,12 +46,18 @@ void TulisPeta(TabBangunan B, Peta P)
 	fori(i, NPetaBrsEff(P)){
 		printf("*");
 		fori(j, NPetaKolEff((P))){
-			if(PetaElmt(P, i, j).owner == 1)
-				print_red(PetaElmt(P, i, j).c);
-			else if(PetaElmt(P, i, j).owner == 2)
-				print_blue(PetaElmt(P, i, j).c);
-			else
-				printf("%c", PetaElmt(P, i, j).c);
+			if(PetaElmt(P, i, j) == 0)
+				printf(" ");
+			else{
+				Bangunan cur;
+				GetBangunanByID(B, PetaElmt(P, i, j), &cur);
+				if(cur.owner == 1)
+					print_red(cur.type);
+				else if(cur.owner == 2)
+					print_blue(cur.type);
+				else
+					printf("%c", cur.type);
+			}
 		}
 		printf("*");
 		ENDL;
