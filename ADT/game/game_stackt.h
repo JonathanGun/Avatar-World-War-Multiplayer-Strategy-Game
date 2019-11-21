@@ -1,7 +1,7 @@
 #ifndef GAME_STACKT_H
 #define GAME_STACKT_H
 
-#include "util/boolean.h"
+#include "../util/util.h"
 #include "game_condition.h"
 
 #define StackNil 0

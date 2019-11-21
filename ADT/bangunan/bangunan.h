@@ -1,10 +1,8 @@
 #ifndef bangunan_H
 #define bangunan_H
 
-#include "util/boolean.h"
-#include "util/data_bangunan.h"
-#include "util/macro.h"
-#include "matriks.h"
+#include "../util/util.h"
+#include "../util/data_bangunan.h"
 #include "point.h"
 
 typedef struct {
@@ -38,6 +36,8 @@ void CopyBangunan(Bangunan Bin, Bangunan *B);
 
 boolean IsBangunanEmpty(Bangunan B);
 
+boolean IsLvlUpValid(Bangunan B);
+/* Mengecek apakah bangunan valid untuk di level up, syarat level up adalah jumlah pasukan >= M/2 */
 void levelup(Bangunan *B);
 /* Menaikkan level dari Bangunan Pemain */
 boolean attack(Bangunan *BAtt, Bangunan *BDef, int jumlah_penyerang);

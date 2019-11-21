@@ -1,8 +1,7 @@
-#ifndef Point_H
-#define Point_H
+#ifndef POINT_H
+#define POINT_H
 
-#include "util/boolean.h"
-#include <stdio.h>
+#include "../util/util.h"
 
 typedef struct {
 	int r; /* absis   */
@@ -17,15 +16,6 @@ typedef struct {
 /* *** Konstruktor membentuk Point *** */
 Point MakePoint (int X, int Y);
 /* Membentuk sebuah Point dari komponen-komponennya */
-
-void TulisPoint (Point P);
-/* Nilai P ditulis ke layar dengan format "(X,Y)"
-   tanpa spasi, enter, atau karakter lain di depan, belakang,
-   atau di antaranya
-   Output X dan Y harus dituliskan dalam bilangan riil dengan 2 angka di belakang koma.
-*/
-/* I.S. P terdefinisi */
-/* F.S. P tertulis di layar dengan format "(X,Y)" */
 
 /* *** Kelompok operasi relasional terhadap Point *** */
 boolean PointEQ (Point P1, Point P2);

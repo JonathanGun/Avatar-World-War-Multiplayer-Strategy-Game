@@ -1,11 +1,12 @@
-#include "../util/mesinfile.h"
-#include "../bangunan.h"
-#include "../arraydin_bangunan.h"
-#include "../peta.h"
-#include "../graph/graph.h"
-
 #ifndef CONFIG_READER_H
 #define CONFIG_READER_H
+
+#include "../util/util.h"
+#include "../util/mesinfile.h"
+#include "../bangunan/bangunan.h"
+#include "../bangunan/arraydin_bangunan.h"
+#include "../peta/peta.h"
+#include "../graph/graph.h"
 
 typedef struct {
     int conf_banyak_bangunan;

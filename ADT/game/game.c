@@ -1,5 +1,4 @@
 #include "game.h"
-#include "../testcommand.c"
 
 boolean FirstTurn;
 
@@ -167,6 +166,82 @@ void StartGame(Game* G)
     command_in_game(G);
 }
 
+
+
+void command_in_game(Game* G){
+    char Attack[7] = "ATTACK";
+    char Level[9] = "LEVEL_UP";
+    char Skill[6] = "SKILL";
+    char Undo[5] = "UNDO";
+    char End[9] = "END_TURN";
+    char Save[5] = "SAVE";
+    char Move[5] = "MOVE";
+    char Exit[5] = "EXIT";
+    Kata attack;
+    Kata level;
+    Kata skill;
+    Kata undo;
+    Kata end;
+    Kata save;
+    Kata move;
+    Kata EXIT;
+    MakeKata(&attack,Attack,6);
+    MakeKata(&level,Level,8);
+    MakeKata(&skill,Skill,5);
+    MakeKata(&undo,Undo,4);
+    MakeKata(&end,End,8);
+    MakeKata(&save,Save,4);
+    MakeKata(&move,Move,4);
+    MakeKata(&EXIT,Exit,4);
+    
+    TulisPeta((*G).ListBangunan, (*G).map);
+    printf("Player "); print(CurTurn(*G)); ENDL;
+    printf("Daftar bangunan:\n");
+    TulisDaftarBangunan((*G).ListBangunan, CurPlayer(*G).list_bangunan);
+    TulisSkill(CurPlayer(*G).Skill);
+    printf("ENTER COMMAND: ");
+    Kata command;
+    InputKata(&command);
+    
+    while((CompareKata(command,attack) == 0) && (CompareKata(command,level) == 0) &&(CompareKata(command,skill) == 0)
+    && (CompareKata(command,undo) == 0) && (CompareKata(command,end) == 0) && (CompareKata(command,save) == 0)
+    && (CompareKata(command,move) == 0) && (CompareKata(command,EXIT) == 0)) {
+        printf("Masukan salah, tolong input kembali !\n");
+        printf("Berikut daftar Command yang dapat digunakan:\n");
+        printf("//=====================================\\\\\n");
+        printf("||           ATTACK    SKILL           ||\n");
+        printf("||  LEVEL_UP       UNDO      END_TURN  ||\n");
+        printf("||            SAVE      MOVE           ||\n");
+        printf("||                 EXIT                ||\n");
+        printf("\\\\=====================================//\n\n");
+        printf("ENTER COMMAND: ");
+        InputKata(&command);
+    }
+    if(CompareKata(command,attack)){
+        command_Attack(G);
+    }else if (CompareKata(command,level)){
+        command_Level_up(G);
+    }else if (CompareKata(command,skill)){
+        command_Skill(G);
+        printf("Skill Berhasil\n");
+    }else if (CompareKata(command,undo)){
+        command_Undo(G);
+        printf("Undo berhasil\n");
+    }else if (CompareKata(command,end)){
+        command_End_turn(G);
+        // printf("End Turn berhasil\n");
+    }else if (CompareKata(command,save)){
+        command_Save(G);
+        printf("Save berhasil\n");
+    }else if (CompareKata(command,move)){
+        command_Move(G);
+        printf("Move Berhasil\n");
+    }else{ //Ketika menulis EXIT
+        printf("Exiting the program...\n"); 
+        exit(0); 
+    }
+}
+
 void command_Attack(Game* G) {
     // print daftar bangunan
     printf("Daftar bangunan:\n");
@@ -220,7 +295,14 @@ void command_Level_up(Game* G) {
 
     // input bangunan yang ingin digunakan menyerang
     printf("Bangunan yang akan di level up : ");
+    printf("Daftar bangunan:\n");
+    TulisDaftarBangunan((*G).ListBangunan, CurPlayer(*G).list_bangunan);
+    int idBLvlUp; InputInt(&idBLvlUp);
 
+    Bangunan B;
+    idBLvlUp = ListElmt(CurPlayer(*G).list_bangunan, idBLvlUp);
+    GetBangunanByID((*G).ListBangunan, idBLvlUp, &B);
+    IsLvlUpValid(B) ? levelup(&B) : printf("Jumlah pasukan di bangunan %c tidak mencukupi untuk level up\n",Type(B));
     command_in_game(G);
 }
 
@@ -276,17 +358,50 @@ void command_Save(Game* G) {
 void command_Move(Game* G) {
 
     // print daftar bangunan
+    printf("Daftar bangunan:\n");
+    TulisDaftarBangunan((*G).ListBangunan, CurPlayer(*G).list_bangunan);
 
     // input bangunan yang dipilih
     printf("Pilih bangunan : ");
+    int idBMov; InputInt(&idBMov);
+
+    Bangunan BMov;
+    idBMov = ListElmt(CurPlayer(*G).list_bangunan, idBMov);
+    GetBangunanByID((*G).ListBangunan, idBMov, &BMov);
 
     // print daftar bangunan terdekat
+    ListBangunan BTerhubung;
+    GetBangunanTerhubung((*G).Relasi, idBMov, &BTerhubung);
+
+    printf("Daftar bangunan terdekat:\n");
+    TulisDaftarBangunan((*G).ListBangunan, BTerhubung);
 
     // input bangunan yang dipilih
     printf("Bangunan yang akan menerima : ");
+    int idBSucc; InputInt(&idBSucc);
+
+    Bangunan BSucc;
+    idBSucc = ListElmt(BTerhubung, idBSucc);
+    GetBangunanByID((*G).ListBangunan, idBSucc, &BSucc);
 
     // input jumlah pasukan yang dipindahkan
     printf("Jumlah pasukan : ");
+    int jml_pas; InputInt(&jml_pas);
 
-    command_in_game(G);
+    move(&BSucc, &BMov, jml_pas);
+
+    UpdateBangunan(&(*G).ListBangunan, idBMov, BMov);
+    UpdateBangunan(&(*G).ListBangunan, idBSucc, BSucc);
+    UpdateList(&CurPlayer(*G).list_bangunan, BMov, CurTurn(*G));
+    UpdateList(&CurPlayer(*G).list_bangunan, BSucc, CurTurn(*G));
+    UpdateList(&OtherPlayer(*G).list_bangunan, BMov, OtherTurn(*G));
+    UpdateList(&OtherPlayer(*G).list_bangunan, BSucc, OtherTurn(*G));
+
+
+    // cek jika permainan berakhir
+    if (IsGameEnded(*G)) {
+        printf("game ended\n");
+    } else {
+        command_in_game(G);
+    }
 }

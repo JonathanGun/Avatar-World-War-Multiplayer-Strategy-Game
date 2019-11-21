@@ -1,9 +1,7 @@
-#ifndef __MESIN_KATA_H_
-#define __MESIN_KATA_H_
+#ifndef MESIN_KATA_H
+#define MESIN_KATA_H
 
-#include "boolean.h"
-#include "macro.h"
-#include <stdio.h>
+#include "../util/util.h"
 
 #define NMaxKata 10000
 #define BLANK ' '
