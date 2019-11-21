@@ -51,6 +51,7 @@ boolean IsGameEnded(Game G);
 boolean IsPlayerLose(Game G, int player);
 
 void command_in_game(Game* G);
+void command_Start(Game* G);
 void command_Attack(Game* G);
 void command_Level_up(Game* G);
 void command_Skill(Game* G);

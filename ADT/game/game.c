@@ -50,7 +50,7 @@ void InitGame(Game* G)
     // printf("Berhasil inisialisasi map\n");
 
     // init save
-    InitSave(G);
+    // InitSave(G);
 }
 
 void LoadGame(Game* G, GameCondition Gc);
@@ -155,7 +155,7 @@ boolean IsPlayerLose(Game G, int player){
 void StartGame(Game* G)
 // Memulai permainan
 {
-    TulisPeta((*G).ListBangunan, (*G).map);
+    // TulisPeta((*G).ListBangunan, (*G).map);
     command_in_game(G);
 }
 
@@ -233,6 +233,18 @@ void command_in_game(Game* G){
     }
 }
 
+void command_Start(Game* G) {
+
+    // init player
+    InitPlayer(G);
+
+    // init turn
+    InitTurn(G);
+
+    // start game
+    StartGame(G);
+}
+
 void command_Attack(Game* G) {
     // print daftar bangunan
     printf("Daftar bangunan:\n");
@@ -294,8 +306,7 @@ void command_Level_up(Game* G) {
     Bangunan B;
     idBLvlUp = ListElmt(CurPlayer(*G).list_bangunan, idBLvlUp);
     GetBangunanByID((*G).ListBangunan, idBLvlUp, &B);
-    IsLvlUpValid(B) ? levelup(&B) : printf("Jumlah pasukan ");
-    printf(" %c", B.type);
+    IsLvlUpValid(B) ? levelup(&B) : printf("Jumlah pasukan di bangunan %c tidak mencukupi untuk level up\n",Type(B));
     command_in_game(G);
 }
 
@@ -387,12 +398,7 @@ void command_Move(Game* G) {
     UpdateList(&CurPlayer(*G).list_bangunan, BSucc, CurTurn(*G));
     UpdateList(&OtherPlayer(*G).list_bangunan, BMov, OtherTurn(*G));
     UpdateList(&OtherPlayer(*G).list_bangunan, BSucc, OtherTurn(*G));
+    
+    command_in_game(G);
 
-
-    // cek jika permainan berakhir
-    if (IsGameEnded(*G)) {
-        printf("game ended\n");
-    } else {
-        command_in_game(G);
-    }
 }
