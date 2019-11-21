@@ -136,4 +136,29 @@ void TulisBangunanMilikPlayer(TabBangunan B, ListBangunan L){
         }
         printf("]");
     }
+
+}
+
+void TulisDaftarBangunan(TabBangunan B, ListBangunan L) {
+    int i;
+
+    printf("Daftar bangunan:\n");
+    address P = First(L);
+
+    i = 1;
+    while ( P != NULL ) {
+        printf("%d. ", i);
+        if (Type(ElmtTB(B, Info(P))) == 'C') printf("Castle ");
+        else if (Type(ElmtTB(B, Info(P))) == 'T') printf("Tower ");
+        else if (Type(ElmtTB(B, Info(P))) == 'F') printf("Fort ");
+        else if (Type(ElmtTB(B, Info(P))) == 'V') printf("Village ");
+
+        printf("(%d,%d) ", ElmtTB(B, Info(P)).posisi.r, ElmtTB(B, Info(P)).posisi.c);
+        printf("%d ", ElmtTB(B, Info(P)).jumlah_pasukan);
+        printf("lv. %d\n", ElmtTB(B, Info(P)).level);
+
+        P = Next(P);
+        i++;
+    }
+
 }

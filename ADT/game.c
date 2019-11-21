@@ -25,6 +25,10 @@ void InitMap(Game *G, Config conf) {
     (*G).Relasi = conf.conf_relasi;
 }
 
+void InitTurn(Game* G) {
+    CurTurn(*G) = 1;
+}
+
 void InitGame(Game* G)
 // Membaca file config dan menginisialisasi attribut pada Game G
 // a. Pada saat permainan dimulai, game akan membaca konfigurasi permainan dari file
@@ -37,15 +41,22 @@ void InitGame(Game* G)
 
     // read config
     extract_config(&conf);
-    printf("Berhasil load file config\n");
+    // printf("Berhasil load file config\n");
 
     // init player
     InitPlayer(G, conf);
-    printf("Berhasil inisialisasi player\n");
+    // printf("Berhasil inisialisasi player\n");
 
     // init map
     InitMap(G, conf);
-    printf("Berhasil inisialisasi map\n");
+    // printf("Berhasil inisialisasi map\n");
+
+    // init turn
+    InitTurn(G);
+    // printf("Turn pertama adalah %d\n", CurTurn(*G));
+
+    // start game
+    StartGame(G);
 }
 
 void LoadGame(Game* G, GameCondition Gc);
@@ -69,38 +80,32 @@ boolean IsPlayerLose(Game G, int player){
 void StartGame(Game* G)
 // Memulai permainan
 {
-	CurTurn(*G) = 1;
-    FirstTurn = true;
-
-    // printf("Berikut isi file config: "); ENDL;
-	// printf("Daftar Bangunan:"); ENDL;
-	// TulisIsiTabBangunan((*G).ListBangunan); ENDL;
-	// printf("Keterhubungan: "); ENDL;
-	// PrintGraph((*G).Relasi); ENDL;
-	// printf("Peta:"); ENDL;
-    while(!IsGameEnded(*G)){
-    	TulisPeta((*G).ListBangunan, (*G).map);
-        printf("Player "); print(CurTurn(*G)); ENDL;
-        TulisBangunanMilikPlayer((*G).ListBangunan, Player(*G, CurTurn(*G)).list_bangunan); ENDL;
-        printf("Skill Available: "); printSkill(Player(*G, CurTurn(*G)).Skill);
-
-        command_in_game(G);
-    }
+    startTurn(Player(*G, CurTurn(*G)));
+    TulisPeta((*G).ListBangunan, (*G).map);
+    command_in_game(G);
 }
 
 void command_Attack(Game* G) {
     // print daftar bangunan
+    TulisDaftarBangunan((*G).ListBangunan, Player(*G, CurTurn(*G)).list_bangunan);
 
     // input bangunan yang ingin digunakan menyerang
-    printf("Bangunan yang digunakan untuk menyerang : ");
+    printf("Bangunan yang digunakan untuk menyerang :\n");
 
     // print daftar bangunan yang dapat diserang
 
     // input bangunan yang ingin diserang
-    printf("Bangunan yang diserang : ");
+    printf("Bangunan yang diserang :\n");
 
     // input jumlah pasukan yang digunakan menyerang
-    printf("Jumlah pasukan : ");
+    printf("Jumlah pasukan :\n");
+
+    // cek jika permainan berakhir
+    if (IsGameEnded(*G)) {
+        printf("game ended\n");
+    } else {
+        command_in_game(G);
+    }
 }
 
 void command_Level_up(Game* G) {
@@ -108,15 +113,21 @@ void command_Level_up(Game* G) {
 
     // input bangunan yang ingin digunakan menyerang
     printf("Bangunan yang akan di level up : ");
+
+    command_in_game(G);
 }
 
 void command_Skill(Game* G) {
     // use skill
     useSkill(&Player(*G, CurTurn(*G)).Skill);
+
+    command_in_game(G);
 }
 
 void command_Undo(Game* G) {
     // undo
+
+    command_in_game(G);
 }
 
 void command_End_turn(Game* G) {
@@ -125,10 +136,12 @@ void command_End_turn(Game* G) {
     CurTurn(*G)%=2;
     CurTurn(*G)++;
 
-    if(FirstTurn && CurTurn(*G) == 1){
-        FirstTurn = false;
-    }
-    if(!FirstTurn) startTurn(Player(*G, CurTurn(*G)));
+    // if(FirstTurn && CurTurn(*G) == 1){
+    //     FirstTurn = false;
+    // }
+    // if(!FirstTurn) startTurn(Player(*G, CurTurn(*G)));
+
+    StartGame(G);
 }
 
 void command_Save(Game* G) {
@@ -151,4 +164,6 @@ void command_Move(Game* G) {
 
     // input jumlah pasukan yang dipindahkan
     printf("Jumlah pasukan : ");
+
+    command_in_game(G);
 }
