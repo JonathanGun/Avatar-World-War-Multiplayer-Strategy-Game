@@ -2,7 +2,7 @@
 
 boolean EndKata;
 Kata CKata;
-Kata Save;
+Kata Savefile;
 
 /* State Mesin */
 char CC;
@@ -136,14 +136,22 @@ boolean CompareKata(Kata K1, Kata K2){
 }
 
 // --------------- SAVE --------------------
+boolean STARTKATA_Save(char const *filename) {
+  boolean valid = (START(filename) != 0);
+  if (!valid) {
+    EndKata = true;
+    return valid;
+  }
 
-void Salin_Save(){
+  EndKata = (CC == MARK);
+  return valid;
+}
 
-  START("../save/save.txt");
+void SalinKata_Save(){
 
   int i = 0;
   while( CC != MARK ){
-    Save.TabKata[i] = CC;
+    Savefile.TabKata[i] = CC;
     i++;
     ADV();
   }
@@ -152,5 +160,5 @@ void Salin_Save(){
 
 void ADVKATA_Save(){
   IgnoreBlank();
-  Salin_Save();
+  SalinKata_Save();
 }

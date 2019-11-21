@@ -26,10 +26,10 @@ void InitTurn(Game* G) {
     CurTurn(*G) = 1;
 }
 
-void InitSave(Game* G) {
-    START("save/save.txt");
-    Salin_Save();
-} 
+// void InitSave(Game* G) {
+//     STARTKATA("save/")
+//     Salin_Save();
+// } 
 
 void InitGame(Game* G)
 // Membaca file config dan menginisialisasi attribut pada Game G
@@ -42,7 +42,7 @@ void InitGame(Game* G)
     Config conf;
 
     // read config
-    extract_config(&conf);
+    extract_config("config.txt", &conf);
     // printf("Berhasil load file config\n");
 
     // init map
@@ -69,7 +69,7 @@ void SaveGame(Game* G) {
     FILE * fp;
     int i;
     /* open the file for writing*/
-    fp = fopen ("save/save.txt","w");
+    fp = fopen ("ADT/save/save.txt","w");
 
     // simpan turn
     fprintf (fp, "%d\n", CurTurn(*G));
