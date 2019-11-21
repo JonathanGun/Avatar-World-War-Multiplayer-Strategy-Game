@@ -1,4 +1,4 @@
-#include "mesinconfig.h"
+#include "../util/mesinfile.h"
 #include "../bangunan.h"
 #include "../arraydin_bangunan.h"
 #include "../peta.h"
