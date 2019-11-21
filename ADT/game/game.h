@@ -45,8 +45,6 @@ void LoadFromFile(Game* G, Kata filename);
 void StartGame(Game* G);
 // Memulai permainan
 
-void LoadGame(Game* G, GameCondition Gc);
-
 boolean IsGameEnded(Game G);
 boolean IsPlayerLose(Game G, int player);
 
@@ -59,5 +57,6 @@ void command_Undo(Game* G);
 void command_End_turn(Game* G);
 void command_Save(Game* G);
 void command_Move(Game* G);
+void command_Exit();
 
 #endif

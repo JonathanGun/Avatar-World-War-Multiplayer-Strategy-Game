@@ -82,6 +82,19 @@ void SaveGame(GameCondition Gc, TabBangunan list_bangunan, int Turn) {
     fclose(fp);
 }
 
-void LoadGame(const char* savefile, GameCondition *G) {
-    // START_file()
+void NthSave(const char* savefile, int N) {
+    START_file(savefile, 1);
+    while ( N > 1 ) {
+        if ( CC == '-' ) {
+            N--;
+        }
+        ADV();
+    }
+}
+
+void LoadGame(const char* savefile, GameCondition *G, int *Turn, int N) {
+    
+    // NthSave(savefile, N);
+    
+    // GcPlayer(*G, 1).
 }

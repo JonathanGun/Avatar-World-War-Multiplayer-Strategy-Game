@@ -9,4 +9,6 @@ typedef struct {
     unsigned int turn;  // Bernilai 1 atau 2, yaitu id player yang sedang memiliki turn
 } GameCondition;
 
+#define GcPlayer(G, n) (G).Players[n-1]
+
 #endif

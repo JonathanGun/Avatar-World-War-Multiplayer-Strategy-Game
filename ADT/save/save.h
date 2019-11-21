@@ -6,6 +6,10 @@
 
 void SaveGame(GameCondition Gc, TabBangunan list_bangunan, int Turn);
 
-// void LoadGame(const char* savefile, GameCondition *G);
+void NthSave(const char* savefile, int N);
+
+void LoadGame(const char* savefile, GameCondition *G, int *Turn, int N);
+
+
 
 #endif
