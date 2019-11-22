@@ -2,7 +2,7 @@
 
 /* Konstruktor, Destruktor */
 adrNode AlokNode(int X){
-    adrNode P = (adrNode) malloc((sizeof(NodeGraph)));
+    adrNode P = (adrNode) malloc((sizeof(NodeGraph)+1));
     if(P != Nil){
         IdGraph(P) = X;
         NPred(P) = 0;
@@ -15,7 +15,7 @@ void DealokNode(adrNode P)
     free(P);
 }
 adrSucc AlokSucc(adrNode Pn){
-    adrSucc P = (adrSucc) malloc(sizeof(SuccGraph));
+    adrSucc P = (adrSucc) malloc(sizeof(SuccGraph)+1);
     if(P!= Nil){
         Succ(P) = Pn;
         NextSucc(P) = Nil;
