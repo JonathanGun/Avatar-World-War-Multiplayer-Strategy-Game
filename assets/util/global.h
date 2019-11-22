@@ -7,6 +7,7 @@
 #define PetaKolMax 30
 
 boolean IUactive;
+boolean ExtraTurnactive;
 
 typedef struct {
     int Mem[PetaBrsMax+1][PetaKolMax+1];

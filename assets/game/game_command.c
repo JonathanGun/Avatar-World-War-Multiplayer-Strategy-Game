@@ -240,9 +240,14 @@ void command_Undo() {
 
 void command_End_turn() {
     // Ganti turn
-    CurTurn()%=2;
-    CurTurn()++;
-
+    if(ExtraTurnactive == false){
+        CurTurn()%=2;
+        CurTurn()++;
+    }else{
+        printf("Masih dalam turn player "); print(CurTurn());
+        printf(" karena penggunaan skill Extra Turn !"); ENDL;
+        ExtraTurnactive = false;
+    }
     // Reset stackt
     ResetStackt(&G.GameConditions);
 

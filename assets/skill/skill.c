@@ -28,7 +28,9 @@ void useExtraTurn()
 /* Menggunakan Skill ExtraTurn, Setelah giliran pengaktifan skill ini berakhir, pemain selanjutnya tetap pemain
    yang sama.*/
 {
-
+    ExtraTurnactive= true;
+    printf("Player ");  print(CurTurn()); 
+    printf(" memiliki turn tambahan ..."); ENDL;
 }
 
 void useAttackUp()
@@ -86,6 +88,7 @@ void startSkill(Queue* Skill)
 {
     CreateEmptyQueue(Skill, 10);// Maksimal 10 skill
     Add(Skill,1); //1 sebagai IU(instant Upgrade)
+    Add(Skill,3);
     Add(Skill,6);
     Add(Skill,7);
 }
