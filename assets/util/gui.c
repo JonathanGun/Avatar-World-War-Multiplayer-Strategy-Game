@@ -47,3 +47,9 @@ void gui_logo(){
     PrintAll();
     printf("\n\n\n");
 }
+
+void show_valid_command(){
+    START("resources/show_command.txt");
+    PrintAll();
+    printf("\n\n");
+}

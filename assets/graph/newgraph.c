@@ -1,4 +1,4 @@
-#include "graph.h"
+#include "newgraph.h"
 
 /* Konstruktor, Destruktor */
 adrNode AlokNode(int X){
