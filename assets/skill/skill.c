@@ -1,9 +1,20 @@
 #include "skill.h"
 
-void useIU(int player)
+void useIU()
 /* Menggunakan Skill IU, Seluruh bangunan yang dimiliki pemain akan naik 1 level.*/
 {
     // traverse semua bangunan, if milik == player, level up
+    Bangunan B;
+    int idB;
+    int CountBangunan = CountList(CurPlayer().list_bangunan);
+    IUactive = true;
+    for (int i = 1; i <= CountBangunan ; i++){
+        idB = ListElmt(CurPlayer().list_bangunan, i);
+        GetBangunanByID(G.ListBangunan, idB, &B);
+        levelup(&B);
+        UpdateBangunan(&G.ListBangunan, idB, B);
+    }
+    IUactive = false;
 }
 
 void useShield()
@@ -64,7 +75,7 @@ void useSkill(Queue* Skill)
     int x;
     Del(Skill, &x);
     if(x == 1){         //Using IU
-        useIU(SkillOwner(*Skill));
+        useIU();
     }
     else if (x ==2){    //Using Shield
         useShield();

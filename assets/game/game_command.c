@@ -209,14 +209,12 @@ void command_Level_up() {
         if (IsLvlUpValid(BLvl)){
             levelup(&BLvl);
             UpdateBangunan(&G.ListBangunan, idBLvlUp, BLvl);
-            printf("Level ");printTypeBangunan(BLvl); 
-            printf("-mu meningkat menjadi %d !\n", Level(BLvl));
         }else{
             printf("Jumlah pasukan "); printTypeBangunan(BLvl);
-            printf(" kurang untuk LEVEL up"); ENDL;
+            printf(" kurang untuk Level up !"); ENDL;
         }
     }else{
-        printf("Level Bangunan sudah Maksimum, tidak dapat melakukan LEVEL up lagi\n");
+        printf("Level Bangunan sudah Maksimum, tidak dapat melakukan Level up lagi\n");
     }
     command_in_game();
 }
@@ -310,6 +308,7 @@ void command_Move() {
 }
 
 void command_Exit(){
-    printf("Exiting the program...\n"); 
+    red();
+    printf("Exiting the program...\n");
     exit(0); 
 }

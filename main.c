@@ -25,6 +25,7 @@ int main (){
         InitGame();
         command_Start();
     } else { 
+        red();
         printf("Exiting the program...\n"); 
         exit(0); 
     } 

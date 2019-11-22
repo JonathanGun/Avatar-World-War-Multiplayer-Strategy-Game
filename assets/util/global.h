@@ -6,6 +6,8 @@
 #define PetaKolMin 1
 #define PetaKolMax 30
 
+boolean IUactive;
+
 typedef struct {
     int Mem[PetaBrsMax+1][PetaKolMax+1];
     int NPetaBrsEff; /* banyaknya/ukuran baris yg terdefinisi */
