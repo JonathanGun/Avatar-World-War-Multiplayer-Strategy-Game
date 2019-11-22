@@ -101,6 +101,9 @@ void TriggerSkill(){
     }
     if(OtherPlayer().ShieldActive){
         OtherPlayer().ShieldActive -= 1;
+        if(OtherPlayer().ShieldActive == 0){
+            printf("<Shield> Player "); print(OtherTurn()); printf(" habis"); ENDL;
+        }
     }
 
     // IR - semua bangunan lv 4
@@ -291,6 +294,8 @@ void command_End_turn() {
     // Reset sudah serang dan sudah pindah
     ResetListBangunan();
 
+    wait_next_command();
+    
     // Memulai turn baru
     StartGame();
 }
