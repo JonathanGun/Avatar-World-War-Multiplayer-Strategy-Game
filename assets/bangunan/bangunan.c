@@ -96,9 +96,11 @@ void levelup(Bangunan *B)
             Pertahanan(*B) = MatElmt(AttVillage, Level(*B), 3);
             if(Level(*B) == 1) Pasukan(*B) = MatElmt(AttVillage, Level(*B), 4);
         }
-        printf("Level ");printTypeBangunan(*B);
-        printf(" (%d,%d) ", (*B).posisi.r, (*B).posisi.c); 
-        printf("meningkat menjadi %d !\n", Level(*B));
+        if((*B).level != 1){
+            printf("Level ");printTypeBangunan(*B);
+            printf(" (%d,%d) ", (*B).posisi.r, (*B).posisi.c); 
+            printf("meningkat menjadi %d !\n", Level(*B));
+        }
     } else{
         printf("Level ");printTypeBangunan(*B);
         printf(" (%d,%d) ", (*B).posisi.r, (*B).posisi.c);  

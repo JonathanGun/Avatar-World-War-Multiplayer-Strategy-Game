@@ -54,6 +54,7 @@ void MakeAksi(){
 
 void input_between_msg(int s, int e){
     printf("Masukkan input antara "); print(s); printf(" dan "); print(e); printf("!"); ENDL;
+    printf(">>> ");
 }
 
 boolean valid_range(int s, int x, int e){
@@ -189,9 +190,10 @@ void command_Attack() {
         // print daftar bangunan yang dapat diserang
         GetBangunanTerhubung(G.Relasi, idBAtt, &BTerhubung);
         FilterListTanpa(&BTerhubung, bangunan_same_owner);
+
         if(CountList(BTerhubung) == 0){
             printf("Tidak ada bangunan musuh/netral di sekitar bangunan ini! Silakan pilih bangunan lain!"); ENDL;
-            printf("Atau ketik 0 untuk batal serang"); ENDL;
+            printf("Atau ketik 0 untuk batal serang"); ENDL; ENDL;
         }
     } while(CountList(BTerhubung) == 0);
 
@@ -337,15 +339,16 @@ void command_Move() {
 
         // print daftar bangunan terdekat
         GetBangunanTerhubung(G.Relasi, idBMov, &BTerhubung);
-
-        printf("Daftar bangunan terdekat:\n");
-        TulisDaftarBangunan(G.ListBangunan, BTerhubung);
         FilterListTanpa(&BTerhubung, bangunan_diff_owner);
+
         if(CountList(BTerhubung) == 0){
             printf("Tidak ada bangunan milik kamu di sekitar bangunan ini! Silakan pilih bangunan lain!"); ENDL;
-            printf("Atau ketik 0 untuk batal move"); ENDL;
+            printf("Atau ketik 0 untuk batal move"); ENDL; ENDL;
         }
     } while(CountList(BTerhubung) == 0);
+
+    printf("Daftar bangunan terdekat:\n");
+    TulisDaftarBangunan(G.ListBangunan, BTerhubung);
 
     // input bangunan yang dipilih
     printf("Bangunan yang akan menerima : ");
