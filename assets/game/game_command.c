@@ -283,6 +283,26 @@ void command_End_turn() {
     if(OtherPlayer().ShieldActive){
         OtherPlayer().ShieldActive -= 1;
     }
+    // Cek apakah semua bangunan level 4
+    boolean CekLvl = true;
+    Bangunan BLvl;
+    int idBLvl;
+    int CountBangunan = CountList(CurPlayer().list_bangunan);
+    for (int i = 1; i <= CountBangunan ; i++){
+        idBLvl = ListElmt(CurPlayer().list_bangunan, i);
+        GetBangunanByID(G.ListBangunan, idBLvl, &BLvl);
+        if(Level(BLvl) != 4){
+            CekLvl = false;
+        }
+    }
+    if(CekLvl){//Jika semua bangunan level 4 maka player mendapatkan skill Instant Reinforcement
+        if(Add(&CurPlayer().Skill,6)){ //Jika kapasitas skill tidak penuh
+            printf("Player ");print(CurTurn());printf(" mendapatkan skill Instant Reinforcement ...");ENDL;
+        }else{
+            printf("Player ");print(CurTurn());
+            printf(" tidak dapat menambahkan skill Instant Reinforcement ...");ENDL;
+        }
+    }
     // Ganti turn
     if(ExtraTurnActive == false){
         CurTurn()%=2;
@@ -298,7 +318,7 @@ void command_End_turn() {
     // AddPasukan awal Turn
     Bangunan B;
     int idB;
-    int CountBangunan = CountList(CurPlayer().list_bangunan);
+    CountBangunan = CountList(CurPlayer().list_bangunan);
     for (int i = 1; i <= CountBangunan ; i++){
         idB = ListElmt(CurPlayer().list_bangunan, i);
         GetBangunanByID(G.ListBangunan, idB, &B);

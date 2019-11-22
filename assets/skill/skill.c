@@ -22,6 +22,7 @@ void useShield()
    turn lawan.*/
 {
     CurPlayer().ShieldActive = 2;
+    printf("Shield activated ..."); ENDL;
 }
 
 void useExtraTurn()
@@ -31,6 +32,13 @@ void useExtraTurn()
     ExtraTurnActive= true;
     printf("Player ");  print(CurTurn()); 
     printf(" memiliki turn tambahan ..."); ENDL;
+    if(Add(&OtherPlayer().Skill,5)){ //Menambahkan skill CritHit di skill musuh
+        printf("Player "); print(OtherTurn());
+        printf(" mendapatkan skill Critical Hit ...");ENDL;
+    }else{
+        printf("Player ");print(OtherTurn());
+        printf(" tidak dapat menambahkan skill Critical Hit!");ENDL;
+    }
 }
 
 void useAttackUp()
@@ -38,6 +46,7 @@ void useAttackUp()
    pertahanan bangunan musuh(termasuk Shield) tidak akan mempengaruhi penyerangan.*/
 {
     CurPlayer().AttUpActive = true;
+    printf("Attack Up activated ...");ENDL;
 }
 
 void useCriticalHit()
@@ -47,6 +56,7 @@ void useCriticalHit()
    maupun pertahanan bangunan, seperti Attack Up.*/
 {
     CurPlayer().CritHitActive = true;
+    printf("Critical Hit activated ...");ENDL;
 }
 
 void useInstantReinforcement()
@@ -87,10 +97,16 @@ void startSkill(Queue* Skill)
 /* Kondisi Awal yaitu mempunyai Queue dengan skill Instant Upgrade */
 {
     CreateEmptyQueue(Skill, 10);// Maksimal 10 skill
+    Add(Skill,3);
     Add(Skill,1); //1 sebagai IU(instant Upgrade)
     Add(Skill,3);
-    Add(Skill,6);
-    Add(Skill,7);
+    Add(Skill,1);
+    Add(Skill,1);
+    Add(Skill,1);
+    Add(Skill,1);
+    Add(Skill,1);
+    Add(Skill,1);
+    Add(Skill,1);
 }
 
 void useSkill(Queue* Skill)

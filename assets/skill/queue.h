@@ -44,7 +44,7 @@ void DeAlokasiQueue(Queue * Q);
 /* F.S. Q menjadi tidak terdefinisi lagi, MaxEl(Q) diset 0 */
 
 /* *** Primitif Add/Delete *** */
-void Add (Queue * Q, int X);
+boolean Add (Queue * Q, int X);
 /* Proses: Menambahkan X pada Q dengan aturan FIFO */
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X menjadi TAIL yang baru, TAIL "maju" dengan mekanisme circular buffer */
