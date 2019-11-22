@@ -2,19 +2,20 @@
 #define SAVE_H
 
 #include "../util/mesinfile.h"
+#include "../"
 #include "../game/game_condition.h"
 
 typedef struct {
     GameCondition data[4];
-    TabBangunan TB;
+    TabBangunan tabBangunan;
     int Length;
-} Save;
+} SaveData;
 
-extern Save Saves;
+extern SaveData Saves;
 
 void SaveGame(GameCondition Gc, TabBangunan list_bangunan);
 
-void TulisSave(Save S);
+void TulisSave();
 
 int CountSave(const char* savefile);
 

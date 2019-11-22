@@ -1,5 +1,6 @@
 #include "assets/game/game.h"
 #include "assets/game/game_command.h"
+#include "assets/save/save.h"
 
 Kata LOAD, START_W, EXIT;
 int main (){
@@ -19,8 +20,10 @@ int main (){
     if(CompareKata(command,LOAD)){
         Kata loadfile;
         printf("Ketikkan nama file: "); InputKata(&loadfile);
-        LoadFromFile(loadfile);
-        StartGame();
+        // LoadFromFile(loadfile);
+        // StartGame();
+        LoadSavedGame("assets/save/save.txt");
+        TulisSave(Saves);
     } else if (CompareKata(command,START_W)){
         InitGame();
         command_Start();

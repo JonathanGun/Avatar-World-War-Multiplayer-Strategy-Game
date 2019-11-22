@@ -8,6 +8,7 @@
 #include "../bangunan/arraydin_bangunan.h"
 #include "../game/game_stackt.h"
 #include "../util/config_reader.h"
+#include "../save/save.h"
 
 // GameCondition yang digunakan adalah yang berada di Top
 // setiap melakukan aksi lakukan Push pada stackt
@@ -31,8 +32,8 @@ void InitMap();
 
 void InitTurn();
 
-void SaveGame();
-void LoadGame(GameCondition Gc);
+// void SaveGame();
+// void LoadGame(GameCondition Gc);
 // Load permainan yang telah disimpan
 // I.S : Sembarang
 // F.s : G.GameCondition = Gc

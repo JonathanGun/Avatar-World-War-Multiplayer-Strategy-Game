@@ -1,7 +1,5 @@
 #include "save.h"
 
-Save Saves;
-
 void SaveGame(GameCondition Gc, TabBangunan list_bangunan) {
     Player P1 = Gc.Players[0];
     Player P2 = Gc.Players[1];
@@ -80,16 +78,16 @@ void SaveGame(GameCondition Gc, TabBangunan list_bangunan) {
     fclose(fp);
 }
 
-void TulisSave(Save S) {
+void TulisSave() {
     int i, j;
     GameCondition Gc;
     TabBangunan TB;
     Bangunan B;
     address P;
     Queue Skill;
-    for ( i = 1; i <= S.Length; i++ ) {
+    for ( i = 1; i <= Saves.Length; i++ ) {
         Gc = Saves.data[i];
-        TB = Saves.TB;
+        TB = Saves.tabBangunan;
         printf("data %d ---------------", i);
         printf("Turn : %d\n", Gc.turn);
         printf(">>>>> Player 1 <<<<<\n");
@@ -151,7 +149,7 @@ void NthSave(const char* savefile, int *N) {
 }
 
 void LoadSavedGame(const char* savefile) {
-    CreateEmptyTabBangunan(&Saves.TB, 20);
+    CreateEmptyTabBangunan(&Saves.tabBangunan, 20);
     int NSave = CountSave(savefile);
     // temporary variables
     Queue Skill;
@@ -201,16 +199,17 @@ void LoadSavedGame(const char* savefile) {
             InsertList(&list_bangunan, Id(B));
             // load level
             ADV_file();
-            Level(ElmtTB(Saves.TB, Id(B))) = Token.Bil;
+            Level(B) = Token.Bil;
             // load sudah serang
             ADV_file();
-            SudahSerang(ElmtTB(Saves.TB, Id(B))) = Token.Bil;
+            SudahSerang(B) = Token.Bil;
             // load pertahanan
             ADV_file();
-            Pertahanan(ElmtTB(Saves.TB, Id(B))) = Token.Bil;
+            Pertahanan(B) = Token.Bil;
             // load pasukan
             ADV_file();
-            Pasukan(ElmtTB(Saves.TB, Id(B))) = Token.Bil;
+            Pasukan(B) = Token.Bil;
+            Saves.tabBangunan.TB[Id(B)] = B;
             X++;
         }
         CopyList(list_bangunan, &GcPlayer(Saves.data[i], 1).list_bangunan);
@@ -222,62 +221,62 @@ void LoadSavedGame(const char* savefile) {
     Saves.Length = NSave;
 }
 
-void LoadGame(const char* savefile, GameCondition *G, TabBangunan *TB, int N) {
+// void LoadGame(const char* savefile, GameCondition *G, TabBangunan *TB, int N) {
 
-    // temporary variables
-    Queue Skill;
-    ListBangunan list_bangunan;
-    Bangunan B;
+//     // temporary variables
+//     Queue Skill;
+//     ListBangunan list_bangunan;
+//     Bangunan B;
 
-    int jumlah_skill, jumlah_bangunan;
-    int X;
-    NthSave(savefile, &N);
+//     int jumlah_skill, jumlah_bangunan;
+//     int X;
+//     NthSave(savefile, &N);
 
-    // load turn
-    START_file(savefile, N);
-    (*G).turn = Token.Bil;
+//     // load turn
+//     START_file(savefile, N);
+//     (*G).turn = Token.Bil;
 
-    // load data player1
-    // load skill
-    START_file(savefile, N + 1);
-    jumlah_skill = Token.Bil;
-    X = Token.Bil;
-    START_file(savefile, N + 2);
-    CreateEmptyQueue(&Skill, 10);
-    while ( X > 0) {
-        Add(&Skill, Token.Bil);
-        ADV_file();
-        X--;
-    }
-    GcPlayer(*G, 1).Skill = Skill;
+//     // load data player1
+//     // load skill
+//     START_file(savefile, N + 1);
+//     jumlah_skill = Token.Bil;
+//     X = Token.Bil;
+//     START_file(savefile, N + 2);
+//     CreateEmptyQueue(&Skill, 10);
+//     while ( X > 0) {
+//         Add(&Skill, Token.Bil);
+//         ADV_file();
+//         X--;
+//     }
+//     GcPlayer(*G, 1).Skill = Skill;
 
-    // load bangunan
-    CreateEmptyList(&list_bangunan);
-    // load jumlah bangunan
-    START_file(savefile, N + 3);
-    jumlah_bangunan = Token.Bil;
+//     // load bangunan
+//     CreateEmptyList(&list_bangunan);
+//     // load jumlah bangunan
+//     START_file(savefile, N + 3);
+//     jumlah_bangunan = Token.Bil;
 
-    X = 1;
-    while ( X <= jumlah_bangunan ) {
-        CreateBangunanEmpty(&B);
-        // load id
-        START_file(savefile, N + 3 + X);
-        Id(B) = Token.Bil;
-        InsertList(&list_bangunan, Id(B));
-        // load level
-        ADV_file();
-        Level(ElmtTB(*TB, Id(B))) = Token.Bil;
-        // load sudah serang
-        ADV_file();
-        SudahSerang(ElmtTB(*TB, Id(B))) = Token.Bil;
-        // load pertahanan
-        ADV_file();
-        Pertahanan(ElmtTB(*TB, Id(B))) = Token.Bil;
-        // load pasukan
-        ADV_file();
-        Pasukan(ElmtTB(*TB, Id(B))) = Token.Bil;
-        X++;
-    }
-    CopyList(list_bangunan, &GcPlayer(*G, 1).list_bangunan);
+//     X = 1;
+//     while ( X <= jumlah_bangunan ) {
+//         CreateBangunanEmpty(&B);
+//         // load id
+//         START_file(savefile, N + 3 + X);
+//         Id(B) = Token.Bil;
+//         InsertList(&list_bangunan, Id(B));
+//         // load level
+//         ADV_file();
+//         Level(ElmtTB(*TB, Id(B))) = Token.Bil;
+//         // load sudah serang
+//         ADV_file();
+//         SudahSerang(ElmtTB(*TB, Id(B))) = Token.Bil;
+//         // load pertahanan
+//         ADV_file();
+//         Pertahanan(ElmtTB(*TB, Id(B))) = Token.Bil;
+//         // load pasukan
+//         ADV_file();
+//         Pasukan(ElmtTB(*TB, Id(B))) = Token.Bil;
+//         X++;
+//     }
+//     CopyList(list_bangunan, &GcPlayer(*G, 1).list_bangunan);
 
-}
+// }

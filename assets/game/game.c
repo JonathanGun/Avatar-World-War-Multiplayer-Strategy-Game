@@ -53,94 +53,94 @@ void InitGame()
     // InitSave(G);
 }
 
-void LoadGame(GameCondition Gc)
-// Load permainan yang telah disimpan
-// I.S : Sembarang
-// F.S : G.GameCondition = Gc
-{
+// void LoadGame(GameCondition Gc)
+// // Load permainan yang telah disimpan
+// // I.S : Sembarang
+// // F.S : G.GameCondition = Gc
+// {
 
-}
+// }
 
-void SaveGame()
-/* */
-{
-    // temporary variable
-    Queue Skill;
-    int X;
-    Bangunan B;
-    address P;
+// void SaveGame()
+// /* */
+// {
+//     // temporary variable
+//     Queue Skill;
+//     int X;
+//     Bangunan B;
+//     address P;
 
-    FILE * fp;
-    int i;
-    /* open the file for writing*/
-    fp = fopen ("assets/save/save.txt","w");
+//     FILE * fp;
+//     int i;
+//     /* open the file for writing*/
+//     fp = fopen ("assets/save/save.txt","w");
 
-    // simpan turn
-    fprintf (fp, "%d\n", CurTurn());
+//     // simpan turn
+//     fprintf (fp, "%d\n", CurTurn());
 
-    //---------------------- simpan data player 1 -----------------------
-    // simpan skill
-    CreateEmptyQueue(&Skill, 10);
-    CopyQueue(Player(1).Skill, &Skill);
-    if ( IsEmptyQueue(Skill) ) {
-        fprintf(fp, "%d ", 0);
-    }
-    while( !IsEmptyQueue(Skill) ) {
-        Del(&Skill, &X);
-        fprintf(fp, "%d ", X);
-    }
-    fprintf(fp, "\n");
+//     //---------------------- simpan data player 1 -----------------------
+//     // simpan skill
+//     CreateEmptyQueue(&Skill, 10);
+//     CopyQueue(Player(1).Skill, &Skill);
+//     if ( IsEmptyQueue(Skill) ) {
+//         fprintf(fp, "%d ", 0);
+//     }
+//     while( !IsEmptyQueue(Skill) ) {
+//         Del(&Skill, &X);
+//         fprintf(fp, "%d ", X);
+//     }
+//     fprintf(fp, "\n");
 
-    // simpan banyak bangunan
-    fprintf(fp, "%d\n", CountList(Player(1).list_bangunan));
+//     // simpan banyak bangunan
+//     fprintf(fp, "%d\n", CountList(Player(1).list_bangunan));
 
-    // simpan bangunan
-    // format : 
-    // id level sudahserang pertahanan pasukan  
-    // id level sudahserang pertahanan pasukan
-    // ..........   
-    P = First(Player(1).list_bangunan);
-    while ( P != NULL ) {
-        CreateBangunanEmpty(&B);
-        GetBangunanByID(G.ListBangunan, Info(P), &B);
-        fprintf(fp, "%d %d %d %d %d\n", Id(B), Level(B), SudahSerang(B), Pertahanan(B), Pasukan(B));
-        P = Next(P);
-    }
+//     // simpan bangunan
+//     // format : 
+//     // id level sudahserang pertahanan pasukan  
+//     // id level sudahserang pertahanan pasukan
+//     // ..........   
+//     P = First(Player(1).list_bangunan);
+//     while ( P != NULL ) {
+//         CreateBangunanEmpty(&B);
+//         GetBangunanByID(G.ListBangunan, Info(P), &B);
+//         fprintf(fp, "%d %d %d %d %d\n", Id(B), Level(B), SudahSerang(B), Pertahanan(B), Pasukan(B));
+//         P = Next(P);
+//     }
 
-    //---------------------- simpan data player 2 -----------------------
-    // simpan skill
-    CreateEmptyQueue(&Skill, 10);
-    CopyQueue(Player(2).Skill, &Skill);
-    if ( IsEmptyQueue(Skill) ) {
-        fprintf(fp, "%d ", 0);
-    }
-    while( !IsEmptyQueue(Skill) ) {
-        Del(&Skill, &X);
-        fprintf(fp, "%d ", X);
-    }
-    fprintf(fp, "\n");
+//     //---------------------- simpan data player 2 -----------------------
+//     // simpan skill
+//     CreateEmptyQueue(&Skill, 10);
+//     CopyQueue(Player(2).Skill, &Skill);
+//     if ( IsEmptyQueue(Skill) ) {
+//         fprintf(fp, "%d ", 0);
+//     }
+//     while( !IsEmptyQueue(Skill) ) {
+//         Del(&Skill, &X);
+//         fprintf(fp, "%d ", X);
+//     }
+//     fprintf(fp, "\n");
 
-    // simpan banyak bangun
-    // Ambil kondisi game sekarang
-    GameCondition Gc = InfoTopStackt(G.GameConditions);
-    fprintf(fp, "%d\n", CountList(Player(2).list_bangunan));
+//     // simpan banyak bangun
+//     // Ambil kondisi game sekarang
+//     GameCondition Gc = InfoTopStackt(G.GameConditions);
+//     fprintf(fp, "%d\n", CountList(Player(2).list_bangunan));
     
-    // simpan bangunan
-    // format : 
-    // id level sudahserang pertahanan pasukan
-    // id level sudahserang pertahanan pasukan
-    // ..........   
-    P = First(Player(2).list_bangunan);
-    while ( P != NULL ) {
-        CreateBangunanEmpty(&B);
-        GetBangunanByID(G.ListBangunan, Info(P), &B);
-        fprintf(fp, "%d %d %d %d %d\n", Id(B), Level(B), SudahSerang(B), Pertahanan(B), Pasukan(B));
-        P = Next(P);
-    }
+//     // simpan bangunan
+//     // format : 
+//     // id level sudahserang pertahanan pasukan
+//     // id level sudahserang pertahanan pasukan
+//     // ..........   
+//     P = First(Player(2).list_bangunan);
+//     while ( P != NULL ) {
+//         CreateBangunanEmpty(&B);
+//         GetBangunanByID(G.ListBangunan, Info(P), &B);
+//         fprintf(fp, "%d %d %d %d %d\n", Id(B), Level(B), SudahSerang(B), Pertahanan(B), Pasukan(B));
+//         P = Next(P);
+//     }
 
-    /* close the file*/  
-    fclose (fp);
-}
+//     /* close the file*/  
+//     fclose (fp);
+// }
 
 void LoadFromFile(Kata filename)
 {

@@ -264,7 +264,7 @@ void command_End_turn() {
 }
 
 void command_Save() {
-    SaveGame();
+    SaveGame(InfoTopStackt(G.GameConditions), G.ListBangunan);
 }
 
 void command_Move() {
