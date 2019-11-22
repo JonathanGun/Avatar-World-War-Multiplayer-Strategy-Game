@@ -1,38 +1,31 @@
-#include "ADT/game/game.h"
+#include "assets/game/game.h"
+#include "assets/game/game_command.h"
 
+Kata LOAD, START_W, EXIT;
 int main (){
-    init_gambar();
-    char Load[5] = "LOAD";
-    char Start[6] = "START";
-    char Exit[5] = "EXIT";
-    Kata load;
-    Kata start;
-    Kata EXIT;
-    MakeKata(&load,Load,4);
-    MakeKata(&start,Start,5);
-    MakeKata(&EXIT,Exit,4);
-    int i;
+    gui_logo();
+    
     Kata command;
-    printf("ENTER COMMAND: ");
-    InputKata(&command);
-    while((CompareKata(command,load) == 0) && (CompareKata(command,start) == 0) &&(CompareKata(command,EXIT) == 0)) {
-        printf("Masukan salah, tolong input kembali !\n\n");
-        printf("ENTER COMMAND: ");
-        InputKata(&command); 
-    }
-    Game main_game;
-    if(CompareKata(command,load)){
+    MakeCommand();
+    do{
+        printf(">>> ");
+        InputKata(&command);
+        if(!valid_command(command)){
+            printf("Masukan salah, tolong input kembali!\n");
+            ENDL;
+        }
+    } while(!valid_command(command));
+
+    if(CompareKata(command,LOAD)){
         Kata loadfile;
         printf("Ketikkan nama file: "); InputKata(&loadfile);
-        LoadFromFile(&main_game, loadfile);
-        printf("Load berhasil!\n");
-        StartGame(&main_game);
-    }else if (CompareKata(command,start)){
-        InitGame(&main_game);
-        command_Start(&main_game);
-    }else{ 
+        LoadFromFile(loadfile);
+        StartGame();
+    } else if (CompareKata(command,START_W)){
+        InitGame();
+        command_Start();
+    } else { 
         printf("Exiting the program...\n"); 
         exit(0); 
-    }
-    
+    } 
 }
