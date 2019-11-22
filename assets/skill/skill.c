@@ -50,14 +50,33 @@ void useCriticalHit()
 void useInstantReinforcement()
 /* Menggunakan Skill Instant Reinforcement, Seluruh bangunan mendapatkan tambahan 5 pasukan.*/
 {
-
+    Bangunan B;
+    int idB;
+    int CountBangunan = CountList(CurPlayer().list_bangunan);
+    for (int i = 1; i <= CountBangunan ; i++){
+        idB = ListElmt(CurPlayer().list_bangunan, i);
+        GetBangunanByID(G.ListBangunan, idB, &B);
+        Pasukan(B) += 5;
+        UpdateBangunan(&G.ListBangunan, idB, B);
+    }
+    printf("Seluruh pasukan di setiap bangunan bertambah 5..."); ENDL;
 }
 
 void useBarrage()
 /* Menggunakan Skill Barrage, Jumlah pasukan pada seluruh bangunan musuh akan berkurang sebanyak 10
    pasukan.*/
 {
-
+    Bangunan B;
+    int idB;
+    int CountBangunan = CountList(OtherPlayer().list_bangunan);
+    for (int i = 1; i <= CountBangunan ; i++){
+        idB = ListElmt(OtherPlayer().list_bangunan, i);
+        GetBangunanByID(G.ListBangunan, idB, &B);
+        Pasukan(B) -= 10;
+        if(Pasukan(B) < 0) Pasukan(B) = 0;
+        UpdateBangunan(&G.ListBangunan, idB, B);
+    }
+    printf("Semua bangunan musuh berkurang 10 pasukan ..."); ENDL;
 }
 
 
@@ -67,6 +86,8 @@ void startSkill(Queue* Skill)
 {
     CreateEmptyQueue(Skill, 10);// Maksimal 10 skill
     Add(Skill,1); //1 sebagai IU(instant Upgrade)
+    Add(Skill,6);
+    Add(Skill,7);
 }
 
 void useSkill(Queue* Skill)
