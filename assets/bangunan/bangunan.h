@@ -14,6 +14,7 @@
 #define MaxPasukan(B) ((B).maksimum_tambah_pasukan)
 #define Pertahanan(B) ((B).pertahanan)
 #define SudahSerang(B) ((B).sudahserang)
+#define SudahPindah(B) ((B).sudahpindah)
 #define Type(B) ((B). type)
 #define BangunanOwner(B) (B).owner
 

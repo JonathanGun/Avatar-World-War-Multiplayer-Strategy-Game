@@ -22,6 +22,7 @@ void CreateBangunanEmpty(Bangunan *B)
     (*B).owner = -1;
     (*B).pertahanan = false;
     (*B).sudahserang = false;
+    (*B).sudahpindah = false;
     (*B).posisi.r = 0;
     (*B).posisi.c = 0;
     (*B).type = ' ';
@@ -38,6 +39,7 @@ void CopyBangunan(Bangunan Bin, Bangunan *B)
     (*B).owner = Bin.owner;
     (*B).pertahanan = Bin.pertahanan;
     (*B).sudahserang = Bin.sudahserang;
+    (*B).sudahpindah = Bin.sudahpindah;
     (*B).posisi.r = Bin.posisi.r;
     (*B).posisi.c = Bin.posisi.c;
     (*B).type = Bin.type;
@@ -144,7 +146,7 @@ boolean attack(Bangunan *BAtt, Bangunan *BDef, int jumlah_penyerang)
             /* Bangunan tidak memiliki pertahanan */
             Pasukan(*BDef) -= jumlah_penyerang;
             
-            if(Pasukan(*BDef) >= 0){
+            if(Pasukan(*BDef) > 0){
                 printf("Bangunan gagal direbut.\n");
                 printf("Pasukan yang masih tersisa di bangunan lawan berjumlah %d orang\n", Pasukan(*BDef));
             } else {
@@ -165,38 +167,21 @@ boolean attack(Bangunan *BAtt, Bangunan *BDef, int jumlah_penyerang)
 void move(Bangunan *BAwal, Bangunan *BAkhir, int jumlah_pasukan_pindah)
 /* Menghitung perubahan jumlah pasukan saat terjadi perpindahan pasukan (Command : MOVE) */
 {
-    if(Pasukan(*BAkhir) == MaxPasukan(*BAkhir)){
-         printf("Bangunan yang dituju penuh, tidak dapat memindahkan pasukan\n");
+    if((*BAwal).sudahpindah){
+        printf("Bangunan sudah melakukan pemindahan pasukan pada turn ini\n");
     }
-    else{ /*Bangunan Akhir tidak penuh, perpindahan dapat dilakukan */
-
-        if(Pasukan(*BAwal) < jumlah_pasukan_pindah){ /* Jumlah pasukan di bangunan awal kurang dari jumlah pasukan yang akan dipindahkan */
-
-            if((Pasukan(*BAwal) + Pasukan(*BAkhir)) > MaxPasukan(*BAkhir)){ /*Perpindahan melebihi kapasitas bangunan akhir */
-                printf("Pasukan di bangunan awal kurang, memindahkan %d pasukan karena bangunan akhir sudah penuh\n", MaxPasukan(*BAkhir) - Pasukan(*BAkhir));
-                Pasukan(*BAwal) -= MaxPasukan(*BAkhir) - Pasukan(*BAkhir);
-                Pasukan(*BAkhir) += MaxPasukan(*BAkhir) - Pasukan(*BAkhir);
-            }
-
-            else{ /* Perpindahan masih dapat ditampung kapasitas bangunan akhir */
-                printf("Pasukan di bangunan awal kurang, memindahkan %d pasukan\n", Pasukan(*BAwal));
-                Pasukan(*BAwal) -= Pasukan(*BAwal);
-                Pasukan(*BAkhir) += Pasukan(*BAwal);
-            }
+    else{
+        (*BAwal).sudahpindah = true;
+        /*Jumlah pasukan di bangunan awal lebih dari jumlah pasukan yang akan dipindahkan */
+        Pasukan(*BAwal) -= jumlah_pasukan_pindah;
+        Pasukan(*BAkhir) += jumlah_pasukan_pindah;
+        printf("Sejumlah %d pasukan berhasil dipindahkan\n", jumlah_pasukan_pindah);
+        if(Pasukan(*BAwal) == 0){
+            printf("Tidak ada pasukan tersisa di bangunan awal\n");
+        } else{
+            printf("Pasukan di bangunan awal menjadi %d pasukan\n", Pasukan(*BAwal));
         }
-
-        else{ /*Jumlah pasukan di bangunan awal lebih dari jumlah pasukan yang akan dipindahkan */
-
-            if((jumlah_pasukan_pindah + Pasukan(*BAkhir)) > MaxPasukan(*BAkhir)){ /*Perpindahan melebihi kapasitas bangunan akhir */
-                printf("Memindahkan %d pasukan karena bangunan akhir sudah penuh\n", MaxPasukan(*BAkhir) - Pasukan(*BAkhir));
-                Pasukan(*BAwal) -= MaxPasukan(*BAkhir) - Pasukan(*BAkhir);
-                Pasukan(*BAkhir) += MaxPasukan(*BAkhir) - Pasukan(*BAkhir);
-            }
-            else{/* Perpindahan terjadi secara normal tanpa ada bangunan yang habis pasukannya atau penuh */
-                Pasukan(*BAwal) -= jumlah_pasukan_pindah;
-                Pasukan(*BAkhir) += jumlah_pasukan_pindah;
-            }
-        }
+        printf("Pasukan di bangunan yang dituju menjadi %d pasukan\n", Pasukan(*BAkhir));
     }
 }
 
