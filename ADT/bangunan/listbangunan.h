@@ -135,4 +135,6 @@ void PrintInfo (ListBangunan L);
 int CountList(ListBangunan L);
 /* Mengirimkan banyaknya elemen list; mengirimkan 0 jika list kosong */
 
+void CopyList(ListBangunan L, ListBangunan *Lo);
+
 #endif

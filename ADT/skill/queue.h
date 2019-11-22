@@ -62,4 +62,6 @@ void Del (Queue * Q, int * X);
 
 void CopyQueue(Queue Q, Queue * Qo);
 
+int CountQueue(Queue Q);
+
 #endif

@@ -47,4 +47,6 @@ void printSkill(Queue Skill);
 
 void TulisSkill(Queue Skill);
 
+void PrintAllSkill(Queue Skill);
+
 #endif

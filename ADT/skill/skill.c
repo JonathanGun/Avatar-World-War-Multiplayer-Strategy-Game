@@ -126,3 +126,11 @@ void printSkill(Queue Skill)
 void TulisSkill(Queue Skill){
     printf("Skill Available: "); printSkill(Skill);
 }
+
+void PrintAllSkill(Queue Skill) {
+    int X;
+    while ( !IsEmptyQueue(Skill) ) {
+        printSkill(Skill);
+        Del(&Skill, &X);
+    }
+}

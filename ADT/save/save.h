@@ -4,12 +4,25 @@
 #include "../util/mesinfile.h"
 #include "../game/game_condition.h"
 
-void SaveGame(GameCondition Gc, TabBangunan list_bangunan, int Turn);
+typedef struct {
+    GameCondition data[4];
+    TabBangunan TB;
+    int Length;
+} Save;
 
-void NthSave(const char* savefile, int N);
+extern Save Saves;
 
-void LoadGame(const char* savefile, GameCondition *G, int *Turn, int N);
+void SaveGame(GameCondition Gc, TabBangunan list_bangunan);
 
+void TulisSave(Save S);
+
+int CountSave(const char* savefile);
+
+void NthSave(const char* savefile, int *N);
+
+void LoadSavedGame(const char* savefile);
+
+void LoadGame(const char* savefile, GameCondition *G, TabBangunan *TB, int N);
 
 
 #endif

@@ -35,11 +35,6 @@ void InitPlayer(Game* G);
 
 void InitMap(Game* G, Config conf);
 
-void LoadGame(Game* G, GameCondition Gc);
-// Load permainan yang telah disimpan
-// I.S : Sembarang
-// F.s : G.GameCondition = Gc
-
 void LoadFromFile(Game* G, Kata filename);
 
 void StartGame(Game* G);
@@ -56,6 +51,7 @@ void command_Skill(Game* G);
 void command_Undo(Game* G);
 void command_End_turn(Game* G);
 void command_Save(Game* G);
+void command_Load(Game *G);
 void command_Move(Game* G);
 void command_Exit();
 

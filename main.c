@@ -23,10 +23,15 @@ int main (){
     Game main_game;
     if(CompareKata(command,load)){
         Kata loadfile;
-        printf("Ketikkan nama file: "); InputKata(&loadfile);
-        LoadFromFile(&main_game, loadfile);
+        // printf("Ketikkan nama file: "); InputKata(&loadfile);
+        // LoadFromFile(&main_game, loadfile);
+        // InitGame(&main_game);
+        // command_Load(&main_game);
+        // printf("Count save : %d\n", CountSave("ADT/save/save.txt"));
         printf("Load berhasil!\n");
-        StartGame(&main_game);
+        LoadSavedGame("ADT/save/save.txt");
+        TulisSave(Saves);
+        // StartGame(&main_game);
     }else if (CompareKata(command,start)){
         InitGame(&main_game);
         command_Start(&main_game);

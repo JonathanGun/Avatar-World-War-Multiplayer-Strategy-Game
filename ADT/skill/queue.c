@@ -77,3 +77,13 @@ void Del (Queue * Q, int * X)
 void CopyQueue(Queue Q, Queue * Qo) {
 	*Qo = Q;
 }
+
+int CountQueue(Queue Q) {
+	int X, Count;
+	Count = 0;
+	while ( !IsEmptyQueue(Q) ) {
+		Del(&Q, &X);
+		Count++;
+	}
+	return Count;
+}

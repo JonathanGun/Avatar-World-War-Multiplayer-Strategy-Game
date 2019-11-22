@@ -287,7 +287,12 @@ void command_End_turn(Game* G) {
 }
 
 void command_Save(Game* G) {
-    SaveGame(InfoTopStackt((*G).GameConditions), (*G).ListBangunan, InfoTopStackt((*G).GameConditions).turn);
+    SaveGame(InfoTopStackt((*G).GameConditions), (*G).ListBangunan);
+}
+
+void command_Load(Game *G) {
+    LoadGame("ADT/save/save.txt", &InfoTopStackt((*G).GameConditions), &(*G).ListBangunan, 1); 
+    printf("Loaded turn %d\n", InfoTopStackt((*G).GameConditions).turn);
 }
 
 void command_Move(Game* G) {

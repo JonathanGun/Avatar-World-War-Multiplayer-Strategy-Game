@@ -241,6 +241,14 @@ int CountList(ListBangunan L) {
     return count;
 }
 
+void CopyList(ListBangunan L, ListBangunan *Lo) {
+    address P = First(L);
+    while ( P != Nil ) {
+        InsertLast(Lo, AlokasiList(Info(P)));
+        P = Next(P);
+    }
+}
+
 int ListElmt(ListBangunan L, int n){
     n--;
     address P = First(L);

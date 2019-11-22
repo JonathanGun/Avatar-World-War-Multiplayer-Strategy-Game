@@ -15,7 +15,7 @@ static int retval;
 // MESIN KARAKTER //
 void ADV(){
     retval = fscanf(pita,"%c",&CC);
-    if(pita != stdin) EOP = (feof(pita));
+    if(pita != stdin) EOP = (EOF && feof(pita));
     if (EOP) fclose(pita);
 }
 
@@ -135,30 +135,3 @@ boolean CompareKata(Kata K1, Kata K2){
   return true;
 }
 
-// --------------- SAVE --------------------
-boolean STARTKATA_Save(char const *filename) {
-  boolean valid = (START(filename) != 0);
-  if (!valid) {
-    EndKata = true;
-    return valid;
-  }
-
-  EndKata = (CC == MARK);
-  return valid;
-}
-
-void SalinKata_Save(){
-
-  int i = 0;
-  while( CC != MARK ){
-    Savefile.TabKata[i] = CC;
-    i++;
-    ADV();
-  }
-  CKata.Length = i;
-}
-
-void ADVKATA_Save(){
-  IgnoreBlank();
-  SalinKata_Save();
-}

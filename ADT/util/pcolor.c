@@ -98,7 +98,7 @@ void PrintAll(){
 }
 
 void init_gambar(){
-    START("Gambar2\\GUI.txt");
+    START("Gambar2/GUI.txt");
     PrintAll();
     printf("\n\n\n");
 }

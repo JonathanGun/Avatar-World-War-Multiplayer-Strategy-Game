@@ -19,6 +19,7 @@ boolean ValidCharacter() {
         CC == 'T'||
         CC == 'V'||
         CC == 'F'||
+        CC == '.' ||
         CC == MARK
     );
 }
