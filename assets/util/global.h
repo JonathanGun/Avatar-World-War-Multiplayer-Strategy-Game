@@ -26,6 +26,7 @@ typedef struct {
 	int owner;
 	boolean pertahanan;
 	boolean sudahserang;
+	boolean sudahpindah;
 	char type;
 } Bangunan;
 typedef struct {

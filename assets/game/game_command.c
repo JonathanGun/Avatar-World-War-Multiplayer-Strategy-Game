@@ -297,9 +297,9 @@ void command_Move() {
 
     // input jumlah pasukan yang dipindahkan
     printf("Jumlah pasukan : ");
-    int jml_pas = InputValidIntBetween(1, Pasukan(BSucc));
+    int jml_pas = InputValidIntBetween(1, Pasukan(BMov));
 
-    move(&BSucc, &BMov, jml_pas);
+    move(&BMov, &BSucc, jml_pas);
 
     UpdateBangunan(&G.ListBangunan, idBMov, BMov);
     UpdateBangunan(&G.ListBangunan, idBSucc, BSucc);
