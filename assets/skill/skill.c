@@ -1,30 +1,48 @@
 #include "skill.h"
 
-void useIU(int player)
+void useIU()
 /* Menggunakan Skill IU, Seluruh bangunan yang dimiliki pemain akan naik 1 level.*/
 {
     // traverse semua bangunan, if milik == player, level up
+    int CountBangunan = CountList(CurPlayer().list_bangunan);
+    IUActive = true;
+    for (int i = 1; i <= CountBangunan ; i++){
+        int idB = ListElmt(CurPlayer().list_bangunan, i);
+        levelup(idB);
+    }
+    IUActive = false;
 }
 
 void useShield()
 /* Menggunakan Skill Shield, Seluruh bangunan yang dimiliki oleh pemain akan memiliki pertahanan selama 2
    turn lawan.*/
 {
-
+    CurPlayer().ShieldActive = 2;
+    printf("Shield activated ..."); ENDL;
 }
 
 void useExtraTurn()
 /* Menggunakan Skill ExtraTurn, Setelah giliran pengaktifan skill ini berakhir, pemain selanjutnya tetap pemain
    yang sama.*/
 {
-
+    ExtraTurnActive = true;
+    printf("Player ");  print(CurTurn()); 
+    printf(" memiliki turn tambahan ..."); ENDL;
+    if(Add(&OtherPlayer().Skill,5)){ //Menambahkan skill CritHit di skill musuh
+        printf("Player "); print(OtherTurn());
+        printf(" mendapatkan skill Critical Hit ...");ENDL;
+    }else{
+        printf("Player ");print(OtherTurn());
+        printf(" tidak dapat menambahkan skill Critical Hit!");ENDL;
+    }
 }
 
 void useAttackUp()
 /* Menggunakan Skill Attack Up, Pada giliran ini, setelah skill ini diaktifkan, 
    pertahanan bangunan musuh(termasuk Shield) tidak akan mempengaruhi penyerangan.*/
 {
-
+    CurPlayer().AttUpActive = true;
+    printf("Attack Up activated ...");ENDL;
 }
 
 void useCriticalHit()
@@ -33,20 +51,34 @@ void useCriticalHit()
    hanya efektif sebanyak 2 kali lipat pasukan. Skill ini akan menonaktifkan Shield 
    maupun pertahanan bangunan, seperti Attack Up.*/
 {
-
+    CurPlayer().CritHitActive = true;
+    printf("Critical Hit activated ...");ENDL;
 }
 
 void useInstantReinforcement()
 /* Menggunakan Skill Instant Reinforcement, Seluruh bangunan mendapatkan tambahan 5 pasukan.*/
 {
-
+    int CountBangunan = CountList(CurPlayer().list_bangunan);
+    for (int i = 1; i <= CountBangunan ; i++){
+        int idB = ListElmt(CurPlayer().list_bangunan, i);
+        Bangunan *B = &ElmtTB(idB);
+        Pasukan(*B) += 5;
+    }
+    printf("Seluruh pasukan di setiap bangunan bertambah 5..."); ENDL;
 }
 
 void useBarrage()
 /* Menggunakan Skill Barrage, Jumlah pasukan pada seluruh bangunan musuh akan berkurang sebanyak 10
    pasukan.*/
 {
-
+    int CountBangunan = CountList(OtherPlayer().list_bangunan);
+    for (int i = 1; i <= CountBangunan ; i++){
+        int idB = ListElmt(OtherPlayer().list_bangunan, i);
+        Bangunan *B = &ElmtTB(idB);
+        Pasukan(*B) -= 10;
+        if(Pasukan(*B) < 0) Pasukan(*B) = 0;
+    }
+    printf("Semua bangunan musuh berkurang 10 pasukan ..."); ENDL;
 }
 
 
@@ -55,7 +87,16 @@ void startSkill(Queue* Skill)
 /* Kondisi Awal yaitu mempunyai Queue dengan skill Instant Upgrade */
 {
     CreateEmptyQueue(Skill, 10);// Maksimal 10 skill
+    Add(Skill,3);
     Add(Skill,1); //1 sebagai IU(instant Upgrade)
+    Add(Skill,3);
+    Add(Skill,1);
+    Add(Skill,1);
+    Add(Skill,1);
+    Add(Skill,1);
+    Add(Skill,1);
+    Add(Skill,1);
+    Add(Skill,1);
 }
 
 void useSkill(Queue* Skill)
@@ -64,7 +105,7 @@ void useSkill(Queue* Skill)
     int x;
     Del(Skill, &x);
     if(x == 1){         //Using IU
-        useIU(SkillOwner(*Skill));
+        useIU();
     }
     else if (x ==2){    //Using Shield
         useShield();
@@ -91,36 +132,34 @@ void printSkill(Queue Skill)
 /* Mengeprint Skill di bagian Head Queue*/
 {
     int x;
-    if (IsEmptyQueue(Skill))
-    {
-        printf("-\n");
-    }
-    else /*  not IsEmpty */
-    {
+    if (IsEmptyQueue(Skill)) {
+        printf("-");
+    } else {
         Del(&Skill, &x);
         if(x == 1){
-            printf("IU\n");
+            printf("IU");
         }
         else if (x ==2){
-            printf("Shield\n");
+            printf("Shield");
         }
         else if (x == 3){
-            printf("Extra Turn\n");
+            printf("Extra Turn");
         }
         else if (x == 4){
-            printf("Attack Up\n");
+            printf("Attack Up");
         }
         else if (x == 5){
-            printf("Critical Hit\n");
+            printf("Critical Hit");
         }
         else if (x == 6){
-            printf("Instant Reinforcement\n");
+            printf("Instant Reinforcement");
         }
         else if (x == 7){
-            printf("Barrage\n");
+            printf("Barrage");
         }
         Add(&Skill,x);
     }
+    ENDL;
 }
 
 void TulisSkill(Queue Skill){

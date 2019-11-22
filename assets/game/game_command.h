@@ -12,6 +12,13 @@ void MakeAksi();
 void input_between_msg(int s, int e);
 boolean valid_range(int s, int x, int e);
 int InputValidIntBetween(int s, int e);
+void wait_next_command();
+void TriggerSkill();
+
+boolean bangunan_same_owner(Bangunan B);
+boolean bangunan_diff_owner(Bangunan B);
+boolean bangunan_sudah_serang(Bangunan B);
+boolean bangunan_sudah_pindah(Bangunan B);
 
 void command_in_game();
 void command_Start();

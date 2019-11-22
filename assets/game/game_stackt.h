@@ -17,8 +17,6 @@
    /* S.TOP adalah alamat elemen TOP */
 
 /* Definisi akses dengan Selektor : Set dan Get */
-#define TopStackt(S) (S).TOP
-#define InfoTopStackt(S) (S).T[(S).TOP]
 
 /* ************ Prototype ************ */
 /* *** Konstruktor/Kreator *** */

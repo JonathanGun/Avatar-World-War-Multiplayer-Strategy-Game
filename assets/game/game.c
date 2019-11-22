@@ -16,12 +16,6 @@ void InitPlayer()
     InsertList(&Player(2).list_bangunan, 2);
 }
 
-void InitMap()
-/* */
-{
-    IsiPeta();
-}
-
 void InitTurn()
 /* */
 {
@@ -46,7 +40,7 @@ void InitGame()
     if(DEBUG) printf("Berhasil load file config\n");
 
     // init map
-    InitMap();
+    InitPeta();
     if(DEBUG) printf("Berhasil inisialisasi map\n");
 
     // init save
@@ -67,7 +61,7 @@ void SaveGame()
     // temporary variable
     Queue Skill;
     int X;
-    Bangunan B;
+    Bangunan* B;
     address P;
 
     FILE * fp;
@@ -101,9 +95,8 @@ void SaveGame()
     // ..........   
     P = First(Player(1).list_bangunan);
     while ( P != NULL ) {
-        CreateBangunanEmpty(&B);
-        GetBangunanByID(G.ListBangunan, Info(P), &B);
-        fprintf(fp, "%d %d %d %d %d\n", Id(B), Level(B), SudahSerang(B), Pertahanan(B), Pasukan(B));
+        *B = ElmtTB(Info(P));
+        fprintf(fp, "%d %d %d %d %d\n", Id(*B), Level(*B), SudahSerang(*B), Pertahanan(*B), Pasukan(*B));
         P = Next(P);
     }
 
@@ -132,9 +125,8 @@ void SaveGame()
     // ..........   
     P = First(Player(2).list_bangunan);
     while ( P != NULL ) {
-        CreateBangunanEmpty(&B);
-        GetBangunanByID(G.ListBangunan, Info(P), &B);
-        fprintf(fp, "%d %d %d %d %d\n", Id(B), Level(B), SudahSerang(B), Pertahanan(B), Pasukan(B));
+        *B = ElmtTB(Info(P));
+        fprintf(fp, "%d %d %d %d %d\n", Id(*B), Level(*B), SudahSerang(*B), Pertahanan(*B), Pasukan(*B));
         P = Next(P);
     }
 

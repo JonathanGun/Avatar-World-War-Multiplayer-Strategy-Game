@@ -7,52 +7,60 @@ Created at: 17/10/2019
 
 #include "pcolor.h"
 
-void print_red(char c) {
-    printf("%s%c", RED, c);
-    printf("%s", NORMAL);
-}
 void red(){
     printf("%s", RED);
 }
 
-void print_green(char c) {
-    printf("%s%c", GREEN, c);
-    printf("%s", NORMAL);
-}
 void green(){
     printf("%s",GREEN);
 }
 
-void print_yellow(char c) {
-    printf("%s%c", YELLOW, c);
-    printf("%s", NORMAL);
+void orange(){
+    printf("%s", ORANGE);
 }
+
+void blue(){
+    printf("%s", BLUE);
+}
+
+void purple(){
+    printf("%s", PURPLE);
+}
+
+void cyan(){
+    printf("%s", CYAN);
+}
+
+void light_gray(){
+    printf("%s", LIGHT_GRAY);
+}
+
+void pink(){
+    printf("%s", PINK);
+}
+
+void light_green(){
+    printf("%s", LIGHT_GREEN);   
+}
+
 void yellow(){
     printf("%s",YELLOW);
 }
 
-void print_blue(char c) {
-    printf("%s%c", BLUE, c);
-    printf("%s", NORMAL);
-}
-void blue(){
-    printf("%s",BLUE);
+void light_blue(){
+    printf("%s", LIGHT_BLUE);
 }
 
-void print_magenta(char c) {
-    printf("%s%c", MAGENTA, c);
-    printf("%s", NORMAL);
-}
-void magenta(){
-    printf("%s", MAGENTA);
+void light_purple(){
+    printf("%s", LIGHT_PURPLE);
 }
 
-void print_cyan(char c) {
-    printf("%s%c", CYAN, c);
-    printf("%s", NORMAL);
+void light_cyan(){
+    printf("%s", LIGHT_CYAN);
 }
-void cyan(){
-    printf("%s", CYAN);
+
+void dark_gray(){
+    printf("%s", DARK_GRAY);
 }
 
 void normal(){

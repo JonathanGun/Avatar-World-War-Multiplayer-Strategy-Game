@@ -23,7 +23,7 @@ int extract_banyak_bangunan() {
 
 void extract_listBangunan(int banyak_bangunan) {
     CreateEmptyTabBangunan(&G.ListBangunan, banyak_bangunan);
-    Bangunan B; 
+    Bangunan B;
     for(int i = 1; i < banyak_bangunan+1; i++) {
         CreateBangunanEmpty(&B);
         B.id = i;
@@ -38,8 +38,8 @@ void extract_listBangunan(int banyak_bangunan) {
         B.posisi.c = Token.Bil;
 
         B.level = 0;
-        levelup(&B);
-        AddBangunan(B, &G.ListBangunan);
+        AddBangunan(B);
+        levelup(i);
     }
 }
 
