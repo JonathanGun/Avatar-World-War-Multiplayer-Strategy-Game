@@ -81,6 +81,26 @@ void show_valid_command(){
     ENDL;
 }
 
+boolean bangunan_same_owner(Bangunan B){
+    return B.owner == CurTurn();
+}
+
+boolean bangunan_diff_owner(Bangunan B){
+    return !bangunan_same_owner(B);
+}
+
+boolean bangunan_sudah_serang(Bangunan B){
+    return B.sudahserang;
+}
+
+boolean bangunan_sudah_pindah(Bangunan B){
+    return B.sudahpindah;
+}
+
+void wait_next_command(){
+    printf("Press ENTER to continue"); getchar();
+}
+
 void command_in_game(){
     MakeAksi();
 
@@ -103,30 +123,30 @@ void command_in_game(){
     if(CompareKata(command,ATTACK)){
         command_Attack(G);
         if(DEBUG)printf("Attack Berhasil!\n");
-        printf("Press ENTER to continue"); getchar();
+        wait_next_command();
     }else if (CompareKata(command,LEVEL)){
         command_Level_up(G);
         if(DEBUG)printf("Level up berhasil\n");
-        printf("Press ENTER to continue"); getchar();
+        wait_next_command();
     }else if (CompareKata(command,SKILL)){
         command_Skill(G);
         if(DEBUG)printf("Skill Berhasil\n");
-        printf("Press ENTER to continue"); getchar();
+        wait_next_command();
     }else if (CompareKata(command,UNDO)){
         command_Undo(G);
         if(DEBUG)printf("Undo berhasil\n");
-        printf("Press ENTER to continue"); getchar();
+        wait_next_command();
     }else if (CompareKata(command,END_TURN)){
         command_End_turn(G);
         if(DEBUG)printf("End Turn berhasil\n");
     }else if (CompareKata(command,SAVE)){
         command_Save(G);
         if(DEBUG)printf("Save berhasil\n");
-        printf("Press ENTER to continue"); getchar();
+        wait_next_command();
     }else if (CompareKata(command,MOVE)){
         command_Move(G);
         if(DEBUG)printf("Move Berhasil\n");
-        printf("Press ENTER to continue"); getchar();
+        wait_next_command();
     }else{ //Ketika menulis EXIT
         command_Exit();
     }
@@ -149,19 +169,31 @@ void command_Start() {
 void command_Attack() {
     // print daftar bangunan
     printf("Daftar bangunan:\n");
-    TulisDaftarBangunan(G.ListBangunan, CurPlayer().list_bangunan);
+    ListBangunan ListPB = CurPlayer().list_bangunan;
+    FilterListTanpa(&ListPB, bangunan_sudah_serang);
+    if(CountList(ListPB) == 0){
+        printf("Semua bangunan sudah digunakan untuk menyerang. Silakan pilih command lain!"); ENDL;
+        return;
+    }
+    int idBAtt; Bangunan BAtt; ListBangunan BTerhubung;
+    do{
+        TulisDaftarBangunan(G.ListBangunan, ListPB);
 
-    // input bangunan yang ingin digunakan menyerang
-    printf("Bangunan yang digunakan untuk menyerang : ");
-    int idBAtt = InputValidIntBetween(1, CountList(CurPlayer().list_bangunan));
+        // input bangunan yang ingin digunakan menyerang
+        printf("Bangunan yang digunakan untuk menyerang : ");
+        idBAtt = InputValidIntBetween(0, CountList(ListPB));
+        if(idBAtt == 0) return;
+        idBAtt = ListElmt(ListPB, idBAtt);
+        GetBangunanByID(G.ListBangunan, idBAtt, &BAtt);
 
-    Bangunan BAtt;
-    idBAtt = ListElmt(CurPlayer().list_bangunan, idBAtt);
-    GetBangunanByID(G.ListBangunan, idBAtt, &BAtt);
-
-    // print daftar bangunan yang dapat diserang
-    ListBangunan BTerhubung;
-    GetBangunanTerhubung(G.Relasi, idBAtt, &BTerhubung);
+        // print daftar bangunan yang dapat diserang
+        GetBangunanTerhubung(G.Relasi, idBAtt, &BTerhubung);
+        FilterListTanpa(&BTerhubung, bangunan_same_owner);
+        if(CountList(BTerhubung) == 0){
+            printf("Tidak ada bangunan musuh/netral di sekitar bangunan ini! Silakan pilih bangunan lain!"); ENDL;
+            printf("Atau ketik 0 untuk batal serang"); ENDL;
+        }
+    } while(CountList(BTerhubung) == 0);
 
     printf("Daftar bangunan yang dapat diserang:\n");
     TulisDaftarBangunan(G.ListBangunan, BTerhubung);
@@ -176,7 +208,7 @@ void command_Attack() {
 
     // input jumlah pasukan yang digunakan menyerang
     printf("Jumlah pasukan: ");
-    int jml_pas = InputValidIntBetween(1, Pasukan(BAtt));
+    int jml_pas = InputValidIntBetween(0, Pasukan(BAtt));
 
     attack(&BAtt, &BDef, jml_pas);
     UpdateBangunan(&G.ListBangunan, idBAtt, BAtt);
@@ -257,8 +289,11 @@ void command_End_turn() {
         GetBangunanByID(G.ListBangunan, idB, &B);
         add_pasukan(&B);
         UpdateBangunan(&G.ListBangunan, idB, B);
-        UpdateList(&CurPlayer().list_bangunan, B, CurTurn());
     }
+
+    // Reset sudah serang dan sudah pindah
+    ResetListBangunan();
+
     // Memulai turn baru
     StartGame();
 }
@@ -270,22 +305,34 @@ void command_Save() {
 void command_Move() {
     // print daftar bangunan
     printf("Daftar bangunan:\n");
-    TulisDaftarBangunan(G.ListBangunan, CurPlayer().list_bangunan);
+    ListBangunan ListPB = CurPlayer().list_bangunan;
+    FilterListTanpa(&ListPB, bangunan_sudah_pindah);
+    if(CountList(ListPB) == 0){
+        printf("Semua bangunan sudah pernah dipindah pasukannya pada turn ini. Silakan pilih command lain!"); ENDL;
+        return;
+    }
+    int idBMov; Bangunan BMov; ListBangunan BTerhubung;
+    do{
+        TulisDaftarBangunan(G.ListBangunan, ListPB);
 
-    // input bangunan yang dipilih
-    printf("Pilih bangunan : ");
-    int idBMov = InputValidIntBetween(1, CountList(CurPlayer().list_bangunan));
+        // input bangunan yang dipilih
+        printf("Pilih bangunan : ");
+        idBMov = InputValidIntBetween(0, CountList(ListPB));
+        if(idBMov == 0) return;
+        idBMov = ListElmt(ListPB, idBMov);
+        GetBangunanByID(G.ListBangunan, idBMov, &BMov);
 
-    Bangunan BMov;
-    idBMov = ListElmt(CurPlayer().list_bangunan, idBMov);
-    GetBangunanByID(G.ListBangunan, idBMov, &BMov);
+        // print daftar bangunan terdekat
+        GetBangunanTerhubung(G.Relasi, idBMov, &BTerhubung);
 
-    // print daftar bangunan terdekat
-    ListBangunan BTerhubung;
-    GetBangunanTerhubung(G.Relasi, idBMov, &BTerhubung);
-
-    printf("Daftar bangunan terdekat:\n");
-    TulisDaftarBangunan(G.ListBangunan, BTerhubung);
+        printf("Daftar bangunan terdekat:\n");
+        TulisDaftarBangunan(G.ListBangunan, BTerhubung);
+        FilterListTanpa(&BTerhubung, bangunan_diff_owner);
+        if(CountList(BTerhubung) == 0){
+            printf("Tidak ada bangunan milik kamu di sekitar bangunan ini! Silakan pilih bangunan lain!"); ENDL;
+            printf("Atau ketik 0 untuk batal move"); ENDL;
+        }
+    } while(CountList(BTerhubung) == 0);
 
     // input bangunan yang dipilih
     printf("Bangunan yang akan menerima : ");
@@ -297,7 +344,7 @@ void command_Move() {
 
     // input jumlah pasukan yang dipindahkan
     printf("Jumlah pasukan : ");
-    int jml_pas = InputValidIntBetween(1, Pasukan(BMov));
+    int jml_pas = InputValidIntBetween(0, Pasukan(BMov));
 
     move(&BMov, &BSucc, jml_pas);
 

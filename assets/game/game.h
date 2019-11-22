@@ -17,8 +17,6 @@ void InitGame();
 
 void InitPlayer();
 
-void InitMap();
-
 void InitTurn();
 
 void SaveGame();

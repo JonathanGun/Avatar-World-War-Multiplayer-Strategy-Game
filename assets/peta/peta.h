@@ -24,7 +24,7 @@ void MakePeta(int NB, int NK);
 
 void CopyPeta(Peta P1, Peta *P2);
 
-void IsiPeta();
+void InitPeta();
 
 /* ********** KELOMPOK BACA/TULIS ********** */
 void TulisPeta();

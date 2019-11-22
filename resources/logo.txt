@@ -16,15 +16,15 @@
                                    .dmmmmmmm^*//////*^dmmmmmmmmmmhG                                    
                                    /mmmmmmmy^*//////*^ommmmmmmmmmm\                                    
                                    ommmmmoo:^*//////*^:osmmmmmmmmm/mWN                                    
-                                  smmmmmy-^*////////*^ymmmmmmmmmm/mmmmD                                    
-                                 -symmmmmd+^*//////*^.ommmmmmmmmm|mmdyoO                                 
-                                  smmmmddmmmy-^*//*^hmmy.--.ddmmmm\GMMF                                 
+                                  smmmmmy-^*\\\\\|/////*^ymmmmmmmm/mmmmD                                    
+                                 -symmmmmmd+^*\\\|///*^.ommmmmmmmm|mmdyoO                                 
+                                  smmmmddmmmy-^*\|/*^hmmy.--.ddmmmm\GMMF                                 
                                   :mmmms   -+hmdoymh+-    -hmmmmWA                                 
                                    +dmm-     `smmmmo`      +mmmhA                                  
                                    -shmh+-   -dmmd..     -+dmhoN                                   
-                                    `\mmmmdhhddmmmmhhhhdmmmmd:                                     
-                                      \mmmmmmmmmwwwmmmmmmmmd-                                       
-                                         mmmmmmwwwwwmmmmmds                                         
+                                    `\mmmmdhhddomomhhhhdmmmmd:                                     
+                                      \mmmmmmmmmmmmmmmmmmmd-                                       
+                                         mmmmmmmmmmmmmmmmds                                         
                                           shdmmmmmmmmmdyo                                           
                                             +oyhddhs++ 
 ^

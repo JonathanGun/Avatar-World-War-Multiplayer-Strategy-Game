@@ -19,7 +19,7 @@ void CopyPeta(Peta P1, Peta *P2){
 	forpeta(P1, r, c) PetaElmt(*P2, r, c) = PetaElmt(P1, r, c);
 }
 
-void IsiPeta(){
+void InitPeta(){
 	for(int i = 1; i <= NbBangunan(G.ListBangunan); ++i){
 		Bangunan cur = ElmtTB(G.ListBangunan, i);
 		PetaElmt(G.map, cur.posisi.r-1, cur.posisi.c-1) = cur.id;
@@ -137,7 +137,12 @@ void PrintOneTile(int i, int j, ListBangunan* Neighbor1, ListBangunan* Neighbor2
 		else
 			normal();
 	} else {
-
+		if(SearchList(*Neighbor2, PetaElmt(G.map, i, j)))
+			light_cyan();
+		else if(SearchList(*Neighbor1, PetaElmt(G.map, i, j)))
+			orange();
+		else
+			normal();
 	}
 	printf(" %c", cur.type);
 	normal();

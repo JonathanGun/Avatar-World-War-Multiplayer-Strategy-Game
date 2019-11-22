@@ -72,4 +72,8 @@ void TulisDaftarBangunan(TabBangunan B, ListBangunan L);
 
 void UpdateBangunan(TabBangunan* TAll, int id, Bangunan B);
 
+void FilterListTanpa(ListBangunan* L, boolean (*f)(Bangunan));
+
+void ResetListBangunan();
+
 #endif

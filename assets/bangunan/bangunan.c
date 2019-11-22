@@ -1,7 +1,5 @@
 #include "bangunan.h"
 
-boolean ShieldActive, CritHitActive;
-
 Point MakePoint(int X, int Y)
 /* Membentuk sebuah Point dari komponen-komponennya */
 {
@@ -101,23 +99,18 @@ void levelup(Bangunan *B)
     }
 }
 
-boolean attack(Bangunan *BAtt, Bangunan *BDef, int jumlah_penyerang)
+void attack(Bangunan *BAtt, Bangunan *BDef, int jumlah_penyerang)
 /* Menghitung perubahan jumlah pasukan saat terjadi penyerangan oleh BAtt kepada BDef */
 /* return apakah berhasil attack/tidak (walaupun gagal merebut bangunan ttp dikatakan berhasil menyerang) */\
 {
-    // sudah menyerang di turn ini
-    if((*BAtt).sudahserang){
-        printf("Bangunan sudah digunakan untuk menyerang pada turn ini! Silakan gunakan bangunan lain!");
-        return false;
-    }
-
-    // belum menyerang di turn ini
     (*BAtt).sudahserang = true;
     Pasukan(*BAtt) -= jumlah_penyerang;
     printf("Bangunan pertahanan memiliki %d pasukan\n", Pasukan(*BDef));
     printf("Melakukan penyerangan dengan jumlah pasukan %d pasukan\n\n", jumlah_penyerang);
-    if(CritHitActive){
-        printf("Kamu punya skill critical hit aktif! Damage pasukanmu menjadi 2x lipat!\n");
+
+    if(CurPlayer().CritHitActive){
+        CurPlayer().CritHitActive = false;
+        printf("Kamu punya skill critical hit dan/atau critical hit aktif! Damage pasukanmu menjadi 2x lipat!\n");
         if(2*jumlah_penyerang >= Pasukan(*BDef)){
             BangunanOwner(*BDef) = BangunanOwner(*BAtt);
             Pasukan(*BDef) = jumlah_penyerang-((Pasukan(*BDef)-1)/2)+1;
@@ -129,7 +122,7 @@ boolean attack(Bangunan *BAtt, Bangunan *BDef, int jumlah_penyerang)
             printf("Pasukan yang masih tersisa di bangunan lawan berjumlah %d orang", Pasukan(*BDef)); ENDL;
         }
     } else {
-        if(ShieldActive || Pertahanan(*BDef)){
+        if((!CurPlayer().AttUpActive) && (OtherPlayer().ShieldActive || Pertahanan(*BDef))){
             /* Bangunan memiliki pertahanan */
             printf("Bangunan musuh memiliki pertahanan! Damage pasukanmu hanya efektif 75%% saja!"); ENDL;
             if((3*jumlah_penyerang/4) >= Pasukan(*BDef)){
@@ -161,7 +154,6 @@ boolean attack(Bangunan *BAtt, Bangunan *BDef, int jumlah_penyerang)
             }
         }
     }
-    return true;
 }
 
 void move(Bangunan *BAwal, Bangunan *BAkhir, int jumlah_pasukan_pindah)

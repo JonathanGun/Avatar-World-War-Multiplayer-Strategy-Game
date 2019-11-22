@@ -16,12 +16,6 @@ void InitPlayer()
     InsertList(&Player(2).list_bangunan, 2);
 }
 
-void InitMap()
-/* */
-{
-    IsiPeta();
-}
-
 void InitTurn()
 /* */
 {
@@ -46,7 +40,7 @@ void InitGame()
     if(DEBUG) printf("Berhasil load file config\n");
 
     // init map
-    InitMap();
+    InitPeta();
     if(DEBUG) printf("Berhasil inisialisasi map\n");
 
     // init save

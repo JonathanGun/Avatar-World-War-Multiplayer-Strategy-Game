@@ -30,7 +30,7 @@ boolean IsLvlUpValid(Bangunan B);
 /* Mengecek apakah bangunan valid untuk di level up, syarat level up adalah jumlah pasukan >= M/2 */
 void levelup(Bangunan *B);
 /* Menaikkan level dari Bangunan Pemain */
-boolean attack(Bangunan *BAtt, Bangunan *BDef, int jumlah_penyerang);
+void attack(Bangunan *BAtt, Bangunan *BDef, int jumlah_penyerang);
 /* Menghitung perubahan jumlah pasukan saat terjadi penyerangan oleh BAtt kepada BDef */
 void move(Bangunan *BAwal, Bangunan *BAkhir, int jumlah_pasukan_pindah);
 /* Menghitung perubahan jumlah pasukan saat terjadi perpindahan pasukan (Command : MOVE) */

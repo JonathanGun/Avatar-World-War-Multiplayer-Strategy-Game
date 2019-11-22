@@ -144,3 +144,32 @@ void GetBangunanByID(TabBangunan TAll, int id, Bangunan* B) {
 void UpdateBangunan(TabBangunan* TAll, int id, Bangunan B){
     CopyBangunan(B, &ElmtTB(*TAll, id));
 }
+
+void FilterListTanpa(ListBangunan* L, boolean (*f)(Bangunan)){
+    while((*f)(ElmtTB(G.ListBangunan, Info(First(*L))))){
+        First(*L) = Next(First(*L));
+        if(First(*L) == Nil) break;
+    }
+    address P = First(*L);
+    if(P == Nil) return;
+    while(Next(P) != Nil) {
+        if((*f)(ElmtTB(G.ListBangunan, Info(Next(P))))){
+            if(Next(Next(P)) = Nil) Next(P) = Nil;
+            else Next(P) = Next(Next(P));
+        }
+        if(Next(P) != Nil) P = Next(P);
+    }
+    if((*f)(ElmtTB(G.ListBangunan, Info(P)))){
+        P = Nil;
+        First(*L) = Nil;
+    }
+}
+
+void ResetListBangunan(){
+    address P = First(CurPlayer().list_bangunan);
+    while(P != Nil){
+        ElmtTB(G.ListBangunan, Info(P)).sudahserang = false;
+        ElmtTB(G.ListBangunan, Info(P)).sudahpindah = false;
+        P = Next(P);
+    }
+}
