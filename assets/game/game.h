@@ -8,17 +8,7 @@
 #include "../bangunan/arraydin_bangunan.h"
 #include "../game/game_stackt.h"
 #include "../util/config_reader.h"
-#include "../save/save.h"
-
-// GameCondition yang digunakan adalah yang berada di Top
-// setiap melakukan aksi lakukan Push pada stackt
-// saat melakukan UNDO lakukan Pop pada stackt 
-
-#define Player(n) InfoTopStackt(G.GameConditions).Players[n-1]
-#define CurTurn() InfoTopStackt(G.GameConditions).turn
-#define OtherTurn() ((InfoTopStackt(G.GameConditions).turn)%2)+1
-#define CurPlayer() Player(CurTurn())
-#define OtherPlayer() Player(OtherTurn())
+#include "game_command.h"
 
 void InitGame();
 // Membaca file config dan menginisialisasi attribut pada Game G
@@ -28,12 +18,10 @@ void InitGame();
 
 void InitPlayer();
 
-void InitMap();
-
 void InitTurn();
 
-// void SaveGame();
-// void LoadGame(GameCondition Gc);
+void SaveGame();
+void LoadGame();
 // Load permainan yang telah disimpan
 // I.S : Sembarang
 // F.s : G.GameCondition = Gc
@@ -42,6 +30,7 @@ void LoadFromFile(Kata filename);
 
 void StartGame();
 // Memulai permainan
+void ExitGame();
 
 boolean IsGameEnded();
 boolean IsPlayerLose(int player);

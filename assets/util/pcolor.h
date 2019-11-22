@@ -13,26 +13,36 @@ xxx() will set next char be printed with xxx color.
 **/
 
 #define NORMAL "\x1B[0m"
-#define RED "\x1B[31m"
-#define GREEN "\x1B[32m"
-#define YELLOW "\x1B[33m"
-#define BLUE "\x1B[34m"
-#define MAGENTA "\x1B[35m"
-#define CYAN "\x1B[36m"
+#define RED "\x1B[0;31m"
+#define GREEN "\x1B[0;32m"
+#define ORANGE "\x1B[0;33m"
+#define BLUE "\x1B[0;34m"
+#define PURPLE "\x1B[0;35m"
+#define CYAN "\x1B[0;36m"
+#define LIGHT_GRAY "\x1B[0;37m"
+#define PINK "\x1B[1;31m"
+#define LIGHT_GREEN "\x1B[1;32m"
+#define YELLOW "\x1B[1;33m"
+#define LIGHT_BLUE "\x1B[1;34m"
+#define LIGHT_PURPLE "\x1B[1;35m"
+#define LIGHT_CYAN "\x1B[1;36m"
+#define DARK_GRAY "\x1B[1;37m"
 #include <stdio.h>
 
-void print_red(char c);
 void red();
-void print_green(char c);
 void green();
-void print_yellow(char c);
-void yellow();
-void print_blue(char c);
+void orange();
 void blue();
-void print_magenta(char c);
-void magenta();
-void print_cyan(char c);
+void purple();
 void cyan();
+void light_gray();
+void pink();
+void light_green();
+void yellow();
+void light_blue();
+void light_purple();
+void light_cyan();
+void dark_gray();
 void normal();
 
 #endif

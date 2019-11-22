@@ -3,9 +3,10 @@
 
 #include "../util/util.h"
 #include "../bangunan/list_bangunan.h"
+#include "../bangunan/arraydin_bangunan.h"
 #include "queue.h"
 
-void useIU(int player);
+void useIU();
 /* Menggunakan Skill IU, Seluruh bangunan yang dimiliki pemain akan naik 1 level.*/
 
 void useShield();

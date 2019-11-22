@@ -47,15 +47,26 @@ void DeAlokasi(Queue * Q)
 }
 
 /* *** Primitif Add/Delete *** */
-void Add (Queue * Q, int X)
+boolean Add (Queue * Q, int X)
 /* Proses: Menambahkan X pada Q dengan aturan FIFO */
 /* I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh */
 /* F.S. X menjadi TAIL yang baru, TAIL "maju" dengan mekanisme circular buffer */
 {
-	if (IsEmptyQueue(*Q)) Head(*Q)=1;
-	if(Tail(*Q) == QueueMaxEl(*Q)) Tail(*Q) = 1;
-	else Tail(*Q)++;
-	InfoTail(*Q)=X;
+	if (IsEmptyQueue(*Q)){
+		Head(*Q)=1;
+		Tail(*Q)++;
+		InfoTail(*Q)=X;
+	}else{
+		if(!IsFullQueue(*Q)){
+			if(Tail(*Q) == QueueMaxEl(*Q)) Tail(*Q) = 1;
+			else Tail(*Q)++;
+			InfoTail(*Q)=X;
+			return true;
+		}else{
+			printf("Kapasitas Skill sudah mencapai maksimum tidak dapat bertambah lagi !");ENDL;
+			return false;
+		}
+	}
 }
 
 void Del (Queue * Q, int * X)
@@ -73,6 +84,7 @@ void Del (Queue * Q, int * X)
 		else Head(*Q)++;
 	}
 }
+
 
 void CopyQueue(Queue Q, Queue * Qo) {
 	*Qo = Q;

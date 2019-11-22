@@ -4,7 +4,8 @@
 #include "../util/util.h"
 #include "../bangunan/bangunan.h"
 #include "../bangunan/arraydin_bangunan.h"
-
+#include "../bangunan/list_bangunan.h"
+#include "../graph/graph.h"
 
 /* Selektor */
 #define Mem(T) (T).Mem
@@ -23,7 +24,7 @@ void MakePeta(int NB, int NK);
 
 void CopyPeta(Peta P1, Peta *P2);
 
-void IsiPeta();
+void InitPeta();
 
 /* ********** KELOMPOK BACA/TULIS ********** */
 void TulisPeta();
@@ -38,5 +39,9 @@ void TulisPeta();
 *  C*
 *****
 */
+
+void GetBangunanTerhubungPlayer(ListBangunan* L, int player);
+
+void PrintOneTile(int i, int j, ListBangunan* Neighbor1, ListBangunan* Neighbor2);
 
 #endif

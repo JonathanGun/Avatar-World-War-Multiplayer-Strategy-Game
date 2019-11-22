@@ -19,15 +19,11 @@ void DealokBang(TabBangunan *T)
     NeffTB(*T) = 0;
 }
 
-void AddBangunan(Bangunan B, TabBangunan *TB)
+void AddBangunan(Bangunan B)
 /* Memasukan bangunan B sebagai bangunan terakhir di TB */
 {
-    if(NeffTB(*TB) != MaxElTB(*TB)){
-        ElmtTB(*TB,(NeffTB(*TB)+1)) = B;
-        NeffTB(*TB)++;
-    } else{
-        printf("Array bangunan sudah penuh\n");
-    }
+    NeffTB(InfoTopStackt(G.GameConditions).ListBangunan)++;
+    ElmtTB((NeffTB(InfoTopStackt(G.GameConditions).ListBangunan))) = B;
 }
 
 /* ********** SELEKTOR (TAMBAHAN) ********** */
@@ -40,107 +36,114 @@ int NbBangunan(TabBangunan T)
     return NeffTB(T);
 }
 
-int NbOwned(TabBangunan T, int Player)
-/* Mengirimkan bangunan milik player(1 atau 2) ada berapa dari tab bangunan */
-{
-    int i = 1;
-    int count = 0;
-    while(i <= NeffTB(T)){
-        if(BangunanOwner(ElmtTB(T,i)) == Player){
-            count++;
-        }
-        i++;
-    }
-    return count;
-}
-
-void SplitBangunan(TabBangunan TAll, ListBangunan *L1, ListBangunan *L2)
+void SplitBangunan(ListBangunan *L1, ListBangunan *L2)
 /* Akan memisahkan setiap bangunan di TabBangunan TAll bila */
 /* ownernya 1 ke p1, kalo ownernya 2 ke p2 */
 {
     int i = 1;
-    while(i <= TAll.NeffTB){
-        if(BangunanOwner(ElmtTB(TAll,i)) == 1){
+    while(i <= InfoTopStackt(G.GameConditions).ListBangunan.NeffTB){
+        if(BangunanOwner(ElmtTB(i)) == 1){
             InsertList(L1,i);
-        } else if(BangunanOwner(ElmtTB(TAll,i)) == 2){
+        } else if(BangunanOwner(ElmtTB(i)) == 2){
             InsertList(L2,i);
         }
     }
 }
 
-void AttBangunanIdx(TabBangunan *TAll, int T1, int T2, int jml_Penyerang)
-/* I.S. Semua argumentasi dianggap valid */
-/* F.S. Bangunan T1 menyerang bangunan T2 */
-{
-    attack(&(ElmtTB(*TAll,T1)),&ElmtTB(*TAll,T2),jml_Penyerang);
-}
-
 /*************** ALGORITMA SEARCHING ****************/
-Point GetPosFrom(TabBangunan TAll, int idx)
+Point GetPosFrom(int idx)
 /* I.S. idx terdefinisi di TAll, bangunan TAll.TB[i] terdefinisi */
 /* Mengambil posisi dari suatu indeks bangunan */
 {
-    return ElmtTB(TAll,idx).posisi;
+    return ElmtTB(idx).posisi;
 }
 
-int GetIdxFromPosBangunan(TabBangunan TAll, int Baris, int Kolom )
+int GetIdxFromPosBangunan(int Baris, int Kolom)
 /* Pencarian indeks bangunan */
 {
     boolean found = false;
     int i = 1;
-    while(!found && i<= NeffTB(TAll)){
-        if(Row(ElmtTB(TAll,i).posisi) == Baris && Col(ElmtTB(TAll,i).posisi) == Kolom){
+    while(!found && i<= NeffTB(InfoTopStackt(G.GameConditions).ListBangunan)){
+        if(Row(ElmtTB(i).posisi) == Baris && Col(ElmtTB(i).posisi) == Kolom){
             found = true;
         }
     }
-    if(i <= NeffTB(TAll)){
+    if(i <= NeffTB(InfoTopStackt(G.GameConditions).ListBangunan)){
         return i;
     } else {
         return -1; //Kalau tidak ada bangunan di baris atau kolom tsb, dikembalikan nilai -1
     }
 }
 
-void CopyTabBangunan(TabBangunan Tin, TabBangunan *Tout){
-    CreateEmptyTabBangunan(Tout, NbBangunan(Tin));
-    NeffTB(*Tout) = NbBangunan(Tin);
-    for(int i = 1; i <= NbBangunan(Tin); ++i){
-        ElmtTB(*Tout,i) = ElmtTB(Tin,i);
-    }
-}
-
-void TulisIsiTabBangunan(TabBangunan TAll){
+void TulisIsiTabBangunan(){
     printf("[");
-    for(int i = 1; i <= NbBangunan(TAll); ++i){
-        TulisBangunan(ElmtTB(TAll, i));
-        if (i != NbBangunan(TAll)) printf(",");
+    for(int i = 1; i <= NbBangunan(InfoTopStackt(G.GameConditions).ListBangunan); ++i){
+        TulisBangunan(ElmtTB(i));
+        if (i != NbBangunan(InfoTopStackt(G.GameConditions).ListBangunan)) printf(",");
     }
     printf("]");
 }
 
+void TulisIsiTabBangunan2() {
+    int i;
+    for ( i = 1; i <= NbBangunan(InfoTopStackt(G.GameConditions).ListBangunan); i++ ) {
+        printf("id %d\n", i);
+        printf("level %d\n", ElmtTB(i).level);
+        printf("pasukan %d\n", ElmtTB(i).jumlah_pasukan);
+        printf("maks %d\n", ElmtTB(i).maksimum_tambah_pasukan);
+        printf("tambah %d\n",ElmtTB(i).nilai_tambah_pasukan);
+        printf("owner %d\n", ElmtTB(i).owner);
+        printf("pertahanan %d\n", ElmtTB(i).pertahanan);
+        printf("sudahpidah %s\n", ElmtTB(i).sudahpindah ? "Ya" : "Tidak");
+        printf("sudahserang %s\n", ElmtTB(i).sudahserang ? "Ya" : "Tidak");
+        getchar();
+    } 
+}
 
-void TulisDaftarBangunan(TabBangunan B, ListBangunan L) {
+void TulisDaftarBangunan(ListBangunan L) {
     int i = 1;
     address P = First(L);
-    while ( P != NULL ) {
+    while(P != Nil) {
         printf("%d. ", i);
-        if (Type(ElmtTB(B, Info(P))) == 'C') printf("Castle ");
-        else if (Type(ElmtTB(B, Info(P))) == 'T') printf("Tower ");
-        else if (Type(ElmtTB(B, Info(P))) == 'F') printf("Fort ");
-        else if (Type(ElmtTB(B, Info(P))) == 'V') printf("Village ");
+        if (Type(ElmtTB(Info(P))) == 'C') printf("Castle ");
+        else if (Type(ElmtTB(Info(P))) == 'T') printf("Tower ");
+        else if (Type(ElmtTB(Info(P))) == 'F') printf("Fort ");
+        else if (Type(ElmtTB(Info(P))) == 'V') printf("Village ");
 
-        printf("(%d,%d) ", ElmtTB(B, Info(P)).posisi.r, ElmtTB(B, Info(P)).posisi.c);
-        printf("%d ", ElmtTB(B, Info(P)).jumlah_pasukan);
-        printf("lv. %d\n", ElmtTB(B, Info(P)).level);
+        printf("(%d,%d) ", ElmtTB(Info(P)).posisi.r, ElmtTB(Info(P)).posisi.c);
+        printf("%d ", ElmtTB(Info(P)).jumlah_pasukan);
+        printf("lv. %d\n", ElmtTB(Info(P)).level);
 
         P = Next(P);
         i++;
     }
 }
 
-void GetBangunanByID(TabBangunan TAll, int id, Bangunan* B) {
-    *B = ElmtTB(TAll, id);
+void FilterListTanpa(ListBangunan* L, boolean (*f)(Bangunan)){
+    while((*f)(ElmtTB(Info(First(*L))))){
+        First(*L) = Next(First(*L));
+        if(First(*L) == Nil) break;
+    }
+    address P = First(*L);
+    if(P == Nil) return;
+    while(Next(P) != Nil) {
+        if((*f)(ElmtTB(Info(Next(P))))){
+            if(Next(Next(P)) = Nil) Next(P) = Nil;
+            else Next(P) = Next(Next(P));
+        }
+        if(Next(P) != Nil) P = Next(P);
+    }
+    if((*f)(ElmtTB(Info(P)))){
+        P = Nil;
+        First(*L) = Nil;
+    }
 }
 
-void UpdateBangunan(TabBangunan* TAll, int id, Bangunan B){
-    CopyBangunan(B, &ElmtTB(*TAll, id));
+void ResetListBangunan(){
+    address P = First(CurPlayer().list_bangunan);
+    while(P != Nil){
+        ElmtTB(Info(P)).sudahserang = false;
+        ElmtTB(Info(P)).sudahpindah = false;
+        P = Next(P);
+    }
 }

@@ -3,7 +3,8 @@
 
 #include "../util/util.h"
 #include "../util/data_bangunan.h"
-
+#include "list_bangunan.h"
+#include "arraydin_bangunan.h"
 
 #define Row(P) (P).r
 #define Col(P) (P).c
@@ -28,17 +29,18 @@ boolean IsBangunanEmpty(Bangunan B);
 /* Mengecek apakah bangunan adalah bangunan kosong */
 boolean IsLvlUpValid(Bangunan B);
 /* Mengecek apakah bangunan valid untuk di level up, syarat level up adalah jumlah pasukan >= M/2 */
-void levelup(Bangunan *B);
+void levelup(int idB);
 /* Menaikkan level dari Bangunan Pemain */
-boolean attack(Bangunan *BAtt, Bangunan *BDef, int jumlah_penyerang);
+void attack(int idBAtt, int idBDef, int jumlah_penyerang);
 /* Menghitung perubahan jumlah pasukan saat terjadi penyerangan oleh BAtt kepada BDef */
-void move(Bangunan *BAwal, Bangunan *BAkhir, int jumlah_pasukan_pindah);
+void move(int idBAwal, int idBAkhir, int jumlah_pasukan_pindah);
 /* Menghitung perubahan jumlah pasukan saat terjadi perpindahan pasukan (Command : MOVE) */
-void add_pasukan(Bangunan *B);
+void add_pasukan();
 /* Menghitung perubahan jumlah pasukan saat awal turn */
 void TulisBangunan(Bangunan B);
 /* */
 void printTypeBangunan(Bangunan B);
 /* Mengeprint Type sebuah bangunan */
+void TakeOwnership(Bangunan* B);
 
 #endif

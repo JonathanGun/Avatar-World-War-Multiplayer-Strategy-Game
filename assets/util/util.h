@@ -22,7 +22,9 @@
 #define forii(i,s,e)  for(int i = s; i < e; i++)
 
 #define Nil NULL
-#define DEBUG true
+#ifndef DEBUG
+#define DEBUG false
+#endif
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -17,8 +17,6 @@
    /* S.TOP adalah alamat elemen TOP */
 
 /* Definisi akses dengan Selektor : Set dan Get */
-#define TopStackt(S) (S).TOP
-#define InfoTopStackt(S) (S).T[(S).TOP]
 
 /* ************ Prototype ************ */
 /* *** Konstruktor/Kreator *** */
@@ -35,17 +33,19 @@ boolean IsFullStackt (GameStack S);
 /* Mengirim true jika tabel penampung nilai elemen stack penuh */
 
 /* ************ Menambahkan sebuah elemen ke Stack ************ */
-void PushStackt (GameStack * S, GameCondition X);
+void PushStackt (GameStack * S);
 /* Menambahkan X sebagai elemen Stack S. */
 /* I.S. S mungkin kosong, tabel penampung elemen stack TIDAK penuh */
 /* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
 
 /* ************ Menghapus sebuah elemen Stack ************ */
-void PopStackt (GameStack * S, GameCondition* X);
+void PopStackt (GameStack * S);
 /* Menghapus X dari Stack S. */
 /* I.S. S  tidak mungkin kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
 
 void ResetStackt(GameStack *S);
+
+void TulisStacktTop(GameStack S);
 
 #endif
