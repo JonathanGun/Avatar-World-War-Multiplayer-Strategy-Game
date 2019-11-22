@@ -6,6 +6,9 @@
 #define PetaKolMin 1
 #define PetaKolMax 30
 
+boolean IUActive;
+boolean ExtraTurnActive;
+
 typedef struct {
     int Mem[PetaBrsMax+1][PetaKolMax+1];
     int NPetaBrsEff; /* banyaknya/ukuran baris yg terdefinisi */
@@ -63,6 +66,9 @@ typedef struct {
 typedef struct {
 	Queue Skill; /* Skill yang dimiliki player */
 	ListBangunan list_bangunan;
+	boolean ShieldActive;
+	boolean CritHitActive;
+	boolean AttUpActive;
 } Player;
 typedef struct {
     Player Players[2]; // Array of player, menyimpan data player1 dan player2

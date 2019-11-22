@@ -1,30 +1,43 @@
 #include "skill.h"
 
-void useIU(int player)
+void useIU()
 /* Menggunakan Skill IU, Seluruh bangunan yang dimiliki pemain akan naik 1 level.*/
 {
     // traverse semua bangunan, if milik == player, level up
+    Bangunan B;
+    int idB;
+    int CountBangunan = CountList(CurPlayer().list_bangunan);
+    IUActive = true;
+    for (int i = 1; i <= CountBangunan ; i++){
+        idB = ListElmt(CurPlayer().list_bangunan, i);
+        GetBangunanByID(G.ListBangunan, idB, &B);
+        levelup(&B);
+        UpdateBangunan(&G.ListBangunan, idB, B);
+    }
+    IUActive = false;
 }
 
 void useShield()
 /* Menggunakan Skill Shield, Seluruh bangunan yang dimiliki oleh pemain akan memiliki pertahanan selama 2
    turn lawan.*/
 {
-
+    CurPlayer().ShieldActive = 2;
 }
 
 void useExtraTurn()
 /* Menggunakan Skill ExtraTurn, Setelah giliran pengaktifan skill ini berakhir, pemain selanjutnya tetap pemain
    yang sama.*/
 {
-
+    ExtraTurnActive= true;
+    printf("Player ");  print(CurTurn()); 
+    printf(" memiliki turn tambahan ..."); ENDL;
 }
 
 void useAttackUp()
 /* Menggunakan Skill Attack Up, Pada giliran ini, setelah skill ini diaktifkan, 
    pertahanan bangunan musuh(termasuk Shield) tidak akan mempengaruhi penyerangan.*/
 {
-
+    CurPlayer().AttUpActive = true;
 }
 
 void useCriticalHit()
@@ -33,20 +46,39 @@ void useCriticalHit()
    hanya efektif sebanyak 2 kali lipat pasukan. Skill ini akan menonaktifkan Shield 
    maupun pertahanan bangunan, seperti Attack Up.*/
 {
-
+    CurPlayer().CritHitActive = true;
 }
 
 void useInstantReinforcement()
 /* Menggunakan Skill Instant Reinforcement, Seluruh bangunan mendapatkan tambahan 5 pasukan.*/
 {
-
+    Bangunan B;
+    int idB;
+    int CountBangunan = CountList(CurPlayer().list_bangunan);
+    for (int i = 1; i <= CountBangunan ; i++){
+        idB = ListElmt(CurPlayer().list_bangunan, i);
+        GetBangunanByID(G.ListBangunan, idB, &B);
+        Pasukan(B) += 5;
+        UpdateBangunan(&G.ListBangunan, idB, B);
+    }
+    printf("Seluruh pasukan di setiap bangunan bertambah 5..."); ENDL;
 }
 
 void useBarrage()
 /* Menggunakan Skill Barrage, Jumlah pasukan pada seluruh bangunan musuh akan berkurang sebanyak 10
    pasukan.*/
 {
-
+    Bangunan B;
+    int idB;
+    int CountBangunan = CountList(OtherPlayer().list_bangunan);
+    for (int i = 1; i <= CountBangunan ; i++){
+        idB = ListElmt(OtherPlayer().list_bangunan, i);
+        GetBangunanByID(G.ListBangunan, idB, &B);
+        Pasukan(B) -= 10;
+        if(Pasukan(B) < 0) Pasukan(B) = 0;
+        UpdateBangunan(&G.ListBangunan, idB, B);
+    }
+    printf("Semua bangunan musuh berkurang 10 pasukan ..."); ENDL;
 }
 
 
@@ -56,6 +88,9 @@ void startSkill(Queue* Skill)
 {
     CreateEmptyQueue(Skill, 10);// Maksimal 10 skill
     Add(Skill,1); //1 sebagai IU(instant Upgrade)
+    Add(Skill,3);
+    Add(Skill,6);
+    Add(Skill,7);
 }
 
 void useSkill(Queue* Skill)
@@ -64,7 +99,7 @@ void useSkill(Queue* Skill)
     int x;
     Del(Skill, &x);
     if(x == 1){         //Using IU
-        useIU(SkillOwner(*Skill));
+        useIU();
     }
     else if (x ==2){    //Using Shield
         useShield();

@@ -70,7 +70,9 @@ void levelup(Bangunan *B)
 /* Menaikkan level dari Bangunan Pemain */
 {
     if(Level(*B) < 4){
-        Pasukan(*B) -= (MatElmt(AttCastle,Level(*B),2)/2);
+        if(IUActive == false){
+            Pasukan(*B) -= (MaxPasukan(*B)/2);
+        }
         Level(*B) += 1;
         // "A" : 1, "M" : 2, "P" : 3
         if(Type(*B) == 'C'){
@@ -94,8 +96,13 @@ void levelup(Bangunan *B)
             Pertahanan(*B) = MatElmt(AttVillage, Level(*B), 3);
             if(Level(*B) == 1) Pasukan(*B) = MatElmt(AttVillage, Level(*B), 4);
         }
+        printf("Level ");printTypeBangunan(*B);
+        printf(" (%d,%d) ", (*B).posisi.r, (*B).posisi.c); 
+        printf("meningkat menjadi %d !\n", Level(*B));
     } else{
-        printf("Level Bangunan sudah Maksimum, tidak dapat melakukan level up lagi\n");
+        printf("Level ");printTypeBangunan(*B);
+        printf(" (%d,%d) ", (*B).posisi.r, (*B).posisi.c);  
+        printf("sudah Maksimum, tidak dapat melakukan level up lagi !\n");
     }
 }
 
