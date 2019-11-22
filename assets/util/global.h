@@ -79,6 +79,18 @@ typedef struct {
     Graph Relasi;
     GameStack GameConditions; // Stackt of GameCondition, menyimpan kondisi dari setiap aksi dilakukan (dikosongkan setelah endturn)
 } Game;
+// GameCondition yang digunakan adalah yang berada di Top
+// setiap melakukan aksi lakukan Push pada stackt
+// saat melakukan UNDO lakukan Pop pada stackt 
+
+#define TopStackt(S) (S).TOP
+#define InfoTopStackt(S) (S).T[(S).TOP]
+
+#define Player(n) InfoTopStackt(G.GameConditions).Players[(n)-1]
+#define CurTurn() InfoTopStackt(G.GameConditions).turn
+#define OtherTurn() ((InfoTopStackt(G.GameConditions).turn)%2)+1
+#define CurPlayer() Player(CurTurn())
+#define OtherPlayer() Player(OtherTurn())
 
 extern Game G;
 

@@ -40,7 +40,7 @@ void DeAlokasiList (address *P)
 }
 
 /****************** PENCARIAN SEBUAH ELEMEN LIST ******************/
-address Search (ListBangunan L, int X)
+address SearchList(ListBangunan L, int X)
 /* Mencari apakah ada elemen list dengan Info(P)= X */
 /* Jika ada, mengirimkan address elemen tersebut. */
 /* Jika tidak ada, mengirimkan NULL */
@@ -166,7 +166,7 @@ void DelList (ListBangunan *L, int X)
 {
     address P;
     boolean found = false;
-    P = Search(*L,X);
+    P = SearchList(*L,X);
     if(P!=NULL){//nyari idx prec
         address prec = First(*L);
         if(prec == P){
@@ -263,10 +263,10 @@ int ListElmt(ListBangunan L, int n){
 
 void UpdateList(ListBangunan* L, Bangunan B, int milik){
     // kalau bukan pny dia tapi ada di list, hapus bangunannya
-    if(B.owner != milik && Search(*L, B.id) != NULL){
+    if(B.owner != milik && SearchList(*L, B.id) != NULL){
         DelList(L, B.id);
     } // kalau punya dia tapi tidak ada di list, tambah bangunannya
-    else if(B.owner == milik && Search(*L, B.id) == NULL){
+    else if(B.owner == milik && SearchList(*L, B.id) == NULL){
         InsertList(L, B.id);
     }
 }

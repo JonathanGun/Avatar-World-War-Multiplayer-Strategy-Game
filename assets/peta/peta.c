@@ -40,6 +40,14 @@ void TulisPeta()
 *****
 */
 {
+	ListBangunan Neighbor1, Neighbor2;
+	GetBangunanTerhubungPlayer(&Neighbor1, 1);
+	GetBangunanTerhubungPlayer(&Neighbor2, 2);
+
+	fori(i, 4*NPetaKolEff(G.map)+7) printf(" "); ENDL;
+
+	// num top
+	yellow();
 	printf("    ");
 	fori(i, NPetaKolEff(G.map)) {
 		printf(" ");
@@ -48,38 +56,38 @@ void TulisPeta()
 		if((i+1)/10 == 0) printf(" ");
 	}
 	ENDL;
+	normal();
+
 	//top
-	printf("   ╔");
+	light_green();
+	printf("    ╔");
 	fori(i, 4*NPetaKolEff(G.map)-1) (i%4 == 3)?printf("╤"):printf("═");
 	printf("╗"); ENDL;
+	normal();
 
 	// mid
 	fori(i, NPetaBrsEff(G.map)){
 		// num left
-		printf(" "); print(i+1);
+		yellow();
+		printf(" ");
 		if((i+1)/10 == 0) printf(" ");
-		printf("║");
+		print(i+1);
+		normal();
 
 		// cell (1 row)
+		light_green();
+		printf(" ║");
+		normal();
 		fori(j, NPetaKolEff((G.map))){
-			printf(" ");
-			if(PetaElmt(G.map, i, j) == 0)
-				printf(" ");
-			else{
-				Bangunan cur;
-				GetBangunanByID(G.ListBangunan, PetaElmt(G.map, i, j), &cur);
-				if(cur.owner == 1)
-					print_red(cur.type);
-				else if(cur.owner == 2)
-					print_blue(cur.type);
-				else
-					printf("%c", cur.type);
-			}
+			PrintOneTile(i, j, &Neighbor1, &Neighbor2);
+			light_green();
 			(j == NPetaKolEff(G.map)-1)?printf(" ║"):printf(" │");
+			normal();
 		} ENDL;
 
 		// border between cells
-		printf("   ");
+		light_green();
+		printf("    ");
 		(i == NPetaBrsEff(G.map)-1)? printf("╚"): printf("╟");
 		if(i == NPetaBrsEff(G.map)-1){
 			fori(j, 4*NPetaKolEff(G.map)-1) (j%4==3)? printf("╧"):printf("═");
@@ -89,5 +97,48 @@ void TulisPeta()
 		(i == NPetaBrsEff(G.map)-1)? printf("╝"): printf("╢");
 		printf("   ");
 		ENDL;
+		normal();
 	}
+	ENDL;
+}
+
+void GetBangunanTerhubungPlayer(ListBangunan* L, int player){
+	CreateEmptyList(L);
+	address P = First(Player(player).list_bangunan);
+    while(P != Nil){
+    	ListBangunan LB;
+    	GetBangunanTerhubung(G.Relasi, Info(P), &LB);
+    	address Pn = First(LB);
+    	while(Pn != Nil){
+    		if(SearchList(*L, Info(Pn)) == Nil)
+    			InsertList(L, Info(Pn));
+    		Pn = Next(Pn);
+    	}
+        P = Next(P);
+    }
+}
+
+void PrintOneTile(int i, int j, ListBangunan* Neighbor1, ListBangunan* Neighbor2){
+	if(PetaElmt(G.map, i, j) == 0){
+		printf("  ");
+		return;
+	}
+	Bangunan cur;
+	GetBangunanByID(G.ListBangunan, PetaElmt(G.map, i, j), &cur);
+	if(cur.owner == 1)
+		red();
+	else if(cur.owner == 2)
+		light_blue();
+	else if(CurTurn() == 1){
+		if(SearchList(*Neighbor1, PetaElmt(G.map, i, j)))
+			orange();
+		else if(SearchList(*Neighbor2, PetaElmt(G.map, i, j)))
+			light_cyan();
+		else
+			normal();
+	} else {
+
+	}
+	printf(" %c", cur.type);
+	normal();
 }
