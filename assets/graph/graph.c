@@ -47,10 +47,7 @@ adrNode SearchNode(Graph G, int X){
 //$ Mencari node dengan id X dalam graph G
     boolean found = false;
     adrNode A = First(G);
-    while(A != Nil && !found){
-        if(IdGraph(A) == X){
-            found = true;
-        }
+    while(A != Nil && IdGraph(A) != X){
         A = NextGraph(A);
     }
     if(A != Nil){
@@ -89,10 +86,15 @@ void AddLastTrail(Graph *GR, int idB, int Trail){
     adrNode PTrail = SearchNode(*GR,Trail);
     adrSucc Pn = AlokSucc(PTrail);
     adrSucc PT = Trail(P);
-    while(PT != Nil){
-        PT = NextSucc(PT);
+    if(PT != Nil){
+        while(NextSucc(PT) != Nil){
+            PT = NextSucc(PT);
+        }
+        NextSucc(PT) = Pn;
     }
-    NextSucc(PT) = Pn;
+    else{
+        Trail(P) = Pn;
+    }
 }
 
 void PrintGraph(Graph GR){
