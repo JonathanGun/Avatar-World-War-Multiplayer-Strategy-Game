@@ -260,13 +260,3 @@ int ListElmt(ListBangunan L, int n){
     }
     return Info(P);
 }
-
-void UpdateList(ListBangunan* L, Bangunan B, int milik){
-    // kalau bukan pny dia tapi ada di list, hapus bangunannya
-    if(B.owner != milik && SearchList(*L, B.id) != NULL){
-        DelList(L, B.id);
-    } // kalau punya dia tapi tidak ada di list, tambah bangunannya
-    else if(B.owner == milik && SearchList(*L, B.id) == NULL){
-        InsertList(L, B.id);
-    }
-}

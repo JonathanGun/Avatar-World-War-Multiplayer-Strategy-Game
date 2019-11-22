@@ -99,7 +99,7 @@ boolean bangunan_sudah_pindah(Bangunan B){
 }
 
 void wait_next_command(){
-    printf("Press ENTER to continue"); getchar();
+    printf("<Press ENTER to continue>"); getchar();
 }
 
 void command_in_game(){
@@ -107,8 +107,8 @@ void command_in_game(){
 
     TulisPeta();
     printf("Player "); print(CurTurn()); ENDL;
-    printf("Daftar bangunan:\n");
-    TulisDaftarBangunan(G.ListBangunan, CurPlayer().list_bangunan);
+    printf("Daftar bangunan:"); ENDL;
+    TulisDaftarBangunan(CurPlayer().list_bangunan);
     TulisSkill(CurPlayer().Skill);
     
     Kata command;
@@ -176,16 +176,15 @@ void command_Attack() {
         printf("Semua bangunan sudah digunakan untuk menyerang. Silakan pilih command lain!"); ENDL;
         return;
     }
-    int idBAtt; Bangunan BAtt; ListBangunan BTerhubung;
+    int idBAtt; ListBangunan BTerhubung;
     do{
-        TulisDaftarBangunan(G.ListBangunan, ListPB);
+        TulisDaftarBangunan(ListPB);
 
         // input bangunan yang ingin digunakan menyerang
         printf("Bangunan yang digunakan untuk menyerang : ");
         idBAtt = InputValidIntBetween(0, CountList(ListPB));
         if(idBAtt == 0) return;
         idBAtt = ListElmt(ListPB, idBAtt);
-        GetBangunanByID(G.ListBangunan, idBAtt, &BAtt);
 
         // print daftar bangunan yang dapat diserang
         GetBangunanTerhubung(G.Relasi, idBAtt, &BTerhubung);
@@ -198,27 +197,18 @@ void command_Attack() {
     } while(CountList(BTerhubung) == 0);
 
     printf("Daftar bangunan yang dapat diserang:\n");
-    TulisDaftarBangunan(G.ListBangunan, BTerhubung);
+    TulisDaftarBangunan(BTerhubung);
 
     // input bangunan yang ingin diserang
     printf("Bangunan yang diserang: ");
     int idBDef = InputValidIntBetween(1, CountList(BTerhubung));
-
-    Bangunan BDef;
     idBDef = ListElmt(BTerhubung, idBDef);
-    GetBangunanByID(G.ListBangunan, idBDef, &BDef);
 
     // input jumlah pasukan yang digunakan menyerang
     printf("Jumlah pasukan: ");
-    int jml_pas = InputValidIntBetween(0, Pasukan(BAtt));
+    int jml_pas = InputValidIntBetween(0, Pasukan(ElmtTB(idBAtt)));
 
-    attack(&BAtt, &BDef, jml_pas);
-    UpdateBangunan(&G.ListBangunan, idBAtt, BAtt);
-    UpdateBangunan(&G.ListBangunan, idBDef, BDef);
-    UpdateList(&CurPlayer().list_bangunan, BAtt, CurTurn());
-    UpdateList(&CurPlayer().list_bangunan, BDef, CurTurn());
-    UpdateList(&OtherPlayer().list_bangunan, BAtt, OtherTurn());
-    UpdateList(&OtherPlayer().list_bangunan, BDef, OtherTurn());
+    attack(idBAtt, idBDef, jml_pas);
 
     // cek jika permainan berakhir
     if (IsGameEnded()) {
@@ -229,28 +219,14 @@ void command_Attack() {
 void command_Level_up() {
     // print daftar bangunan
     printf("Daftar bangunan:\n");
-    TulisDaftarBangunan(G.ListBangunan, CurPlayer().list_bangunan);
+    TulisDaftarBangunan(CurPlayer().list_bangunan);
     
     // input bangunan yang ingin digunakan menyerang
     printf("Bangunan yang akan di level up: ");
     int idBLvlUp = InputValidIntBetween(1, CountList(CurPlayer().list_bangunan));
-
-    Bangunan BLvl;
     idBLvlUp = ListElmt(CurPlayer().list_bangunan, idBLvlUp);
-    GetBangunanByID(G.ListBangunan, idBLvlUp, &BLvl);
 
-    if(Level(BLvl) < 4){
-        if (IsLvlUpValid(BLvl)){
-            levelup(&BLvl);
-            UpdateBangunan(&G.ListBangunan, idBLvlUp, BLvl);
-        }else{
-            printf("Jumlah pasukan "); printTypeBangunan(BLvl);
-            printf(" kurang untuk Level up !"); ENDL;
-        }
-    }else{
-        printf("Level Bangunan sudah Maksimum, tidak dapat melakukan Level up lagi\n");
-    }
-    command_in_game();
+    levelup(idBLvlUp);
 }
 
 void command_Skill() {
@@ -296,14 +272,10 @@ void command_End_turn() {
     ResetStackt(&G.GameConditions);
 
     // AddPasukan awal Turn
-    Bangunan B;
-    int idB;
     int CountBangunan = CountList(CurPlayer().list_bangunan);
     for (int i = 1; i <= CountBangunan ; i++){
-        idB = ListElmt(CurPlayer().list_bangunan, i);
-        GetBangunanByID(G.ListBangunan, idB, &B);
-        add_pasukan(&B);
-        UpdateBangunan(&G.ListBangunan, idB, B);
+        int idB = ListElmt(CurPlayer().list_bangunan, i);
+        add_pasukan(idB);
     }
 
     // Reset sudah serang dan sudah pindah
@@ -326,16 +298,15 @@ void command_Move() {
         printf("Semua bangunan sudah pernah dipindah pasukannya pada turn ini. Silakan pilih command lain!"); ENDL;
         return;
     }
-    int idBMov; Bangunan BMov; ListBangunan BTerhubung;
+    int idBMov; ListBangunan BTerhubung;
     do{
-        TulisDaftarBangunan(G.ListBangunan, ListPB);
+        TulisDaftarBangunan(ListPB);
 
         // input bangunan yang dipilih
         printf("Pilih bangunan : ");
         idBMov = InputValidIntBetween(0, CountList(ListPB));
         if(idBMov == 0) return;
         idBMov = ListElmt(ListPB, idBMov);
-        GetBangunanByID(G.ListBangunan, idBMov, &BMov);
 
         // print daftar bangunan terdekat
         GetBangunanTerhubung(G.Relasi, idBMov, &BTerhubung);
@@ -348,28 +319,18 @@ void command_Move() {
     } while(CountList(BTerhubung) == 0);
 
     printf("Daftar bangunan terdekat:\n");
-    TulisDaftarBangunan(G.ListBangunan, BTerhubung);
+    TulisDaftarBangunan(BTerhubung);
 
     // input bangunan yang dipilih
     printf("Bangunan yang akan menerima : ");
     int idBSucc = InputValidIntBetween(1, CountList(BTerhubung));
-
-    Bangunan BSucc;
     idBSucc = ListElmt(BTerhubung, idBSucc);
-    GetBangunanByID(G.ListBangunan, idBSucc, &BSucc);
 
     // input jumlah pasukan yang dipindahkan
     printf("Jumlah pasukan : ");
-    int jml_pas = InputValidIntBetween(0, Pasukan(BMov));
+    int jml_pas = InputValidIntBetween(0, Pasukan(ElmtTB(idBMov)));
 
-    move(&BMov, &BSucc, jml_pas);
-
-    UpdateBangunan(&G.ListBangunan, idBMov, BMov);
-    UpdateBangunan(&G.ListBangunan, idBSucc, BSucc);
-    UpdateList(&CurPlayer().list_bangunan, BMov, CurTurn());
-    UpdateList(&CurPlayer().list_bangunan, BSucc, CurTurn());
-    UpdateList(&OtherPlayer().list_bangunan, BMov, OtherTurn());
-    UpdateList(&OtherPlayer().list_bangunan, BSucc, OtherTurn());
+    move(idBMov, idBSucc, jml_pas);
 }
 
 void command_Exit(){

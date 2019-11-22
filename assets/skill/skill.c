@@ -4,15 +4,11 @@ void useIU()
 /* Menggunakan Skill IU, Seluruh bangunan yang dimiliki pemain akan naik 1 level.*/
 {
     // traverse semua bangunan, if milik == player, level up
-    Bangunan B;
-    int idB;
     int CountBangunan = CountList(CurPlayer().list_bangunan);
     IUActive = true;
     for (int i = 1; i <= CountBangunan ; i++){
-        idB = ListElmt(CurPlayer().list_bangunan, i);
-        GetBangunanByID(G.ListBangunan, idB, &B);
-        levelup(&B);
-        UpdateBangunan(&G.ListBangunan, idB, B);
+        int idB = ListElmt(CurPlayer().list_bangunan, i);
+        levelup(idB);
     }
     IUActive = false;
 }
@@ -28,7 +24,7 @@ void useExtraTurn()
 /* Menggunakan Skill ExtraTurn, Setelah giliran pengaktifan skill ini berakhir, pemain selanjutnya tetap pemain
    yang sama.*/
 {
-    ExtraTurnActive= true;
+    ExtraTurnActive = true;
     printf("Player ");  print(CurTurn()); 
     printf(" memiliki turn tambahan ..."); ENDL;
 }
@@ -52,14 +48,11 @@ void useCriticalHit()
 void useInstantReinforcement()
 /* Menggunakan Skill Instant Reinforcement, Seluruh bangunan mendapatkan tambahan 5 pasukan.*/
 {
-    Bangunan B;
-    int idB;
     int CountBangunan = CountList(CurPlayer().list_bangunan);
     for (int i = 1; i <= CountBangunan ; i++){
-        idB = ListElmt(CurPlayer().list_bangunan, i);
-        GetBangunanByID(G.ListBangunan, idB, &B);
-        Pasukan(B) += 5;
-        UpdateBangunan(&G.ListBangunan, idB, B);
+        int idB = ListElmt(CurPlayer().list_bangunan, i);
+        Bangunan *B = &ElmtTB(idB);
+        Pasukan(*B) += 5;
     }
     printf("Seluruh pasukan di setiap bangunan bertambah 5..."); ENDL;
 }
@@ -68,15 +61,12 @@ void useBarrage()
 /* Menggunakan Skill Barrage, Jumlah pasukan pada seluruh bangunan musuh akan berkurang sebanyak 10
    pasukan.*/
 {
-    Bangunan B;
-    int idB;
     int CountBangunan = CountList(OtherPlayer().list_bangunan);
     for (int i = 1; i <= CountBangunan ; i++){
-        idB = ListElmt(OtherPlayer().list_bangunan, i);
-        GetBangunanByID(G.ListBangunan, idB, &B);
-        Pasukan(B) -= 10;
-        if(Pasukan(B) < 0) Pasukan(B) = 0;
-        UpdateBangunan(&G.ListBangunan, idB, B);
+        int idB = ListElmt(OtherPlayer().list_bangunan, i);
+        Bangunan *B = &ElmtTB(idB);
+        Pasukan(*B) -= 10;
+        if(Pasukan(*B) < 0) Pasukan(*B) = 0;
     }
     printf("Semua bangunan musuh berkurang 10 pasukan ..."); ENDL;
 }
@@ -126,36 +116,34 @@ void printSkill(Queue Skill)
 /* Mengeprint Skill di bagian Head Queue*/
 {
     int x;
-    if (IsEmptyQueue(Skill))
-    {
-        printf("-\n");
-    }
-    else /*  not IsEmpty */
-    {
+    if (IsEmptyQueue(Skill)) {
+        printf("-");
+    } else {
         Del(&Skill, &x);
         if(x == 1){
-            printf("IU\n");
+            printf("IU");
         }
         else if (x ==2){
-            printf("Shield\n");
+            printf("Shield");
         }
         else if (x == 3){
-            printf("Extra Turn\n");
+            printf("Extra Turn");
         }
         else if (x == 4){
-            printf("Attack Up\n");
+            printf("Attack Up");
         }
         else if (x == 5){
-            printf("Critical Hit\n");
+            printf("Critical Hit");
         }
         else if (x == 6){
-            printf("Instant Reinforcement\n");
+            printf("Instant Reinforcement");
         }
         else if (x == 7){
-            printf("Barrage\n");
+            printf("Barrage");
         }
         Add(&Skill,x);
     }
+    ENDL;
 }
 
 void TulisSkill(Queue Skill){
