@@ -35,7 +35,7 @@ void attack(int idBAtt, int idBDef, int jumlah_penyerang);
 /* Menghitung perubahan jumlah pasukan saat terjadi penyerangan oleh BAtt kepada BDef */
 void move(int idBAwal, int idBAkhir, int jumlah_pasukan_pindah);
 /* Menghitung perubahan jumlah pasukan saat terjadi perpindahan pasukan (Command : MOVE) */
-void add_pasukan(int idB);
+void add_pasukan();
 /* Menghitung perubahan jumlah pasukan saat awal turn */
 void TulisBangunan(Bangunan B);
 /* */

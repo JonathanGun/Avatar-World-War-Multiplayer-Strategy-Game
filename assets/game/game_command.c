@@ -102,6 +102,37 @@ void wait_next_command(){
     printf("<Press ENTER to continue>"); getchar();
 }
 
+void TriggerSkill(){
+    if(CurPlayer().AttUpActive){
+        CurPlayer().AttUpActive = false;
+    }
+    if(CurPlayer().CritHitActive){
+        CurPlayer().CritHitActive = false;
+    }
+    if(OtherPlayer().ShieldActive){
+        OtherPlayer().ShieldActive -= 1;
+    }
+
+    // IR - semua bangunan lv 4
+    boolean CekLvl = true;
+    int CountBangunan = CountList(CurPlayer().list_bangunan);
+    for (int i = 1; i <= CountBangunan ; i++){
+        int idBLvl = ListElmt(CurPlayer().list_bangunan, i);
+        Bangunan *BLvl = &ElmtTB(idBLvl);
+        if(Level(*BLvl) != 4){
+            CekLvl = false;
+        }
+    }
+    if(CekLvl){//Jika semua bangunan level 4 maka player mendapatkan skill Instant Reinforcement
+        if(Add(&CurPlayer().Skill,6)){ //Jika kapasitas skill tidak penuh
+            printf("Player ");print(CurTurn());printf(" mendapatkan skill Instant Reinforcement ...");ENDL;
+        }else{
+            printf("Player ");print(CurTurn());
+            printf(" tidak dapat menambahkan skill Instant Reinforcement ...");ENDL;
+        }
+    }
+}
+
 void command_in_game(){
     MakeAksi();
 
@@ -249,16 +280,9 @@ void command_Undo() {
 }
 
 void command_End_turn() {
-    // Sebelum turn
-    if(CurPlayer().AttUpActive){
-        CurPlayer().AttUpActive = false;
-    }
-    if(CurPlayer().CritHitActive){
-        CurPlayer().CritHitActive = false;
-    }
-    if(OtherPlayer().ShieldActive){
-        OtherPlayer().ShieldActive -= 1;
-    }
+    // sebelum turn
+    TriggerSkill();
+    
     // Ganti turn
     if(ExtraTurnActive == false){
         CurTurn()%=2;
@@ -272,11 +296,7 @@ void command_End_turn() {
     ResetStackt(&G.GameConditions);
 
     // AddPasukan awal Turn
-    int CountBangunan = CountList(CurPlayer().list_bangunan);
-    for (int i = 1; i <= CountBangunan ; i++){
-        int idB = ListElmt(CurPlayer().list_bangunan, i);
-        add_pasukan(idB);
-    }
+    add_pasukan();
 
     // Reset sudah serang dan sudah pindah
     ResetListBangunan();

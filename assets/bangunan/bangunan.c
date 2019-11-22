@@ -79,7 +79,7 @@ void levelup(int idB)
     }
 
     // jumlah pasukan kurang
-    if(!IsLvlUpValid(*B)){
+    if(!IUActive && !IsLvlUpValid(*B)){
         printf("Jumlah pasukan "); printTypeBangunan(*B);
         printf(" kurang untuk Level up !"); ENDL;
         return;
@@ -140,7 +140,7 @@ void attack(int idBAtt, int idBDef, int jumlah_penyerang)
         if(2*jumlah_penyerang >= Pasukan(*BDef)){
             TakeOwnership(BDef);
             BangunanOwner(*BDef) = BangunanOwner(*BAtt);
-            Pasukan(*BDef) = jumlah_penyerang-((Pasukan(*BDef)-1)/2)+1;
+            Pasukan(*BDef) = jumlah_penyerang - ((Pasukan(*BDef)-1)/2) - 1;
             printf("Bangunan berhasil direbut!\n");
             printf("Pasukan yang tersisa sejumlah %d orang siap mati menjaga bangunan ini!\n", Pasukan(*BDef));
         } else {
@@ -154,7 +154,8 @@ void attack(int idBAtt, int idBDef, int jumlah_penyerang)
             printf("Bangunan musuh memiliki pertahanan! Damage pasukanmu hanya efektif 75%% saja!"); ENDL;
             if((3*jumlah_penyerang/4) >= Pasukan(*BDef)){
                 TakeOwnership(BDef);
-                Pasukan(*BDef) = jumlah_penyerang - ((4*Pasukan(*BDef)-1)/3)+1;
+                Pasukan(*BDef) = jumlah_penyerang - ((4*Pasukan(*BDef)-1)/3) - 1;
+
                 printf("Bangunan berhasil direbut!\n");
                 printf("Pasukan yang tersisa sejumlah %d orang siap mati menjaga bangunan ini!\n", Pasukan(*BDef));
             } else {
@@ -207,12 +208,16 @@ void move(int idBAwal, int idBAkhir, int jumlah_pasukan_pindah)
     }
 }
 
-void add_pasukan(int idB)
+void add_pasukan()
 /* Menghitung perubahan jumlah pasukan saat awal turn */
 {
-    Bangunan *B = &ElmtTB(idB);
-    if(Pasukan(*B) < MaxPasukan(*B)){
-        Pasukan(*B) += RateTambah(*B);
+    int CountBangunan = CountList(CurPlayer().list_bangunan);
+    for (int i = 1; i <= CountBangunan ; i++){
+        int idB = ListElmt(CurPlayer().list_bangunan, i);
+        Bangunan *B = &ElmtTB(idB);
+        if(Pasukan(*B) < MaxPasukan(*B)){
+            Pasukan(*B) += RateTambah(*B);
+        }
     }
 }
 
