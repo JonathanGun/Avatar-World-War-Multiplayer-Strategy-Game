@@ -112,31 +112,41 @@ boolean attack(Bangunan *BAtt, Bangunan *BDef, int jumlah_penyerang)
     // belum menyerang di turn ini
     (*BAtt).sudahserang = true;
     Pasukan(*BAtt) -= jumlah_penyerang;
+    printf("Bangunan pertahanan memiliki %d pasukan\n", Pasukan(*BDef));
+    printf("Melakukan penyerangan dengan jumlah pasukan %d pasukan\n\n", jumlah_penyerang);
     if(CritHitActive){
-        printf("Kamu punya skill critical hit aktif! Damage pasukanmu menjadi 2x lipat!");
+        printf("Kamu punya skill critical hit aktif! Damage pasukanmu menjadi 2x lipat!\n");
         if(2*jumlah_penyerang >= Pasukan(*BDef)){
             BangunanOwner(*BDef) = BangunanOwner(*BAtt);
             Pasukan(*BDef) = jumlah_penyerang-((Pasukan(*BDef)-1)/2)+1;
+            printf("Bangunan berhasil direbut!\n");
+            printf("Pasukan yang tersisa sejumlah %d orang siap mati menjaga bangunan ini!\n", Pasukan(*BDef));
         } else {
             Pasukan(*BDef) -= 2*jumlah_penyerang;
-            printf("Namun bangunan tetap gagal direbut."); ENDL;
-            printf("Pasukan musuh menjadi %d", Pasukan(*BDef)); ENDL;
+            printf("Namun bangunan tetap gagal direbut. "); ENDL;
+            printf("Pasukan yang masih tersisa di bangunan lawan berjumlah %d orang", Pasukan(*BDef)); ENDL;
         }
     } else {
         if(ShieldActive || Pertahanan(*BDef)){
+            /* Bangunan memiliki pertahanan */
             printf("Bangunan musuh memiliki pertahanan! Damage pasukanmu hanya efektif 75%% saja!"); ENDL;
             if((3*jumlah_penyerang/4) >= Pasukan(*BDef)){
                 BangunanOwner(*BDef) = BangunanOwner(*BAtt);
                 Pasukan(*BDef) = jumlah_penyerang - ((4*Pasukan(*BDef)-1)/3)+1;
+                printf("Bangunan berhasil direbut!\n");
+                printf("Pasukan yang tersisa sejumlah %d orang siap mati menjaga bangunan ini!\n", Pasukan(*BDef));
             } else {
                 Pasukan(*BDef) -= 3*jumlah_penyerang/4;
+                printf("Bangunan gagal direbut.\n");
+                printf("Pasukan yang masih tersisa di bangunan lawan berjumlah %d orang\n", Pasukan(*BDef))
             }
         } else {
-            /* Perubahan Jumlah Pasukan saat melancarkan Penyerangan */
+            /* Bangunan tidak memiliki pertahanan */
             Pasukan(*BDef) -= jumlah_penyerang;
             
             if(Pasukan(*BDef) >= 0){
-                printf("Bangunan tidak berhasil diambil.\n");
+                printf("Bangunan gagal direbut.\n");
+                printf("Pasukan yang masih tersisa di bangunan lawan berjumlah %d orang\n", Pasukan(*BDef))
             } else {
                 BangunanOwner(*BDef) = BangunanOwner(*BAtt);
                 Pasukan(*BDef) = -Pasukan(*BDef);
@@ -156,20 +166,20 @@ void move(Bangunan *BAwal, Bangunan *BAkhir, int jumlah_pasukan_pindah)
 /* Menghitung perubahan jumlah pasukan saat terjadi perpindahan pasukan (Command : MOVE) */
 {
     if(Pasukan(*BAkhir) == MaxPasukan(*BAkhir)){
-         printf("Bangunan yang dituju penuh, tidak dapat MatElmtindahkan pasukan\n");
+         printf("Bangunan yang dituju penuh, tidak dapat memindahkan pasukan\n");
     }
     else{ /*Bangunan Akhir tidak penuh, perpindahan dapat dilakukan */
 
         if(Pasukan(*BAwal) < jumlah_pasukan_pindah){ /* Jumlah pasukan di bangunan awal kurang dari jumlah pasukan yang akan dipindahkan */
 
             if((Pasukan(*BAwal) + Pasukan(*BAkhir)) > MaxPasukan(*BAkhir)){ /*Perpindahan melebihi kapasitas bangunan akhir */
-                printf("Pasukan di bangunan awal kurang, MatElmtindahkan %d pasukan karena bangunan akhir sudah penuh\n", MaxPasukan(*BAkhir) - Pasukan(*BAkhir));
+                printf("Pasukan di bangunan awal kurang, memindahkan %d pasukan karena bangunan akhir sudah penuh\n", MaxPasukan(*BAkhir) - Pasukan(*BAkhir));
                 Pasukan(*BAwal) -= MaxPasukan(*BAkhir) - Pasukan(*BAkhir);
                 Pasukan(*BAkhir) += MaxPasukan(*BAkhir) - Pasukan(*BAkhir);
             }
 
             else{ /* Perpindahan masih dapat ditampung kapasitas bangunan akhir */
-                printf("Pasukan di bangunan awal kurang, MatElmtindahkan %d pasukan\n", Pasukan(*BAwal));
+                printf("Pasukan di bangunan awal kurang, memindahkan %d pasukan\n", Pasukan(*BAwal));
                 Pasukan(*BAwal) -= Pasukan(*BAwal);
                 Pasukan(*BAkhir) += Pasukan(*BAwal);
             }
@@ -178,7 +188,7 @@ void move(Bangunan *BAwal, Bangunan *BAkhir, int jumlah_pasukan_pindah)
         else{ /*Jumlah pasukan di bangunan awal lebih dari jumlah pasukan yang akan dipindahkan */
 
             if((jumlah_pasukan_pindah + Pasukan(*BAkhir)) > MaxPasukan(*BAkhir)){ /*Perpindahan melebihi kapasitas bangunan akhir */
-                printf("MatElmtindahkan %d pasukan karena bangunan akhir sudah penuh\n", MaxPasukan(*BAkhir) - Pasukan(*BAkhir));
+                printf("Memindahkan %d pasukan karena bangunan akhir sudah penuh\n", MaxPasukan(*BAkhir) - Pasukan(*BAkhir));
                 Pasukan(*BAwal) -= MaxPasukan(*BAkhir) - Pasukan(*BAkhir);
                 Pasukan(*BAkhir) += MaxPasukan(*BAkhir) - Pasukan(*BAkhir);
             }
