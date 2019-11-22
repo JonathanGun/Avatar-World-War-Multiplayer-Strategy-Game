@@ -6,5 +6,5 @@
 
 void PrintAll();
 void gui_logo();
-
+void show_valid_command();
 #endif

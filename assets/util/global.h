@@ -39,12 +39,20 @@ typedef struct {
 } TabBangunan;
 
 typedef struct tNodeGraph* adrNode;
+typedef struct tAdrSucc* adrSucc;
 typedef struct tNodeGraph {
-	boolean Connect;
-    adrNode Trail; // ke bawah
+	int Id;
+    int NPred;
+    adrSucc Trail; // ke bawah
     adrNode Next; // ke kanan
 } NodeGraph;
-typedef adrNode Graph;
+typedef struct tAdrSucc {
+    adrNode Succ;
+    adrSucc Next;
+} SuccGraph;
+typedef struct {
+    adrNode First;
+}Graph;
 
 typedef struct tElmtlist *address;
 typedef struct tElmtlist {

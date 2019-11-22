@@ -1,0 +1,35 @@
+^                AAAAA                                                                      
+               AAAAAAA    VVV       VVV     ++    TTTTTTTTTTTTT          RRRRRRRRRR                    
+              AAAAAAAAA   VVVV      VVVV   AAAAA  TTTTTTTTTTTTT  AAAA    RRRRRRRRRRR                 
+             AAAAA  AAAA   VVVV    VVVV  AAAAAAA      TTTT    AAAA AAA   RRRR     RRR                 
+           AAAAAA   AAAAA   VVVV  VVVV  AAAA   AAA    TTTT   AAAA   AAA  RRRR  RRR
+       AAAAAAAAAAAAAAAAAAAA  VVVVVVVV AAAAAAAAAAAAA   TTTT  AAAAAAAAAAA  RRRRRRRR 
+      AAAAAAAAAAAAAAAAAAAAAA  VVVVVV.AAAAA     AAAA   TTTT  AAAA    AAAA RRRRRRRRRR   
+       AAAAAAAAA       AAAAA   VVVV  AAA        AAA   T TT` AAA      AAA RRR   RRRRRRRRRRRRRRR 
+        AAAAAA         AAAA                             TT               RR      RRRRRRRRRRRRRRRRR ^ 
+*                                               
+                                               AVATAR                                               
+                                          --+ydmmmmmmdy+T`                                          
+                                        .odmmmmmmmmmmmmmmd+H                                        
+                                      `+dmmmmmmmmmmmmmmmmmmdE                                       
+                                     `smmmmmmmmmmmmmmmmmmmmmmL                                      
+                                     +mmmmmmmmmmmmmmmmmmmmmmmmE                                     
+                                    .dmmmmmmmmmyyyyyydmmmmmmmmhG                                    
+                                    /mmmmmmmmmy//////ommmmmmmmmE                                    
+                                    ommmmmmmoo://////:osmmmmmmmN                                    
+                                    smmmmmmmy-////////ymmmmmmmD                                    
+                                 -symmmmmmmmmd+//////.ommmmmmmmmdyO-                                 
+                                 smmmmmmmmddmmmy-//hmmmddmmmmmmmmMMF                                 
+                                 :mmmmmms   -+hmdoymmh+-  -hmmmmmmA                                 
+                                  +dmmmm-     `smmmmo`     +mmmmhA                                  
+                                   -shmmh+-    -dmmd..    -+dmmhn                                   
+                                     `/mmmmdhhddmmmmhhhhdmmmd:G                                     
+                                       /mmmmmmmmmmmmmmmmmmmd-                                       
+                                          mmmmmmmmmmmmmmmds                                         
+                                           shdmmmmmmmmdyo                                           
+                                             +oyhddhs++ 
+*
+{ ----------------------------------- TURN BASED STRATEGY GAME ------------------------------{
+Ketik "^START^" untuk memulai game
+Ketik "^LOAD^" untuk memulai game
+Ketik "^EXIT^" untuk keluar dari permainan

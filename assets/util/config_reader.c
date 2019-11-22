@@ -48,7 +48,7 @@ void extract_relasi(int banyak_bangunan) {
     for(int i = 1; i <= banyak_bangunan; i++ ) {
         for(int j = 1; j <= banyak_bangunan; j++ ) {
             ADV_file();
-            if(Token.Bil) SetBangunanTerhubung(G.Relasi, i, j);
+            if(Token.Bil) SetBangunanTerhubung(&G.Relasi, i, j);
         }
     }
 }

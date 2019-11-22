@@ -71,16 +71,6 @@ int InputValidIntBetween(int s, int e){
     return tmp;
 }
 
-void show_valid_command(){
-    printf("Berikut daftar Command yang dapat digunakan:\n");
-    printf("//=====================================\\\\\n");
-    printf("||           ATTACK    SKILL           ||\n");
-    printf("||  LEVEL_UP       UNDO      END_TURN  ||\n");
-    printf("||            SAVE      MOVE           ||\n");
-    printf("||                 EXIT                ||\n");
-    printf("\\\\=====================================//\n");
-    ENDL;
-}
 
 boolean bangunan_same_owner(Bangunan B){
     return B.owner == CurTurn();
