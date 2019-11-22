@@ -15,11 +15,11 @@
                                      `smmmmmmmmmmmmmmmmmmmmmmL                                      
                                      +mmmmmmmmmmmmmmmmmmmmmmmmE                                     
                                     .dmmmmmmmmmyyyyyydmmmmmmmmhG                                    
-                                    /mmmmmmmmmy```  `ommmmmmmmmE                                    
-                                    ommmmmmmoo:      :osmmmmmmmN                                    
-                                    smmmmmmmy-        -ymmmmmmmD                                    
-                                 -symmmmmmmmmd+`    .ommmmmmmmmdyoO                                 
-                                 smmmmmmmmddmmmy-  `/hmmmddmmmmmmmmF                                 
+                                    /mmmmmmmmmy//////ommmmmmmmmE                                    
+                                    ommmmmmmoo://////:osmmmmmmmN                                    
+                                    smmmmmmmy-////////ymmmmmmmD                                    
+                                 -symmmmmmmmmd+//////.ommmmmmmmmdyoO                                 
+                                 smmmmmmmmddmmmy-//hmmmddmmmmmmmmMMF                                 
                                  :mmmmmms   -+hmdoymmh+-  -hmmmmmmA                                 
                                   +dmmmm-     `smmmmo`     +mmmmhA                                  
                                    -shmmh+-    -dmmd..    -+dmmhoN                                   
@@ -29,7 +29,7 @@
                                            shdmmmmmmmmdyo                                           
                                              +oyhddhs++ 
 *
-
+{ ----------------------------------- TURN BASED STRATEGY GAME ------------------------------{
 Ketik "^START^" untuk memulai game
 Ketik "^LOAD^" untuk memulai game
 Ketik "^EXIT^" untuk keluar dari permainan
