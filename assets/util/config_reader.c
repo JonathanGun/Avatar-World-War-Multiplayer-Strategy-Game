@@ -44,7 +44,7 @@ void extract_listBangunan(int banyak_bangunan) {
 }
 
 void extract_relasi(int banyak_bangunan) {
-    G.Relasi = CreateGraph(banyak_bangunan);
+    CreateGraph(&G.Relasi, banyak_bangunan);
     for(int i = 1; i <= banyak_bangunan; i++ ) {
         for(int j = 1; j <= banyak_bangunan; j++ ) {
             ADV_file();

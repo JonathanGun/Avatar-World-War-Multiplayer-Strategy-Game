@@ -24,10 +24,12 @@ adrSucc AlokSucc(adrNode Pn){
 void DealokSuccNode(adrSucc Pt){
     free(Pt);
 }
-Graph CreateGraph(int n){
-    adrNode P = AlokNode(n);
-    Graph G;
-    First(G) = P;
+void CreateGraph(Graph* G, int n){
+    adrNode P = AlokNode(1);
+    First(*G) = P;
+    for(int i = 2; i <= n; i++){
+        AddNodeGraph(G, i);
+    }
 }
 
 void AddNodeGraph(Graph *G,int n)
@@ -63,6 +65,7 @@ void SetBangunanTerhubung(Graph *GR, int r, int c){
 /*I.S. r  dan c adalah id dari graph yang valid
 F.S. c merupakan trail dari r */
     AddLastTrail(GR,r,c);
+    AddLastTrail(GR,c,r);
 }
 
 /* ----- OPERASI GRAF ----- */

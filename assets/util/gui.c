@@ -1,6 +1,7 @@
 #include "gui.h"
 
-void PrintAll(){
+void read_file_color(char const* filename){
+    START(filename);
     int cekblue = 0;
     int cekgreen = 0;
     int cekyellow = 0;
@@ -28,6 +29,7 @@ void PrintAll(){
             cekorange = 1;
             orange();
         } else if(CC == '&' && cekorange == 1){
+            cekorange = 0;
             normal();
         } else {
             printf("%c",CC);
@@ -39,13 +41,9 @@ void PrintAll(){
 }
 
 void gui_logo(){
-    START("resources/logo.txt");
-    PrintAll();
-    printf("\n\n\n");
+    read_file_color("resources/logo.txt");
 }
 
 void show_valid_command(){
-    START("resources/show_command.txt");
-    PrintAll();
-    printf("\n\n");
+    read_file_color("resources/show_command.txt");
 }

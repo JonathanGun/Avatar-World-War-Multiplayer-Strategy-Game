@@ -35,7 +35,7 @@ adrNode AlokNode(int X);
 void DealokNode(adrNode P);
 adrSucc AlokSucc(adrNode Pn);
 void DealokSuccNode(adrSucc Pt);
-Graph CreateGraph(int n);
+void CreateGraph(Graph* G, int n);
 void AddNodeGraph(Graph *G,int n);
 
 /* OPERASI SEARCH */

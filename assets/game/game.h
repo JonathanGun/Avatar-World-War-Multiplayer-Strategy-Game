@@ -8,6 +8,7 @@
 #include "../bangunan/arraydin_bangunan.h"
 #include "../game/game_stackt.h"
 #include "../util/config_reader.h"
+#include "game_command.h"
 
 void InitGame();
 // Membaca file config dan menginisialisasi attribut pada Game G
@@ -20,7 +21,7 @@ void InitPlayer();
 void InitTurn();
 
 void SaveGame();
-void LoadGame(GameCondition Gc);
+void LoadGame();
 // Load permainan yang telah disimpan
 // I.S : Sembarang
 // F.s : G.GameCondition = Gc
@@ -29,6 +30,7 @@ void LoadFromFile(Kata filename);
 
 void StartGame();
 // Memulai permainan
+void ExitGame();
 
 boolean IsGameEnded();
 boolean IsPlayerLose(int player);

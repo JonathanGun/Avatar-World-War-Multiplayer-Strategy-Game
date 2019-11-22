@@ -1,18 +1,6 @@
-#include "game_command.h"
 #include "game.h"
 
-char Load[5] = "LOAD";
-char Start[6] = "START";
-char Exit[5] = "EXIT";
 Kata LOAD, START_W, EXIT;
-
-char Attack[7] = "ATTACK";
-char Level[9] = "LEVEL_UP";
-char Skill[6] = "SKILL";
-char Undo[5] = "UNDO";
-char End[9] = "END_TURN";
-char Save[5] = "SAVE";
-char Move[5] = "MOVE";
 Kata ATTACK, LEVEL, SKILL, UNDO, END_TURN, SAVE, MOVE;
 
 boolean valid_command(Kata input){
@@ -24,9 +12,9 @@ boolean valid_command(Kata input){
 }
 
 void MakeCommand(){
-    MakeKata(&LOAD,Load,4);
-    MakeKata(&START_W,Start,5);
-    MakeKata(&EXIT,Exit,4);
+    MakeKata(&LOAD,"LOAD",4);
+    MakeKata(&START_W,"START",5);
+    MakeKata(&EXIT,"EXIT",4);
 }
 
 boolean valid_aksi(Kata input){
@@ -43,13 +31,13 @@ boolean valid_aksi(Kata input){
 }
 
 void MakeAksi(){
-    MakeKata(&ATTACK,Attack,6);
-    MakeKata(&LEVEL,Level,8);
-    MakeKata(&SKILL,Skill,5);
-    MakeKata(&UNDO,Undo,4);
-    MakeKata(&END_TURN,End,8);
-    MakeKata(&SAVE,Save,4);
-    MakeKata(&MOVE,Move,4);
+    MakeKata(&ATTACK,"ATTACK",6);
+    MakeKata(&LEVEL,"LEVEL",8);
+    MakeKata(&SKILL,"SKILL",5);
+    MakeKata(&UNDO,"UNDO",4);
+    MakeKata(&END_TURN,"END",8);
+    MakeKata(&SAVE,"SAVE",4);
+    MakeKata(&MOVE,"MOVE",4);
 }
 
 void input_between_msg(int s, int e){
@@ -86,6 +74,10 @@ boolean bangunan_sudah_serang(Bangunan B){
 
 boolean bangunan_sudah_pindah(Bangunan B){
     return B.sudahpindah;
+}
+
+boolean bangunan_level_maks(Bangunan B){
+    return B.level == 4;
 }
 
 void wait_next_command(){
@@ -242,13 +234,19 @@ void command_Attack() {
 
 void command_Level_up() {
     // print daftar bangunan
+    ListBangunan ListPB = CurPlayer().list_bangunan;
+    FilterListTanpa(&ListPB, bangunan_level_maks);
+    if(CountList(ListPB) == 0){
+        printf("Semua bangunanmu sudah memiliki level maksimal!"); ENDL;
+        return;
+    }
     printf("Daftar bangunan:\n");
-    TulisDaftarBangunan(CurPlayer().list_bangunan);
+    TulisDaftarBangunan(ListPB);
     
     // input bangunan yang ingin digunakan menyerang
     printf("Bangunan yang akan di level up: ");
-    int idBLvlUp = InputValidIntBetween(1, CountList(CurPlayer().list_bangunan));
-    idBLvlUp = ListElmt(CurPlayer().list_bangunan, idBLvlUp);
+    int idBLvlUp = InputValidIntBetween(1, CountList(ListPB));
+    idBLvlUp = ListElmt(ListPB, idBLvlUp);
 
     levelup(idBLvlUp);
 }

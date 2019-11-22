@@ -45,14 +45,20 @@ void InitGame()
 
     // init save
     // InitSave(G);
+
+    // start game
+    command_Start();
 }
 
-void LoadGame(GameCondition Gc)
+void LoadGame()
 // Load permainan yang telah disimpan
 // I.S : Sembarang
 // F.S : G.GameCondition = Gc
 {
-
+    Kata loadfile;
+    printf("Ketikkan nama file: "); InputKata(&loadfile);
+    LoadFromFile(loadfile);
+    StartGame();
 }
 
 void SaveGame()
@@ -152,4 +158,10 @@ void StartGame()
 // Memulai permainan
 {
     command_in_game();
+}
+
+void ExitGame()
+// mengakhiri permainan
+{
+    command_Exit();
 }

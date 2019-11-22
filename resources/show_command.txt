@@ -1,9 +1,18 @@
-@=========Berikut adalah daftar command yang dapat digunakan========@
-| ^ATTACK^   - Menyerang bagunan lawan                              |
-| ^SKILL^    - Menggunakan skill                                    |
-| ^LEVEL_UP^ - Menaikan level bangunan                              |
-| ^UNDO^     - Mengembalikan turn sebanyan sekali                   |
-| ^SAVE^     - Menyimpan game dengan state terakhirnya              |
-| ^MOVE^     - Memindahkan pasukan dari satu bangunan ke lainnya    |
-| ^EXIT^     - Keluar dari permainan                                |
-@===================================================================@
+
+   .-.-------------------------------------.
+  ((o))   ====== &DAFTAR COMMAND& ======      )
+   \U/_______          _____    __     ____/
+    │                                      │
+    │ ^ATTACK^   - Menyerang bangunan lawan  │
+    │ ^SKILL^    - Menggunakan skill         │
+    │ ^LEVEL_UP^ - Menaikan level bangunan   │
+    │ ^UNDO^     - Membatalkan aksi terakhir │
+    │ ^SAVE^     - Menyimpan game            │
+    │ ^MOVE^     - Memindahkan pasukan       │
+    │ ^EXIT^     - Keluar dari permainan     │
+    │                                      │
+    │____    _______    __  ____      _____│
+   /A\                                      \
+  ((o))                                      )
+   '-'--------------------------------------'
+

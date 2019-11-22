@@ -46,7 +46,7 @@ void InputKata(Kata* K);
 
 void PrintKata(Kata K);
 
-void MakeKata(Kata* K, char C[], int length);
+void MakeKata(Kata* K, char const* c, int length);
 
 boolean CompareKata(Kata K1, Kata K2);
 
