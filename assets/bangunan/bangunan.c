@@ -138,7 +138,7 @@ boolean attack(Bangunan *BAtt, Bangunan *BDef, int jumlah_penyerang)
             } else {
                 Pasukan(*BDef) -= 3*jumlah_penyerang/4;
                 printf("Bangunan gagal direbut.\n");
-                printf("Pasukan yang masih tersisa di bangunan lawan berjumlah %d orang\n", Pasukan(*BDef))
+                printf("Pasukan yang masih tersisa di bangunan lawan berjumlah %d orang\n", Pasukan(*BDef));
             }
         } else {
             /* Bangunan tidak memiliki pertahanan */
@@ -146,7 +146,7 @@ boolean attack(Bangunan *BAtt, Bangunan *BDef, int jumlah_penyerang)
             
             if(Pasukan(*BDef) >= 0){
                 printf("Bangunan gagal direbut.\n");
-                printf("Pasukan yang masih tersisa di bangunan lawan berjumlah %d orang\n", Pasukan(*BDef))
+                printf("Pasukan yang masih tersisa di bangunan lawan berjumlah %d orang\n", Pasukan(*BDef));
             } else {
                 BangunanOwner(*BDef) = BangunanOwner(*BAtt);
                 Pasukan(*BDef) = -Pasukan(*BDef);
