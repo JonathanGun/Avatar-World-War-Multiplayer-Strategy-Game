@@ -72,7 +72,7 @@ void levelup(Bangunan *B)
 /* Menaikkan level dari Bangunan Pemain */
 {
     if(Level(*B) < 4){
-        if(IUactive == false){
+        if(IUActive == false){
             Pasukan(*B) -= (MaxPasukan(*B)/2);
         }
         Level(*B) += 1;

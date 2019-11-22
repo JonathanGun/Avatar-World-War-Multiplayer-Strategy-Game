@@ -7,28 +7,28 @@ void useIU()
     Bangunan B;
     int idB;
     int CountBangunan = CountList(CurPlayer().list_bangunan);
-    IUactive = true;
+    IUActive = true;
     for (int i = 1; i <= CountBangunan ; i++){
         idB = ListElmt(CurPlayer().list_bangunan, i);
         GetBangunanByID(G.ListBangunan, idB, &B);
         levelup(&B);
         UpdateBangunan(&G.ListBangunan, idB, B);
     }
-    IUactive = false;
+    IUActive = false;
 }
 
 void useShield()
 /* Menggunakan Skill Shield, Seluruh bangunan yang dimiliki oleh pemain akan memiliki pertahanan selama 2
    turn lawan.*/
 {
-
+    CurPlayer().ShieldActive = 2;
 }
 
 void useExtraTurn()
 /* Menggunakan Skill ExtraTurn, Setelah giliran pengaktifan skill ini berakhir, pemain selanjutnya tetap pemain
    yang sama.*/
 {
-    ExtraTurnactive= true;
+    ExtraTurnActive= true;
     printf("Player ");  print(CurTurn()); 
     printf(" memiliki turn tambahan ..."); ENDL;
 }
@@ -37,7 +37,7 @@ void useAttackUp()
 /* Menggunakan Skill Attack Up, Pada giliran ini, setelah skill ini diaktifkan, 
    pertahanan bangunan musuh(termasuk Shield) tidak akan mempengaruhi penyerangan.*/
 {
-
+    CurPlayer().AttUpActive = true;
 }
 
 void useCriticalHit()
@@ -46,7 +46,7 @@ void useCriticalHit()
    hanya efektif sebanyak 2 kali lipat pasukan. Skill ini akan menonaktifkan Shield 
    maupun pertahanan bangunan, seperti Attack Up.*/
 {
-
+    CurPlayer().CritHitActive = true;
 }
 
 void useInstantReinforcement()

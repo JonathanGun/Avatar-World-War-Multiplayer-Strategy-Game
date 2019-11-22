@@ -239,14 +239,24 @@ void command_Undo() {
 }
 
 void command_End_turn() {
+    // Sebelum turn
+    if(CurPlayer().AttUpActive){
+        CurPlayer().AttUpActive = false;
+    }
+    if(CurPlayer().CritHitActive){
+        CurPlayer().CritHitActive = false;
+    }
+    if(OtherPlayer().ShieldActive){
+        OtherPlayer().ShieldActive -= 1;
+    }
     // Ganti turn
-    if(ExtraTurnactive == false){
+    if(ExtraTurnActive == false){
         CurTurn()%=2;
         CurTurn()++;
     }else{
         printf("Masih dalam turn player "); print(CurTurn());
         printf(" karena penggunaan skill Extra Turn !"); ENDL;
-        ExtraTurnactive = false;
+        ExtraTurnActive = false;
     }
     // Reset stackt
     ResetStackt(&G.GameConditions);
