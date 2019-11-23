@@ -117,8 +117,8 @@ void LoadSavedGame() {
     char savefile[21] = "assets/save/save0.txt";
 
     int NBangunan, i, j, NSkill;
-    
     for ( i = 1; i <= Save_data.Max; i++ ) {
+
 
         savefile[16] = i+'0';
 
@@ -225,13 +225,24 @@ void TulisSave() {
     Data data;
     for ( i = 1; i <= MaxSaveData; i++ ) {
         data = Save_data.data[i];
-        printf("data %d ===========\n", i);
-        if ( !data.not_empty ) printf("Slot kosong\n");
-        else {
-            printf("config : %s\n", data.config_file);
-            printf("bangunan Player 1 : %d\n", CountList(data.Gc.Players[0].list_bangunan));
-            printf("bangunan Player 2 : %d\n", CountList(data.Gc.Players[1].list_bangunan));
-            printf("banyak bangunan : %d\n", data.Gc.ListBangunan.NeffTB);
+        if ( data.not_empty ) {
+            printf("╔═ Data %d ═════════════════════════════════╗\n", i);
+            printf("║                                          ║\n");
+            printf("║ Config : %s            ║\n", data.config_file);
+            printf("║ Bangunan P1 : %d                          ║\n", CountList(data.Gc.Players[0].list_bangunan));
+            printf("║ Bangunan P2 : %d                          ║\n", CountList(data.Gc.Players[1].list_bangunan));
+            printf("║ Total bangunan : %d                      ║\n", data.Gc.ListBangunan.NeffTB);
+            printf("║                                          ║\n");
+            printf("╚══════════════════════════════════════════╝\n");
+        } else {
+            printf("╔═ Data %d ═════════════════════════════════╗\n", i);
+            printf("║                                          ║\n");
+            printf("║                  S L O T                 ║\n");
+            printf("║                                          ║\n");
+            printf("║                K O S O N G               ║\n");
+            printf("║                                          ║\n");
+            printf("║                                          ║\n");
+            printf("╚══════════════════════════════════════════╝\n");
         }
     }
 }

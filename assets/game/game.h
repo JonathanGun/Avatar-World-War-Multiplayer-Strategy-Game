@@ -26,14 +26,6 @@ void InitGame(char* config_file);
 // eksternal (dijelaskan pada bab selanjutnya).
 // b. Queue ​ skill setiap pemain berisi 1 buah skill, yaitu Instant Upgrade
 
-// void SaveGame();
-// void LoadGame();
-// Load permainan yang telah disimpan
-// I.S : Sembarang
-// F.s : G.GameCondition = Gc
-
-void LoadFromFile(Kata filename);
-
 void StartGame();
 void LoadGame(int NthData);
 

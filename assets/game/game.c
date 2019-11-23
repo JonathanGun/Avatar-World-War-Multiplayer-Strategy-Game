@@ -52,13 +52,6 @@ void InitGame(char* config_file)
 
 }
 
-
-void LoadFromFile(Kata filename)
-{
-	printf("loaded from "); PrintKata(filename); ENDL;
-    printf("Load berhasil!\n");
-}
-
 void StartGame()
 // Memulai permainan
 {
