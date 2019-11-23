@@ -129,4 +129,8 @@ int CountList(ListBangunan L);
 
 void CopyList(ListBangunan L, ListBangunan *Lo); 
 
+int CountListType(ListBangunan L,char c);
+
+void FilterListTanpa(ListBangunan* L, boolean (*f)(Bangunan));
+
 #endif

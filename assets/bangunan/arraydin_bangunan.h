@@ -60,8 +60,6 @@ void TulisIsiTabBangunan2(TabBangunan T);
 
 void TulisDaftarBangunan(ListBangunan L);
 
-void FilterListTanpa(ListBangunan* L, boolean (*f)(Bangunan));
-
 void ResetListBangunan();
 
 void CopyTabBangunan(TabBangunan T, TabBangunan *To);

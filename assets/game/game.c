@@ -23,7 +23,7 @@ void InitTurn()
 }
 
 void InitSave() {
-    LoadSavedGame("assets/save/save.txt");
+    LoadSavedGame();
 }
 
 void InitData() {
@@ -35,7 +35,7 @@ void InitData() {
 
 }
 
-void InitGame(const char* config_file)
+void InitGame(char* config_file)
 // Membaca file config dan menginisialisasi attribut pada Game G
 // a. Pada saat permainan dimulai, game akan membaca konfigurasi permainan dari file
 // eksternal (dijelaskan pada bab selanjutnya).
@@ -76,8 +76,6 @@ void LoadGame(int NthData) {
 
     // load tab bangunan
     CopyTabBangunan(data.Gc.ListBangunan, &InfoTopStackt(G.GameConditions).ListBangunan);
-    // TulisIsiTabBangunan2(data.Gc.ListBangunan);
-    // TulisIsiTabBangunan2(InfoTopStackt(G.GameConditions).ListBangunan);
 
     // load player
     CopyPlayer(data.Gc.Players[0], &InfoTopStackt(G.GameConditions).Players[0]);

@@ -78,49 +78,55 @@ void levelup(int idB)
 /* Menaikkan level dari Bangunan Pemain */
 {
     Bangunan *B = &ElmtTB(idB);
+    // Level <4
+    if(Level(*B)<4){
+        // jumlah pasukan kurang
+        if(!IUActive && !IsLvlUpValid(*B)){
+            printf("Jumlah pasukan "); printTypeBangunan(*B);
+            printf(" kurang untuk Level up !"); ENDL;
+            return;
+        }
 
-    // jumlah pasukan kurang
-    if(!IUActive && !IsLvlUpValid(*B)){
-        printf("Jumlah pasukan "); printTypeBangunan(*B);
-        printf(" kurang untuk Level up !"); ENDL;
-        return;
-    }
+        // if not from IU
+        if(!IUActive){
+            Pasukan(*B) -= (MaxPasukan(*B)/2);
+        }
 
-    // if not from IU
-    if(!IUActive){
-        Pasukan(*B) -= (MaxPasukan(*B)/2);
-    }
+        // do levelup
+        Level(*B) += 1;
+        // "A" : 1, "M" : 2, "P" : 3
+        if(Type(*B) == 'C'){
+            RateTambah(*B) = MatElmt(AttCastle, Level(*B), 1);
+            MaxPasukan(*B) = MatElmt(AttCastle, Level(*B), 2);
+            Pertahanan(*B) = MatElmt(AttCastle, Level(*B), 3);
+            if(Level(*B) == 1) Pasukan(*B) = MatElmt(AttCastle, Level(*B), 4);
+        } else if(Type(*B) == 'T'){
+            RateTambah(*B) = MatElmt(AttTower, Level(*B), 1);
+            MaxPasukan(*B) = MatElmt(AttTower, Level(*B), 2);
+            Pertahanan(*B) = MatElmt(AttTower, Level(*B), 3);
+            if(Level(*B) == 1) Pasukan(*B) = MatElmt(AttTower, Level(*B), 4);
+        } else if(Type(*B) == 'F'){
+            RateTambah(*B) = MatElmt(AttFort, Level(*B), 1);
+            MaxPasukan(*B) = MatElmt(AttFort, Level(*B), 2);
+            Pertahanan(*B) = MatElmt(AttFort, Level(*B), 3);
+            if(Level(*B) == 1) Pasukan(*B) = MatElmt(AttFort, Level(*B), 4);
+        } else if(Type(*B) == 'V'){
+            RateTambah(*B) = MatElmt(AttVillage, Level(*B), 1);
+            MaxPasukan(*B) = MatElmt(AttVillage, Level(*B), 2);
+            Pertahanan(*B) = MatElmt(AttVillage, Level(*B), 3);
+            if(Level(*B) == 1) Pasukan(*B) = MatElmt(AttVillage, Level(*B), 4);
+        }
 
-    // do levelup
-    Level(*B) += 1;
-    // "A" : 1, "M" : 2, "P" : 3
-    if(Type(*B) == 'C'){
-        RateTambah(*B) = MatElmt(AttCastle, Level(*B), 1);
-        MaxPasukan(*B) = MatElmt(AttCastle, Level(*B), 2);
-        Pertahanan(*B) = MatElmt(AttCastle, Level(*B), 3);
-        if(Level(*B) == 1) Pasukan(*B) = MatElmt(AttCastle, Level(*B), 4);
-    } else if(Type(*B) == 'T'){
-        RateTambah(*B) = MatElmt(AttTower, Level(*B), 1);
-        MaxPasukan(*B) = MatElmt(AttTower, Level(*B), 2);
-        Pertahanan(*B) = MatElmt(AttTower, Level(*B), 3);
-        if(Level(*B) == 1) Pasukan(*B) = MatElmt(AttTower, Level(*B), 4);
-    } else if(Type(*B) == 'F'){
-        RateTambah(*B) = MatElmt(AttFort, Level(*B), 1);
-        MaxPasukan(*B) = MatElmt(AttFort, Level(*B), 2);
-        Pertahanan(*B) = MatElmt(AttFort, Level(*B), 3);
-        if(Level(*B) == 1) Pasukan(*B) = MatElmt(AttFort, Level(*B), 4);
-    } else if(Type(*B) == 'V'){
-        RateTambah(*B) = MatElmt(AttVillage, Level(*B), 1);
-        MaxPasukan(*B) = MatElmt(AttVillage, Level(*B), 2);
-        Pertahanan(*B) = MatElmt(AttVillage, Level(*B), 3);
-        if(Level(*B) == 1) Pasukan(*B) = MatElmt(AttVillage, Level(*B), 4);
-    }
-
-    // feedback
-    if((*B).level != 1){
+        // feedback
+        if((*B).level != 1){
+            printf("Level ");printTypeBangunan(*B);
+            printf(" (%d,%d) ", (*B).posisi.r, (*B).posisi.c); 
+            printf("meningkat menjadi %d !\n", Level(*B));
+        }
+    }else{
         printf("Level ");printTypeBangunan(*B);
         printf(" (%d,%d) ", (*B).posisi.r, (*B).posisi.c); 
-        printf("meningkat menjadi %d !\n", Level(*B));
+        printf("sudah Maksimum !");ENDL;
     }
 }
 
@@ -251,15 +257,27 @@ void printTypeBangunan(Bangunan B)
 }
 
 void TakeOwnership(Bangunan* B){
+    DelList(&OtherPlayer().list_bangunan, (*B).id);
+    InsertList(&CurPlayer().list_bangunan, (*B).id);
     if((*B).owner == 0) (*B).owner = CurTurn();
     else{
         (*B).owner %= 2;
         (*B).owner++;
+        if(CountList(OtherPlayer().list_bangunan) == 2){//Mendapatkan shield
+            printf("Bangunan Player "); print(OtherTurn()); printf(" tersisa 2! Player "); print(OtherTurn()); printf(" mendapatkan <Shield>"); ENDL;
+            Add(&OtherPlayer().Skill, 2);
+        }
+        if((CountListType(CurPlayer().list_bangunan, 'T') == 3)&&(Type(*B) == 'T')){//Mendapatkan Attack Up
+            printf("Tower Player "); print(CurTurn()); printf(" bertambah menjadi 3! Player "); print(CurTurn()); printf(" mendapatkan <Attack Up>"); ENDL;
+            Add(&CurPlayer().Skill, 4);
+        }
+        if(Type(*B) == 'F'){ //Mendapatkan Extra Turn
+            printf("Fort Player "); print(OtherTurn()); printf(" berkurang! Player "); print(OtherTurn()); printf(" mendapatkan <Extra Turn>"); ENDL;     
+            Add(&OtherPlayer().Skill, 3);
+        }
     }
-    DelList(&OtherPlayer().list_bangunan, (*B).id);
-    InsertList(&CurPlayer().list_bangunan, (*B).id);
-    if(CountList(OtherPlayer().list_bangunan) == 2){
-        Add(&OtherPlayer().Skill, 2);
-        printf("Bangunan Player "); print(OtherTurn()); printf(" tersisa 2! Player "); print(OtherTurn()); printf(" mendapatkan <Shield>"); ENDL;
+    if(CountList(CurPlayer().list_bangunan) == 10){//Mendapatkan Barrage
+        printf("Bangunan Player "); print(CurTurn()); printf(" bertambah menjadi 10! Player "); print(OtherTurn()); printf(" mendapatkan <Barrage>"); ENDL;
+        Add(&OtherPlayer().Skill, 7);
     }
 }

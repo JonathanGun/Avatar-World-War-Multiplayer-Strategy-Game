@@ -7,7 +7,7 @@
 #include "../bangunan/arraydin_bangunan.h"
 #include "../peta/peta.h"
 
-void extract_config(const char* fileconfig);
+void extract_config(char* fileconfig);
 // Mengekstrak informasi dalam "Config"
 
 void extract_peta();
