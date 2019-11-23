@@ -2,8 +2,11 @@
 
 SaveData Save_data;
 
-void SaveGame() {
+void SaveGame(int NthData) {
     GameCondition Gc = InfoTopStackt(G.GameConditions);
+    Save_data.data[NthData].config_file = G.config_file;
+    Save_data.data[NthData].not_empty = true;
+    CopyGameConditions(Gc, &Save_data.data[NthData].Gc);
 
     // temporary variable
     Queue Skill;
@@ -14,7 +17,10 @@ void SaveGame() {
     int i;
     FILE *fp;
     /* open the file for writing*/
-    fp = fopen ("assets/save/save.txt","a");
+    char savefile[21] = "assets/save/save0.txt";
+    savefile[16] = NthData+'0';
+
+    fp = fopen (savefile,"w");
 
     // simpan path config
     fprintf (fp, "%s\n", G.config_file);
@@ -83,126 +89,67 @@ void SaveGame() {
         );
 
     // pembatas dengan save lain
-    fprintf (fp, "$\n.\n");
+    fprintf (fp, "$\n");
 
     fclose(fp);
 }
 
-// void TulisSave() {
-//     int i, j;
-//     GameCondition Gc;
-//     TabBangunan TB;
-//     Bangunan B;
-//     address P;
-//     Queue Skill;
-//     for ( i = 1; i <= Saves.Length; i++ ) {
-//         Gc = Saves.data[i];
-//         TB = Saves.tabBangunan;
-//         printf("data %d ---------------", i);
-//         printf("Turn : %d\n", Gc.turn);
-//         printf(">>>>> Player 1 <<<<<\n");
-//         PrintAllSkill(Saves.data[i].Players[0].Skill);
-//         printf("bangunan: "); printf("<Id> <Level> <SudahSerang> <Pertahanan> <Pasukan>\n");
-//         P = First(GcPlayer(Gc, 1).list_bangunan);
-//         j = 1;
-//         while ( P != Nil ) {
-//             GetBangunanByID(TB, j, &B);
-//             printf("%d. ", j);
-//             printf("%d ", Id(B));
-//             printf("%d ", Level(B));
-//             printf("%s ", SudahSerang(B) ? "Ya":"Tidak");
-//             printf("%s ", Pertahanan(B) ? "Ya":"Tidak");
-//             printf("%d\n", Pasukan(B));
-//             P = Next(P);    
-//             j++;
-//         }
-//         printf(">>>>> Player 2 <<<<<\n");
-//         printf("bangunan:\n");
-//         P = First(GcPlayer(Gc, 2).list_bangunan);
-//         j = 1;
-//         while ( P != Nil ) {
-//             GetBangunanByID(TB, j, &B);
-//             printf("Bangunan %d\n", j);
-//             printf("Id : %d\n", Id(B));
-//             printf("Level : %d\n", Level(B));
-//             printf("sudahserang : %s\n", SudahSerang(B) ? "Ya":"Tidak");
-//             printf("pertahanan : %s\n", Pertahanan(B) ? "Ya":"Tidak");
-//             printf("pasukan : %d\n", Pasukan(B));
-//             P = Next(P);    
-//             j++;
-//         }
-//     }
-// }
-
-int CountSave(const char* savefile) {
-    int Count = 0;
-    START_file(savefile, 1);
-    while (!EOP) {
-        if ( CC == '$') {
-            Count++;
+void CheckSaveFile() {
+    int i;
+    FILE *fp;
+    char filename[21] = "assets/save/save0.txt";
+    for ( i = 1; i <= MaxSaveData; i++ ) {
+        filename[16] = i+'0';
+        fp = fopen(filename, "r");
+        int c = fgetc(fp);
+        if (c != EOF) {
+            Save_data.data[i].not_empty = true;
         }
-        ADV();
     }
-    return Count;
+    Save_data.Max = MaxSaveData;
 }
 
-void NthSave(const char* savefile, int *N) {
-    int L = 0;
-    do {
-        L++;
-        START_file(savefile, L);
-        if ( CC == '$' ) {
-            (*N)--;
-        }
-    } while (*N > 1);
-    *N = L+1;
-}
 
-void LoadSavedGame(const char* savefile) {
+void LoadSavedGame() {
+
+    CheckSaveFile();
+    
+    char savefile[21] = "assets/save/save0.txt";
 
     int NBangunan, i, j, NSkill;
+    
+    for ( i = 1; i <= Save_data.Max; i++ ) {
 
-    // load config path
-    Save_data.Length = CountSave(savefile);
+        savefile[16] = i+'0';
 
-    STARTKATA(savefile);
-    // printf("before start CC : %c\n", CC);
-    i = 1;
-    while ( i <= Save_data.Length ) {
-        if ( CC == '.' ) {
-            IgnoreLine();
-            SalinKata();
-            CopyKataToString(CKata, &Save_data.data[Save_data.Length].config_file);
-            printf("config : %s\n", Save_data.data[Save_data.Length].config_file);
-            i++;
+        if ( !Save_data.data[i].not_empty ) {
+            continue;
         }
-        ADV();
-    }
 
-    // load data
+        // load config path
 
-    START_file(savefile, 1);
-    printf("aftet start file CC : %c\n", CC);
+        STARTKATA(savefile);
+        if ( i > 1) ADV();
+        ADVKATA();
+        CopyKataToString(CKata, &Save_data.data[i].config_file);
 
-    ADV_file();
-    for ( i = 1; i <= Save_data.Length; i++ ) {
+        // load data
+
+        ADV_file();
 
         // load turn
         ADV_file();
-        Save_data.data[1].Gc.turn = Token.Bil;
-        printf("loaded turn : %d\n", Save_data.data[1].Gc.turn);
+        Save_data.data[i].Gc.turn = Token.Bil;
 
         // load data bangunan
         ADV_file();
         NBangunan = Token.Bil;
-        printf("loaded NBangunan : %d\n", Token.Bil);
 
         ADV_file();
         CreateEmptyList(&Save_data.data[i].Gc.Players[0].list_bangunan);
         CreateEmptyList(&Save_data.data[i].Gc.Players[1].list_bangunan);
         CreateEmptyTabBangunan(&Save_data.data[i].Gc.ListBangunan, NBangunan);
         for ( j = 1; j <= NBangunan; j++ ) {
-            printf(" ============== Bangunan %d ============ \n", j);
             Type(Save_data.data[i].Gc.ListBangunan.TB[j]) = Token.Val;
             ADV_file();
             Row(Save_data.data[i].Gc.ListBangunan.TB[j].posisi) = Token.Bil;
@@ -210,39 +157,28 @@ void LoadSavedGame(const char* savefile) {
             Col(Save_data.data[i].Gc.ListBangunan.TB[j].posisi) = Token.Bil;
             ADV_file();
             Id(Save_data.data[i].Gc.ListBangunan.TB[j]) = Token.Bil;
-            printf("loaded id : %d\n", Save_data.data[i].Gc.ListBangunan.TB[j].id);
             ADV_file();
             Pasukan(Save_data.data[i].Gc.ListBangunan.TB[j]) = Token.Bil;
-            printf("loaded pasukan : %d\n", Save_data.data[i].Gc.ListBangunan.TB[j].jumlah_pasukan);
             ADV_file();
             Level(Save_data.data[i].Gc.ListBangunan.TB[j]) = Token.Bil;
-            printf("loaded level : %d\n", Save_data.data[i].Gc.ListBangunan.TB[j].level);
             ADV_file();
             RateTambah(Save_data.data[i].Gc.ListBangunan.TB[j]) = Token.Bil;
-            printf("loaded A : %d\n", Save_data.data[i].Gc.ListBangunan.TB[j].nilai_tambah_pasukan);
             ADV_file();
             MaxPasukan(Save_data.data[i].Gc.ListBangunan.TB[j]) = Token.Bil;
-            printf("loaded M : %d\n", Save_data.data[i].Gc.ListBangunan.TB[j].maksimum_tambah_pasukan);
             ADV_file();
             Pertahanan(Save_data.data[i].Gc.ListBangunan.TB[j]) = Token.Bil;
-            printf("loaded pertahanan : %d\n", Save_data.data[i].Gc.ListBangunan.TB[j].pertahanan);
             ADV_file();
             SudahSerang(Save_data.data[i].Gc.ListBangunan.TB[j]) = Token.Bil;
-            printf("loaded sudahserang : %d\n", Save_data.data[i].Gc.ListBangunan.TB[j].sudahserang);
             ADV_file();
             SudahPindah(Save_data.data[i].Gc.ListBangunan.TB[j]) = Token.Bil;
-            printf("loaded sudahpindah : %d\n", Save_data.data[i].Gc.ListBangunan.TB[j].sudahpindah);
             ADV_file();
             BangunanOwner(Save_data.data[i].Gc.ListBangunan.TB[j]) = Token.Bil;
             if ( Token.Bil > 0 ) {
                 InsertList(&Save_data.data[i].Gc.Players[Token.Bil-1].list_bangunan, Save_data.data[i].Gc.ListBangunan.TB[j].id);
             }
-            printf("loaded owner : %d\n", Save_data.data[i].Gc.ListBangunan.TB[j].owner);
             ADV_file();
         }
         Save_data.data[i].Gc.ListBangunan.NeffTB = NBangunan;
-
-        printf("==========================================\n");
 
         // load data player
 
@@ -250,57 +186,52 @@ void LoadSavedGame(const char* savefile) {
 
         // load skill
         NSkill = Token.Bil;
-        printf("loaded P1 NSkill : %d\n", Token.Bil);
 
         ADV_file();
         CreateEmptyQueue(&Save_data.data[i].Gc.Players[0].Skill, 10);
         for ( j = 1; j <= NSkill; j++ ) {
             Add(&Save_data.data[i].Gc.Players[0].Skill, Token.Bil);
-            printf("%d ", Token.Bil);
             ADV_file();
         }
-        printf("\n");
         Save_data.data[i].Gc.Players[0].ShieldActive = Token.Bil;
-        printf("loaded P1 Shield : %d\n", Token.Bil);
         ADV_file();
         Save_data.data[i].Gc.Players[0].CritHitActive = Token.Bil;
-        printf("loaded P1 Crit : %d\n", Token.Bil);
         ADV_file();
         Save_data.data[i].Gc.Players[0].AttUpActive = Token.Bil;
-        printf("loaded P1 AttUp : %d\n", Token.Bil);
         ADV_file();
 
         // player 2
 
         // load skill
         NSkill = Token.Bil;
-        printf("loaded P2 NSkill : %d\n", Token.Bil);
 
         ADV_file();
         CreateEmptyQueue(&Save_data.data[i].Gc.Players[1].Skill, 10);
         for ( j = 1; j <= NSkill; j++ ) {
             Add(&Save_data.data[i].Gc.Players[1].Skill, Token.Bil);
-            printf("%d ", Token.Bil);
             ADV_file();
         }
-        printf("\n");
         Save_data.data[i].Gc.Players[1].ShieldActive = Token.Bil;
-        printf("loaded P2 Shield : %d\n", Token.Bil);
         ADV_file();
         Save_data.data[i].Gc.Players[1].CritHitActive = Token.Bil;
-        printf("loaded P2 Crit : %d\n", Token.Bil);
         ADV_file();
         Save_data.data[i].Gc.Players[1].AttUpActive = Token.Bil;
-        printf("loaded P2 AttUp : %d\n", Token.Bil);
-        printf("last CC : %c\n", CC);
-        
-        if ( i != Save_data.Length ) {
-            ADVKATA();
-            ADVKATA();
-            ADVKATA();
-            ADV_file();
-        }
     }
 
 }
 
+void TulisSave() {
+    int i;
+    Data data;
+    for ( i = 1; i <= MaxSaveData; i++ ) {
+        data = Save_data.data[i];
+        printf("data %d ===========\n", i);
+        if ( !data.not_empty ) printf("Slot kosong\n");
+        else {
+            printf("config : %s\n", data.config_file);
+            printf("bangunan Player 1 : %d\n", CountList(data.Gc.Players[0].list_bangunan));
+            printf("bangunan Player 2 : %d\n", CountList(data.Gc.Players[1].list_bangunan));
+            printf("banyak bangunan : %d\n", data.Gc.ListBangunan.NeffTB);
+        }
+    }
+}

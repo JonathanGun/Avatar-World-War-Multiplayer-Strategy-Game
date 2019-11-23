@@ -171,6 +171,10 @@ void command_in_game(){
 }
 
 void command_Start() {
+
+    // default config
+    InitGame("resources/config.txt");
+
     // init player
     InitPlayer();
     if(DEBUG) printf("Berhasil init player\n");
@@ -180,6 +184,15 @@ void command_Start() {
     if(DEBUG) printf("Berhasil init turn\n");
 
     // START game
+    StartGame();
+}
+
+void command_Load() {
+    printf("Pilih data yang ingin anda load:\n");
+    TulisSave();
+    printf(">>> ");
+    int NthData = InputValidIntBetween(1, Save_data.Max);
+    LoadGame(NthData);
     StartGame();
 }
 
@@ -275,7 +288,7 @@ void command_Skill() {
 }
 
 void command_Undo() {
-    
+
     if(IsEmptyStackt(G.GameConditions)){
         printf("Kamu tidak bisa melakukan Undo pada awal turn atau setelah melakukan skill...");ENDL;
     }else{
@@ -313,7 +326,12 @@ void command_End_turn() {
 }
 
 void command_Save() {
-    SaveGame();
+    printf("pilih slot yang ingin anda gunakan:\n");
+    TulisSave();
+    printf(">>> ");
+    int NthData = InputValidIntBetween(1, Save_data.Max);
+    SaveGame(NthData);
+    // LoadSavedGame();
 }
 
 void command_Move() {
