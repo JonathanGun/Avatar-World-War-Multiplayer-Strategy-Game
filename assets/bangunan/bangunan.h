@@ -3,6 +3,7 @@
 
 #include "../util/util.h"
 #include "../util/data_bangunan.h"
+#include "../skill/skill.h"
 #include "list_bangunan.h"
 #include "arraydin_bangunan.h"
 

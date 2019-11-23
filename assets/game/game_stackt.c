@@ -8,14 +8,14 @@ void CreateEmptyStackt (GameStack *S)
 /* jadi indeksnya antara 1.. StackMaxEl+1 karena 0 tidak dipakai */
 /* Ciri stack kosong : TOP bernilai StackNil */
 {
-	TopStackt(*S) = StackNil;
+	TopStackt(*S) = 0;
 }
 
 /* ************ Predikat Untuk test keadaan KOLEKSI ************ */
 boolean IsEmptyStackt (GameStack S)
 /* Mengirim true jika Stack kosong: lihat definisi di atas */
 {
-	return (TopStackt(S) == StackNil);
+	return (TopStackt(S) == 0);
 }
 boolean IsFullStackt (GameStack S)
 /* Mengirim true jika tabel penampung nilai elemen stack penuh */
