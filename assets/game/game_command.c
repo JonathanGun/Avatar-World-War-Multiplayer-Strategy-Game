@@ -266,17 +266,20 @@ void command_Skill() {
     // use skill
     if ( IsEmptyQueue(Player(CurTurn()).Skill) ) {
         printf("Anda tidak memiliki skill!\n");
-    } else {
-        // Menyimpan kondisi sekarang ke dalam stackt
-        PushStackt();
+    } else {      
         useSkill(&Player(CurTurn()).Skill);
+        // Reset stackt
+        ResetStackt();
     }
 }
 
 void command_Undo() {
-
-    // Mengembalikan kondisi sebelumnya
-    PopStackt();
+    if(IsEmptyStackt(G.GameConditions)){
+        printf("Kamu tidak bisa melakukan Undo pada awal turn atau setelah melakukan skill...");ENDL;
+    }else{
+        // Mengembalikan kondisi sebelumnya
+        PopStackt();
+    }
 }
 
 void command_End_turn() {
