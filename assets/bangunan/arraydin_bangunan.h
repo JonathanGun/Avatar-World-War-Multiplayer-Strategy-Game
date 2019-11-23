@@ -64,4 +64,6 @@ void FilterListTanpa(ListBangunan* L, boolean (*f)(Bangunan));
 
 void ResetListBangunan();
 
+void CopyTabBangunan(TabBangunan T, TabBangunan *To);
+
 #endif

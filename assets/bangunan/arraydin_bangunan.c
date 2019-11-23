@@ -147,3 +147,12 @@ void ResetListBangunan(){
         P = Next(P);
     }
 }
+
+void CopyTabBangunan(TabBangunan T, TabBangunan *To) {
+    CreateEmptyTabBangunan(To, T.MaxElTB);
+    int i;
+    for ( i = 1; i <= T.NeffTB; i++ ) {
+        (*To).TB[i] = T.TB[i];
+    }
+    (*To).NeffTB = T.NeffTB;
+}

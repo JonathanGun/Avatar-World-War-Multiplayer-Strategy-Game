@@ -23,31 +23,33 @@ boolean IsFullStackt (GameStack S)
 	return TopStackt(S) == StackMaxEl;
 }
 /* ************ Menambahkan sebuah elemen ke Stack ************ */
-void PushStackt (GameStack * S)
+void PushStackt ()
 /* Menambahkan X sebagai elemen Stack S. */
 /* I.S. S mungkin kosong, tabel penampung elemen stack TIDAK penuh */
 /* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
 {
-	GameCondition Gc = InfoTopStackt(*S);
-	TopStackt(*S)++;
-	InfoTopStackt(*S) = Gc; 
+	GameCondition newGc;
+	CopyGameConditions(InfoTopStackt(G.GameConditions), &newGc);
+	TopStackt(G.GameConditions)++;
+	InfoTopStackt(G.GameConditions) = newGc; 
 }
+
 /* ************ Menghapus sebuah elemen Stack ************ */
-void PopStackt (GameStack * S)
+void PopStackt ()
 /* Menghapus X dari Stack S. */
 /* I.S. S  tidak mungkin kosong */
 /* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
 {
-	TopStackt(*S)--;
+	TopStackt(G.GameConditions)--;
 }
 
-void ResetStackt(GameStack *S) {
-	CreateEmptyStackt(&(*S));
-	PushStackt(S);
+void ResetStackt() {
+	G.GameConditions.T[1] = InfoTopStackt(G.GameConditions);
+	TopStackt(G.GameConditions) = 1;
 }
 
-void TulisStacktTop(GameStack S) {
-	GameCondition Gc = InfoTopStackt(S);
+void TulisStacktTop() {
+	GameCondition Gc = InfoTopStackt(G.GameConditions);
 	printf("Daftar bangunan:\n");
 	TulisIsiTabBangunan2();
 	printf("player1 skill:\n");

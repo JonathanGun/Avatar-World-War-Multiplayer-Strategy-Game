@@ -8,5 +8,7 @@
 
 #define Skill(P)    (P).Skill
 
+void CopyPlayer(Player P, Player *Po);
+
 #endif
 

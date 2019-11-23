@@ -260,3 +260,13 @@ int ListElmt(ListBangunan L, int n){
     }
     return Info(P);
 }
+
+void CopyList(ListBangunan L, ListBangunan *Lo) {
+    CreateEmptyList(Lo);
+
+    address P = First(L);
+    while ( P != NULL ) {
+        InsertList(Lo, Info(P));
+        P = Next(P);
+    } 
+}

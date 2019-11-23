@@ -93,16 +93,16 @@ void startSkill(Queue* Skill)
 /* Kondisi Awal yaitu mempunyai Queue dengan skill Instant Upgrade */
 {
     CreateEmptyQueue(Skill, 10);// Maksimal 10 skill
-    Add(Skill,3);
+    // Add(Skill,3);
     Add(Skill,1); //1 sebagai IU(instant Upgrade)
-    Add(Skill,3);
-    Add(Skill,1);
-    Add(Skill,1);
-    Add(Skill,1);
-    Add(Skill,1);
-    Add(Skill,1);
-    Add(Skill,1);
-    Add(Skill,1);
+    // Add(Skill,3);
+    // Add(Skill,1);
+    // Add(Skill,1);
+    // Add(Skill,1);
+    // Add(Skill,1);
+    // Add(Skill,1);
+    // Add(Skill,1);
+    // Add(Skill,1);
 }
 
 void useSkill(Queue* Skill)

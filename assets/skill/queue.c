@@ -85,9 +85,13 @@ void Del (Queue * Q, int * X)
 	}
 }
 
-
 void CopyQueue(Queue Q, Queue * Qo) {
-	*Qo = Q;
+	CreateEmptyQueue(Qo, Q.MaxEl);
+	int X;
+	while ( !IsEmptyQueue(Q) ) {
+		Del(&Q, &X);
+		Add(Qo, X);
+	}
 }
 
 int CountQueue(Queue Q) {

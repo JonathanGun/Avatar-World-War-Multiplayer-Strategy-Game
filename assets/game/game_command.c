@@ -225,7 +225,7 @@ void command_Attack() {
     int jml_pas = InputValidIntBetween(0, Pasukan(ElmtTB(idBAtt)));
 
     // push stackt
-    PushStackt(&G.GameConditions);
+    PushStackt();
 
     attack(idBAtt, idBDef, jml_pas);
 
@@ -251,6 +251,9 @@ void command_Level_up() {
     int idBLvlUp = InputValidIntBetween(1, CountList(ListPB));
     idBLvlUp = ListElmt(ListPB, idBLvlUp);
 
+    // push stackt
+    PushStackt();
+
     levelup(idBLvlUp);
 }
 
@@ -260,20 +263,15 @@ void command_Skill() {
         printf("Anda tidak memiliki skill!\n");
     } else {
         // Menyimpan kondisi sekarang ke dalam stackt
-        PushStackt(&G.GameConditions);
+        PushStackt();
         useSkill(&Player(CurTurn()).Skill);
     }
 }
 
 void command_Undo() {
-    printf("sebelum ................\n");
-    TulisStacktTop(G.GameConditions);
 
     // Mengembalikan kondisi sebelumnya
-    PopStackt(&G.GameConditions);
-
-    printf("sesudah ................\n");
-    TulisStacktTop(G.GameConditions);
+    PopStackt();
 }
 
 void command_End_turn() {
@@ -290,7 +288,7 @@ void command_End_turn() {
         ExtraTurnActive = false;
     }
     // Reset stackt
-    ResetStackt(&G.GameConditions);
+    ResetStackt();
 
     // AddPasukan awal Turn
     add_pasukan();
@@ -349,6 +347,9 @@ void command_Move() {
     printf("Jumlah pasukan : ");
     int jml_pas = InputValidIntBetween(0, Pasukan(ElmtTB(idBMov)));
 
+    // push stackt
+    PushStackt();
+    
     move(idBMov, idBSucc, jml_pas);
 }
 
