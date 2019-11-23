@@ -70,17 +70,14 @@ boolean not_IsLevelUpValid(Bangunan B){
     return !IsLvlUpValid(B);
 }
 
+void TriggerSkillAfterAttack(){
+
+}
+
 void levelup(int idB)
 /* Menaikkan level dari Bangunan Pemain */
 {
     Bangunan *B = &ElmtTB(idB);
-    // level maks
-    if(Level(*B) == 4){
-        printf("Level "); printTypeBangunan(*B);
-        printf(" (%d,%d) ", (*B).posisi.r, (*B).posisi.c);  
-        printf("sudah Maksimum, tidak dapat melakukan level up lagi !\n");
-        return;
-    }
 
     // jumlah pasukan kurang
     if(!IUActive && !IsLvlUpValid(*B)){
@@ -186,6 +183,8 @@ void attack(int idBAtt, int idBDef, int jumlah_penyerang)
             }
         }
     }
+
+    TriggerSkillAfterAttack();
 }
 
 void move(int idBAwal, int idBAkhir, int jumlah_pasukan_pindah)
@@ -259,4 +258,8 @@ void TakeOwnership(Bangunan* B){
     }
     DelList(&OtherPlayer().list_bangunan, (*B).id);
     InsertList(&CurPlayer().list_bangunan, (*B).id);
+    if(CountList(OtherPlayer().list_bangunan) == 2){
+        Add(&OtherPlayer().Skill, 2);
+        printf("Bangunan Player "); print(OtherTurn()); printf(" tersisa 2! Player "); print(OtherTurn()); printf(" mendapatkan <Shield>"); ENDL;
+    }
 }

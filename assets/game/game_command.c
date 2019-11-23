@@ -187,7 +187,7 @@ void command_Start() {
 void command_Attack() {
     // print daftar bangunan
     printf("Daftar bangunan:\n");
-    ListBangunan ListPB = CurPlayer().list_bangunan;
+    ListBangunan ListPB; CopyList(CurPlayer().list_bangunan, &ListPB);
     FilterListTanpa(&ListPB, bangunan_sudah_serang);
     if(CountList(ListPB) == 0){
         printf("Semua bangunan sudah digunakan untuk menyerang. Silakan pilih command lain!"); ENDL;
@@ -238,7 +238,7 @@ void command_Attack() {
 
 void command_Level_up() {
     // print daftar bangunan
-    ListBangunan ListPB = CurPlayer().list_bangunan;
+    ListBangunan ListPB; CopyList(CurPlayer().list_bangunan, &ListPB);
     FilterListTanpa(&ListPB, not_IsLevelUpValid);
     if(CountList(ListPB) == 0){
         printf("Semua bangunanmu tidak memiliki cukup pasukan untuk melakukan level-up"); ENDL;
@@ -319,7 +319,7 @@ void command_Save() {
 void command_Move() {
     // print daftar bangunan
     printf("Daftar bangunan:\n");
-    ListBangunan ListPB = CurPlayer().list_bangunan;
+    ListBangunan ListPB; CopyList(CurPlayer().list_bangunan, &ListPB);
     FilterListTanpa(&ListPB, bangunan_sudah_pindah);
     if(CountList(ListPB) == 0){
         printf("Semua bangunan sudah pernah dipindah pasukannya pada turn ini. Silakan pilih command lain!"); ENDL;
