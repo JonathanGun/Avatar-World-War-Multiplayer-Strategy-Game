@@ -10,18 +10,24 @@
 #include "../util/config_reader.h"
 #include "game_command.h"
 
-void InitGame();
-// Membaca file config dan menginisialisasi attribut pada Game G
-// a. Pada saat permainan dimulai, game akan membaca konfigurasi permainan dari file
-// eksternal (dijelaskan pada bab selanjutnya).
-// b. Queue ​ skill setiap pemain berisi 1 buah skill, yaitu Instant Upgrade
+void InitData();
 
 void InitPlayer();
 
 void InitTurn();
 
-void SaveGame();
-void LoadGame();
+void InitSave();
+
+void InitData();
+
+void InitGame(const char* config_file);
+// Membaca file config dan menginisialisasi attribut pada Game G
+// a. Pada saat permainan dimulai, game akan membaca konfigurasi permainan dari file
+// eksternal (dijelaskan pada bab selanjutnya).
+// b. Queue ​ skill setiap pemain berisi 1 buah skill, yaitu Instant Upgrade
+
+// void SaveGame();
+// void LoadGame();
 // Load permainan yang telah disimpan
 // I.S : Sembarang
 // F.s : G.GameCondition = Gc
@@ -29,6 +35,8 @@ void LoadGame();
 void LoadFromFile(Kata filename);
 
 void StartGame();
+void LoadGame(int NthData);
+
 // Memulai permainan
 void ExitGame();
 

@@ -84,18 +84,18 @@ void TulisIsiTabBangunan(){
     printf("]");
 }
 
-void TulisIsiTabBangunan2() {
+void TulisIsiTabBangunan2(TabBangunan T) {
     int i;
-    for ( i = 1; i <= NbBangunan(InfoTopStackt(G.GameConditions).ListBangunan); i++ ) {
+    for ( i = 1; i <= NbBangunan(T); i++ ) {
         printf("id %d\n", i);
-        printf("level %d\n", ElmtTB(i).level);
-        printf("pasukan %d\n", ElmtTB(i).jumlah_pasukan);
-        printf("maks %d\n", ElmtTB(i).maksimum_tambah_pasukan);
-        printf("tambah %d\n",ElmtTB(i).nilai_tambah_pasukan);
-        printf("owner %d\n", ElmtTB(i).owner);
-        printf("pertahanan %d\n", ElmtTB(i).pertahanan);
-        printf("sudahpidah %s\n", ElmtTB(i).sudahpindah ? "Ya" : "Tidak");
-        printf("sudahserang %s\n", ElmtTB(i).sudahserang ? "Ya" : "Tidak");
+        printf("level %d\n", T.TB[i].level);
+        printf("pasukan %d\n", T.TB[i].jumlah_pasukan);
+        printf("maks %d\n", T.TB[i].maksimum_tambah_pasukan);
+        printf("tambah %d\n",T.TB[i].nilai_tambah_pasukan);
+        printf("owner %d\n", T.TB[i].owner);
+        printf("pertahanan %d\n", T.TB[i].pertahanan);
+        printf("sudahpidah %s\n", T.TB[i].sudahpindah ? "Ya" : "Tidak");
+        printf("sudahserang %s\n", T.TB[i].sudahserang ? "Ya" : "Tidak");
         getchar();
     } 
 }

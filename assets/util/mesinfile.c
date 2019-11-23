@@ -32,6 +32,11 @@ void IgnoreNotValidChar()
     while ( !ValidCharacter() ) ADV();
 }
 
+void IgnoreLine() {
+    while ( CC != '\n' ) ADV();
+    ADV();
+}
+
 void START_file( const char* fileconfig, int Line )
 /* I.S. : CC sembarang
    F.S. : EndKata = true, dan CC = MARK;

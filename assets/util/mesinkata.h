@@ -52,4 +52,6 @@ boolean CompareKata(Kata K1, Kata K2);
 
 void PrintAll();
 
+void CopyKataToString(Kata K, char **C);
+
 #endif

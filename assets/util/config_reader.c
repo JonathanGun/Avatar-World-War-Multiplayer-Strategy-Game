@@ -1,6 +1,7 @@
 #include "config_reader.h"
 
 void extract_config(const char* fileconfig) {
+    G.config_file = fileconfig;
     START_file(fileconfig, 0);
     extract_peta();
     int n = extract_banyak_bangunan();

@@ -93,6 +93,7 @@ typedef struct {
     Peta map; // Menyimpan peta
     Graph Relasi;
     GameStack GameConditions; // Stackt of GameCondition, menyimpan kondisi dari setiap aksi dilakukan (dikosongkan setelah endturn)
+	const char* config_file;
 } Game;
 // GameCondition yang digunakan adalah yang berada di Top
 // setiap melakukan aksi lakukan Push pada stackt

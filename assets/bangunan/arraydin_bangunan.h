@@ -56,7 +56,7 @@ int GetIdxFromPosBangunan(int Baris, int Kolom );
 
 void TulisIsiTabBangunan();
 
-void TulisIsiTabBangunan2();
+void TulisIsiTabBangunan2(TabBangunan T);
 
 void TulisDaftarBangunan(ListBangunan L);
 

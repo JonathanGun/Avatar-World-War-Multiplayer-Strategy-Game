@@ -2,6 +2,9 @@
 
 Kata LOAD, START_W, EXIT;
 int main (){
+
+    InitData();
+
     gui_logo();
     
     Kata command;
@@ -15,9 +18,12 @@ int main (){
     } while(!valid_command(command));
 
     if(CompareKata(command,LOAD)){
-        LoadGame();
+        LoadGame(1);
+        // InitGame("resources/config.txt");
+        StartGame();
     } else if (CompareKata(command,START_W)){
-        InitGame();
+        InitGame("resources/config.txt");
+        command_Start();
     } else { 
         ExitGame();
     } 

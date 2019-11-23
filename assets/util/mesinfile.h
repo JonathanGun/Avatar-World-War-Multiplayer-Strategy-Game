@@ -16,6 +16,12 @@ typedef struct {
 extern boolean EndKata;
 extern TOKEN_config Token;
 
+boolean ValidCharacter();
+
+void IgnoreNotValidChar();
+
+void IgnoreLine();
+
 void IgnoreBlank();
 /* Mengabaikan satu atau beberapa BLANK
    I.S. : CC sembarang

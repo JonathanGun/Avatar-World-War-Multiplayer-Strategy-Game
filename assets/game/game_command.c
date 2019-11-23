@@ -35,7 +35,7 @@ void MakeAksi(){
     MakeKata(&LEVEL,"LEVEL",8);
     MakeKata(&SKILL,"SKILL",5);
     MakeKata(&UNDO,"UNDO",4);
-    MakeKata(&END_TURN,"END",8);
+    MakeKata(&END_TURN,"END_TURN",8);
     MakeKata(&SAVE,"SAVE",4);
     MakeKata(&MOVE,"MOVE",4);
 }
@@ -183,6 +183,7 @@ void command_Start() {
     StartGame();
 }
 
+
 void command_Attack() {
     // print daftar bangunan
     printf("Daftar bangunan:\n");
@@ -269,9 +270,10 @@ void command_Skill() {
 }
 
 void command_Undo() {
-
-    // Mengembalikan kondisi sebelumnya
-    PopStackt();
+    if ( TopStackt(G.GameConditions) != 0 ) {
+        // Mengembalikan kondisi sebelumnya
+        PopStackt();
+    }
 }
 
 void command_End_turn() {
@@ -349,7 +351,7 @@ void command_Move() {
 
     // push stackt
     PushStackt();
-    
+
     move(idBMov, idBSucc, jml_pas);
 }
 

@@ -2,6 +2,7 @@
 #define GAME_COMMAND_H
 
 #include "game.h"
+#include "../save/save.h"
 
 extern Kata ATTACK, LEVEL, SKILL, UNDO, END_TURN, SAVE, MOVE, LOAD, START_W, EXIT;
 
@@ -22,6 +23,7 @@ boolean bangunan_sudah_pindah(Bangunan B);
 
 void command_in_game();
 void command_Start();
+void command_Load();
 void command_Attack();
 void command_Level_up();
 void command_Skill();

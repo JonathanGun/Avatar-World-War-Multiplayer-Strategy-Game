@@ -2,7 +2,6 @@
 
 boolean EndKata;
 Kata CKata;
-Kata Savefile;
 
 /* State Mesin */
 char CC;
@@ -46,16 +45,16 @@ boolean STARTKATA(char const *filename) {
     return valid;
   }
 
-  EndKata = (CC == MARK);
+  EndKata = (CC == MARK || (EOF && feof(pita)));
   return valid;
 }
 
 void SalinKata(){
   int i = 0;
-  while(!IsBlank()){
+  while(!IsBlank() && CC != '\n'){
     i++;
     CKata.TabKata[i] = CC;
-    ADV();
+    ADV();    
   }
   CKata.Length = i;
 }
@@ -135,3 +134,10 @@ boolean CompareKata(Kata K1, Kata K2){
   return true;
 }
 
+void CopyKataToString(Kata K, char **C) {
+  int i;
+  *C = (char*)malloc(sizeof(char)*(K.Length-1));
+  for ( i = 1; i <= K.Length; i++ ) {
+    (*C)[i-1] = K.TabKata[i];
+  }
+}

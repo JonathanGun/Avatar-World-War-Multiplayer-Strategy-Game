@@ -45,13 +45,12 @@ void PopStackt ()
 
 void ResetStackt() {
 	G.GameConditions.T[1] = InfoTopStackt(G.GameConditions);
-	TopStackt(G.GameConditions) = 1;
+	TopStackt(G.GameConditions) = 0;
 }
 
 void TulisStacktTop() {
 	GameCondition Gc = InfoTopStackt(G.GameConditions);
 	printf("Daftar bangunan:\n");
-	TulisIsiTabBangunan2();
 	printf("player1 skill:\n");
 	PrintAllSkill(Gc.Players[0].Skill);
 	printf("player1 bangunan:\n");
