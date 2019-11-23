@@ -270,3 +270,28 @@ void CopyList(ListBangunan L, ListBangunan *Lo) {
         P = Next(P);
     } 
 }
+
+void FilterListTanpa(ListBangunan* L, boolean (*f)(Bangunan)){
+    // selama elemen pertama tdk lolos filter, hapus
+    while((*f)(ElmtTB(Info(First(*L))))){
+        First(*L) = Next(First(*L));
+        if(First(*L) == Nil) return;
+    }
+    // elemen pertama pasti lolos filter dan bukan Nil
+    address P = Next(First(*L));
+    address save = First(*L);
+    while(P != Nil) {
+        if((*f)(ElmtTB(Info(P)))){
+            // elemen terakhir, delete aja trus return
+            if(Next(P) == Nil){
+                Next(save) = Nil;
+                return;
+            } else {
+                Next(save) = Next(P);
+            }
+        } else {
+            save = Next(save);
+        }
+        P = Next(P);
+    }
+}

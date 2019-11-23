@@ -325,6 +325,10 @@ void command_Move() {
         printf("Semua bangunan sudah pernah dipindah pasukannya pada turn ini. Silakan pilih command lain!"); ENDL;
         return;
     }
+    if(DEBUG){
+        printf("Filtered bangunan_sudah_pindah:"); ENDL;
+        TulisDaftarBangunan(ListPB);ENDL;
+    }
     int idBMov; ListBangunan BTerhubung;
     do{
         TulisDaftarBangunan(ListPB);
