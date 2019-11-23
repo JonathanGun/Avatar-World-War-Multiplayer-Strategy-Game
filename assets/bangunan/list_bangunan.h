@@ -84,4 +84,6 @@ int NbListType(ListBangunan L,char c);
 
 void FilterListTanpa(ListBangunan* L, boolean (*f)(Bangunan));
 
+int CountList(ListBangunan L);
+
 #endif

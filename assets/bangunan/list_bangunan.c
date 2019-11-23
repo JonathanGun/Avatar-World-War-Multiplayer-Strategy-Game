@@ -210,3 +210,13 @@ void ResetListBangunan(){
         P = Next(P);
     }
 }
+
+int CountList(ListBangunan L) {
+    int count = 0;
+    address P = First(L);
+    while ( P != NULL ) {
+        count++;
+        P = Next(P);
+    }
+    return count;
+}
