@@ -129,4 +129,6 @@ int CountList(ListBangunan L);
 
 void CopyList(ListBangunan L, ListBangunan *Lo); 
 
+int CountListType(ListBangunan L,char c);
+
 #endif

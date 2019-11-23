@@ -270,3 +270,13 @@ void CopyList(ListBangunan L, ListBangunan *Lo) {
         P = Next(P);
     } 
 }
+
+int CountListType(ListBangunan L,char c) {
+    address P = First(L);
+    int count = 0;
+    while ( P != NULL ) {
+        if(Type(ElmtTB(Info(P))) == c) count++;
+        P = Next(P);
+    }
+    return count;
+}
