@@ -100,7 +100,7 @@ void TriggerSkill(){
 
     // IR - semua bangunan lv 4
     boolean CekLvl = true;
-    int CountBangunan = CountList(CurPlayer().list_bangunan);
+    int CountBangunan = NbList(CurPlayer().list_bangunan);
     for (int i = 1; i <= CountBangunan ; i++){
         int idBLvl = ListElmt(CurPlayer().list_bangunan, i);
         Bangunan *BLvl = &ElmtTB(idBLvl);
@@ -202,7 +202,7 @@ void command_Attack() {
     printf("Daftar bangunan:\n");
     ListBangunan ListPB; CopyList(CurPlayer().list_bangunan, &ListPB);
     FilterListTanpa(&ListPB, bangunan_sudah_serang);
-    if(CountList(ListPB) == 0){
+    if(NbList(ListPB) == 0){
         printf("Semua bangunan sudah digunakan untuk menyerang. Silakan pilih command lain!"); ENDL;
         return;
     }
@@ -212,7 +212,7 @@ void command_Attack() {
 
         // input bangunan yang ingin digunakan menyerang
         printf("Bangunan yang digunakan untuk menyerang : ");
-        idBAtt = InputValidIntBetween(0, CountList(ListPB));
+        idBAtt = InputValidIntBetween(0, NbList(ListPB));
         if(idBAtt == 0) return;
         idBAtt = ListElmt(ListPB, idBAtt);
 
@@ -220,18 +220,18 @@ void command_Attack() {
         GetBangunanTerhubung(G.Relasi, idBAtt, &BTerhubung);
         FilterListTanpa(&BTerhubung, bangunan_same_owner);
 
-        if(CountList(BTerhubung) == 0){
+        if(NbList(BTerhubung) == 0){
             printf("Tidak ada bangunan musuh/netral di sekitar bangunan ini! Silakan pilih bangunan lain!"); ENDL;
             printf("Atau ketik 0 untuk batal serang"); ENDL; ENDL;
         }
-    } while(CountList(BTerhubung) == 0);
+    } while(NbList(BTerhubung) == 0);
 
     printf("Daftar bangunan yang dapat diserang:\n");
     TulisDaftarBangunan(BTerhubung);
 
     // input bangunan yang ingin diserang
     printf("Bangunan yang diserang: ");
-    int idBDef = InputValidIntBetween(1, CountList(BTerhubung));
+    int idBDef = InputValidIntBetween(1, NbList(BTerhubung));
     idBDef = ListElmt(BTerhubung, idBDef);
 
     // input jumlah pasukan yang digunakan menyerang
@@ -253,12 +253,12 @@ void command_Level_up() {
     // print daftar bangunan
     ListBangunan ListPB; CopyList(CurPlayer().list_bangunan, &ListPB);
     FilterListTanpa(&ListPB, not_IsLevelUpValid);
-    if(CountList(ListPB) == 0){
+    if(NbList(ListPB) == 0){
         printf("Semua bangunanmu tidak memiliki cukup pasukan untuk melakukan level-up"); ENDL;
         return;
     }
     FilterListTanpa(&ListPB, bangunan_level_maks);
-    if(CountList(ListPB) == 0){
+    if(NbList(ListPB) == 0){
         printf("Semua bangunanmu sudah memiliki level maksimal!"); ENDL;
         return;
     }
@@ -267,7 +267,7 @@ void command_Level_up() {
     
     // input bangunan yang ingin digunakan menyerang
     printf("Bangunan yang akan di level up: ");
-    int idBLvlUp = InputValidIntBetween(1, CountList(ListPB));
+    int idBLvlUp = InputValidIntBetween(1, NbList(ListPB));
     idBLvlUp = ListElmt(ListPB, idBLvlUp);
 
     // push stackt
@@ -339,7 +339,7 @@ void command_Move() {
     printf("Daftar bangunan:\n");
     ListBangunan ListPB; CopyList(CurPlayer().list_bangunan, &ListPB);
     FilterListTanpa(&ListPB, bangunan_sudah_pindah);
-    if(CountList(ListPB) == 0){
+    if(NbList(ListPB) == 0){
         printf("Semua bangunan sudah pernah dipindah pasukannya pada turn ini. Silakan pilih command lain!"); ENDL;
         return;
     }
@@ -353,7 +353,7 @@ void command_Move() {
 
         // input bangunan yang dipilih
         printf("Pilih bangunan : ");
-        idBMov = InputValidIntBetween(0, CountList(ListPB));
+        idBMov = InputValidIntBetween(0, NbList(ListPB));
         if(idBMov == 0) return;
         idBMov = ListElmt(ListPB, idBMov);
 
@@ -361,18 +361,18 @@ void command_Move() {
         GetBangunanTerhubung(G.Relasi, idBMov, &BTerhubung);
         FilterListTanpa(&BTerhubung, bangunan_diff_owner);
 
-        if(CountList(BTerhubung) == 0){
+        if(NbList(BTerhubung) == 0){
             printf("Tidak ada bangunan milik kamu di sekitar bangunan ini! Silakan pilih bangunan lain!"); ENDL;
             printf("Atau ketik 0 untuk batal move"); ENDL; ENDL;
         }
-    } while(CountList(BTerhubung) == 0);
+    } while(NbList(BTerhubung) == 0);
 
     printf("Daftar bangunan terdekat:\n");
     TulisDaftarBangunan(BTerhubung);
 
     // input bangunan yang dipilih
     printf("Bangunan yang akan menerima : ");
-    int idBSucc = InputValidIntBetween(1, CountList(BTerhubung));
+    int idBSucc = InputValidIntBetween(1, NbList(BTerhubung));
     idBSucc = ListElmt(BTerhubung, idBSucc);
 
     // input jumlah pasukan yang dipindahkan

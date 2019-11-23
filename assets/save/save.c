@@ -229,8 +229,8 @@ void TulisSave() {
         if ( !data.not_empty ) printf("Slot kosong\n");
         else {
             printf("config : %s\n", data.config_file);
-            printf("bangunan Player 1 : %d\n", CountList(data.Gc.Players[0].list_bangunan));
-            printf("bangunan Player 2 : %d\n", CountList(data.Gc.Players[1].list_bangunan));
+            printf("bangunan Player 1 : %d\n", NbList(data.Gc.Players[0].list_bangunan));
+            printf("bangunan Player 2 : %d\n", NbList(data.Gc.Players[1].list_bangunan));
             printf("banyak bangunan : %d\n", data.Gc.ListBangunan.NeffTB);
         }
     }

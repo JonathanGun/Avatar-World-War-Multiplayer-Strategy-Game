@@ -38,7 +38,7 @@ void AddNodeGraph(Graph *G,int n)
 {
     adrNode P = AlokNode(n);
     adrNode A = First(*G);
-    while(NextGraph(A) != NilGraph){
+    while(NextGraph(A) != Nil){
         A = NextGraph(A);
     }
     NextGraph(A) = P;
@@ -75,7 +75,7 @@ void GetBangunanTerhubung(Graph GR, int idxB, ListBangunan* AdjList){
     adrNode P = SearchNode(GR,idxB);
     adrSucc PT = Trail(P);
     int i = 1;
-    while(PT != NilGraph){
+    while(PT != Nil){
         InsertList(AdjList,IdGraph(Succ(PT)));
         PT = NextSucc(PT);
     }
@@ -101,11 +101,11 @@ void AddLastTrail(Graph *GR, int idB, int Trail){
 
 void PrintGraph(Graph GR){
     adrNode P = First(GR);
-    while(P != NilGraph){
+    while(P != Nil){
         prints(IdGraph(P));
         printf("- ");
         adrSucc tmp = Trail(P);
-        while(tmp != NilGraph){
+        while(tmp != Nil){
             prints(IdGraph(Succ(tmp)));
             tmp = NextSucc(tmp);
         } ENDL;

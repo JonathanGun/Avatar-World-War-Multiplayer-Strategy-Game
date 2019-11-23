@@ -1,6 +1,6 @@
 #include "arraydin_bangunan.h"
 
-/*********** KONSTRUKTOR ************/
+/*********************** KONSTRUKTOR ************************/
 void CreateEmptyTabBangunan(TabBangunan *T, int MaxElTB)
 /* I.S. T sembarang, MaxElTB > 0 */
 /* F.S. Terbentuk tabel T kosong dengan kapasitas MaxElTB + 1 */
@@ -19,88 +19,11 @@ void DealokBang(TabBangunan *T)
     NeffTB(*T) = 0;
 }
 
-void AddBangunan(Bangunan B)
-/* Memasukan bangunan B sebagai bangunan terakhir di TB */
+/***************** KELOMPOK BACA TULIS *****************/
+void TulisDaftarBangunan(ListBangunan L)
+/* I.S. L Terdefinisi */
+/* F.S. elemen L tertulis di layar sesuai format di spek */
 {
-    NeffTB(InfoTopStackt(G.GameConditions).ListBangunan)++;
-    ElmtTB((NeffTB(InfoTopStackt(G.GameConditions).ListBangunan))) = B;
-}
-
-/* ********** SELEKTOR (TAMBAHAN) ********** */
-/* *** Banyaknya elemen *** */
-int NbBangunan(TabBangunan T)
-/* Mengirimkan banyaknya elemen efektif tabel */
-/* Mengirimkan nol jika tabel kosong */
-/* *** Daya tampung container *** */
-{
-    return NeffTB(T);
-}
-
-void SplitBangunan(ListBangunan *L1, ListBangunan *L2)
-/* Akan memisahkan setiap bangunan di TabBangunan TAll bila */
-/* ownernya 1 ke p1, kalo ownernya 2 ke p2 */
-{
-    int i = 1;
-    while(i <= InfoTopStackt(G.GameConditions).ListBangunan.NeffTB){
-        if(BangunanOwner(ElmtTB(i)) == 1){
-            InsertList(L1,i);
-        } else if(BangunanOwner(ElmtTB(i)) == 2){
-            InsertList(L2,i);
-        }
-    }
-}
-
-/*************** ALGORITMA SEARCHING ****************/
-Point GetPosFrom(int idx)
-/* I.S. idx terdefinisi di TAll, bangunan TAll.TB[i] terdefinisi */
-/* Mengambil posisi dari suatu indeks bangunan */
-{
-    return ElmtTB(idx).posisi;
-}
-
-int GetIdxFromPosBangunan(int Baris, int Kolom)
-/* Pencarian indeks bangunan */
-{
-    boolean found = false;
-    int i = 1;
-    while(!found && i<= NeffTB(InfoTopStackt(G.GameConditions).ListBangunan)){
-        if(Row(ElmtTB(i).posisi) == Baris && Col(ElmtTB(i).posisi) == Kolom){
-            found = true;
-        }
-    }
-    if(i <= NeffTB(InfoTopStackt(G.GameConditions).ListBangunan)){
-        return i;
-    } else {
-        return -1; //Kalau tidak ada bangunan di baris atau kolom tsb, dikembalikan nilai -1
-    }
-}
-
-void TulisIsiTabBangunan(){
-    printf("[");
-    for(int i = 1; i <= NbBangunan(InfoTopStackt(G.GameConditions).ListBangunan); ++i){
-        TulisBangunan(ElmtTB(i));
-        if (i != NbBangunan(InfoTopStackt(G.GameConditions).ListBangunan)) printf(",");
-    }
-    printf("]");
-}
-
-void TulisIsiTabBangunan2(TabBangunan T) {
-    int i;
-    for ( i = 1; i <= NbBangunan(T); i++ ) {
-        printf("id %d\n", i);
-        printf("level %d\n", T.TB[i].level);
-        printf("pasukan %d\n", T.TB[i].jumlah_pasukan);
-        printf("maks %d\n", T.TB[i].maksimum_tambah_pasukan);
-        printf("tambah %d\n",T.TB[i].nilai_tambah_pasukan);
-        printf("owner %d\n", T.TB[i].owner);
-        printf("pertahanan %d\n", T.TB[i].pertahanan);
-        printf("sudahpidah %s\n", T.TB[i].sudahpindah ? "Ya" : "Tidak");
-        printf("sudahserang %s\n", T.TB[i].sudahserang ? "Ya" : "Tidak");
-        getchar();
-    } 
-}
-
-void TulisDaftarBangunan(ListBangunan L) {
     int i = 1;
     address P = First(L);
     while(P != Nil) {
@@ -119,16 +42,18 @@ void TulisDaftarBangunan(ListBangunan L) {
     }
 }
 
-void ResetListBangunan(){
-    address P = First(CurPlayer().list_bangunan);
-    while(P != Nil){
-        ElmtTB(Info(P)).sudahserang = false;
-        ElmtTB(Info(P)).sudahpindah = false;
-        P = Next(P);
-    }
+/********** OPERASI LAIN ***********/
+void AddBangunan(Bangunan B)
+/* Memasukan bangunan B sebagai bangunan terakhir di arraydin_bangunan global */
+{
+    NeffTB(InfoTopStackt(G.GameConditions).ListBangunan)++;
+    ElmtTB((NeffTB(InfoTopStackt(G.GameConditions).ListBangunan))) = B;
 }
 
-void CopyTabBangunan(TabBangunan T, TabBangunan *To) {
+void CopyTabBangunan(TabBangunan T, TabBangunan *To)
+/* I.S. T terdefinisi (boleh kosong), To sembarang */
+/* F.S. To identik dengan T tapi bukan TabBangunan yang sama */
+{
     CreateEmptyTabBangunan(To, T.MaxElTB);
     int i;
     for ( i = 1; i <= T.NeffTB; i++ ) {
