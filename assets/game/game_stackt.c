@@ -44,7 +44,7 @@ void PopStackt ()
 }
 
 void ResetStackt() {
-	G.GameConditions.T[1] = InfoTopStackt(G.GameConditions);
+	G.GameConditions.T[0] = InfoTopStackt(G.GameConditions);
 	TopStackt(G.GameConditions) = 0;
 }
 
