@@ -175,7 +175,7 @@ void attack(int idBAtt, int idBDef, int jumlah_penyerang)
                 TakeOwnership(BDef);
                 Pasukan(*BDef) = -Pasukan(*BDef);
                 printf("Bangunan berhasil diambil, ");
-                if(Pasukan(*BDef) < 0){
+                if(Pasukan(*BDef) > 0){
                     printf("pasukan yang tersisa sebanyak %d pasukan di dalam bangunan.\n", Pasukan(*BDef));
                 } else {
                     printf("tidak ada pasukan yang tersisa untuk menjaga bangunan.\n");
