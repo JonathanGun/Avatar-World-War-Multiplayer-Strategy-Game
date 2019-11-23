@@ -29,6 +29,8 @@ boolean IsBangunanEmpty(Bangunan B);
 /* Mengecek apakah bangunan adalah bangunan kosong */
 boolean IsLvlUpValid(Bangunan B);
 /* Mengecek apakah bangunan valid untuk di level up, syarat level up adalah jumlah pasukan >= M/2 */
+boolean not_IsLevelUpValid(Bangunan B);
+/* */
 void levelup(int idB);
 /* Menaikkan level dari Bangunan Pemain */
 void attack(int idBAtt, int idBDef, int jumlah_penyerang);

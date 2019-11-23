@@ -32,10 +32,10 @@ boolean valid_aksi(Kata input){
 
 void MakeAksi(){
     MakeKata(&ATTACK,"ATTACK",6);
-    MakeKata(&LEVEL,"LEVEL",8);
+    MakeKata(&LEVEL,"LEVEL_UP",8);
     MakeKata(&SKILL,"SKILL",5);
     MakeKata(&UNDO,"UNDO",4);
-    MakeKata(&END_TURN,"END",8);
+    MakeKata(&END_TURN,"END_TURN",8);
     MakeKata(&SAVE,"SAVE",4);
     MakeKata(&MOVE,"MOVE",4);
 }
@@ -238,6 +238,11 @@ void command_Attack() {
 void command_Level_up() {
     // print daftar bangunan
     ListBangunan ListPB = CurPlayer().list_bangunan;
+    FilterListTanpa(&ListPB, not_IsLevelUpValid);
+    if(CountList(ListPB) == 0){
+        printf("Semua bangunanmu tidak memiliki cukup pasukan untuk melakukan level-up"); ENDL;
+        return;
+    }
     FilterListTanpa(&ListPB, bangunan_level_maks);
     if(CountList(ListPB) == 0){
         printf("Semua bangunanmu sudah memiliki level maksimal!"); ENDL;

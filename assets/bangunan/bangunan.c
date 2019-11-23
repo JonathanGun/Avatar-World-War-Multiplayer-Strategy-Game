@@ -66,6 +66,10 @@ boolean IsLvlUpValid(Bangunan B)
     }
 }
 
+boolean not_IsLevelUpValid(Bangunan B){
+    return !IsLvlUpValid(B);
+}
+
 void levelup(int idB)
 /* Menaikkan level dari Bangunan Pemain */
 {

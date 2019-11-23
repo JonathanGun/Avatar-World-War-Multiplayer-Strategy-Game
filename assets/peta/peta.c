@@ -50,10 +50,9 @@ void TulisPeta()
 	yellow();
 	printf("    ");
 	fori(i, NPetaKolEff(G.map)) {
-		printf(" ");
+		printf("  ");
 		print(i+1);
-		printf(" ");
-		if((i+1)/10 == 0) printf(" ");
+		if((i+2)/10 == 0) printf(" ");
 	}
 	ENDL;
 	normal();
