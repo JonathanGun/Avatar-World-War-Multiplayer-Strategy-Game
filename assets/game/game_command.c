@@ -32,7 +32,7 @@ boolean valid_aksi(Kata input){
 
 void MakeAksi(){
     MakeKata(&ATTACK,"ATTACK",6);
-    MakeKata(&LEVEL,"LEVEL",8);
+    MakeKata(&LEVEL,"LEVEL_UP",8);
     MakeKata(&SKILL,"SKILL",5);
     MakeKata(&UNDO,"UNDO",4);
     MakeKata(&END_TURN,"END_TURN",8);
@@ -239,6 +239,11 @@ void command_Attack() {
 void command_Level_up() {
     // print daftar bangunan
     ListBangunan ListPB = CurPlayer().list_bangunan;
+    FilterListTanpa(&ListPB, not_IsLevelUpValid);
+    if(CountList(ListPB) == 0){
+        printf("Semua bangunanmu tidak memiliki cukup pasukan untuk melakukan level-up"); ENDL;
+        return;
+    }
     FilterListTanpa(&ListPB, bangunan_level_maks);
     if(CountList(ListPB) == 0){
         printf("Semua bangunanmu sudah memiliki level maksimal!"); ENDL;
@@ -262,15 +267,18 @@ void command_Skill() {
     // use skill
     if ( IsEmptyQueue(Player(CurTurn()).Skill) ) {
         printf("Anda tidak memiliki skill!\n");
-    } else {
-        // Menyimpan kondisi sekarang ke dalam stackt
-        PushStackt();
+    } else {      
         useSkill(&Player(CurTurn()).Skill);
+        // Reset stackt
+        ResetStackt();
     }
 }
 
 void command_Undo() {
-    if ( TopStackt(G.GameConditions) != 0 ) {
+    
+    if(IsEmptyStackt(G.GameConditions)){
+        printf("Kamu tidak bisa melakukan Undo pada awal turn atau setelah melakukan skill...");ENDL;
+    }else{
         // Mengembalikan kondisi sebelumnya
         PopStackt();
     }

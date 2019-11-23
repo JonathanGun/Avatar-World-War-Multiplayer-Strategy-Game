@@ -65,7 +65,6 @@ void SetBangunanTerhubung(Graph *GR, int r, int c){
 /*I.S. r  dan c adalah id dari graph yang valid
 F.S. c merupakan trail dari r */
     AddLastTrail(GR,r,c);
-    AddLastTrail(GR,c,r);
 }
 
 /* ----- OPERASI GRAF ----- */
@@ -76,8 +75,8 @@ void GetBangunanTerhubung(Graph GR, int idxB, ListBangunan* AdjList){
     adrNode P = SearchNode(GR,idxB);
     adrSucc PT = Trail(P);
     int i = 1;
-    while(NextSucc(PT) != NilGraph){
-        InsertList(AdjList,IdGraph(Succ(NextSucc(PT))));
+    while(PT != NilGraph){
+        InsertList(AdjList,IdGraph(Succ(PT)));
         PT = NextSucc(PT);
     }
 }
