@@ -252,8 +252,11 @@ void printTypeBangunan(Bangunan B)
 }
 
 void TakeOwnership(Bangunan* B){
-    (*B).owner %= 2;
-    (*B).owner++;
+    if((*B).owner == 0) (*B).owner = CurTurn();
+    else{
+        (*B).owner %= 2;
+        (*B).owner++;
+    }
     DelList(&OtherPlayer().list_bangunan, (*B).id);
     InsertList(&CurPlayer().list_bangunan, (*B).id);
 }
