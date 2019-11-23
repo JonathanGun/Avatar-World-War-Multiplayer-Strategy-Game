@@ -4,7 +4,7 @@ void useIU()
 /* Menggunakan Skill IU, Seluruh bangunan yang dimiliki pemain akan naik 1 level.*/
 {
     // traverse semua bangunan, if milik == player, level up
-    int CountBangunan = CountList(CurPlayer().list_bangunan);
+    int CountBangunan = NbList(CurPlayer().list_bangunan);
     IUActive = true;
     for (int i = 1; i <= CountBangunan ; i++){
         int idB = ListElmt(CurPlayer().list_bangunan, i);
@@ -62,7 +62,7 @@ void useCriticalHit()
 void useInstantReinforcement()
 /* Menggunakan Skill Instant Reinforcement, Seluruh bangunan mendapatkan tambahan 5 pasukan.*/
 {
-    int CountBangunan = CountList(CurPlayer().list_bangunan);
+    int CountBangunan = NbList(CurPlayer().list_bangunan);
     for (int i = 1; i <= CountBangunan ; i++){
         int idB = ListElmt(CurPlayer().list_bangunan, i);
         Bangunan *B = &ElmtTB(idB);
@@ -76,7 +76,7 @@ void useBarrage()
 /* Menggunakan Skill Barrage, Jumlah pasukan pada seluruh bangunan musuh akan berkurang sebanyak 10
    pasukan.*/
 {
-    int CountBangunan = CountList(OtherPlayer().list_bangunan);
+    int CountBangunan = NbList(OtherPlayer().list_bangunan);
     for (int i = 1; i <= CountBangunan ; i++){
         int idB = ListElmt(OtherPlayer().list_bangunan, i);
         Bangunan *B = &ElmtTB(idB);

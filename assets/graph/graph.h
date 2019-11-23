@@ -4,24 +4,6 @@
 #include "../util/util.h"
 #include "../bangunan/list_bangunan.h"
 
-#define NilGraph NULL
-/*
-typedef struct tNodeGraph* adrNode;
-typedef struct tAdrSucc* adrSucc;
-typedef struct tNodeGraph {
-	int Id;
-    int NPred;
-    adrSucc Trail; // ke bawah
-    adrNode Next; // ke kanan
-} NodeGraph;
-typedef struct tAdrSucc {
-    adrNode Succ;
-    adrSucc Next;
-}
-typedef struct {
-    adrNode First;
-}Graph;
-*/
 /* Selektor */
 #define IdGraph(P) (P)->Id
 #define NPred(P) (P)->NPred

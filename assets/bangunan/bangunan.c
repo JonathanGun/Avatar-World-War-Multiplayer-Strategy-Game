@@ -220,7 +220,7 @@ void move(int idBAwal, int idBAkhir, int jumlah_pasukan_pindah)
 void add_pasukan()
 /* Menghitung perubahan jumlah pasukan saat awal turn */
 {
-    int CountBangunan = CountList(CurPlayer().list_bangunan);
+    int CountBangunan = NbList(CurPlayer().list_bangunan);
     for (int i = 1; i <= CountBangunan ; i++){
         int idB = ListElmt(CurPlayer().list_bangunan, i);
         Bangunan *B = &ElmtTB(idB);
@@ -263,11 +263,11 @@ void TakeOwnership(Bangunan* B){
     else{
         (*B).owner %= 2;
         (*B).owner++;
-        if(CountList(OtherPlayer().list_bangunan) == 2){//Mendapatkan shield
+        if(NbList(OtherPlayer().list_bangunan) == 2){//Mendapatkan shield
             printf("Bangunan Player "); print(OtherTurn()); printf(" tersisa 2! Player "); print(OtherTurn()); printf(" mendapatkan <Shield>"); ENDL;
             Add(&OtherPlayer().Skill, 2);
         }
-        if((CountListType(CurPlayer().list_bangunan, 'T') == 3)&&(Type(*B) == 'T')){//Mendapatkan Attack Up
+        if((NbListType(CurPlayer().list_bangunan, 'T') == 3)&&(Type(*B) == 'T')){//Mendapatkan Attack Up
             printf("Tower Player "); print(CurTurn()); printf(" bertambah menjadi 3! Player "); print(CurTurn()); printf(" mendapatkan <Attack Up>"); ENDL;
             Add(&CurPlayer().Skill, 4);
         }
@@ -276,7 +276,7 @@ void TakeOwnership(Bangunan* B){
             Add(&OtherPlayer().Skill, 3);
         }
     }
-    if(CountList(CurPlayer().list_bangunan) == 10){//Mendapatkan Barrage
+    if(NbList(CurPlayer().list_bangunan) == 10){//Mendapatkan Barrage
         printf("Bangunan Player "); print(CurTurn()); printf(" bertambah menjadi 10! Player "); print(OtherTurn()); printf(" mendapatkan <Barrage>"); ENDL;
         Add(&OtherPlayer().Skill, 7);
     }

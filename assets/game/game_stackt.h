@@ -4,8 +4,6 @@
 #include "../util/util.h"
 #include "game_condition.h"
 
-#define StackNil 0
-#define StackMaxEl 100
 /* Nil adalah stack dengan elemen kosong . */
 /* Karena indeks dalam bhs C dimulai 0 maka tabel dg indeks 0 tidak dipakai */
 

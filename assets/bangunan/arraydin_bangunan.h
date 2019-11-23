@@ -5,7 +5,7 @@
 #include "bangunan.h"
 #include "list_bangunan.h"
 
-
+/* STRUKTUR ADT */
 /* Indeks yang digunakan [IdxMin..MaxElTB] */
 /* Jika T adalah TabInt, cara deklarasi dan akses: */
 /* Deklarasi : T : TabInt */
@@ -31,37 +31,17 @@ void CreateEmptyTabBangunan(TabBangunan *T, int MaxElTB);
 void DealokBang(TabBangunan *T);
 /* I.S. T terdefinisi; */
 /* F.S. TB(T) dikembalikan ke system, MaxElTB(T)=0; NeffTB(T)=0 */
+
+/***************** KELOMPOK BACA TULIS *****************/
+void TulisDaftarBangunan(ListBangunan L);
+/* I.S. L Terdefinisi */
+/* F.S. elemen L tertulis di layar sesuai format di spek */
+
+/********** OPERASI LAIN ***********/
 void AddBangunan(Bangunan B);
 /* Memasukan bangunan B sebagai bangunan terakhir di TB */
-
-
-/* ********** SELEKTOR (TAMBAHAN) ********** */
-/* *** Banyaknya elemen *** */
-int NbBangunan(TabBangunan T);
-/* Mengirimkan banyaknya elemen efekTITBf tabel */
-/* Mengirimkan nol jika tabel kosong */
-/* *** Daya tampung container *** */
-
-void SplitBangunan(ListBangunan *L1, ListBangunan *L2);
-/* Akan memisahkan seTITBap bangunan di TabBangunan TAll bila */
-/* ownernya 1 ke p1, kalo ownernya 2 ke p2 */
-
-/*************** ALGORITMA SEARCHING ****************/
-Point GetPosFrom(int idx);
-/* I.S. idx terdefinisi di TAll, bangunan TAll.TB[i] terdefinisi */
-/* Mengambil posisi dari suatu indeks bangunan */
-
-int GetIdxFromPosBangunan(int Baris, int Kolom );
-/* Pencarian indeks bangunan */
-
-void TulisIsiTabBangunan();
-
-void TulisIsiTabBangunan2(TabBangunan T);
-
-void TulisDaftarBangunan(ListBangunan L);
-
-void ResetListBangunan();
-
 void CopyTabBangunan(TabBangunan T, TabBangunan *To);
+/* I.S. T terdefinisi (boleh kosong), To sembarang */
+/* F.S. To identik dengan T tapi bukan TabBangunan yang sama */
 
 #endif

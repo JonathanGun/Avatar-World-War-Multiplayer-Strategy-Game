@@ -20,7 +20,7 @@ void CopyPeta(Peta P1, Peta *P2){
 }
 
 void InitPeta(){
-	for(int i = 1; i <= NbBangunan(InfoTopStackt(G.GameConditions).ListBangunan); ++i){
+	for(int i = 1; i <= NeffTB(InfoTopStackt(G.GameConditions).ListBangunan); ++i){
 		Bangunan* cur = &ElmtTB(i);
 		PetaElmt(G.map, (*cur).posisi.r-1, (*cur).posisi.c-1) = (*cur).id;
 	}
