@@ -18,11 +18,8 @@ int main (){
     } while(!valid_command(command));
 
     if(CompareKata(command,LOAD)){
-        LoadGame(1);
-        // InitGame("resources/config.txt");
-        StartGame();
+        command_Load();
     } else if (CompareKata(command,START_W)){
-        InitGame("resources/config.txt");
         command_Start();
     } else { 
         ExitGame();

@@ -20,7 +20,7 @@ void InitSave();
 
 void InitData();
 
-void InitGame(const char* config_file);
+void InitGame(char* config_file);
 // Membaca file config dan menginisialisasi attribut pada Game G
 // a. Pada saat permainan dimulai, game akan membaca konfigurasi permainan dari file
 // eksternal (dijelaskan pada bab selanjutnya).

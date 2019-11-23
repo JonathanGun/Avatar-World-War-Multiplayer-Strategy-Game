@@ -1,6 +1,6 @@
 #include "config_reader.h"
 
-void extract_config(const char* fileconfig) {
+void extract_config(char* fileconfig) {
     G.config_file = fileconfig;
     START_file(fileconfig, 0);
     extract_peta();
