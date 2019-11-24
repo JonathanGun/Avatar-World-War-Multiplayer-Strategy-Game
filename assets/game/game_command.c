@@ -8,11 +8,11 @@ void get_next_command()
 {
     MakeAksi();
 
-    TulisPeta();
+    PrintPeta();
     printf("Player "); print(CurTurn()); ENDL;
     printf("Daftar bangunan:"); ENDL;
-    TulisDaftarBangunan(CurPlayer().list_bangunan);
-    TulisSkill(CurPlayer().Skill);
+    PrintDaftarBangunan(CurPlayer().list_bangunan);
+    PrintSkill(CurPlayer().Skill);
     
     Kata command;
     do{
@@ -75,7 +75,7 @@ void command_Start()
 
 void command_Load()
 {
-    TulisSave();
+    PrintSaveInfo();
 
     if ( !Save_data.not_empty ) {
         printf("Tidak ada slot yang berisi data permainan!\n");
@@ -116,7 +116,7 @@ void command_Attack()
     }
     int idBAtt; ListBangunan BTerhubung;
     do{
-        TulisDaftarBangunan(ListPB);
+        PrintDaftarBangunan(ListPB);
 
         // input bangunan yang ingin digunakan menyerang
         printf("Bangunan yang digunakan untuk menyerang : ");
@@ -135,7 +135,7 @@ void command_Attack()
     } while(NbList(BTerhubung) == 0);
 
     printf("Daftar bangunan yang dapat diserang:\n");
-    TulisDaftarBangunan(BTerhubung);
+    PrintDaftarBangunan(BTerhubung);
 
     // input bangunan yang ingin diserang
     printf("Bangunan yang diserang: ");
@@ -172,7 +172,7 @@ void command_Level_up()
         return;
     }
     printf("Daftar bangunan:\n");
-    TulisDaftarBangunan(ListPB);
+    PrintDaftarBangunan(ListPB);
     
     // input bangunan yang ingin digunakan menyerang
     printf("Bangunan yang akan di level up: ");
@@ -240,7 +240,7 @@ void command_End_turn()
 void command_Save() {
     printf("Pilih slot yang ingin anda gunakan:\n");
 
-    TulisSave();
+    PrintSaveInfo();
 
     printf(">>> ");
     int NthData = InputValidIntBetween(1, Save_data.Max);
@@ -265,11 +265,11 @@ void command_Move()
     }
     if(DEBUG){
         printf("Filtered bangunan_sudah_pindah:"); ENDL;
-        TulisDaftarBangunan(ListPB);ENDL;
+        PrintDaftarBangunan(ListPB);ENDL;
     }
     int idBMov; ListBangunan BTerhubung;
     do{
-        TulisDaftarBangunan(ListPB);
+        PrintDaftarBangunan(ListPB);
 
         // input bangunan yang dipilih
         printf("Pilih bangunan : ");
@@ -288,7 +288,7 @@ void command_Move()
     } while(NbList(BTerhubung) == 0);
 
     printf("Daftar bangunan terdekat:\n");
-    TulisDaftarBangunan(BTerhubung);
+    PrintDaftarBangunan(BTerhubung);
 
     // input bangunan yang dipilih
     printf("Bangunan yang akan menerima : ");

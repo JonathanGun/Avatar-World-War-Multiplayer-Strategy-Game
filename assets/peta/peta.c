@@ -27,7 +27,7 @@ void InitPeta(){
 }
 
 /* ********** KELOMPOK BACA/TULIS ********** */
-void TulisPeta()
+void PrintPeta()
 /* I.S. P terdefinisi */
 /* F.S. Nilai P.(i,j) ditulis ke layar per baris per PetaKolom, masing-masing elemen per baris
    dipisahkan sebuah spasi, dikelilingi box bintang (*) */

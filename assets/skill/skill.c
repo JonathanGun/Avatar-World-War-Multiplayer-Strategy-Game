@@ -134,7 +134,7 @@ void useSkill(Queue* Skill)
 }
 
 /****************** PROSES SKILL ******************/
-void printSkill(Queue Skill)
+void PrintOneSkill(Queue Skill)
 /* Mengeprint Skill di bagian Head Queue*/
 {
     int x;
@@ -168,14 +168,14 @@ void printSkill(Queue Skill)
     ENDL;
 }
 
-void TulisSkill(Queue Skill){
-    printf("Current Skill Available: "); printSkill(Skill);
+void PrintSkill(Queue Skill){
+    printf("Current Skill Available: "); PrintOneSkill(Skill);
 }
 
 void PrintAllSkill(Queue Skill) {
     int X;
-    while ( !IsEmptyQueue(Skill) ) {
-        printSkill(Skill);
+    while (!IsEmptyQueue(Skill)) {
+        PrintOneSkill(Skill);
         Del(&Skill, &X);
     }
 }

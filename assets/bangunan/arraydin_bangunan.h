@@ -33,7 +33,7 @@ void DealokBang(TabBangunan *T);
 /* F.S. TB(T) dikembalikan ke system, MaxElTB(T)=0; NeffTB(T)=0 */
 
 /***************** KELOMPOK BACA TULIS *****************/
-void TulisDaftarBangunan(ListBangunan L);
+void PrintDaftarBangunan(ListBangunan L);
 /* I.S. L Terdefinisi */
 /* F.S. elemen L tertulis di layar sesuai format di spek */
 
