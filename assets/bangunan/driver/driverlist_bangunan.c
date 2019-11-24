@@ -1,6 +1,6 @@
-#include "../bangunan/list_bangunan.h"
-#include "../util/util.h"
-#include "../bangunan/bangunan.h"
+#include "../list_bangunan.h"
+#include "../../util/util.h"
+#include "../bangunan.h"
 
 int main(){
     address P = AlokasiList(11);
