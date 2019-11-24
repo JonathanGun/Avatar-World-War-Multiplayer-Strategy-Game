@@ -1,16 +1,9 @@
 #include "bangunan.h"
 
-Point MakePoint(int X, int Y)
-/* Membentuk sebuah Point dari komponen-komponennya */
-{
-    Point P;
-    Row(P) = X;
-    Col(P) = Y;
-    return P;
-}
-
+/* KONSTRUKTOR */
 void CreateBangunanEmpty(Bangunan *B)
-/* */
+/* I.S. B Sembarang */
+/* F.S. B terdefinisi sebagai bangunan kosong */
 {
     (*B).id = -1;
     (*B).jumlah_pasukan = 0;
@@ -26,29 +19,7 @@ void CreateBangunanEmpty(Bangunan *B)
     (*B).type = ' ';
 }
 
-void CopyBangunan(Bangunan Bin, Bangunan *B)
-/* */
-{
-    (*B).id = Bin.id;
-    (*B).jumlah_pasukan = Bin.jumlah_pasukan;
-    (*B).level = Bin.level;
-    (*B).nilai_tambah_pasukan = Bin.nilai_tambah_pasukan;
-    (*B).maksimum_tambah_pasukan = Bin.maksimum_tambah_pasukan;
-    (*B).owner = Bin.owner;
-    (*B).pertahanan = Bin.pertahanan;
-    (*B).sudahserang = Bin.sudahserang;
-    (*B).sudahpindah = Bin.sudahpindah;
-    (*B).posisi.r = Bin.posisi.r;
-    (*B).posisi.c = Bin.posisi.c;
-    (*B).type = Bin.type;
-}
-
-boolean IsBangunanEmpty(Bangunan B)
-/* Mengecek apakah bangunan merupakan bangunan kosong */
-{
-    return B.id == -1;
-}
-
+/** KELOMPOK TEST BANGUNAN **/
 boolean IsLvlUpValid(Bangunan B)
 /* Mengecek apakah bangunan valid untuk di level up, syarat level up adalah jumlah pasukan >= M/2 */
 {
@@ -66,19 +37,28 @@ boolean IsLvlUpValid(Bangunan B)
     }
 }
 
-boolean not_IsLevelUpValid(Bangunan B){
+boolean not_IsLevelUpValid(Bangunan B)
+/* Mengecek apakah bangunan tidak valid untuk di level up, syarat level up adalah jumlah pasukan >= M/2 */
+{
     return !IsLvlUpValid(B);
 }
 
-void TriggerSkillAfterAttack(){
-
+/** KELOMPOK BACA TULIS **/
+void printTypeBangunan(Bangunan B)
+/* Mengeprint Type sebuah bangunan */
+{
+    if (Type(B) == 'C') printf("Castle");
+    else if (Type(B) == 'T') printf("Tower");
+    else if (Type(B) == 'F') printf("Fort");
+    else if (Type(B) == 'V') printf("Village");
 }
 
+/** OPERASI PADA BANGUNAN **/
 void levelup(int idB)
 /* Menaikkan level dari Bangunan Pemain */
 {
     Bangunan *B = &ElmtTB(idB);
-    // Level <4
+    // Level < 4
     if(Level(*B)<4){
         // jumlah pasukan kurang
         if(!IUActive && !IsLvlUpValid(*B)){
@@ -123,7 +103,7 @@ void levelup(int idB)
             printf(" (%d,%d) ", (*B).posisi.r, (*B).posisi.c); 
             printf("meningkat menjadi %d !\n", Level(*B));
         }
-    }else{
+    } else {
         printf("Level ");printTypeBangunan(*B);
         printf(" (%d,%d) ", (*B).posisi.r, (*B).posisi.c); 
         printf("sudah Maksimum !");ENDL;
@@ -143,7 +123,7 @@ void attack(int idBAtt, int idBDef, int jumlah_penyerang)
 
     if(CurPlayer().CritHitActive){
         CurPlayer().CritHitActive = false;
-        printf("Kamu punya skill critical hit dan/atau critical hit aktif! Damage pasukanmu menjadi 2x lipat!\n");
+        printf("Kamu punya skill critical hit aktif! Damage pasukanmu menjadi 2x lipat!\n");
         if(2*jumlah_penyerang >= Pasukan(*BDef)){
             TakeOwnership(BDef);
             BangunanOwner(*BDef) = BangunanOwner(*BAtt);
@@ -189,8 +169,6 @@ void attack(int idBAtt, int idBDef, int jumlah_penyerang)
             }
         }
     }
-
-    TriggerSkillAfterAttack();
 }
 
 void move(int idBAwal, int idBAkhir, int jumlah_pasukan_pindah)
@@ -230,54 +208,56 @@ void add_pasukan()
     }
 }
 
-void TulisBangunan(Bangunan B)
-/* */
+void TakeOwnership(Bangunan* B)
+/* memindah kepemilikan bangunan B ke giliran player saat ini, termasuk juga trigger skill2 yang didapat saat menyerang */
 {
-    printf("<%d> %c at (%d,%d)\n", B.id, B.type, B.posisi.r, B.posisi.c);
-    printf("Milik player "); println(B.owner);
-    printf("Level: "); println(B.level);
-    printf("Jumlah Pasukan: "); println(B.jumlah_pasukan);
-    printf("Shield active? ");
-    if(B.pertahanan) printf("yes");
-    else printf("no");
-    ENDL;
-    printf("Sudah serang? ");
-    if(B.sudahserang) printf("yes");
-    else printf("no");
-    ENDL;
-}
-
-void printTypeBangunan(Bangunan B)
-/* Mengeprint Type sebuah bangunan */
-{
-    if (Type(B) == 'C') printf("Castle");
-    else if (Type(B) == 'T') printf("Tower");
-    else if (Type(B) == 'F') printf("Fort");
-    else if (Type(B) == 'V') printf("Village");
-}
-
-void TakeOwnership(Bangunan* B){
+    // Memindah dari bangunan musuh (jika ada) ke bangunan player saat ini
     DelList(&OtherPlayer().list_bangunan, (*B).id);
     InsertList(&CurPlayer().list_bangunan, (*B).id);
     if((*B).owner == 0) (*B).owner = CurTurn();
     else{
         (*B).owner %= 2;
         (*B).owner++;
-        if(NbList(OtherPlayer().list_bangunan) == 2){//Mendapatkan shield
+
+        // trigger skill jika merebut tower lawan
+        //Mendapatkan shield
+        if(NbList(OtherPlayer().list_bangunan) == 2){
             printf("Bangunan Player "); print(OtherTurn()); printf(" tersisa 2! Player "); print(OtherTurn()); printf(" mendapatkan <Shield>"); ENDL;
             Add(&OtherPlayer().Skill, 2);
         }
-        if((NbListType(CurPlayer().list_bangunan, 'T') == 3)&&(Type(*B) == 'T')){//Mendapatkan Attack Up
+        //Mendapatkan Attack Up
+        if((NbListType(CurPlayer().list_bangunan, 'T') == 3)&&(Type(*B) == 'T')){
             printf("Tower Player "); print(CurTurn()); printf(" bertambah menjadi 3! Player "); print(CurTurn()); printf(" mendapatkan <Attack Up>"); ENDL;
             Add(&CurPlayer().Skill, 4);
         }
-        if(Type(*B) == 'F'){ //Mendapatkan Extra Turn
+        //Mendapatkan Extra Turn
+        if(Type(*B) == 'F'){
             printf("Fort Player "); print(OtherTurn()); printf(" berkurang! Player "); print(OtherTurn()); printf(" mendapatkan <Extra Turn>"); ENDL;     
             Add(&OtherPlayer().Skill, 3);
         }
     }
-    if(NbList(CurPlayer().list_bangunan) == 10){//Mendapatkan Barrage
+    // trigger skill jika merebut tower lawan ataupun netral
+    //Mendapatkan Barrage
+    if(NbList(CurPlayer().list_bangunan) == 10){
         printf("Bangunan Player "); print(CurTurn()); printf(" bertambah menjadi 10! Player "); print(OtherTurn()); printf(" mendapatkan <Barrage>"); ENDL;
         Add(&OtherPlayer().Skill, 7);
     }
+}
+
+void CopyBangunan(Bangunan Bin, Bangunan *B)
+/* I.S. Bin terdefinisi (boleh kosong), B sembarang */
+/* F.S. B identik dengan Bin tapi bukan Bangunan yang sama */
+{
+    (*B).id = Bin.id;
+    (*B).jumlah_pasukan = Bin.jumlah_pasukan;
+    (*B).level = Bin.level;
+    (*B).nilai_tambah_pasukan = Bin.nilai_tambah_pasukan;
+    (*B).maksimum_tambah_pasukan = Bin.maksimum_tambah_pasukan;
+    (*B).owner = Bin.owner;
+    (*B).pertahanan = Bin.pertahanan;
+    (*B).sudahserang = Bin.sudahserang;
+    (*B).sudahpindah = Bin.sudahpindah;
+    (*B).posisi.r = Bin.posisi.r;
+    (*B).posisi.c = Bin.posisi.c;
+    (*B).type = Bin.type;
 }

@@ -1,18 +1,47 @@
 #include "list_bangunan.h"
 
-/* PROTOTYPE */
-/****************** TEST LIST KOSONG ******************/
-boolean IsEmptyList (ListBangunan L)
-/* Mengirim true jika list kosong */
+/************* SELEKTOR(TAMBAHAN) *************/
+int ListElmt(ListBangunan L, int n)
+// Selektor untuk ListBangunan, bekerja seperti array L indeks ke n (L[n])
 {
-    return First(L)==Nil;
+    n--;
+    address P = First(L);
+    while(n--){
+        P = Next(P);
+    }
+    return Info(P);
 }
+
+int NbList(ListBangunan L)
+/* Mengirimkan banyaknya elemen list; mengirimkan 0 jika list kosong */
+{
+    address P = First(L);
+    int count = 0;
+    while ( P != Nil ) {
+        P = Next(P);
+        count++;
+    }
+    return count;
+}
+
+int NbListType(ListBangunan L, char c)
+/* Mengirimkan banyaknya elemen list dengan tipe bangunan c; mengirimkan 0 jika list kosong */
+{
+    address P = First(L);
+    int count = 0;
+    while ( P != Nil ) {
+        if(Type(ElmtTB(Info(P))) == c) count++;
+        P = Next(P);
+    }
+    return count;
+}
+
 /****************** PEMBUATAN LIST KOSONG ******************/
 void CreateEmptyList (ListBangunan *L)
 /* I.S. sembarang             */
 /* F.S. Terbentuk list kosong */
 {
-    First(*L)=Nil;
+    First(*L) = Nil;
 }
 
 /****************** Manajemen Memori ******************/
@@ -37,6 +66,13 @@ void DeAlokasiList (address *P)
 /* Melakukan deAlokasiList/pengembalian address P */
 {
     free(*P);
+}
+
+/****************** TEST LIST KOSONG ******************/
+boolean IsEmptyList (ListBangunan L)
+/* Mengirim true jika list kosong */
+{
+    return First(L)==Nil;
 }
 
 /****************** PENCARIAN SEBUAH ELEMEN LIST ******************/
@@ -114,7 +150,7 @@ void DelList (ListBangunan *L, int X)
     
 }
 
-/****************** PROSES SEMUA ELEMEN LIST ******************/
+/****************** KELOMPOK BACA TULIS ******************/
 void PrintList(ListBangunan L)
 /* I.S. ListBangunan mungkin kosong */
 /* F.S. Jika list tidak kosong, isi list dicetak ke kanan: [e1,e2,...,en] */
@@ -138,26 +174,12 @@ void PrintList(ListBangunan L)
     }
 }
 
-int NbList(ListBangunan L) {
-    address P = First(L);
-    int count = 0;
-    while ( P != Nil ) {
-        P = Next(P);
-        count++;
-    }
-    return count;
-}
 
-int ListElmt(ListBangunan L, int n){
-    n--;
-    address P = First(L);
-    while(n--){
-        P = Next(P);
-    }
-    return Info(P);
-}
-
-void CopyList(ListBangunan L, ListBangunan *Lo) {
+/*********************** OPERASI LAIN ***********************/
+void CopyList(ListBangunan L, ListBangunan *Lo)
+/* I.S. L terdefinisi (boleh kosong), Lo sembarang */
+/* F.S. Lo identik dengan L tapi bukan ListBangunan yang sama */
+{
     CreateEmptyList(Lo);
 
     address P = First(L);
@@ -167,13 +189,20 @@ void CopyList(ListBangunan L, ListBangunan *Lo) {
     } 
 }
 
-void FilterListTanpa(ListBangunan* L, boolean (*f)(Bangunan)){
+void FilterListTanpa(ListBangunan* L, boolean (*f)(Bangunan))
+// Memfilter L dimana semua elemennya tidak ada yg true jika dijadikan parameter fungsi f
+// I.S: L terdefinisi (bisa kosong)
+// F.S: L terfilter sesuai definisi
+{
+    // kalo kosong, return
+    if(First(*L) == Nil) return;
+
     // selama elemen pertama tdk lolos filter, hapus
     while((*f)(ElmtTB(Info(First(*L))))){
         First(*L) = Next(First(*L));
         if(First(*L) == Nil) return;
     }
-    // elemen pertama pasti lolos filter dan bukan Nil
+    // I.S sekarang: elemen pertama pasti lolos filter dan bukan Nil
     address P = Next(First(*L));
     address save = First(*L);
     while(P != Nil) {
@@ -182,6 +211,7 @@ void FilterListTanpa(ListBangunan* L, boolean (*f)(Bangunan)){
             if(Next(P) == Nil){
                 Next(save) = Nil;
                 return;
+            // bukan elmt terakhir, elmt sblm P disambung dengan stlh P
             } else {
                 Next(save) = Next(P);
             }
@@ -192,31 +222,13 @@ void FilterListTanpa(ListBangunan* L, boolean (*f)(Bangunan)){
     }
 }
 
-int NbListType(ListBangunan L,char c) {
-    address P = First(L);
-    int count = 0;
-    while ( P != Nil ) {
-        if(Type(ElmtTB(Info(P))) == c) count++;
-        P = Next(P);
-    }
-    return count;
-}
-
-void ResetListBangunan(){
+void ResetListBangunan()
+// Mengembalikan status sudahserang dan sudahpindah pada list bangunan milik player saat ini
+{
     address P = First(CurPlayer().list_bangunan);
     while(P != Nil){
         ElmtTB(Info(P)).sudahserang = false;
         ElmtTB(Info(P)).sudahpindah = false;
         P = Next(P);
     }
-}
-
-int CountList(ListBangunan L) {
-    int count = 0;
-    address P = First(L);
-    while ( P != NULL ) {
-        count++;
-        P = Next(P);
-    }
-    return count;
 }

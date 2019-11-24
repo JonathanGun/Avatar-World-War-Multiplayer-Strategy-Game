@@ -7,7 +7,7 @@ void CreateEmptyTabBangunan(TabBangunan *T, int MaxElTB)
 {
     TB(*T) =(Bangunan*) malloc((MaxElTB+1) * sizeof(Bangunan));
     NeffTB(*T) = 0;
-    MaxElTB(*T)=MaxElTB;
+    MaxElTB(*T) = MaxElTB;
 }
 
 void DealokBang(TabBangunan *T)
@@ -28,11 +28,7 @@ void TulisDaftarBangunan(ListBangunan L)
     address P = First(L);
     while(P != Nil) {
         printf("%d. ", i);
-        if (Type(ElmtTB(Info(P))) == 'C') printf("Castle ");
-        else if (Type(ElmtTB(Info(P))) == 'T') printf("Tower ");
-        else if (Type(ElmtTB(Info(P))) == 'F') printf("Fort ");
-        else if (Type(ElmtTB(Info(P))) == 'V') printf("Village ");
-
+        printTypeBangunan(ElmtTB(Info(P)));
         printf("(%d,%d) ", ElmtTB(Info(P)).posisi.r, ElmtTB(Info(P)).posisi.c);
         printf("%d ", ElmtTB(Info(P)).jumlah_pasukan);
         printf("lv. %d\n", ElmtTB(Info(P)).level);
