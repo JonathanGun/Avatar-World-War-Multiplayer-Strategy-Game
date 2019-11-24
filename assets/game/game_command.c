@@ -120,7 +120,7 @@ void TriggerSkill(){
 
 void command_in_game(){
     MakeAksi();
-
+    
     TulisPeta();
     printf("Player "); print(CurTurn()); ENDL;
     printf("Daftar bangunan:"); ENDL;

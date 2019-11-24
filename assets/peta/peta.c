@@ -43,7 +43,7 @@ void TulisPeta()
 	ListBangunan Neighbor1, Neighbor2;
 	GetBangunanTerhubungPlayer(&Neighbor1, 1);
 	GetBangunanTerhubungPlayer(&Neighbor2, 2);
-
+    map_title();
 	fori(i, 4*NPetaKolEff(G.map)+7) printf(" "); ENDL;
 
 	// num top
@@ -99,6 +99,7 @@ void TulisPeta()
 		normal();
 	}
 	ENDL;
+    map_description();
 }
 
 void GetBangunanTerhubungPlayer(ListBangunan* L, int player){

@@ -1,6 +1,7 @@
 #ifndef PETA_H
 #define PETA_H
 
+#include "../util/gui.h"
 #include "../util/util.h"
 #include "../bangunan/bangunan.h"
 #include "../bangunan/arraydin_bangunan.h"
