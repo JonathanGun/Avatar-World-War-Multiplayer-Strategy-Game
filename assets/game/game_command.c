@@ -188,12 +188,32 @@ void command_Start() {
 }
 
 void command_Load() {
-    printf("Pilih data yang ingin anda load:\n");
     TulisSave();
-    printf(">>> ");
-    int NthData = InputValidIntBetween(1, Save_data.Max);
-    LoadGame(NthData);
-    StartGame();
+
+    if ( !Save_data.not_empty ) {
+        printf("Tidak ada slot yang berisi data permainan!\n");
+        wait_next_command();
+        MainMenu();
+    } else {
+        printf("Pilih data yang ingin anda load atau ketik 0 untuk kembali ke main menu!\n");
+        printf(">>> ");
+        int NthData = InputValidIntBetween(0, Save_data.Max);
+
+        if ( NthData == 0 ) {
+            MainMenu();
+        } else if ( !Save_data.data[NthData].not_empty ) {
+            printf("Tidak ada data permainan pada slot ini!\n");
+            wait_next_command();
+            command_Load();
+        } else {
+            LoadGame(NthData);
+            green();
+            printf("Load data berhasil!\n");
+            normal();
+            wait_next_command();    
+            StartGame();
+        }
+    }
 }
 
 

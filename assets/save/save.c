@@ -110,6 +110,7 @@ void CheckSaveFile() {
         fp = fopen(filename, "r");
         int c = fgetc(fp);
         if (c != EOF) {
+            Save_data.not_empty = true;
             Save_data.data[i].not_empty = true;
         }
     }

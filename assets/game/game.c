@@ -5,6 +5,28 @@ Game G;
 SaveData Save_data;
 // Variabel permainan global
 
+void MainMenu() 
+{
+    gui_logo();
+    Kata command;
+    MakeCommand();
+    do{
+        printf(">>> ");
+        InputKata(&command);
+        if(!valid_command(command)){
+            printf("Masukan salah, tolong input kembali!\n"); ENDL;
+        }
+    } while(!valid_command(command));
+
+    if(CompareKata(command,LOAD)){
+        command_Load();
+    } else if (CompareKata(command,START_W)){
+        command_Start();
+    } else { 
+        command_Exit();
+    } 
+}
+
 void InitPlayer()
 {
     // Masing-masing pemain memiliki skill IU saat memulai permainan
@@ -75,9 +97,6 @@ void LoadGame(int NthData)
     // load player
     CopyPlayer(data.Gc.Players[0], &InfoTopStackt(G.GameConditions).Players[0]);
     CopyPlayer(data.Gc.Players[1], &InfoTopStackt(G.GameConditions).Players[1]);
-
-    // memulai permainan
-    StartGame();
 }
 
 void ExitGame()
