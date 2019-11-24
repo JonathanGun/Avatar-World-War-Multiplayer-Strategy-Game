@@ -110,6 +110,33 @@ void levelup(int idB)
     }
 }
 
+void resetlevel(int idB)
+/* Mengembalikan bangunan ke level 1 */
+{
+    Bangunan *B = &ElmtTB(idB);
+
+    // do levelup
+    Level(*B) = 1;
+    // "A" : 1, "M" : 2, "P" : 3
+    if(Type(*B) == 'C'){
+        RateTambah(*B) = MatElmt(AttCastle, Level(*B), 1);
+        MaxPasukan(*B) = MatElmt(AttCastle, Level(*B), 2);
+        Pertahanan(*B) = MatElmt(AttCastle, Level(*B), 3);
+    } else if(Type(*B) == 'T'){
+        RateTambah(*B) = MatElmt(AttTower, Level(*B), 1);
+        MaxPasukan(*B) = MatElmt(AttTower, Level(*B), 2);
+        Pertahanan(*B) = MatElmt(AttTower, Level(*B), 3);
+    } else if(Type(*B) == 'F'){
+        RateTambah(*B) = MatElmt(AttFort, Level(*B), 1);
+        MaxPasukan(*B) = MatElmt(AttFort, Level(*B), 2);
+        Pertahanan(*B) = MatElmt(AttFort, Level(*B), 3);
+    } else if(Type(*B) == 'V'){
+        RateTambah(*B) = MatElmt(AttVillage, Level(*B), 1);
+        MaxPasukan(*B) = MatElmt(AttVillage, Level(*B), 2);
+        Pertahanan(*B) = MatElmt(AttVillage, Level(*B), 3);
+    }
+}
+
 void attack(int idBAtt, int idBDef, int jumlah_penyerang)
 /* Menghitung perubahan jumlah pasukan saat terjadi penyerangan oleh idBAtt kepada idBDef */
 {
@@ -130,6 +157,7 @@ void attack(int idBAtt, int idBDef, int jumlah_penyerang)
             Pasukan(*BDef) = jumlah_penyerang - ((Pasukan(*BDef)-1)/2) - 1;
             printf("Bangunan berhasil direbut!\n");
             printf("Pasukan yang tersisa sejumlah %d orang siap mati menjaga bangunan ini!\n", Pasukan(*BDef));
+            resetlevel(idBDef);
         } else {
             Pasukan(*BDef) -= 2*jumlah_penyerang;
             printf("Namun bangunan tetap gagal direbut. "); ENDL;
@@ -145,6 +173,7 @@ void attack(int idBAtt, int idBDef, int jumlah_penyerang)
 
                 printf("Bangunan berhasil direbut!\n");
                 printf("Pasukan yang tersisa sejumlah %d orang siap mati menjaga bangunan ini!\n", Pasukan(*BDef));
+                resetlevel(idBDef);
             } else {
                 Pasukan(*BDef) -= 3*jumlah_penyerang/4;
                 printf("Bangunan gagal direbut.\n");
@@ -163,6 +192,7 @@ void attack(int idBAtt, int idBDef, int jumlah_penyerang)
                 } else {
                     printf("tidak ada pasukan yang tersisa untuk menjaga bangunan.\n");
                 }
+                resetlevel(idBDef);
             } else {
                 printf("Bangunan gagal direbut.\n");
                 printf("Pasukan yang masih tersisa di bangunan lawan berjumlah %d orang\n", Pasukan(*BDef));

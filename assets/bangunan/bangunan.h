@@ -41,6 +41,8 @@ void printTypeBangunan(Bangunan B);
 /** OPERASI PADA BANGUNAN **/
 void levelup(int idB);
 /* Menaikkan level dari Bangunan Pemain */
+void resetlevel(int idB);
+/* Mengembalikan bangunan ke level 1 */
 void attack(int idBAtt, int idBDef, int jumlah_penyerang);
 /* Menghitung perubahan jumlah pasukan saat terjadi penyerangan oleh idBAtt kepada idBDef */
 void move(int idBAwal, int idBAkhir, int jumlah_pasukan_pindah);
