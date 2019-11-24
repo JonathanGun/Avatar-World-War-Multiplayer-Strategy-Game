@@ -1,27 +1,10 @@
 #ifndef GAME_COMMAND_H
 #define GAME_COMMAND_H
 
-#include "game.h"
 #include "../save/save.h"
+#include "game_command_helper.h"
 
-extern Kata ATTACK, LEVEL, SKILL, UNDO, END_TURN, SAVE, MOVE, LOAD, START_W, EXIT;
-
-boolean valid_command(Kata input);
-void MakeCommand();
-boolean valid_aksi(Kata input);
-void MakeAksi();
-void input_between_msg(int s, int e);
-boolean valid_range(int s, int x, int e);
-int InputValidIntBetween(int s, int e);
-void wait_next_command();
-void TriggerSkill();
-
-boolean bangunan_same_owner(Bangunan B);
-boolean bangunan_diff_owner(Bangunan B);
-boolean bangunan_sudah_serang(Bangunan B);
-boolean bangunan_sudah_pindah(Bangunan B);
-
-void command_in_game();
+void get_next_command();
 void command_Start();
 void command_Load();
 void command_Attack();
