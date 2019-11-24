@@ -119,7 +119,6 @@ void CheckSaveFile() {
 
 
 void LoadSavedGame() {
-
     CheckSaveFile();
     
     char savefile[21] = "assets/save/save0.txt";

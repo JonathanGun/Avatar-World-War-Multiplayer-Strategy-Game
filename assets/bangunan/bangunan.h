@@ -7,6 +7,8 @@
 #include "list_bangunan.h"
 #include "../skill/skill.h"
 
+#define MAX_LEVEL_BANGUNAN 4
+
 /* SELEKTOR */
 #define Row(P) (P).r
 #define Col(P) (P).c
