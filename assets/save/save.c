@@ -1,7 +1,10 @@
 #include "save.h"
 
-void UpdataSavedGame(int NthData, Kata savename) {
-
+void UpdateSavedGame(int NthData, Kata savename)
+// Melakukan update pada Save_data setelah melakukan save
+// I.S. savename valid
+// F.S. save_data ke nthdata berisi data kondisi game saat ini
+{
     GameCondition Gc = InfoTopStackt(G.GameConditions);
     Save_data.data[NthData].config_file = G.config_file;
     Save_data.data[NthData].not_empty = true;
@@ -10,10 +13,13 @@ void UpdataSavedGame(int NthData, Kata savename) {
 
 }
 
-void SaveGame(int NthData, Kata savename) {
-
+void SaveGame(int NthData, Kata savename)
+// Menyimpan data pada slot ke-NthData dengan savename "savename"
+// I.S. savename valid
+// F.S. file dengan nama savename berisi data kondisi game saat itu
+{
     // update dave data
-    UpdataSavedGame(NthData, savename);
+    UpdateSavedGame(NthData, savename);
     
     // temporary variable
     GameCondition Gc = InfoTopStackt(G.GameConditions);
@@ -101,7 +107,12 @@ void SaveGame(int NthData, Kata savename) {
     fclose(fp);
 }
 
-void CheckSaveFile() {
+void CheckSaveFile()
+// Membaca seluruh file penyimpanan
+// data ke-i bernilai true jika file save<i>.txt tidak kosong
+// I.S. sembarang
+// F.S. save_data terisi dengan data dari savex.txt
+{
     int i;
     FILE *fp;
     char filename[21] = "assets/save/save0.txt";
@@ -118,7 +129,11 @@ void CheckSaveFile() {
 }
 
 
-void LoadSavedGame() {
+void LoadSavedGame()
+// Membaca keseluruhan data dan menyimpannya ke dalam Save_data
+// I.S. sembarang
+// F.S. data berisi data dari file save yang dipilih
+{
     CheckSaveFile();
     
     char savefile[21] = "assets/save/save0.txt";
@@ -228,7 +243,10 @@ void LoadSavedGame() {
     }
 }
 
-void PrintSaveInfo() {
+void PrintSaveInfo()
+// I.S. sembarang
+// F.S. data save file tertampil di layar
+{
     int i;
     Data data;
     for ( i = 1; i <= MaxSaveData; i++ ) {
