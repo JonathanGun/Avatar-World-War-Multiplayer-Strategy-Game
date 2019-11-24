@@ -1,6 +1,10 @@
 #include "game_condition.h"
 
-void CopyGameConditions(GameCondition Gc, GameCondition *Go) {
+void CopyGameConditions(GameCondition Gc, GameCondition *Go) 
+/* I.S. GameConditions Gc dan Go Terdefinisi */
+/* F.S. Data Gc Tersalin ke Go */
+/* Menyalin data GameConditions dari Gc ke *Go */
+{
     
     // salin turn
     (*Go).turn = Gc.turn;

@@ -9,6 +9,8 @@
 /* GameCondition adalah variabel yang memuat data bangunan, player, dan turn */
 
 void CopyGameConditions(GameCondition Gc, GameCondition *Go);
-// Menyalin data dari Gc ke *Go
+/* I.S. GameConditions Gc dan Go Terdefinisi */
+/* F.S. Data Gc Tersalin ke Go */
+/* Menyalin data GameConditions dari Gc ke *Go */
 
 #endif
