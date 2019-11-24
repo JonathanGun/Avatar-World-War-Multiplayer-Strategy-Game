@@ -1,9 +1,5 @@
-//NIM/Nama : 13518024/Jovan Karuna Cahyadi
-//Tanggal  : 28 September 2019
-//Topik    : ADT Queue
-//Deskripsi: queue.c
-
 #include "../queue.h"
+
 int main(){
     Queue Q;
     int i, X;
