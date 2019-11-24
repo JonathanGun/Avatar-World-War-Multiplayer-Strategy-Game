@@ -24,8 +24,6 @@ boolean IsEmptyQueue (Queue Q);
 boolean IsFullQueue (Queue Q);
 /* Mengirim true jika tabel penampung elemen Q sudah penuh */
 /* yaitu mengandung elemen sebanyak MaxEl */
-int NBElmtQueue (Queue Q);
-/* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong. */
 
 /* *** Kreator *** */
 void CreateEmptyQueue (Queue * Q, int Max);
@@ -34,12 +32,6 @@ void CreateEmptyQueue (Queue * Q, int Max);
 /* Jika alokasi berhasil, Tabel memori dialokasi berukuran Max+1 */
 /* atau : jika alokasi gagal, Q kosong dg MaxEl=0 */
 /* Proses : Melakukan alokasi, membuat sebuah Q kosong */
-
-/* *** Destruktor *** */
-void DeAlokasiQueue(Queue * Q);
-/* Proses: Mengembalikan memori Q */
-/* I.S. Q pernah dialokasi */
-/* F.S. Q menjadi tidak terdefinisi lagi, MaxEl(Q) diset 0 */
 
 /* *** Primitif Add/Delete *** */
 boolean Add (Queue * Q, int X);
@@ -53,7 +45,13 @@ void Del (Queue * Q, int * X);
         Q mungkin kosong */
 
 void CopyQueue(Queue Q, Queue * Qo);
+/* Proses: Membuat salinan Q ke Qo
+   I.S. Q terdefinisi
+   F.S. isi Queue di Q tersalin ke Qo*/
 
 int CountQueue(Queue Q);
+/* Proses: Mendapatkan banyaknya isi Q dan mendelete isi Q
+   I.S. Q terdefinisi
+   F.S. isi Q di delete dan menghasilkan banyaknya queue*/
 
 #endif

@@ -47,7 +47,6 @@ void printSkill(Queue Skill);
 /* Mengeprint Skill di bagian Head Queue*/
 
 void TulisSkill(Queue Skill);
-
-void PrintAllSkill(Queue Skill);
+/* Mengeprint Current skill yang dimiliki player */
 
 #endif

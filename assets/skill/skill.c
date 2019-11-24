@@ -93,16 +93,7 @@ void startSkill(Queue* Skill)
 /* Kondisi Awal yaitu mempunyai Queue dengan skill Instant Upgrade */
 {
     CreateEmptyQueue(Skill, 10);// Maksimal 10 skill
-    // Add(Skill,3);
     Add(Skill,1); //1 sebagai IU(instant Upgrade)
-    // Add(Skill,3);
-    // Add(Skill,1);
-    // Add(Skill,1);
-    // Add(Skill,1);
-    // Add(Skill,1);
-    // Add(Skill,1);
-    // Add(Skill,1);
-    // Add(Skill,1);
 }
 
 void useSkill(Queue* Skill)
@@ -169,13 +160,6 @@ void printSkill(Queue Skill)
 }
 
 void TulisSkill(Queue Skill){
+/* Mengeprint Current skill yang dimiliki player */
     printf("Current Skill Available: "); printSkill(Skill);
-}
-
-void PrintAllSkill(Queue Skill) {
-    int X;
-    while ( !IsEmptyQueue(Skill) ) {
-        printSkill(Skill);
-        Del(&Skill, &X);
-    }
 }

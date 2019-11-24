@@ -9,6 +9,9 @@
 #define Skill(P)    (P).Skill
 
 void CopyPlayer(Player P, Player *Po);
+/* Proses = Mengcopy isi Player P ke Po*/
+/* I.S. P terdefinisi */
+/* F.S. Isi P tersalin ke dalam Po*/
 
 #endif
 

@@ -14,14 +14,6 @@ boolean IsFullQueue (Queue Q)
 	return !(Head(Q) - (Tail(Q)%QueueMaxEl(Q)) - 1);
 }
 
-int NBElmtQueue (Queue Q)
-/* Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong. */
-{
-	if(IsEmptyQueue(Q)) return 0;
-	if(IsFullQueue(Q)) return QueueMaxEl(Q);
-	return ((Tail(Q) - Head(Q) + 1) % QueueMaxEl(Q));
-}
-
 /* *** Kreator *** */
 void CreateEmptyQueue (Queue * Q, int Max)
 /* I.S. sembarang */
@@ -36,15 +28,6 @@ void CreateEmptyQueue (Queue * Q, int Max)
 	Tail(*Q) = QueueNil;
 }
 
-/* *** Destruktor *** */
-void DeAlokasi(Queue * Q)
-/* Proses: Mengembalikan memori Q */
-/* I.S. Q pernah dialokasi */
-/* F.S. Q menjadi tidak terdefinisi lagi, QueueMaxEl(Q) diset 0 */
-{
-	QueueMaxEl(*Q) = 0;
-	free((*Q).T);
-}
 
 /* *** Primitif Add/Delete *** */
 boolean Add (Queue * Q, int X)
@@ -86,6 +69,9 @@ void Del (Queue * Q, int * X)
 }
 
 void CopyQueue(Queue Q, Queue * Qo) {
+/* Proses: Membuat salinan Q ke Qo
+   I.S. Q terdefinisi
+   F.S. isi Queue di Q tersalin ke Qo*/
 	CreateEmptyQueue(Qo, Q.MaxEl);
 	int X;
 	while ( !IsEmptyQueue(Q) ) {
@@ -95,6 +81,9 @@ void CopyQueue(Queue Q, Queue * Qo) {
 }
 
 int CountQueue(Queue Q) {
+/* Proses: Mendapatkan banyaknya isi Q dan mendelete isi Q
+   I.S. Q terdefinisi
+   F.S. isi Q di delete dan menghasilkan banyaknya queue*/
 	int X, Count;
 	Count = 0;
 	while ( !IsEmptyQueue(Q) ) {
