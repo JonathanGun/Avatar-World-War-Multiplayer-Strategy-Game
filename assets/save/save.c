@@ -1,11 +1,18 @@
 #include "save.h"
 
-void UpdataSavedGame(int NthData, Kata savename) {
-
+void UpdataSavedGame(int NthData, Kata savename) 
+/* I.S. : Sembarang */
+/* F.S : Update data ke-NthData pada Save_data */
+{
     GameCondition Gc = InfoTopStackt(G.GameConditions);
+
+    // update config
     Save_data.data[NthData].config_file = G.config_file;
+    // update not_empty
     Save_data.data[NthData].not_empty = true;
+    // update savename
     CopyKataToString(savename, &Save_data.data[NthData].savename);
+    // update game condition
     CopyGameConditions(Gc, &Save_data.data[NthData].Gc);
 
 }
@@ -19,7 +26,7 @@ void SaveGame(int NthData, Kata savename) {
     GameCondition Gc = InfoTopStackt(G.GameConditions);
     Bangunan B; Queue Skill; address P; FILE *fp; int X, i;
 
-    
+    // file yaitu dari save1.tx sampai save<MaxSaveData>.txt
     char savefile[21] = "assets/save/save0.txt";
     savefile[16] = NthData+'0';
 

@@ -81,18 +81,22 @@ void command_Load()
     PrintSaveInfo();
 
     if ( !Save_data.not_empty ) {
+        red();
         printf("Tidak ada slot yang berisi data permainan!\n");
+        normal();
         wait_next_command();
         MainMenu();
     } else {
-        printf("Pilih data yang ingin anda load atau ketik 0 untuk kembali ke main menu!\n");
+        printf("Pilih data yang ingin anda muat atau ketik 0 untuk kembali ke main menu!\n");
         printf(">>> ");
         int NthData = InputValidIntBetween(0, Save_data.Max);
 
         if ( NthData == 0 ) {
             MainMenu();
         } else if ( !Save_data.data[NthData].not_empty ) {
+            red();
             printf("Tidak ada data permainan pada slot ini!\n");
+            normal();
             wait_next_command();
             command_Load();
         } else {
@@ -269,7 +273,6 @@ void command_Save()
     InputKata(&savename);
 
     SaveGame(NthData, savename);
-    // LoadSavedGame();
 }
 
 void command_Move()

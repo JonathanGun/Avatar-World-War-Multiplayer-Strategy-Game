@@ -28,8 +28,7 @@ void InitData();
 // Inisialisasi data permainan (tabel status (rate tambah, perlindungan, dll) bangunan tiap levelnya) dan save
 void InitGame(char* config_file);
 // Membaca file config dan menginisialisasi attribut pada Game G
-// a. Pada saat permainan dimulai, game akan membaca konfigurasi permainan dari file
-// eksternal (dijelaskan pada bab selanjutnya).
+// a. Pada saat permainan dimulai, game akan membaca konfigurasi permainan dari file kesternals
 // b. Queue ​ skill setiap pemain berisi 1 buah skill, yaitu Instant Upgrade
 void LoadGame(int NthData);
 // Load data ke-NthData

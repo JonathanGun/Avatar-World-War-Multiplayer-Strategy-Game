@@ -5,7 +5,7 @@
 #define PetaBrsMax 20
 #define PetaKolMin 1
 #define PetaKolMax 30
-#define MaxSaveData 3
+#define MaxSaveData 4
 
 boolean IUActive;
 boolean ExtraTurnActive;
