@@ -3,11 +3,9 @@
 
 #include "../util/util.h"
 
-#define QueueNil 0
-
 /* Contoh deklarasi variabel bertype Queue : */
 /* Versi I : tabel dinamik, Head dan Tail eksplisit, ukuran disimpan */
-
+#define QueueNil 0
 /* Definisi Queue kosong: HEAD=Nil; TAIL=Nil. */
 /* Catatan implementasi: T[0] tidak pernah dipakai */
 

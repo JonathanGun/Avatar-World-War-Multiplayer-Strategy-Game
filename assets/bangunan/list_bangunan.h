@@ -1,31 +1,27 @@
 #ifndef LISTBANGUNAN_H
 #define LISTBANGUNAN_H
 
-/* FILE BUAT MENAMPUNG ID BANGUNAN YANG DI DIMILIKI */
 #include "../util/util.h"
 #include "bangunan.h"
 
-
+/* STRUKTUR ADT */
 /* Definisi ListBangunan : */
 /* ListBangunan kosong : First(L) = Nil */
 /* Setiap elemen dengan address P dapat diacu Info(P), Next(P) */
 /* Elemen terakhir ListBangunan : jika addressnya Last, maka Next(Last)=Nil */
 
+/* SELEKTOR */
 #define Info(P) (P)->info
 #define Next(P) (P)->next
 #define First(L) ((L).First)
-/* File : listlinier.c */
-/* contoh ADT list berkait dengan representasi fisik pointer  */
-/* Representasi address dengan pointer */
 
+/* SELEKTOR (TAMBAHAN) */
+int NbList(ListBangunan L);
+/* Mengirimkan banyaknya elemen list; mengirimkan 0 jika list kosong */
+int NbListType(ListBangunan L,char c);
+/* Mengirimkan banyaknya elemen list dengan tipe bangunan c; mengirimkan 0 jika list kosong */
 int ListElmt(ListBangunan L, int n);
-void UpdateList(ListBangunan* L, Bangunan B, int milik);
-void ResetListBangunan();
-
-/* PROTOTYPE */
-/****************** TEST LIST KOSONG ******************/
-boolean IsEmptyList (ListBangunan L);
-/* Mengirim true jika list kosong */
+// Selektor untuk ListBangunan, bekerja seperti array L indeks ke n (L[n])
 
 /****************** PEMBUATAN LIST KOSONG ******************/
 void CreateEmptyList (ListBangunan *L);
@@ -38,11 +34,14 @@ address AlokasiList (int X);
 /* Jika alokasi berhasil, maka address tidak nil, dan misalnya */
 /* menghasilkan P, maka Info(P)=X, Next(P)=Nil */
 /* Jika alokasi gagal, mengirimkan Nil */
-
 void DealokasiList (address *P);
 /* I.S. P terdefinisi */
 /* F.S. P dikembalikan ke sistem */
 /* Melakukan dealokasi/pengembalian address P */
+
+/****************** TEST LIST KOSONG ******************/
+boolean IsEmptyList (ListBangunan L);
+/* Mengirim true jika list kosong */
 
 /****************** PENCARIAN SEBUAH ELEMEN LIST ******************/
 address SearchList (ListBangunan L, int X);
@@ -75,15 +74,15 @@ void PrintList(ListBangunan L);
 /* Jika list kosong : menulis [] */
 /* Tidak ada tambahan karakter apa pun di awal, akhir, atau di tengah */
 
-int NbList(ListBangunan L);
-/* Mengirimkan banyaknya elemen list; mengirimkan 0 jika list kosong */
-
+/*********************** OPERASI LAIN ***********************/
 void CopyList(ListBangunan L, ListBangunan *Lo); 
-
-int NbListType(ListBangunan L,char c);
-
+/* I.S. L terdefinisi (boleh kosong), Lo sembarang */
+/* F.S. Lo identik dengan L tapi bukan ListBangunan yang sama */
 void FilterListTanpa(ListBangunan* L, boolean (*f)(Bangunan));
-
-int CountList(ListBangunan L);
+// Memfilter L dimana semua elemennya tidak ada yg true jika dijadikan parameter fungsi f
+// I.S: L terdefinisi (bisa kosong)
+// F.S: L terfilter sesuai definisi
+void ResetListBangunan();
+// Mengembalikan status sudahserang dan sudahpindah pada list bangunan milik player saat ini
 
 #endif

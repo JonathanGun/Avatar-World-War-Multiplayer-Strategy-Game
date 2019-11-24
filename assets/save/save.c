@@ -223,7 +223,6 @@ void LoadSavedGame() {
         ADV_file();
         Save_data.data[i].Gc.Players[1].AttUpActive = Token.Bil;
     }
-
 }
 
 void TulisSave() {
@@ -236,8 +235,8 @@ void TulisSave() {
             printf("║                                          ║\n");
             printf("║ Savename : %s                    ║\n", data.savename);
             printf("║ Config : %s            ║\n", data.config_file);
-            printf("║ Bangunan P1 : %d                        ", CountList(data.Gc.Players[0].list_bangunan)); printf("%*s║\n", CountList(data.Gc.Players[0].list_bangunan) < 10 ? 2:1, "");
-            printf("║ Bangunan P2 : %d                        ", CountList(data.Gc.Players[1].list_bangunan)); printf("%*s║\n", CountList(data.Gc.Players[1].list_bangunan) < 10 ? 2:1, "");
+            printf("║ Bangunan P1 : %d                        ", NbList(data.Gc.Players[0].list_bangunan)); printf("%*s║\n", NbList(data.Gc.Players[0].list_bangunan) < 10 ? 2:1, "");
+            printf("║ Bangunan P2 : %d                        ", NbList(data.Gc.Players[1].list_bangunan)); printf("%*s║\n", NbList(data.Gc.Players[1].list_bangunan) < 10 ? 2:1, "");
             printf("║ Total bangunan : %d                      ║\n", data.Gc.ListBangunan.NeffTB);
             printf("║                                          ║\n");
             printf("╚══════════════════════════════════════════╝\n");
