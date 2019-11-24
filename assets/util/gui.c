@@ -6,6 +6,8 @@ void read_file_color(char const* filename){
     int cekgreen = 0;
     int cekyellow = 0;
     int cekorange = 0;
+    int cekred = 0;
+    int cekcyan = 0;
     while(!EOP){
         if(CC == '^' && cekyellow == 0){
             cekyellow = 1;
@@ -31,6 +33,18 @@ void read_file_color(char const* filename){
         } else if(CC == '&' && cekorange == 1){
             cekorange = 0;
             normal();
+        } else if(CC == '%' && cekred == 0){
+            cekred = 1;
+            red();
+        } else if(CC == '%' && cekred == 1){
+            cekred = 0;
+            normal();
+        } else if(CC == '#' && cekcyan == 0){
+            cekcyan = 1;
+            cyan();
+        } else if(CC == '#' && cekcyan == 1){
+            cekcyan = 0;
+            normal();
         } else {
             printf("%c",CC);
         }
@@ -46,4 +60,14 @@ void gui_logo(){
 
 void show_valid_command(){
     read_file_color("resources/show_command.txt");
+}
+void map_description(){
+    read_file_color("resources/map_description.txt");
+}
+void map_title(){
+    green();
+    printf("             ==============================================================="); ENDL;
+    printf("             ║                             ");yellow();printf("PETA");green();printf("                            ║"); ENDL;
+    printf("             ==============================================================="); ENDL;
+    normal();
 }

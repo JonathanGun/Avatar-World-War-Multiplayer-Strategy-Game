@@ -7,7 +7,7 @@ void get_next_command()
 // F.S. command yang diinput user berjalan sesuai spek
 {
     MakeAksi();
-
+    
     PrintPeta();
     printf("Player "); print(CurTurn()); ENDL;
     printf("Daftar bangunan:"); ENDL;
