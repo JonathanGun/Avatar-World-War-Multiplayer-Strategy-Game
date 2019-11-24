@@ -122,7 +122,6 @@ void PrintPeta()
 		ENDL;
 		normal();
 	}
-	ENDL;
     map_description();
 }
 
@@ -167,7 +166,7 @@ void PrintPadding()
 // I.S. sembarang
 // F.S. padding peta tertampil di layar (spasi n kali), n konstan
 {
-	printf("          ");
+	fori(i, (45-(1.75*NPetaKolEff(G.map)))/1) printf(" ");
 }
 
 /**************************** OPERASI LAIN ****************************/

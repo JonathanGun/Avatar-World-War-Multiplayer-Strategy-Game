@@ -1,9 +1,10 @@
-	       {//+++++++++++++++++++++++++++++++++++++++++++++++++++++++\\{
-	      {//{                     ^MAP DESCRIPTION^                     {\\{
-	     {//{     % RED %    - Bangunan milik player 1                    {\\{
-	    {//{     * BLUE *   - Bangunan milik player 2                      {\\{
-	   {//{     & ORANGE & - Bangunan yang dapat diserang player 1          {\\{
-	  {//{     # CYAN #   - Bangunan yang dapat diserang player 2            {\\{
-	 {//{      LAINNYA  - Bangunan yang belum dimiliki                      {\\{
-	{//_____________________________________________________________________\\{
+	                {..----=====;;;;"""     ║▓▓▓│▓▓▓║     """;;;;=====----..{
+	              {//═══════════════════════════════════════════════════════\\{
+	             {//{                     ^MAP DESCRIPTION^                     {\\{
+	            {//{     % RED %    - Bangunan milik player 1                    {\\{
+	           {//{     * BLUE *   - Bangunan milik player 2                      {\\{
+	          {//{     & ORANGE & - Bangunan yang dapat diserang player 1          {\\{
+	         {//{     # CYAN #   - Bangunan yang dapat diserang player 2            {\\{
+	        {//{      LAINNYA  - Bangunan yang belum dimiliki                      {\\{
+	       {|/═════════════════════════════════════════════════════════════════════\|{
 
