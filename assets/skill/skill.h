@@ -43,10 +43,10 @@ void useSkill(Queue* Skill);
 /* Menggunakan Skill sesuai Head dari queue*/
 
 /****************** PROSES SKILL ******************/
-void printSkill(Queue Skill);
-/* Mengeprint Skill di bagian Head Queue*/
+void PrintOneSkill(Queue Skill);
 
-void TulisSkill(Queue Skill);
+void PrintSkill(Queue Skill);
+/* Mengeprint Skill di bagian Head Queue*/
 
 void PrintAllSkill(Queue Skill);
 

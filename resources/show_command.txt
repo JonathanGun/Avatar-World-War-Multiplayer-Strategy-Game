@@ -1,18 +1,18 @@
 
-   .-.-------------------------------------.
-  ((o))   ====== &DAFTAR COMMAND& ======      )
-   \U/_______          _____    __     ____/
-    │                                      │
-    │ ^ATTACK^   - Menyerang bangunan lawan  │
-    │ ^SKILL^    - Menggunakan skill         │
-    │ ^LEVEL_UP^ - Menaikan level bangunan   │
-    │ ^UNDO^     - Membatalkan aksi terakhir │
-    │ ^SAVE^     - Menyimpan game            │
-    │ ^MOVE^     - Memindahkan pasukan       │
-    │ ^END_TURN^ - Mengakhiri giliran player │
-    │ ^EXIT^     - Keluar dari permainan     │
-    │____    _______    __  ____      _____│
-   /A\                                      \
-  ((o))                                      )
-   '-'--------------------------------------'
+   {.-.-------------------------------------.{
+  {(({&o&{)){   ====== #DAFTAR COMMAND# ======      {){
+   {\{&U&{/_______          _____    __     ____/{
+    {│                                      │{
+    {│{ ^ATTACK^   - Menyerang bangunan lawan  {│{
+    {│{ ^SKILL^    - Menggunakan skill         {│{
+    {│{ ^LEVEL_UP^ - Menaikan level bangunan   {│{
+    {│{ ^UNDO^     - Membatalkan aksi terakhir {│{
+    {│{ ^SAVE^     - Menyimpan game            {│{
+    {│{ ^MOVE^     - Memindahkan pasukan       {│{
+    {│{ ^END_TURN^ - Mengakhiri giliran player {│{
+    {│{ ^EXIT^     - Keluar dari permainan     {│{
+    {│____    _______    __  ____      _____│{
+   {/{&A&{\{                                      {\{
+  {(({&o&{)){                                      {){
+   {'-'--------------------------------------'{
 

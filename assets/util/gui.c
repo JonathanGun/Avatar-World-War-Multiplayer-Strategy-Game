@@ -65,7 +65,9 @@ void map_description(){
     read_file_color("resources/map_description.txt");
 }
 void map_title(){
-    green();printf("   ===============================================================");
-    printf("\n   ║                             ");yellow();printf("PETA");green();printf("                            ║\n");
-    printf("   ===============================================================");normal();
+    green();
+    printf("             ==============================================================="); ENDL;
+    printf("             ║                             ");yellow();printf("PETA");green();printf("                            ║"); ENDL;
+    printf("             ==============================================================="); ENDL;
+    normal();
 }

@@ -15,10 +15,6 @@ void MakePeta(int NB, int NK)
 	}
 }
 
-void CopyPeta(Peta P1, Peta *P2){
-	forpeta(P1, r, c) PetaElmt(*P2, r, c) = PetaElmt(P1, r, c);
-}
-
 void InitPeta(){
 	for(int i = 1; i <= NeffTB(InfoTopStackt(G.GameConditions).ListBangunan); ++i){
 		Bangunan* cur = &ElmtTB(i);
@@ -27,45 +23,68 @@ void InitPeta(){
 }
 
 /* ********** KELOMPOK BACA/TULIS ********** */
-void TulisPeta()
+void PrintPeta()
 /* I.S. P terdefinisi */
 /* F.S. Nilai P.(i,j) ditulis ke layar per baris per PetaKolom, masing-masing elemen per baris
    dipisahkan sebuah spasi, dikelilingi box bintang (*) */
 /* Proses: Mengupdate P. sesuai dengan P.info, lalu menulis nilai setiap elemen P. ke layar dengan traversal per baris dan per PetaKolom */
-/* Contoh: menulis matriks esentasi peta 3x3 (ingat di akhir tiap baris, tidak ada spasi)
-*****
-* C *
-*T F*
-*  C*
-*****
+/* Contoh: menulis matriks peta 10x15
+                1   2   3   4   5   6   7   8   9  10  11  12  13  14  15
+              ╔═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╤═══╗
+            1 ║   │   │   │   │   │   │   │   │ V │   │   │   │ T │   │ C ║
+              ╟───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───╢
+            2 ║   │   │ C │   │   │   │   │   │   │   │   │   │   │   │   ║
+              ╟───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───╢
+            3 ║ T │   │   │   │   │   │   │ V │   │   │   │   │   │ C │   ║
+              ╟───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───╢
+            4 ║   │   │   │   │ F │   │   │   │   │   │   │   │   │   │   ║
+              ╟───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───╢
+            5 ║   │   │   │   │   │   │   │   │   │   │   │ F │   │   │   ║
+              ╟───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───╢
+            6 ║   │   │ T │   │   │   │   │   │   │   │   │   │   │   │   ║
+              ╟───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───╢
+            7 ║   │   │   │   │   │   │   │   │   │ T │   │   │   │   │   ║
+              ╟───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───╢
+            8 ║   │ C │   │   │   │ V │   │   │   │   │   │   │   │   │ T ║
+              ╟───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───╢
+            9 ║   │   │   │   │   │   │   │   │   │   │   │   │ C │   │   ║
+              ╟───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───┼───╢
+           10 ║ C │   │ T │   │   │   │   │   │   │   │   │   │   │   │   ║
+              ╚═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╧═══╝
 */
 {
 	ListBangunan Neighbor1, Neighbor2;
 	GetBangunanTerhubungPlayer(&Neighbor1, 1);
 	GetBangunanTerhubungPlayer(&Neighbor2, 2);
     map_title();
-	fori(i, 4*NPetaKolEff(G.map)+7) printf(" "); ENDL;
-
-	// num top
-	yellow();
-	printf("    ");
-	fori(i, NPetaKolEff(G.map)) {
-		printf("  ");
-		print(i+1);
-		if((i+2)/10 == 0) printf(" ");
-	}
 	ENDL;
-	normal();
 
-	//top
-	light_green();
-	printf("    ╔");
-	fori(i, 4*NPetaKolEff(G.map)-1) (i%4 == 3)?printf("╤"):printf("═");
-	printf("╗"); ENDL;
-	normal();
 
 	// mid
 	fori(i, NPetaBrsEff(G.map)){
+		if(i == 0){
+			PrintPadding();
+			// num top
+			yellow();
+			printf("    ");
+			fori(i, NPetaKolEff(G.map)) {
+				printf("  ");
+				print(i+1);
+				if((i+2)/10 == 0) printf(" ");
+			}
+			ENDL;
+			normal();
+
+			//top
+			PrintPadding();
+			light_green();
+			printf("    ╔");
+			fori(i, 4*NPetaKolEff(G.map)-1) (i%4 == 3)?printf("╤"):printf("═");
+			printf("╗"); ENDL;
+			normal();
+		}
+		PrintPadding();
+
 		// num left
 		yellow();
 		printf(" ");
@@ -85,6 +104,7 @@ void TulisPeta()
 		} ENDL;
 
 		// border between cells
+		PrintPadding();
 		light_green();
 		printf("    ");
 		(i == NPetaBrsEff(G.map)-1)? printf("╚"): printf("╟");
@@ -102,23 +122,15 @@ void TulisPeta()
     map_description();
 }
 
-void GetBangunanTerhubungPlayer(ListBangunan* L, int player){
-	CreateEmptyList(L);
-	address P = First(Player(player).list_bangunan);
-    while(P != Nil){
-    	ListBangunan LB;
-    	GetBangunanTerhubung(G.Relasi, Info(P), &LB);
-    	address Pn = First(LB);
-    	while(Pn != Nil){
-    		if(SearchList(*L, Info(Pn)) == Nil)
-    			InsertList(L, Info(Pn));
-    		Pn = Next(Pn);
-    	}
-        P = Next(P);
-    }
-}
-
-void PrintOneTile(int i, int j, ListBangunan* Neighbor1, ListBangunan* Neighbor2){
+void PrintOneTile(int i, int j, ListBangunan* Neighbor1, ListBangunan* Neighbor2)
+// I.S. semua parameter terdefinisi
+// F.S peta ada satu petak tertulis di layar sesuai warna:
+// merah : player 1
+// orange : terhubung dgn player 1
+// biru : player 2
+// cyan : terhubung dgn player 2
+// putih : tidak terhubung dan bukan milik player 1 ataupun 2
+{
 	if(PetaElmt(G.map, i, j) == 0){
 		printf("  ");
 		return;
@@ -145,4 +157,31 @@ void PrintOneTile(int i, int j, ListBangunan* Neighbor1, ListBangunan* Neighbor2
 	}
 	printf(" %c", (*cur).type);
 	normal();
+}
+
+void PrintPadding()
+// I.S. sembarang
+// F.S. padding peta tertampil di layar (spasi n kali), n konstan
+{
+	printf("          ");
+}
+
+/**************************** OPERASI LAIN ****************************/
+void GetBangunanTerhubungPlayer(ListBangunan* L, int player)
+// I.S. L sembarang
+// F.S. L terisi dengan daftar indeks bangunan yang terhubung dengan semua bangunan milik suatu player
+{
+	CreateEmptyList(L);
+	address P = First(Player(player).list_bangunan);
+    while(P != Nil){
+    	ListBangunan LB;
+    	GetBangunanTerhubung(G.Relasi, Info(P), &LB);
+    	address Pn = First(LB);
+    	while(Pn != Nil){
+    		if(SearchList(*L, Info(Pn)) == Nil)
+    			InsertList(L, Info(Pn));
+    		Pn = Next(Pn);
+    	}
+        P = Next(P);
+    }
 }

@@ -12,7 +12,7 @@ void UpdataSavedGame(int NthData, Kata savename);
 void SaveGame(int NthData, Kata savename);
 // Menyimpan data pada slot ke-NthData dengan savename "savename"
 
-void TulisSave();
+void PrintSaveInfo();
 // Menampilkan data yang tersimpan
 
 void CheckSaveFile();
