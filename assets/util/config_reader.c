@@ -1,6 +1,7 @@
 #include "config_reader.h"
 
 void extract_config(char* fileconfig) {
+// Mengekstrak informasi dalam "Config"
     G.config_file = fileconfig;
     START_file(fileconfig, 0);
     extract_peta();
@@ -11,6 +12,7 @@ void extract_config(char* fileconfig) {
 }
 
 void extract_peta(){
+// Mengekstrak dimensi peta
     int r = Token.Bil;
     ADV_file();
     int c = Token.Bil;  
@@ -18,11 +20,13 @@ void extract_peta(){
 }
 
 int extract_banyak_bangunan() {
+// Mengekstrak banyak bangunan
     ADV_file();
     return Token.Bil;
 }
 
 void extract_listBangunan(int banyak_bangunan) {
+// Mengekstrak list bangunan
     CreateEmptyTabBangunan(&InfoTopStackt(G.GameConditions).ListBangunan, banyak_bangunan);
     Bangunan B;
     for(int i = 1; i < banyak_bangunan+1; i++) {
@@ -45,6 +49,7 @@ void extract_listBangunan(int banyak_bangunan) {
 }
 
 void extract_relasi(int banyak_bangunan) {
+// Mengekstrak relasi
     CreateGraph(&G.Relasi, banyak_bangunan);
     for(int i = 1; i <= banyak_bangunan; i++ ) {
         for(int j = 1; j <= banyak_bangunan; j++ ) {
