@@ -11,6 +11,9 @@ void UpdataSavedGame(int NthData, Kata savename) {
 }
 
 void SaveGame(int NthData, Kata savename) {
+
+    // update dave data
+    UpdataSavedGame(NthData, savename);
     
     // temporary variable
     GameCondition Gc = InfoTopStackt(G.GameConditions);
