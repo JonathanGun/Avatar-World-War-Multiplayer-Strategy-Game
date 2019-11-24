@@ -17,11 +17,13 @@ extern boolean EndKata;
 extern TOKEN_config Token;
 
 boolean ValidCharacter();
+/* Mengirimkan true jika Character valid */
 
 void IgnoreNotValidChar();
-
-void IgnoreLine();
-
+/* Mengabaikan satu atau beberapa BLANK
+   I.S. : CC sembarang
+   F.S. : CC ≠ BLANK atau CC = MARK */
+   
 void IgnoreBlank();
 /* Mengabaikan satu atau beberapa BLANK
    I.S. : CC sembarang
