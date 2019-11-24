@@ -263,7 +263,7 @@ void PrintSaveInfo()
             printf("║ Config : %s            ║\n", data.config_file);
             printf("║ Bangunan P1 : %d                        ", NbList(data.Gc.Players[0].list_bangunan)); printf("%*s║\n", NbList(data.Gc.Players[0].list_bangunan) < 10 ? 2:1, "");
             printf("║ Bangunan P2 : %d                        ", NbList(data.Gc.Players[1].list_bangunan)); printf("%*s║\n", NbList(data.Gc.Players[1].list_bangunan) < 10 ? 2:1, "");
-            printf("║ Total bangunan : %d                      ║\n", data.Gc.ListBangunan.NeffTB);
+            printf("║ Total bangunan : %d                     ", data.Gc.ListBangunan.NeffTB); printf("%*s║\n", data.Gc.ListBangunan.NeffTB < 10 ? 2:1, "");
             printf("║                                          ║\n");
             printf("╚══════════════════════════════════════════╝\n");
         } else {

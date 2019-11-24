@@ -261,18 +261,21 @@ void command_Save()
 /* I.S. Player memilih komando SAVE
    F.S. Player memilih slot yang ingin digunakan dan meng-input nama file save-an */
 {
-    printf("Pilih slot yang ingin anda gunakan:\n");
 
     PrintSaveInfo();
-
+    printf("Pilih slot yang ingin anda gunakan atau ketik 0 untuk kembali ke permainan!\n");
     printf(">>> ");
-    int NthData = InputValidIntBetween(1, Save_data.Max);
+    int NthData = InputValidIntBetween(0, Save_data.Max);
 
-    printf("Input savename(tanpa spasi) : ");
-    Kata savename;
-    InputKata(&savename);
+    if ( NthData == 0 ) {
+        get_next_command();
+    } else {
+        printf("Input savename(tanpa spasi) : ");
+        Kata savename;
+        InputKata(&savename);
 
-    SaveGame(NthData, savename);
+        SaveGame(NthData, savename);
+    }   
 }
 
 void command_Move()
