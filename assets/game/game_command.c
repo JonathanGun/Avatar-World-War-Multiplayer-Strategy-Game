@@ -138,30 +138,30 @@ void command_in_game(){
     } while(!valid_aksi(command));
 
     if(CompareKata(command,ATTACK)){
-        command_Attack(G);
+        command_Attack();
         if(DEBUG)printf("Attack Berhasil!\n");
         wait_next_command();
     }else if (CompareKata(command,LEVEL)){
-        command_Level_up(G);
+        command_Level_up();
         if(DEBUG)printf("Level up berhasil\n");
         wait_next_command();
     }else if (CompareKata(command,SKILL)){
-        command_Skill(G);
+        command_Skill();
         if(DEBUG)printf("Skill Berhasil\n");
         wait_next_command();
     }else if (CompareKata(command,UNDO)){
-        command_Undo(G);
+        command_Undo();
         if(DEBUG)printf("Undo berhasil\n");
         wait_next_command();
     }else if (CompareKata(command,END_TURN)){
-        command_End_turn(G);
+        command_End_turn();
         if(DEBUG)printf("End Turn berhasil\n");
     }else if (CompareKata(command,SAVE)){
-        command_Save(G);
+        command_Save();
         if(DEBUG)printf("Save berhasil\n");
         wait_next_command();
     }else if (CompareKata(command,MOVE)){
-        command_Move(G);
+        command_Move();
         if(DEBUG)printf("Move Berhasil\n");
         wait_next_command();
     }else{ //Ketika menulis EXIT
@@ -393,7 +393,5 @@ void command_Move() {
 }
 
 void command_Exit(){
-    red();
-    printf("Exiting the program...\n");
-    exit(0); 
+    ExitGame();
 }

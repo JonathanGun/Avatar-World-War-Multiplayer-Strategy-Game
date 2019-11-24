@@ -1,7 +1,5 @@
 #include "save.h"
 
-SaveData Save_data;
-
 void UpdataSavedGame(int NthData, Kata savename) {
 
     GameCondition Gc = InfoTopStackt(G.GameConditions);

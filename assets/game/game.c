@@ -2,8 +2,10 @@
 #include "game_command.h"
 
 Game G;
+SaveData Save_data;
+// Variabel permainan global
+
 void InitPlayer()
-/* */
 {
     // Masing-masing pemain memiliki skill IU saat memulai permainan
     startSkill(&Player(1).Skill);
@@ -17,17 +19,20 @@ void InitPlayer()
 }
 
 void InitTurn()
-/* */
-{
+{   
+    // permainan dimulai dari turn player 1
     CurTurn() = 1;
 }
 
 void InitSave() {
+
+    // load data permainan
     LoadSavedGame();
 }
 
-void InitData() {
-
+void InitData() 
+{
+    //
     MakeData();
 
     // init save
@@ -36,10 +41,6 @@ void InitData() {
 }
 
 void InitGame(char* config_file)
-// Membaca file config dan menginisialisasi attribut pada Game G
-// a. Pada saat permainan dimulai, game akan membaca konfigurasi permainan dari file
-// eksternal (dijelaskan pada bab selanjutnya).
-// b. Queue ​ skill setiap pemain berisi 1 buah skill, yaitu Instant Upgrade
 {
 
     // read config
@@ -58,7 +59,8 @@ void StartGame()
     command_in_game();
 }
 
-void LoadGame(int NthData) {
+void LoadGame(int NthData) 
+{
     Data data = Save_data.data[NthData];
 
     // extract config
@@ -74,19 +76,25 @@ void LoadGame(int NthData) {
     CopyPlayer(data.Gc.Players[0], &InfoTopStackt(G.GameConditions).Players[0]);
     CopyPlayer(data.Gc.Players[1], &InfoTopStackt(G.GameConditions).Players[1]);
 
+    // memulai permainan
     StartGame();
 }
 
 void ExitGame()
-// mengakhiri permainan
 {
-    command_Exit();
+    red();
+    printf("Exiting the program...\n");
+    exit(0); 
 }
 
-boolean IsGameEnded(){
+boolean IsGameEnded()
+{
+    // Permainan dinyatakan berakhir jika salah satu permain kalah
     return (IsPlayerLose(1) || IsPlayerLose(2));
 }
 
-boolean IsPlayerLose(int player){
+boolean IsPlayerLose(int player)
+{
+    // Player n dinyatakan kalah jika list bangunannya kosong
     return IsEmptyList(Player(player).list_bangunan);
 }

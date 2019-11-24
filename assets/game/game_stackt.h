@@ -4,46 +4,30 @@
 #include "../util/util.h"
 #include "game_condition.h"
 
-/* Nil adalah stack dengan elemen kosong . */
-/* Karena indeks dalam bhs C dimulai 0 maka tabel dg indeks 0 tidak dipakai */
+/* game_stackt adalah variabel yang menyimpan tiap kondisi permainan dalam bentuk stackt */
+/* infotype game_stackt berupa GameCondition */
+/* saat permainan berlangsung GameCondition yang digunakan adalah yang berada pada top stack */
+/* setiap melakukan aksi, dilakukan push pada stackt untuk menyimpan kondisi permainan sebelumnya */
+/* saat ingin melakukan undo, lakukan pop pada stackt untuk mengembalikan kondisi sebelumnya */
+/* akan dilakukan reset pada stackt jika pemain melakukan "END_TURN" atau "SKILL" */
+/* pemain tidak dapat melakukan "UNDO" jika elemen stackt hanya 1 */ 
 
-
-/* Definisi stack S kosong : S.TOP = Nil */
-/* Elemen yang dipakai menyimpan nilai Stack T[1]..T[MaxEl] */
-/* Jika S adalah Stack maka akses elemen : */
-   /* S.T[(S.TOP)] untuk mengakses elemen TOP */
-   /* S.TOP adalah alamat elemen TOP */
-
-/* Definisi akses dengan Selektor : Set dan Get */
-
-/* ************ Prototype ************ */
-/* *** Konstruktor/Kreator *** */
 void CreateEmptyStackt (GameStack *S);
-/* I.S. sembarang; */
-/* F.S. Membuat sebuah stack S yang kosong berkapasitas MaxEl */
-/* jadi indeksnya antara 1.. MaxEl+1 karena 0 tidak dipakai */
-/* Ciri stack kosong : TOP bernilai Nil */
+// Membuat sebuah stackt kosong
 
-/* ************ Predikat Untuk test keadaan KOLEKSI ************ */
 boolean IsEmptyStackt (GameStack S);
-/* Mengirim true jika Stack kosong: lihat definisi di atas */
-boolean IsFullStackt (GameStack S);
-/* Mengirim true jika tabel penampung nilai elemen stack penuh */
+// Menghasilkan true jika stackt kosong
 
-/* ************ Menambahkan sebuah elemen ke Stack ************ */
 void PushStackt ();
-/* Menambahkan X sebagai elemen Stack S. */
-/* I.S. S mungkin kosong, tabel penampung elemen stack TIDAK penuh */
-/* F.S. X menjadi TOP yang baru,TOP bertambah 1 */
+// Melakukan push info pada top stackt
+// digunakan jika aksi pada permainan menyebabkan perubahan kondisi permainan
 
-/* ************ Menghapus sebuah elemen Stack ************ */
 void PopStackt ();
-/* Menghapus X dari Stack S. */
-/* I.S. S  tidak mungkin kosong */
-/* F.S. X adalah nilai elemen TOP yang lama, TOP berkurang 1 */
+// Menghapus elemen top pada stackt
+// digunakan saat melakukan "UNDO" , untuk mengembalikan kondisi sebelumnya
 
 void ResetStackt();
-
-void TulisStacktTop();
+// Menghapus seluruh elemen stackt dan melakukan push elemen top sebelum penghapusan
+// digunakan ketika pemain melakukan "END_TURN" atau "SKILL"
 
 #endif

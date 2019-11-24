@@ -10,15 +10,23 @@
 #include "../util/config_reader.h"
 #include "game_command.h"
 
+/* Game adalah variabel  yang mengendalikan jalannya permainan */
+/* memuat inisialisai */
+
 void InitData();
+// Inisialisasi data permainan
 
 void InitPlayer();
+// Inisialisai player
+// pada awal permainan masing-masing player memiliki satu bangunan dengan id 1 dan 2
+// masing-masing player memiliki satu skill instant upgrade
 
 void InitTurn();
+// Inisialisasi turn
+// turn dimulai dari player pertama
 
 void InitSave();
-
-void InitData();
+// Melakukan load data save
 
 void InitGame(char* config_file);
 // Membaca file config dan menginisialisasi attribut pada Game G
@@ -27,12 +35,18 @@ void InitGame(char* config_file);
 // b. Queue ​ skill setiap pemain berisi 1 buah skill, yaitu Instant Upgrade
 
 void StartGame();
-void LoadGame(int NthData);
-
 // Memulai permainan
+
+void LoadGame(int NthData);
+// Load data ke-NthData
+
 void ExitGame();
+// Keluar dari permainan
 
 boolean IsGameEnded();
+// IsGameEnded true jika permainan berakhir
+
 boolean IsPlayerLose(int player);
+// IsPlayeLose(n) true jika player ke-n kalah (tidak memiliki bangunan)
 
 #endif

@@ -22,6 +22,6 @@ int main (){
     } else if (CompareKata(command,START_W)){
         command_Start();
     } else { 
-        ExitGame();
+        command_Exit();
     } 
 }
