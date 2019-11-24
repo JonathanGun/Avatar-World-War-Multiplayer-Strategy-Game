@@ -34,7 +34,7 @@ void IgnoreNotValidChar()
 }
 
 
-void START_file( const char* fileconfig, int Line )
+void START_file( char* fileconfig, int Line )
 /* I.S. : CC sembarang
    F.S. : EndKata = true, dan CC = MARK;
           atau EndKata = false, CKata adalah kata yang sudah diakuisisi,

@@ -212,7 +212,7 @@ void CopyKataToString(Kata K, char **C)
 // F.S. C berisi kumpulan karakter dari K
 {
   int i;
-  *C = (char*)malloc(sizeof(char)*(K.Length-1));
+  *C = (char*)malloc(sizeof(char)*(K.Length));
   for ( i = 1; i <= K.Length; i++ ) {
     (*C)[i-1] = K.TabKata[i];
   }
