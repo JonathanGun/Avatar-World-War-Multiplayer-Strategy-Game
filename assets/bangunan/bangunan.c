@@ -115,7 +115,7 @@ void resetlevel(int idB)
 {
     Bangunan *B = &ElmtTB(idB);
 
-    // do levelup
+    // mengembalikan bangunan ke level 1
     Level(*B) = 1;
     // "A" : 1, "M" : 2, "P" : 3
     if(Type(*B) == 'C'){
