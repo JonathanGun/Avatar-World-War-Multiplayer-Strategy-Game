@@ -326,11 +326,18 @@ void command_End_turn() {
 }
 
 void command_Save() {
-    printf("pilih slot yang ingin anda gunakan:\n");
+    printf("Pilih slot yang ingin anda gunakan:\n");
+
     TulisSave();
+
     printf(">>> ");
     int NthData = InputValidIntBetween(1, Save_data.Max);
-    SaveGame(NthData);
+
+    printf("Input savename(tanpa spasi) : ");
+    Kata savename;
+    InputKata(&savename);
+
+    SaveGame(NthData, savename);
     // LoadSavedGame();
 }
 

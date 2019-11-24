@@ -5,6 +5,7 @@
 #define PetaBrsMax 20
 #define PetaKolMin 1
 #define PetaKolMax 30
+#define MaxSaveData 4
 
 boolean IUActive;
 boolean ExtraTurnActive;
@@ -98,6 +99,18 @@ typedef struct {
 // GameCondition yang digunakan adalah yang berada di Top
 // setiap melakukan aksi lakukan Push pada stackt
 // saat melakukan UNDO lakukan Pop pada stackt 
+
+typedef struct {
+    GameCondition Gc;
+    boolean not_empty;
+    char* savename;
+    char* config_file;
+} Data;
+
+typedef struct {
+    Data data[MaxSaveData+1];
+    int Max;
+} SaveData;
 
 #define TopStackt(S) (S).TOP
 #define InfoTopStackt(S) (S).T[(S).TOP]

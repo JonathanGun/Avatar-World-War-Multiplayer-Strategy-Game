@@ -2,25 +2,31 @@
 
 SaveData Save_data;
 
-void SaveGame(int NthData) {
+void UpdataSavedGame(int NthData, Kata savename) {
+
     GameCondition Gc = InfoTopStackt(G.GameConditions);
     Save_data.data[NthData].config_file = G.config_file;
     Save_data.data[NthData].not_empty = true;
+    CopyKataToString(savename, &Save_data.data[NthData].savename);
     CopyGameConditions(Gc, &Save_data.data[NthData].Gc);
 
-    // temporary variable
-    Queue Skill;
-    int X;
-    Bangunan B;
-    address P;
+}
 
-    int i;
-    FILE *fp;
-    /* open the file for writing*/
+void SaveGame(int NthData, Kata savename) {
+    
+    // temporary variable
+    GameCondition Gc = InfoTopStackt(G.GameConditions);
+    Bangunan B; Queue Skill; address P; FILE *fp; int X, i;
+
+    
     char savefile[21] = "assets/save/save0.txt";
     savefile[16] = NthData+'0';
 
+    // membuka file
     fp = fopen (savefile,"w");
+
+    // simpan savename
+    fprintf (fp, "%s\n", Save_data.data[NthData].savename);
 
     // simpan path config
     fprintf (fp, "%s\n", G.config_file);
@@ -131,6 +137,8 @@ void LoadSavedGame() {
         STARTKATA(savefile);
         if ( i > 1) ADV();
         ADVKATA();
+        CopyKataToString(CKata, &Save_data.data[i].savename);
+        ADVKATA();
         CopyKataToString(CKata, &Save_data.data[i].config_file);
 
         // load data
@@ -228,14 +236,16 @@ void TulisSave() {
         if ( data.not_empty ) {
             printf("╔═ Data %d ═════════════════════════════════╗\n", i);
             printf("║                                          ║\n");
+            printf("║ Savename : %s                    ║\n", data.savename);
             printf("║ Config : %s            ║\n", data.config_file);
-            printf("║ Bangunan P1 : %d                          ║\n", CountList(data.Gc.Players[0].list_bangunan));
-            printf("║ Bangunan P2 : %d                          ║\n", CountList(data.Gc.Players[1].list_bangunan));
+            printf("║ Bangunan P1 : %d                        ", CountList(data.Gc.Players[0].list_bangunan)); printf("%*s║\n", CountList(data.Gc.Players[0].list_bangunan) < 10 ? 2:1, "");
+            printf("║ Bangunan P2 : %d                        ", CountList(data.Gc.Players[1].list_bangunan)); printf("%*s║\n", CountList(data.Gc.Players[1].list_bangunan) < 10 ? 2:1, "");
             printf("║ Total bangunan : %d                      ║\n", data.Gc.ListBangunan.NeffTB);
             printf("║                                          ║\n");
             printf("╚══════════════════════════════════════════╝\n");
         } else {
             printf("╔═ Data %d ═════════════════════════════════╗\n", i);
+            printf("║                                          ║\n");
             printf("║                                          ║\n");
             printf("║                  S L O T                 ║\n");
             printf("║                                          ║\n");
