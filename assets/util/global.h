@@ -109,6 +109,7 @@ typedef struct {
 
 typedef struct {
     Data data[MaxSaveData+1];
+	boolean not_empty;
     int Max;
 } SaveData;
 

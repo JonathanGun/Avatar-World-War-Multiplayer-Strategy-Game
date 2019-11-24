@@ -13,6 +13,8 @@
 /* Game adalah variabel  yang mengendalikan jalannya permainan */
 /* memuat inisialisai */
 
+void MainMenu(); 
+
 void InitData();
 // Inisialisasi data permainan
 
