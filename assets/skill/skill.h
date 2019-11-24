@@ -44,10 +44,10 @@ void useSkill(Queue* Skill);
 
 /****************** PROSES SKILL ******************/
 void PrintOneSkill(Queue Skill);
-
-void PrintSkill(Queue Skill);
 /* Mengeprint Skill di bagian Head Queue*/
 
-void PrintAllSkill(Queue Skill);
+void PrintSkill(Queue Skill);
+/* Mengeprint Skill available player */
+
 
 #endif
