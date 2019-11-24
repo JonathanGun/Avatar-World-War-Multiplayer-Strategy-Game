@@ -20,7 +20,7 @@ void DealokBang(TabBangunan *T)
 }
 
 /***************** KELOMPOK BACA TULIS *****************/
-void TulisDaftarBangunan(ListBangunan L)
+void PrintDaftarBangunan(ListBangunan L)
 /* I.S. L Terdefinisi */
 /* F.S. elemen L tertulis di layar sesuai format di spek */
 {

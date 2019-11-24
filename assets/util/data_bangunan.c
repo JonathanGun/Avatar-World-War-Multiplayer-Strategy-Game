@@ -13,7 +13,14 @@ void MakeMatriks (Matriks * M, int NB, int NK)
 	NKolEff(*M) = NK;
 }
 
-void MakeData(){
+void MakeData()
+/* Membentuk Matriks yang berisi Atribut Bangunan untuk keperluan LEVEL UP */
+/* I.S. Sembarang */
+/* F.S. Terbentuk 4 Matriks yang memuat atribut atribut Bangunan Dengan Ketentuan : Nomor Baris
+merepresentasikan Level Bangunan, dan Nomor Kolom Merepresentasikan Atribut Bangunan yang berbeda
+dimana Kolom 1 merepresentasikan A, Kolom 2 merepresentasikan M, Kolom 3 merepresentasikan P, dan
+Kolom 4 merepresentasikan U */
+{
 	MakeMatriks(&AttCastle, 4, 4);
 	MatElmt(AttCastle, 1, 1) = 10;
 	MatElmt(AttCastle, 2, 1) = 15;

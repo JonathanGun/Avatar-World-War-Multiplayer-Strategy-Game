@@ -125,7 +125,7 @@ void useSkill(Queue* Skill)
 }
 
 /****************** PROSES SKILL ******************/
-void printSkill(Queue Skill)
+void PrintOneSkill(Queue Skill)
 /* Mengeprint Skill di bagian Head Queue*/
 {
     int x;
@@ -159,7 +159,7 @@ void printSkill(Queue Skill)
     ENDL;
 }
 
-void TulisSkill(Queue Skill){
-/* Mengeprint Current skill yang dimiliki player */
-    printf("Current Skill Available: "); printSkill(Skill);
+void PrintSkill(Queue Skill){
+/* Mengeprint Skill available player */
+    printf("Current Skill Available: "); PrintOneSkill(Skill);
 }

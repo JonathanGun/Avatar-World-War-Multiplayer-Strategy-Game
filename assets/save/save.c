@@ -228,7 +228,7 @@ void LoadSavedGame() {
     }
 }
 
-void TulisSave() {
+void PrintSaveInfo() {
     int i;
     Data data;
     for ( i = 1; i <= MaxSaveData; i++ ) {

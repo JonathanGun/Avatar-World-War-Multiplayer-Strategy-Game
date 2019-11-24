@@ -1,40 +1,58 @@
-       {╔═══════════════════════════════════════[─AVATAR─WORLD─WAR─]═══════════════════════════════════════╗{
-        {║{                                                                                                  {║{
-        {║{&             AAAAA                                                                                &{║{
-        {║{&            AAAAAAA    VVV       VVV     ++    TTTTTTTTTTTTT          RRRRRRRRRR                  &{║{
-        {║{&           AAAAAAAAA   VVVV      VVVV   AAAAA  TTTTTTTTTTTTT  AAAA    RRRRRRRRRRR                 &{║{
-        {║{&          AAAAA  AAAA   VVVV    VVVV  `AAAAAAA     TTTT    AAAA AAA   RRRR     RRR                &{║{
-        {║{&        AAAAAA   AAAAA   VVVV  VVVV  AAAA   AAA    TTTT   AAAA   AAA  RRRR  RRR                   &{║{
-        {║{&    AAAAAAAAAAAAAAAAAAAA  VVVVVVVV AAAAAAAAAAAAA   TTTT  AAAAAAAAAAA  RRRRRRRR                    &{║{
-        {║{&   AAAAAAAAAAAAAAAAAAAAAA  VVVVVV.AAAAA     AAAA   TTTT  AAAA    AAAA RRRRRRRRRR                  &{║{
-        {║{&    AAAAAAAAA       AAAAA   VVVV  AAA        AAA   T TT` AAA      AAA RRR   RRRRRRRRRRRRRRR       &{║{
-        {║{&     AAAAAA         AAAA                             TT               RR      RRRRRRRRRRRRRRRRR   &{║{
-        {║{                                                                                                  {║{
-        {║{                                              *.AVATAR*                                             {║{
-        {║{^                                         +ydd^*/////*^ddd+T                                           ^{║{
-        {║{^                                       dmmm^*//////*^mmmmmmmdH                                        ^{║{
-        {║{^                                     dmmmmm^*/////*^mmmmmmmmmdE                                       ^{║{
-        {║{^                                    mmmmmmm^*/////*^mmmmmmmmmmmL                                      ^{║{
-        {║{^                                   mmmmmmm^*//////*^dmmmmmmmmmmhE                                     ^{║{
-        {║{^                                   mmmmmmy^*//////*^ommmmmmmmmmmG                                     ^{║{
-        {║{^                                  mmmmmoo:^*//////*^:osmmmmmmmmmm mE                                  ^{║{
-        {║{^                                  mmmmy-^*\\\\\|/////*^ymmmmmmmm/mmmN                                 ^{║{
-        {║{^                                 mmmmmmmd+^*\\\|///*^.ommmmmmmmm|mmdD                                 ^{║{
-        {║{^                                  mmmddmmmy-^*\|/*^hmm .--.ddmmmm\GO                                  ^{║{
-        {║{^                                  mmms fyy+hmdoymh+-    -hmmmmWF                                  ^{║{
-        {║{^                                   mm-    ttsmmmmo`      +mmmhA                                   ^{║{
-        {║{^                                   hmh+-  -ddmmd.      -+dmhoA                                    ^{║{
-        {║{^                                    mmmmdhhddomomhhhhdmmmmdN                                      ^{║{
-        {║{^                                      mmmmmmmmmmmmmmmmmmd-G                                       ^{║{
-        {║{^                                         mmmmmmmmmmmmmmds                                         ^{║{
-        {║{^                                          dmmmmmmmmmdyo                                           ^{║{
-        {║{^                                               dhs++                                              ^{║{
-        {║{                                                                                                  {║{
-        {║{                                                                                                  {║{
-        {╚═══════════════════════════════════[─TURN─BASED─STRATEGY─GAME─]═══════════════════════════════════╝{
 
-                ╔══════════════════╗           ╔══════════════════╗           ╔══════════════════╗
-                ║      ^START^       ║           ║       ^LOAD^       ║           ║       ^EXIT^       ║
-                ╚══════════════════╝           ╚══════════════════╝           ╚══════════════════╝
+
+
+
+
+
+
+
+          {╔═══════════════════════════════════════[─AVATAR─WORLD─WAR─]═══════════════════════════════════════╗{
+          {║{                                                                                                  {║{
+          {║{                                                                                                  {║{
+          {║{&             AAAAA                                                                                &{║{
+          {║{&            AAAAAAA    VVV       VVV     ++    TTTTTTTTTTTTT          RRRRRRRRRR                  &{║{
+          {║{&           AAAAAAAAA   VVVV      VVVV   AAAAA  TTTTTTTTTTTTT  AAAA    RRRRRRRRRRR                 &{║{
+          {║{&          AAAAA  AAAA   VVVV    VVVV  `AAAAAAA     TTTT    AAAA AAA   RRRR     RRR                &{║{
+          {║{&        AAAAAA   AAAAA   VVVV  VVVV  AAAA   AAA    TTTT   AAAA   AAA  RRRR  RRR                   &{║{
+          {║{&    AAAAAAAAAAAAAAAAAAAA  VVVVVVVV AAAAAAAAAAAAA   TTTT  AAAAAAAAAAA  RRRRRRRR                    &{║{
+          {║{&   AAAAAAAAAAAAAAAAAAAAAA  VVVVVV.AAAAA     AAAA   TTTT  AAAA    AAAA RRRRRRRRRR                  &{║{
+          {║{&    AAAAAAAAA       AAAAA   VVVV  AAA        AAA   T TT` AAA      AAA RRR   RRRRRRRRRRRRRRR       &{║{
+          {║{&     AAAAAA         AAAA                             TT               RR      RRRRRRRRRRRRRRRRR   &{║{
+          {║{                                                                                                  {║{
+          {║{                                                                                                  {║{
+          {║{                                                                                                  {║{
+          {║{                                              *.AVATAR*                                             {║{
+          {║{^                                         +ydd^*/////*^ddd+T                                           ^{║{
+          {║{^                                       dmmm^*//////*^mmmmmmmdH                                        ^{║{
+          {║{^                                     dmmmmm^*/////*^mmmmmmmmmdE                                       ^{║{
+          {║{^                                    mmmmmmm^*/////*^mmmmmmmmmmmL                                      ^{║{
+          {║{^                                   mmmmmmm^*//////*^dmmmmmmmmmmhE                                     ^{║{
+          {║{^                                   mmmmmmy^*//////*^ommmmmmmmmmmG                                     ^{║{
+          {║{^                                  mmmmmoo:^*//////*^:osmmmmmmmmmm mE                                  ^{║{
+          {║{^                                  mmmmy-^*\\\\\|/////*^ymmmmmmmm/mmmN                                 ^{║{
+          {║{^                                 mmmmmmmd+^*\\\|///*^.ommmmmmmmm|mmdD                                 ^{║{
+          {║{^                                  mmmddmmmy-^*\|/*^hmm .--.ddmmmm\GO                                  ^{║{
+          {║{^                                  mmms fyy+hmdoymh+-    -hmmmmWF                                  ^{║{
+          {║{^                                   mm-    ttsmmmmo`      +mmmhA                                   ^{║{
+          {║{^                                   hmh+-  -ddmmd.      -+dmhoA                                    ^{║{
+          {║{^                                    mmmmdhhddomomhhhhdmmmmdN                                      ^{║{
+          {║{^                                      mmmmmmmmmmmmmmmmmmd-G                                       ^{║{
+          {║{^                                         mmmmmmmmmmmmmmds                                         ^{║{
+          {║{^                                          dmmmmmmmmmdyo                                           ^{║{
+          {║{^                                               dhs++                                              ^{║{
+          {║{                                                                                                  {║{
+          {║{                                                                                                  {║{
+          {╚═══════════════════════════════════[─TURN─BASED─STRATEGY─GAME─]═══════════════════════════════════╝{
+
+
+
+                   ╔══════════════════╗           ╔══════════════════╗           ╔══════════════════╗
+                   ║      ^START^       ║           ║       ^LOAD^       ║           ║       ^EXIT^       ║
+                   ╚══════════════════╝           ╚══════════════════╝           ╚══════════════════╝
+
+
+
+
+
 
 

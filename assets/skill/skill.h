@@ -43,10 +43,11 @@ void useSkill(Queue* Skill);
 /* Menggunakan Skill sesuai Head dari queue*/
 
 /****************** PROSES SKILL ******************/
-void printSkill(Queue Skill);
+void PrintOneSkill(Queue Skill);
 /* Mengeprint Skill di bagian Head Queue*/
 
-void TulisSkill(Queue Skill);
-/* Mengeprint Current skill yang dimiliki player */
+void PrintSkill(Queue Skill);
+/* Mengeprint Skill available player */
+
 
 #endif
