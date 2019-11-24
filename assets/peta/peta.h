@@ -23,6 +23,10 @@ void MakePeta(int NB, int NK);
 /* Proses : Membuat M.TabInt dan M. kosong dengan ukuran NBxNK
 */
 void InitPeta();
+// Menginisialisasi peta
+// I.S. G.map sembarang
+// F.S. G.map terisi sesuai dengan array bangunan
+
 /* ********** KELOMPOK BACA/TULIS ********** */
 void PrintPeta();
 /* I.S. P terdefinisi */
