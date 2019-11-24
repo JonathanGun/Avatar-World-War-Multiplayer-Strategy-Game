@@ -25,6 +25,14 @@ void MakeMatriks (Matriks * M, int NB, int NK);
 #define MatElmt(M,i,j) (M).Mem[(i)][(j)]
 
 extern Matriks AttCastle,AttTower,AttFort,AttVillage;
+/* Masing - masing Matriks Merepresentasikan Tipe-tipe Bangunan sesuai Nama Matriks */
+
 void MakeData();
+/* Membentuk Matriks yang berisi Atribut Bangunan untuk keperluan LEVEL UP */
+/* I.S. Sembarang */
+/* F.S. Terbentuk 4 Matriks yang memuat atribut atribut Bangunan Dengan Ketentuan : Nomor Baris
+merepresentasikan Level Bangunan, dan Nomor Kolom Merepresentasikan Atribut Bangunan yang berbeda
+dimana Kolom 1 merepresentasikan A, Kolom 2 merepresentasikan M, Kolom 3 merepresentasikan P, dan
+Kolom 4 merepresentasikan U */
 
 #endif
