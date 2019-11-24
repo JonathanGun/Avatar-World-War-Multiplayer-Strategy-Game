@@ -2,125 +2,12 @@
 
 Kata LOAD, START_W, EXIT;
 Kata ATTACK, LEVEL, SKILL, UNDO, END_TURN, SAVE, MOVE;
-
-boolean valid_command(Kata input){
-    return(
-        CompareKata(input,LOAD)     ||
-        CompareKata(input,START_W)  ||
-        CompareKata(input,EXIT)
-    );
-}
-
-void MakeCommand(){
-    MakeKata(&LOAD,"LOAD",4);
-    MakeKata(&START_W,"START",5);
-    MakeKata(&EXIT,"EXIT",4);
-}
-
-boolean valid_aksi(Kata input){
-    return(
-        CompareKata(input,ATTACK)     ||
-        CompareKata(input,LEVEL)      ||
-        CompareKata(input,SKILL)      ||
-        CompareKata(input,UNDO)       ||
-        CompareKata(input,END_TURN)   ||
-        CompareKata(input,SAVE)       ||
-        CompareKata(input,MOVE)       ||
-        CompareKata(input,EXIT)
-    );
-}
-
-void MakeAksi(){
-    MakeKata(&ATTACK,"ATTACK",6);
-    MakeKata(&LEVEL,"LEVEL_UP",8);
-    MakeKata(&SKILL,"SKILL",5);
-    MakeKata(&UNDO,"UNDO",4);
-    MakeKata(&END_TURN,"END_TURN",8);
-    MakeKata(&SAVE,"SAVE",4);
-    MakeKata(&MOVE,"MOVE",4);
-}
-
-void input_between_msg(int s, int e){
-    printf("Masukkan input antara "); print(s); printf(" dan "); print(e); printf("!"); ENDL;
-    printf(">>> ");
-}
-
-boolean valid_range(int s, int x, int e){
-    return s <= x && x <= e;
-}
-
-int InputValidIntBetween(int s, int e){
-    int tmp;
-    do{
-        InputInt(&tmp);
-        if(!valid_range(s, tmp, e))
-            input_between_msg(s, e);
-    } while(!valid_range(s, tmp, e));
-    return tmp;
-}
-
-
-boolean bangunan_same_owner(Bangunan B){
-    return B.owner == CurTurn();
-}
-
-boolean bangunan_diff_owner(Bangunan B){
-    return !bangunan_same_owner(B);
-}
-
-boolean bangunan_sudah_serang(Bangunan B){
-    return B.sudahserang;
-}
-
-boolean bangunan_sudah_pindah(Bangunan B){
-    return B.sudahpindah;
-}
-
-boolean bangunan_level_maks(Bangunan B){
-    return B.level == 4;
-}
-
-void wait_next_command(){
-    printf("<Press ENTER to continue>"); getchar();
-}
-
-void TriggerSkill(){
-    if(CurPlayer().AttUpActive){
-        CurPlayer().AttUpActive = false;
-    }
-    if(CurPlayer().CritHitActive){
-        CurPlayer().CritHitActive = false;
-    }
-    if(OtherPlayer().ShieldActive){
-        OtherPlayer().ShieldActive -= 1;
-        if(OtherPlayer().ShieldActive == 0){
-            printf("<Shield> Player "); print(OtherTurn()); printf(" habis"); ENDL;
-        }
-    }
-
-    // IR - semua bangunan lv 4
-    boolean CekLvl = true;
-    int CountBangunan = NbList(CurPlayer().list_bangunan);
-    for (int i = 1; i <= CountBangunan ; i++){
-        int idBLvl = ListElmt(CurPlayer().list_bangunan, i);
-        Bangunan *BLvl = &ElmtTB(idBLvl);
-        if(Level(*BLvl) != 4){
-            CekLvl = false;
-        }
-    }
-    if(CekLvl){//Jika semua bangunan level 4 maka player mendapatkan skill Instant Reinforcement
-        if(Add(&CurPlayer().Skill,6)){ //Jika kapasitas skill tidak penuh
-            printf("Player ");print(CurTurn());printf(" mendapatkan skill Instant Reinforcement ...");ENDL;
-        }else{
-            printf("Player ");print(CurTurn());
-            printf(" tidak dapat menambahkan skill Instant Reinforcement ...");ENDL;
-        }
-    }
-}
-
-void command_in_game(){
+void get_next_command()
+/* I.S. sembarang
+   F.S. command yang diinput user berjalan sesuai spek */
+{
     MakeAksi();
-
+    
     TulisPeta();
     printf("Player "); print(CurTurn()); ENDL;
     printf("Daftar bangunan:"); ENDL;
@@ -167,27 +54,30 @@ void command_in_game(){
     }else{ //Ketika menulis EXIT
         command_Exit();
     }
-    command_in_game();
+    get_next_command();
 }
 
-void command_Start() {
-
+void command_Start()
+/* Fungsi yang digunakan untuk memulai(inisialisasi) game saat pemain memberi komando START */
+{
     // default config
     InitGame("resources/config.txt");
 
     // init player
     InitPlayer();
-    if(DEBUG) printf("Berhasil init player\n");
 
     // init turn
     InitTurn();
     if(DEBUG) printf("Berhasil init turn\n");
 
     // START game
-    StartGame();
+    get_next_command();
 }
 
-void command_Load() {
+void command_Load()
+/* I.S. Player memilih komando LOAD
+   F.S. player memilih slot data permainan yang pernah di-save */
+{
     TulisSave();
 
     if ( !Save_data.not_empty ) {
@@ -211,13 +101,16 @@ void command_Load() {
             printf("Load data berhasil!\n");
             normal();
             wait_next_command();    
-            StartGame();
+            get_next_command();
         }
     }
 }
 
 
-void command_Attack() {
+void command_Attack()
+/* I.S. Giliran player ke-X, player memilih komando attack
+   F.S. player menyerang bangunan lawan dengan serangan sebesar jumlah pasukan, bangunan lawan bisa jatuh atau bisa tetap bertahan*/
+{
     // print daftar bangunan
     printf("Daftar bangunan:\n");
     ListBangunan ListPB; CopyList(CurPlayer().list_bangunan, &ListPB);
@@ -269,7 +162,13 @@ void command_Attack() {
     }
 }
 
-void command_Level_up() {
+void command_Level_up()
+/* I.S. Player memilih komando LEVEL_UP
+   F.S. Bila tidak ada bangunan yang bisa level up atau bangunan level maksimal semua, maka keluar pesan error,
+   bila ada, akan ditampilkan daftar bangunan yang bisa level up dan player disuruh untuk memilih bangunan yang
+   akan di level up. Lalu program melakukan level up ke bangunan tersebut
+*/
+{
     // print daftar bangunan
     ListBangunan ListPB; CopyList(CurPlayer().list_bangunan, &ListPB);
     FilterListTanpa(&ListPB, not_IsLevelUpValid);
@@ -296,7 +195,10 @@ void command_Level_up() {
     levelup(idBLvlUp);
 }
 
-void command_Skill() {
+void command_Skill()
+/* I.S. Player memilih komando SKILL
+   F.S. Menampilkan semua daftar skill yang ada, bila tidak ada keluar pesan error. Bila ada, player otomatis menggunakan skill yang didapatkan lebih awal */
+{
     // use skill
     if ( IsEmptyQueue(Player(CurTurn()).Skill) ) {
         printf("Anda tidak memiliki skill!\n");
@@ -307,7 +209,10 @@ void command_Skill() {
     }
 }
 
-void command_Undo() {
+void command_Undo()
+/* I.S. Player memilih komando UNDO 
+   F.S. Game tertunda satu turn sebelumnya */
+{
 
     if(IsEmptyStackt(G.GameConditions)){
         printf("Kamu tidak bisa melakukan Undo pada awal turn atau setelah melakukan skill...");ENDL;
@@ -317,7 +222,10 @@ void command_Undo() {
     }
 }
 
-void command_End_turn() {
+void command_End_turn()
+/* I.S. Player memilih komando END_TURN
+   F.S. Game bergerak satu turn ke depan */
+{
     // sebelum turn
     TriggerSkill();
     
@@ -342,10 +250,13 @@ void command_End_turn() {
     wait_next_command();
     
     // Memulai turn baru
-    StartGame();
+    get_next_command();
 }
 
-void command_Save() {
+void command_Save() 
+/* I.S. Player memilih komando SAVE
+   F.S. Player memilih slot yang ingin digunakan dan meng-input nama file save-an */
+{
     printf("Pilih slot yang ingin anda gunakan:\n");
 
     TulisSave();
@@ -361,7 +272,10 @@ void command_Save() {
     // LoadSavedGame();
 }
 
-void command_Move() {
+void command_Move()
+/* I.S. Player memilih komando MOVE
+   F.S. Player memilih bangunan yang ingin memindahkan troop. Bila tidak ada bangunan sekitar, akan keluar pesan error */
+{
     // print daftar bangunan
     printf("Daftar bangunan:\n");
     ListBangunan ListPB; CopyList(CurPlayer().list_bangunan, &ListPB);
@@ -412,6 +326,10 @@ void command_Move() {
     move(idBMov, idBSucc, jml_pas);
 }
 
-void command_Exit(){
-    ExitGame();
+void command_Exit()
+/* Keluar dari permainan saat player memilih EXIT */
+{
+    red();
+    printf("Exiting the program...\n");
+    exit(0);
 }

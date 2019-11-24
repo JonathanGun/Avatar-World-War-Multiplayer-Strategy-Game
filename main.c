@@ -2,8 +2,6 @@
 
 Kata LOAD, START_W, EXIT;
 int main (){
-
     InitData();
     MainMenu();
-    
 }
