@@ -281,6 +281,14 @@ void command_Save()
 
         // Menyimpan data permainan dengan nama savename
         SaveGame(NthData, savename);
+
+        green();
+        printf("Save berhasil!\n");
+        normal();
+        wait_next_command();
+
+        // melanjutkan permainan
+        get_next_command();
     }   
 }
 
