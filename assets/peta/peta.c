@@ -15,7 +15,11 @@ void MakePeta(int NB, int NK)
 	}
 }
 
-void InitPeta(){
+void InitPeta()
+// Menginisialisasi peta
+// I.S. G.map sembarang
+// F.S. G.map terisi sesuai dengan array bangunan
+{
 	for(int i = 1; i <= NeffTB(InfoTopStackt(G.GameConditions).ListBangunan); ++i){
 		Bangunan* cur = &ElmtTB(i);
 		PetaElmt(G.map, (*cur).posisi.r-1, (*cur).posisi.c-1) = (*cur).id;
